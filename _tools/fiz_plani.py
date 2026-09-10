@@ -63,16 +63,20 @@ class Grafiks:
 
     dienas   - {nedēļas diena: stundu skaits tajā dienā};
     ritms    - teikums dokumenta kalendāra daļai;
-    bloka_vieta - kur nonāk dubultstundas (laboratorijas darbi).
+    bloka_vieta - kur nonāk dubultstundas (laboratorijas darbi);
+    pirmais_darbs - agrākais datums pirmajam summatīvajam darbam. Kur dienā
+    ir vairākas stundas pēc kārtas, saturs paskrien kalendāram priekšā, un
+    pirmais pārbaudes darbs citādi iekristu jau otrajā mācību nedēļā.
     """
 
     def __init__(self, skola, dienas, ritms, bloka_vieta,
-                 sakums=SAKUMS, beigas=BEIGAS,
+                 pirmais_darbs=None, sakums=SAKUMS, beigas=BEIGAS,
                  brivlaiki=BRIVLAIKI, svetki=SVETKI):
         self.skola = skola
         self.dienas = dienas
         self.ritms = ritms
         self.bloka_vieta = bloka_vieta
+        self.pirmais_darbs = pirmais_darbs
         self.sakums, self.beigas = sakums, beigas
         self.brivlaiki, self.svetki = brivlaiki, svetki
 
@@ -127,7 +131,8 @@ ADAZI = Grafiks(
 CARNIKAVA = Grafiks(
     SKOLA, {CETURTDIENA: 3},
     "TIKAI ceturtdienās - trīs stundas pēc kārtas",
-    "ceturtdienas stundu blokā")
+    "ceturtdienas stundu blokā",
+    pirmais_darbs=dt.date(2026, 9, 17))
 
 
 # =========================================================== dokumenta veidnes
@@ -304,6 +309,7 @@ VERTESANA = ("PD", "LD", "PR")        # summatīvie darbi
 SASKELTS = "dubultstunda nesākas vienā dienā"
 AIZNEMTA = "tajā dienā jau ir summatīvs darbs"
 BLAKUS = "aiz tā tajā pašā dienā sanāktu vēl viens summatīvs darbs"
+PARAGRI = "pirmais summatīvais darbs nav pirms noteiktā datuma"
 
 
 class Plans:
@@ -363,7 +369,16 @@ class Plans:
                 and rinda[1][0] in VERTESANA
                 and self._blakus_ta_pati_diena(s)):
             return BLAKUS
+        if s[0] in VERTESANA and self._par_agri():
+            return PARAGRI
         return None
+
+    def _par_agri(self):
+        """Vai pirmais summatīvais darbs iekristu pirms noteiktā datuma."""
+        agrakais = self.grafiks.pirmais_darbs
+        return (agrakais is not None and not self.aiznemtas
+                and self.i < len(self.slots)
+                and self.slots[self.i][0] < agrakais)
 
     def _pavelk(self, rinda):
         """Uz priekšu pavelk tuvāko parasto stundu; vai izdevās."""
@@ -398,12 +413,13 @@ class Plans:
                 elif kaite == SASKELTS:
                     raise SystemExit("Nav ar ko aizpildīt dienu pirms "
                                      "dubultstundas")
-                elif kaite == AIZNEMTA:
+                elif kaite in (AIZNEMTA, PARAGRI):
                     diena = d(self.slots[self.i][0])
                     self._izlaist_dienu()
                     self.mainas.append(
-                        "«%s» pārcelts uz nākamo reizi - %s atlikusī stunda "
-                        "paliek brīva" % (nosaukums, diena))
+                        "«%s» pārcelts uz nākamo reizi (%s) - %s atlikušās "
+                        "stundas paliek brīvas"
+                        % (nosaukums, kaite, diena))
                 else:
                     self.mainas.append(
                         "%d. stunda: «%s» - %s, un pārkārtot nav ar ko"
