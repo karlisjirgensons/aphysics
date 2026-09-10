@@ -85,11 +85,35 @@ body{background:var(--bg);color:var(--fg);
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
-  .deck{padding:.55rem;gap:.7rem}
+  /* Lapa pati nekustas - kustas tikai slaidu lente. */
+  html,body{overflow:hidden;overscroll-behavior:none}
+  body{display:flex;flex-direction:column;height:100vh;height:100dvh}
+  .top button{font-size:.78rem;padding:.35rem .7rem}
+  .top b{font-size:.95rem;flex:1 1 100%;order:2}
+  .top .back{order:1}
+  /* Josla telefonā ir šaura - paskaidrojums nav tā vērts, lai atņemtu
+     slaidam augstumu; tas pats teksts ir uz pirmā slaida. */
+  .top .sub{display:none}
+
+  /* Slaidus šķir ar pirkstu: horizontāla lente, kas piesienas pie katra
+     slaida (scroll-snap). Ritina pati pārlūkprogramma, tāpēc kustība ir
+     tikpat plūstoša kā lapas ritināšana un JavaScript te nav vajadzīgs.
+     Garš slaids ritinās uz leju pats savā rāmī. */
+  .deck{flex:1 1 auto;min-height:0;flex-direction:row;gap:0;padding:0;
+        overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
+        scroll-snap-type:x mandatory;scroll-behavior:smooth;
+        -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .deck::-webkit-scrollbar{display:none}
+  .slide{flex:0 0 100%;height:100%;display:flex;flex-direction:column;
+         overflow-y:auto;overscroll-behavior-y:contain;
+         scroll-snap-align:start;scroll-snap-stop:always;
+         border-radius:0;box-shadow:none}
   .stage{display:none}
-  .flow{display:block;padding:.85rem .8rem 1rem}
-  .slide{border-radius:.45rem}
-  .num{position:static;display:block;text-align:right;padding:.4rem .8rem 0}
+  /* Fons aizpilda slaidu līdz apakšai arī tad, ja teksta ir maz. */
+  .flow{display:block;flex:1 0 auto;padding:.85rem .8rem 1rem}
+  .flow *{max-width:100%}
+  /* Kārtas numuru rāda augšējā josla, uz paša slaida tas nav vajadzīgs. */
+  .num{display:none}
 
   .flow p{margin:.28rem 0;line-height:1.36;overflow-wrap:anywhere}
   .flow .h1{font-size:clamp(1.15rem,5.6vw,1.7rem);font-weight:700;
@@ -137,8 +161,10 @@ body{background:var(--bg);color:var(--fg);
 body.fs{background:#1E1B4B;overflow:hidden}
 body.fs .top{display:none}
 body.fs .deck{position:fixed;inset:0;margin:0;padding:0;gap:0;
-              align-items:center;justify-content:center}
+              align-items:center;justify-content:center;
+              overflow:hidden;scroll-snap-type:none}
 body.fs .slide{display:none;margin:0;border-radius:0;box-shadow:none;
+               flex:0 0 auto;overflow:hidden;
                width:min(100vw,calc(100vh * 13.333 / 7.5));
                height:min(100vh,calc(100vw * 7.5 / 13.333))}
 body.fs .slide.on{display:block}
@@ -161,15 +187,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 .fsui .nav{font-size:1.25rem;padding:.15rem .6rem}
 .fsui .cnt{font-size:.8rem;min-width:4.2rem;text-align:center;
            font-variant-numeric:tabular-nums}
-
-/* uz šauriem ekrāniem neko nedrīkst griezt horizontāli */
-@media (max-width:768px){
-  html,body{overflow-x:hidden}
-  .top button{font-size:.78rem;padding:.35rem .7rem}
-  .top b{font-size:.95rem;flex:1 1 100%;order:2}
-  .top .back{order:1}
-  .flow *{max-width:100%}
-}
 </style>
 </head>
 <body>
@@ -3597,7 +3614,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
       slides[i].classList.toggle('on',i===cur);
     var pos=(cur+1)+' / '+slides.length;
     fscnt.textContent=pos;
-    cnt.textContent=on?pos:slides.length+' slaidi';
+    cnt.textContent=pos;
   }
 
   /* --- stāvoklis --- */
@@ -3609,8 +3626,28 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
     on=true;document.body.classList.add('fs');ask();render();
   }
   function close(){
-    on=false;document.body.classList.remove('fs');drop();render();
-    if(slides[cur])slides[cur].scrollIntoView({block:'start'});
+    on=false;document.body.classList.remove('fs');drop();render();reveal();
+  }
+  function reveal(){
+    if(slides[cur])slides[cur].scrollIntoView({block:'start',inline:'start'});
+  }
+
+  /* --- kurš slaids ir redzams --- */
+  /* Telefonā slaidus šķir pati lente, tāpēc kārtas numuru nolasa no
+     ekrāna, nevis glabā atsevišķi - tā skaitītājs un poga "Pilnekrāns"
+     vienmēr runā par to slaidu, ko cilvēks tobrīd redz. */
+  function watch(){
+    if(!window.IntersectionObserver)return;
+    var seen=slides.map(function(){return 0;});
+    var io=new IntersectionObserver(function(es){
+      for(var i=0;i<es.length;i++)
+        seen[slides.indexOf(es[i].target)]=es[i].intersectionRatio;
+      if(on)return;
+      var best=0;
+      for(var j=1;j<slides.length;j++)if(seen[j]>seen[best])best=j;
+      if(best!==cur)go(best);
+    },{threshold:[0,.25,.5,.75,1]});
+    slides.forEach(function(s){io.observe(s);});
   }
 
   /* --- vadība --- */
@@ -3638,6 +3675,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
 
+  watch();
   render();
 })();
 </script>

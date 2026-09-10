@@ -48,35 +48,86 @@ SVETKI = [dt.date(2026, 11, 18),      # Latvijas Republikas proklamēšanas dien
           dt.date(2027, 3, 26),       # Lielā Piektdiena
           dt.date(2027, 5, 4)]        # Neatkarības atjaunošanas diena
 
-TRESDIENA, PIEKTDIENA = 2, 4
-
-
-def macibu_dienas(sakums=SAKUMS, beigas=BEIGAS):
-    """[(datums, stundu skaits tajā dienā), ...] - Tr 2 st., Pk 1 st."""
-    out, cur = [], sakums
-    while cur <= beigas:
-        if (cur.weekday() in (TRESDIENA, PIEKTDIENA)
-                and not any(a <= cur <= b for a, b in BRIVLAIKI)
-                and cur not in SVETKI):
-            out.append((cur, 2 if cur.weekday() == TRESDIENA else 1))
-        cur += dt.timedelta(days=1)
-    return out
-
-
-def slotu_saraksts():
-    """Katrai mācību stundai (datums, vieta dubultstundā vai None)."""
-    out = []
-    for datums, n in macibu_dienas():
-        if n == 2:
-            out.append((datums, 0))
-            out.append((datums, 1))
-        else:
-            out.append((datums, None))
-    return out
+TRESDIENA, CETURTDIENA, PIEKTDIENA = 2, 3, 4
 
 
 def d(x):
     return x.strftime("%d.%m.%Y")
+
+
+class Grafiks:
+    """Kad un kur notiek stundas - vienīgā vieta, kur zināms mācību ritms.
+
+    Saturs (temati, PD, LD) no grafika nav atkarīgs, tāpēc vienu un to pašu
+    plānu var izdrukāt vairākiem stundu sarakstiem - mainās tikai datumi.
+
+    dienas   - {nedēļas diena: stundu skaits tajā dienā};
+    ritms    - teikums dokumenta kalendāra daļai;
+    bloka_vieta - kur nonāk dubultstundas (laboratorijas darbi).
+    """
+
+    def __init__(self, skola, dienas, ritms, bloka_vieta,
+                 sakums=SAKUMS, beigas=BEIGAS,
+                 brivlaiki=BRIVLAIKI, svetki=SVETKI):
+        self.skola = skola
+        self.dienas = dienas
+        self.ritms = ritms
+        self.bloka_vieta = bloka_vieta
+        self.sakums, self.beigas = sakums, beigas
+        self.brivlaiki, self.svetki = brivlaiki, svetki
+
+    def macibu_dienas(self):
+        """[(datums, stundu skaits tajā dienā), ...]"""
+        out, cur = [], self.sakums
+        while cur <= self.beigas:
+            n = self.dienas.get(cur.weekday())
+            if (n and not any(a <= cur <= b for a, b in self.brivlaiki)
+                    and cur not in self.svetki):
+                out.append((cur, n))
+            cur += dt.timedelta(days=1)
+        return out
+
+    def slotu_saraksts(self):
+        """Katrai mācību stundai (datums, vieta dienā)."""
+        return [(datums, k)
+                for datums, n in self.macibu_dienas()
+                for k in range(n)]
+
+    @staticmethod
+    def _posms(a, b):
+        """«19.-23.10.2026.», bet pāri mēnešiem «23.12.2026.-04.01.2027.»"""
+        if (a.year, a.month) == (b.year, b.month):
+            return "%d.-%s." % (a.day, d(b))
+        return "%s.-%s." % (d(a), d(b))
+
+    @staticmethod
+    def _uzskaite(gabali):
+        """«a, b un c» - pēdējo saista ar «un», nevis ar komatu."""
+        gabali = list(gabali)
+        if len(gabali) < 2:
+            return "".join(gabali)
+        return "%s un %s" % (", ".join(gabali[:-1]), gabali[-1])
+
+    def apraksts(self):
+        """Kalendāra rindkopa dokumentā - datumi un brīvdienas."""
+        return ("Mācību gada sākums %s., noslēgums %s. Fizikas stundas "
+                "notiek %s. Brīvlaiki: %s Stundu nav %s Datumi ir "
+                "provizoriski un aprēķināti pēc šī kalendāra."
+                % (d(self.sakums), d(self.beigas), self.ritms,
+                   self._uzskaite(self._posms(a, b)
+                                  for a, b in self.brivlaiki),
+                   self._uzskaite("%s." % d(x) for x in self.svetki)))
+
+
+ADAZI = Grafiks(
+    SKOLA, {TRESDIENA: 2, PIEKTDIENA: 1},
+    "TIKAI trešdienās (dubultstunda) un piektdienās (viena stunda)",
+    "trešdienas dubultstundā")
+
+CARNIKAVA = Grafiks(
+    SKOLA, {CETURTDIENA: 3},
+    "TIKAI ceturtdienās - trīs stundas pēc kārtas",
+    "ceturtdienas stundu blokā")
 
 
 # =========================================================== dokumenta veidnes
@@ -118,7 +169,7 @@ def para(doc, text, size=9, bold=False, color=None, before=0, after=3,
     return p
 
 
-def new_doc(klase, stundu_skaits, apraksts):
+def new_doc(klase, stundu_skaits, apraksts, grafiks=ADAZI):
     doc = Document()
     s = doc.sections[0]
     s.orientation = WD_ORIENT.LANDSCAPE
@@ -131,22 +182,27 @@ def new_doc(klase, stundu_skaits, apraksts):
     st.font.size = Pt(9)
 
     para(doc, "Fizika I  |  %s  |  %s  |  %s  |  3 stundas nedēļā  |  "
-               "%d mācību stunda" % (SKOLA, klase, GADS, stundu_skaits),
+               "%d mācību stunda"
+         % (grafiks.skola, klase, GADS, stundu_skaits),
          size=9, bold=True, color=NAVY, after=1)
     para(doc, apraksts, size=8.5, color=GREY, after=8)
     return doc
 
 
-def kalendars(doc, vertejumi, piezime=None):
+def pd1_piezime(p):
+    """Teikums par pirmo pārbaudes darbu - datumu ņem no paša plāna, lai tas
+    nekad nesarunātos ar kalendāru."""
+    kods, _, _, datums, _ = p.vertejumi[0]
+    diena = dt.datetime.strptime(datums, "%d.%m.%Y").date()
+    ned = (diena - p.grafiks.sakums).days // 7 + 1
+    return ("Pirmais pārbaudes darbs %s ir %s. - %d. mācību nedēļā."
+            % (kods, datums, ned))
+
+
+def kalendars(doc, vertejumi, piezime=None, grafiks=ADAZI):
     para(doc, "Darba organizācija un vērtēšanas kalendārs", size=13,
          bold=True, color=NAVY, after=3)
-    para(doc, "Mācību gada sākums 03.09.2026., noslēgums 31.05.2027. "
-              "Fizikas stundas notiek TIKAI trešdienās (dubultstunda) un "
-              "piektdienās (viena stunda). Brīvlaiki: 19.-23.10.2026., "
-              "23.12.2026.-04.01.2027., 15.-19.03.2027. Stundu nav "
-              "18.11.2026. un 26.03.2027. Datumi ir provizoriski un "
-              "aprēķināti pēc šī kalendāra.",
-         size=8.5, color=GREY, after=6)
+    para(doc, grafiks.apraksts(), size=8.5, color=GREY, after=6)
     if piezime:
         para(doc, piezime, size=8.5, italic=True, color=NAVY, after=6)
 
@@ -242,23 +298,32 @@ def noslegums(doc, virsraksts, komentars, rindas):
 #   ("PR",  kods, apakštemats, tēma, SR, svars, piez.)  -> 1 stunda
 
 DUBULTIE = ("st2", "LD")
+VERTESANA = ("PD", "LD", "PR")        # summatīvie darbi
+
+# Kāpēc stundu nedrīkst likt nākamajā slotā - katrai kaitei savs risinājums.
+SASKELTS = "dubultstunda nesākas vienā dienā"
+AIZNEMTA = "tajā dienā jau ir summatīvs darbs"
+BLAKUS = "aiz tā tajā pašā dienā sanāktu vēl viens summatīvs darbs"
 
 
 class Plans:
-    """Piešķir stundu numurus un datumus; dubultstundas liek trešdienās."""
+    """Piešķir stundu numurus un datumus; dubultstundas tur vienā dienā."""
 
-    def __init__(self):
-        self.slots = slotu_saraksts()
+    def __init__(self, grafiks=ADAZI):
+        self.grafiks = grafiks
+        self.slots = grafiks.slotu_saraksts()
         self.i = 0                    # nākamais brīvais slots
         self.n = 0                    # izsniegtais stundu numurs
         self.vertejumi = []
-        self.mainas = []              # automātiskās pārkārtošanas (jābūt 0)
+        self.mainas = []              # automātiskās pārkārtošanas
+        self.aiznemtas = set()        # dienas, kurās jau ir summatīvs darbs
 
     # -- slotu izsniegšana --------------------------------------------------
     def _dubults_var(self):
+        """Vai nākamās divas stundas ir vienā un tajā pašā dienā."""
         i = self.i
-        return (i + 1 < len(self.slots) and self.slots[i][1] == 0
-                and self.slots[i + 1][1] == 1)
+        return (i + 1 < len(self.slots)
+                and self.slots[i][0] == self.slots[i + 1][0])
 
     def _nem_slotu(self, k):
         datums = self.slots[self.i][0]
@@ -266,28 +331,91 @@ class Plans:
         self.n += k
         return datums
 
+    def _garums(self, s):
+        return 2 if s[0] in DUBULTIE else 1
+
+    def _diena_aiznemta(self):
+        """Vai nākamajā slotā jau paredzēts kāds summatīvs darbs."""
+        return (self.i < len(self.slots)
+                and self.slots[self.i][0] in self.aiznemtas)
+
+    def _blakus_ta_pati_diena(self, s):
+        """Vai uzreiz aiz šīs stundas tajā pašā dienā vēl paliek stunda."""
+        j = self.i + self._garums(s)
+        return (j < len(self.slots)
+                and self.slots[j][0] == self.slots[self.i][0])
+
+    def _kaite(self, rinda):
+        """Kāpēc nākamo stundu nedrīkst likt nākamajā slotā (vai None).
+
+        Dubultstunda nedrīkst sašķelties pa divām dienām, un vienā dienā
+        nedrīkst sanākt divi summatīvi darbi - skolēnam nav jāraksta
+        pārbaudes darbs uzreiz pēc laboratorijas darba. Tur, kur dienā ir
+        trīs stundas pēc kārtas, otro sadursmi pamana tikai paskatoties
+        vienu stundu uz priekšu.
+        """
+        s = rinda[0]
+        if s[0] in DUBULTIE and not self._dubults_var():
+            return SASKELTS
+        if s[0] in VERTESANA and self._diena_aiznemta():
+            return AIZNEMTA
+        if (s[0] in VERTESANA and len(rinda) > 1
+                and rinda[1][0] in VERTESANA
+                and self._blakus_ta_pati_diena(s)):
+            return BLAKUS
+        return None
+
+    def _pavelk(self, rinda):
+        """Uz priekšu pavelk tuvāko parasto stundu; vai izdevās."""
+        j = next((k for k, x in enumerate(rinda) if x[0] == "st"), None)
+        if j is None:
+            return False
+        rinda.insert(0, rinda.pop(j))
+        return True
+
+    def _izlaist_dienu(self):
+        """Dienas atlikušās stundas atstāj brīvas, lai darbs pārceļas uz
+        nākamo dienu. Grafikā, kur dienā ir trīs stundas, stundu ir vairāk
+        nekā plānā, un šis ir tas, kur rezerve noder."""
+        diena = self.slots[self.i][0]
+        while self.i < len(self.slots) and self.slots[self.i][0] == diena:
+            self.i += 1
+        return self.i < len(self.slots)
+
     def bloks(self, stundas):
-        """Atgriež tabulas rindas; pati sakārto dubultstundas uz trešdienām."""
+        """Atgriež tabulas rindas; pati sakārto stundu secību tā, lai
+        dubultstundas paliktu vienā dienā un summatīvie darbi nesakristu."""
         rinda = list(stundas)
         out = []
         while rinda:
-            s = rinda[0]
-            if s[0] in DUBULTIE and not self._dubults_var():
-                # dubultstunda nesākas trešdienā - pavelk uz priekšu tuvāko
-                # vienstundu, lai dubultstunda nesašķeltos pa divām dienām
-                j = next((k for k, x in enumerate(rinda)
-                          if x[0] not in DUBULTIE), None)
-                if j is None:
-                    raise SystemExit("Nav ar ko aizpildīt piektdienu pirms "
+            kaite = self._kaite(rinda)
+            if kaite:
+                nosaukums = rinda[0][1]
+                if self._pavelk(rinda):
+                    self.mainas.append(
+                        "%d. stunda: «%s» - %s, uz priekšu pavilkta «%s»"
+                        % (self.n + 1, nosaukums, kaite, rinda[0][1]))
+                elif kaite == SASKELTS:
+                    raise SystemExit("Nav ar ko aizpildīt dienu pirms "
                                      "dubultstundas")
-                rinda.insert(0, rinda.pop(j))
-                s = rinda[0]
-                self.mainas.append("%d. stunda: dubultstunda nesākas "
-                                   "trešdienā, uz priekšu pavilkta «%s»"
-                                   % (self.n + 1, s[1]))
-            rinda.pop(0)
+                elif kaite == AIZNEMTA:
+                    diena = d(self.slots[self.i][0])
+                    self._izlaist_dienu()
+                    self.mainas.append(
+                        "«%s» pārcelts uz nākamo reizi - %s atlikusī stunda "
+                        "paliek brīva" % (nosaukums, diena))
+                else:
+                    self.mainas.append(
+                        "%d. stunda: «%s» - %s, un pārkārtot nav ar ko"
+                        % (self.n + 1, nosaukums, kaite))
+            s = rinda.pop(0)
             out.append(self._rinda(s))
         return out
+
+    def _piez(self, teksts):
+        """Piezīmē «{bloks}» aizstāj ar to, kur šajā grafikā ir dubultstunda -
+        saturs par grafiku nezina, tāpēc to ieliek tikai izdrukājot."""
+        return teksts.replace("{bloks}", self.grafiks.bloka_vieta)
 
     def _rinda(self, s):
         veids = s[0]
@@ -303,21 +431,27 @@ class Plans:
         if veids == "PD":
             _, kods, tema, sr, svars, piez = s
             datums = self._nem_slotu(1)
-            self.vertejumi.append((kods, tema, svars, d(datums), piez))
+            self.vertejumi.append((kods, tema, svars, d(datums),
+                                   self._piez(piez)))
+            self.aiznemtas.add(datums)
             return ("%d." % self.n, "Summatīvā vērtēšana",
                     "%s: %s (%d %%)" % (kods, tema, svars), sr, d(datums), 1,
                     "PD")
         if veids == "LD":
             _, kods, apak, tema, sr, svars, piez = s
             datums = self._nem_slotu(2)
-            self.vertejumi.append((kods, tema, svars, d(datums), piez))
+            self.vertejumi.append((kods, tema, svars, d(datums),
+                                   self._piez(piez)))
+            self.aiznemtas.add(datums)
             return ("%d.-%d." % (self.n - 1, self.n), apak,
                     "%s: %s (%d %%)" % (kods, tema, svars), sr, d(datums), 2,
                     "LD")
         if veids == "PR":
             _, kods, apak, tema, sr, svars, piez = s
             datums = self._nem_slotu(1)
-            self.vertejumi.append((kods, tema, svars, d(datums), piez))
+            self.vertejumi.append((kods, tema, svars, d(datums),
+                                   self._piez(piez)))
+            self.aiznemtas.add(datums)
             return ("%d." % self.n, apak,
                     "%s: %s (%d %%)" % (kods, tema, svars), sr, d(datums), 1,
                     "PR")
@@ -325,6 +459,10 @@ class Plans:
 
     # -- pārbaudes ----------------------------------------------------------
     def parbaudi(self):
+        dienas = [v[3] for v in self.vertejumi]
+        divreiz = sorted({x for x in dienas if dienas.count(x) > 1})
+        assert not divreiz, ("Vienā dienā sanāk divi summatīvi darbi: %s"
+                             % ", ".join(divreiz))
         svars = sum(v[2] for v in self.vertejumi)
         assert svars == 100, ("Vērtējumu svaru summa ir %d %%, jābūt 100 %%"
                               % svars)

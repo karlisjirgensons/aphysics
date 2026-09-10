@@ -24,11 +24,14 @@ var uzģenerēt no jauna.
 python _tools/html_deck.py               # visas dabaszinību prezentācijas
 python _tools/html_deck.py fizika        # visas fizikas prezentācijas
 python _tools/site_index.py              # tikai sākumlapa un saraksti
+python _tools/gen_fiz_plani.py           # fizikas tematu, PD un LD plāni
 ```
 
 Katra prezentācija ir viens patstāvīgs HTML fails: uz datora precīzs platais
-slaids, uz telefona tas pats saturs vienā slejā. Poga **Pilnekrāns** rāda
-slaidus pa vienam uz visa ekrāna (Esc — ārā, bultiņas — uz priekšu un atpakaļ).
+slaids, uz telefona tas pats saturs vienā slejā. Telefonā slaidus šķir ar
+pirkstu — tie stāv horizontālā lentē un piesienas pie ekrāna malas, un
+augšējā josla rāda, kurš slaids ir redzams. Poga **Pilnekrāns** rāda slaidus
+pa vienam uz visa ekrāna (Esc — ārā, bultiņas — uz priekšu un atpakaļ).
 
 ## Uzbūve
 
@@ -41,8 +44,11 @@ vietās:
 | `_tools/palette.py` | krāsas, fonti, formas; arī veco slaidu krāsu pārnešana |
 | `_tools/site_index.py` | sākumlapa un tematu saraksti |
 | `_tools/html_deck.py` | `.pptx` → responsīva HTML prezentācija |
+| `_tools/deck_page.py` | prezentācijas lapas čaula: CSS, vadība, veidne |
 | `_tools/mathfmt*.py` | formulas: vertikālas daļas, kvadrātsaknes, vektori |
 | `_tools/zimejumi.py` | vektoru zīmējumi slaidos (bultas, apzīmējumi) |
+| `_tools/fiz_plani.py` | plānu veidnes un mācību grafiki (kad ir stundas) |
+| `_tools/gen_fiz_plani.py` | plāni katram stundu sarakstam (Ādaži, Carnikava) |
 
 Krāsu shēma (indigo–violets–ciāns) ir viena visai vietnei un dzīvo tikai
 `palette.py`; to nomainot un pārbūvējot, mainās visas lapas.

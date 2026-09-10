@@ -3,7 +3,7 @@
 Fizika I, 11. klase - tematu, PD un LD plāns (temati 6.-14.).
 
 Struktūra un stundu skaits pārņemts no Fizika_1/theme_example.pdf; datumi
-pārrēķināti pēc rules_fizika.txt kalendāra (trešdiena + piektdiena).
+pārrēķināti pēc grafika (fiz_plani.Grafiks).
 Vienīgā satura izmaiņa: 6. tematam pievienota viena uzdevumu stunda, lai
 pirmais pārbaudes darbs iekristu 16.09.2026. Līdzstrāvas tematā viena
 papildu stunda rezistoru un pretestības apguvei.
@@ -21,7 +21,7 @@ from fiz_plani import (new_doc, kalendars, temata_tabula,  # noqa: E402
                        noslegums, para, Plans, FIZIKA, GREY)
 
 PIEZ = "Vērtē tikai iepriekš mācīto saturu."
-PIEZ_LD = ("Laboratorijas darbs trešdienas dubultstundā; protokolu iesniedz "
+PIEZ_LD = ("Laboratorijas darbs {bloks}; protokolu iesniedz "
            "e-klasē nedēļas laikā.")
 
 # --------------------------------------------------- 6. temats (5 stundas)
@@ -100,7 +100,7 @@ T8 = [
      "Siltuma māja: siltumizolācijas pētīšana",
      "Grupā veic salīdzināmus temperatūras un laika mērījumus; "
      "sistemātiski reģistrē datus un dokumentē apstākļus.", 9,
-     "Mērījumi trešdienas dubultstundā pirms rudens brīvlaika; protokolu "
+     "Mērījumi {bloks} pirms rudens brīvlaika; protokolu "
      "iesniedz e-klasē."),
     ("st", "Mērījumu datu sakārtošana",
      "Kā mērījumi kļūst par pamatotu secinājumu?",
@@ -438,8 +438,8 @@ NOSL = [
 ]
 
 
-def build(path):
-    p = Plans()
+def build(path, grafiks=F.ADAZI, klase="11. klase"):
+    p = Plans(grafiks)
     b6 = p.bloks(T6)
     b7 = p.bloks(T7)
     b8 = p.bloks(T8)
@@ -452,21 +452,22 @@ def build(path):
     bn = p.bloks(NOSL)
     p.parbaudi()
 
-    doc = new_doc("11. klase", p.n,
+    doc = new_doc(klase, p.n,
                   "Fizika I pamatkurss, otrais mācību gads. Plāns aptver "
                   "programmas tematus no «Mehāniskās svārstības un viļņi» "
                   "līdz «Atoms un Visums». Mācību mērķis ir centralizētais "
                   "eksāmens fizikā optimālajā līmenī, tāpēc katrā tematā ir "
                   "uzdevumu risināšanas un datu analīzes stundas eksāmena "
                   "formātā, bet mācību gada beigās - atsevišķs gatavošanās "
-                  "bloks.")
+                  "bloks.", grafiks)
 
     kalendars(doc, p.vertejumi,
-              "Pirmais pārbaudes darbs PD1 ir 16.09.2026. - otrajā mācību "
-              "nedēļā. Siltuma mājas mērījumi notiek trešdienas "
-              "dubultstundā pirms rudens brīvlaika, prezentācija - pirmajā "
-              "stundā pēc brīvlaika, protokols e-klasē nedēļas laikā. "
-              "Protokola iesniegšanai mācību stunda nav atvēlēta.")
+              F.pd1_piezime(p)
+              + " Siltuma mājas mērījumi notiek %s pirms rudens brīvlaika, "
+                "prezentācija - pirmajā stundā pēc brīvlaika, protokols "
+                "e-klasē nedēļas laikā. Protokola iesniegšanai mācību "
+                "stunda nav atvēlēta." % grafiks.bloka_vieta,
+              grafiks)
 
     temata_tabula(doc, "6. temats. Mehāniskās svārstības un viļņi "
                        "(%d stundas)" % len(b6),

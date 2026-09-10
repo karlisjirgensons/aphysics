@@ -18,9 +18,9 @@ SITE_ROOT = "C:/aphysics"
 SITE_TITLE = "Fizika un dabaszinības"
 SITE_LEAD = ("Stundu prezentācijas telefonam un datoram. "
              "Izvēlies mācību priekšmetu.")
-LESSONS_LEAD = ("Prezentācijas telefonam un datoram. Uz telefona saturs "
-                "sakārtojas vienā slejā; uz datora rādās parastais "
-                "platais slaida skats.")
+LESSONS_LEAD = ("Prezentācijas telefonam un datoram. Uz telefona slaidus "
+                "šķir ar pirkstu un saturs sakārtojas vienā slejā; uz "
+                "datora rādās parastais platais slaida skats.")
 
 COURSES = {
     "dabaszinibas": {

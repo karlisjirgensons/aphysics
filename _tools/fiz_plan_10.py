@@ -23,7 +23,7 @@ from fiz_plani import (new_doc, kalendars, temata_tabula,  # noqa: E402
                        noslegums, para, Plans, FIZIKA, NAVY, GREY)
 
 PIEZ = "Vērtē tikai iepriekš mācīto saturu."
-PIEZ_LD = ("Laboratorijas darbs trešdienas dubultstundā; protokolu iesniedz "
+PIEZ_LD = ("Laboratorijas darbs {bloks}; protokolu iesniedz "
            "e-klasē nedēļas laikā.")
 
 # ------------------------------------------------------------------ 1. TEMATS
@@ -434,8 +434,8 @@ NOSL = [
 ]
 
 
-def build(path):
-    p = Plans()
+def build(path, grafiks=F.ADAZI, klase="10. klase"):
+    p = Plans(grafiks)
     b1 = p.bloks(T1)
     b2 = p.bloks(T2)
     b3 = p.bloks(T3)
@@ -444,7 +444,7 @@ def build(path):
     bn = p.bloks(NOSL)
     p.parbaudi()
 
-    doc = new_doc("10. klase", p.n,
+    doc = new_doc(klase, p.n,
                   "Fizika I pamatkurss, pirmais mācību gads. Plāns aptver "
                   "programmas tematus «Vektori un kustība», «Vienmērīga "
                   "kustība», «Vienmērīgi paātrināta kustība», "
@@ -452,13 +452,14 @@ def build(path):
                   "un «Enerģija un darbs». Mācību mērķis ir centralizētais "
                   "eksāmens fizikā optimālajā līmenī 11. klases beigās, "
                   "tāpēc katrā tematā ir uzdevumu risināšanas un kļūdu "
-                  "analīzes stundas eksāmena formātā.")
+                  "analīzes stundas eksāmena formātā.", grafiks)
 
     kalendars(doc, p.vertejumi,
-              "Pirmais pārbaudes darbs PD1 ir 16.09.2026. - otrajā mācību "
-              "nedēļā. Laboratorijas darbi vienmēr notiek trešdienas "
-              "dubultstundā; protokolu iesniedz e-klasē nedēļas laikā, "
-              "atsevišķa mācību stunda tam nav atvēlēta.")
+              F.pd1_piezime(p)
+              + " Laboratorijas darbi vienmēr notiek %s; protokolu iesniedz "
+                "e-klasē nedēļas laikā, atsevišķa mācību stunda tam nav "
+                "atvēlēta." % grafiks.bloka_vieta,
+              grafiks)
 
     temata_tabula(doc, "1. temats. Ievads pētniecībā. Vienmērīga un "
                        "nevienmērīga kustība (%d stundas)" % len(b1),
