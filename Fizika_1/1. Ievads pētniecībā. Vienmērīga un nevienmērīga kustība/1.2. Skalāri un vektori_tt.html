@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Skalārs · Vektors · Modulis · Virziens</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.2. Skalāri un vektori</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -315,7 +342,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0615cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">VEKTORS</p>
 <p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.7959cqw">Vajag arī virzienu.</p>
 <p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Piemēri: pārvietojums, ātrums, paātrinājums, spēks.</p>
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Pieraksta ar bultiņu vai treknrakstā: v⃗, F⃗.</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Pieraksta ar bultiņu vai treknrakstā: <span class="vv">v</span>, <span class="vv">F</span>.</p>
 </div>
 <i style="left:4.1251%;top:41.8667%;width:91.7498%;height:51.2000%;background:#FFFFFF;border:0.130cqw solid #4F46E5;border-radius:1.440cqw"></i>
 <div class="tb" style="left:5.9251%;top:43.8507%;width:88.1497%;height:47.2320%;justify-content:flex-start">
@@ -325,6 +352,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.2. Skalāri un vektori</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -343,7 +371,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B91C1C;font-weight:700">VEKTORS</p>
 <p class="p2">Vajag arī virzienu.</p>
 <p class="p2">Piemēri: pārvietojums, ātrums, paātrinājums, spēks.</p>
-<p class="p2">Pieraksta ar bultiņu vai treknrakstā: v⃗, F⃗.</p>
+<p class="p2">Pieraksta ar bultiņu vai treknrakstā: <span class="vv">v</span>, <span class="vv">F</span>.</p>
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">KĀPĒC TAS SVARĪGI</p>
@@ -371,7 +399,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:37.2584%;top:17.7173%;width:25.4831%;height:14.6987%;justify-content:flex-start">
 <p style="font-size:1.9573cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">GARUMS</p>
 <p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.9781cqw">Attēlo moduli izvēlētā mērogā.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.4886cqw">Piemērs: 1 cm ↔ 10 N.</p>
+<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.4886cqw">Piemērs: 1 cm atbilst 10 N.</p>
 </div>
 <i style="left:66.7917%;top:15.7333%;width:29.0832%;height:18.6667%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.525cqw"></i>
 <div class="tb" style="left:68.5917%;top:17.7173%;width:25.4831%;height:14.6987%;justify-content:flex-start">
@@ -384,7 +412,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">MODULIS</p>
 </div>
 <div class="tb" style="left:5.9251%;top:41.8667%;width:88.1497%;height:4.5333%;justify-content:center">
-<p style="font-size:1.9761cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">|v⃗| = v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v⃗ = 0&nbsp;&nbsp;tikai tad, ja&nbsp;&nbsp;v = 0</p>
+<p style="font-size:1.9761cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">|<span class="vv">v</span>| = v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="vv">v</span> = 0&nbsp;&nbsp;tikai tad, ja&nbsp;&nbsp;v = 0</p>
 </div>
 <div class="tb" style="left:5.9251%;top:46.5493%;width:88.1497%;height:5.6000%;justify-content:flex-start">
 <p style="font-size:1.2657cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Vektora modulis vienmēr ir pozitīvs skaitlis ar mērvienību. Mīnusa zīme pie vektora projekcijas nozīmē virzienu, nevis negatīvu garumu.</p>
@@ -392,6 +420,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.2. Skalāri un vektori</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -408,7 +437,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="border-color:#7C3AED">
 <p class="p1" style="color:#7C3AED;font-weight:700">GARUMS</p>
 <p class="p2">Attēlo moduli izvēlētā mērogā.</p>
-<p class="p2">Piemērs: 1 cm ↔ 10 N.</p>
+<p class="p2">Piemērs: 1 cm atbilst 10 N.</p>
 </div>
 <div class="card" style="border-color:#B91C1C">
 <p class="p2" style="color:#B91C1C;font-weight:700">BULTA</p>
@@ -417,7 +446,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MODULIS</p>
-<p class="p1" style="color:#4F46E5;font-weight:700">|v⃗| = v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v⃗ = 0&nbsp;&nbsp;tikai tad, ja&nbsp;&nbsp;v = 0</p>
+<p class="p1" style="color:#4F46E5;font-weight:700">|<span class="vv">v</span>| = v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="vv">v</span> = 0&nbsp;&nbsp;tikai tad, ja&nbsp;&nbsp;v = 0</p>
 <p class="p3" style="color:#4B5563">Vektora modulis vienmēr ir pozitīvs skaitlis ar mērvienību. Mīnusa zīme pie vektora projekcijas nozīmē virzienu, nevis negatīvu garumu.</p>
 </div>
 </div>
@@ -434,6 +463,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Vektora modulis, virziens un mērogs</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -464,12 +494,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -485,10 +516,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1">Sadali tos divās grupās!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -516,12 +547,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -541,10 +573,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">6 dažādi lielumi</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -580,12 +612,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -610,10 +643,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">vektori = ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -658,12 +691,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -692,10 +726,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">Vektoram ir norādīts virziens</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -747,12 +781,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -785,10 +820,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -833,9 +868,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektoram ir norādīts virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -844,12 +881,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -886,10 +924,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -934,24 +972,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektoram ir norādīts virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp; 20 N lejup; 15 m/s uz ziemeļiem</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 N lejup; 15 m/s uz ziemeļiem</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -986,13 +1029,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp; 20 N lejup; 15 m/s uz ziemeļiem</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 N lejup; 15 m/s uz ziemeļiem</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -1037,11 +1080,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektoram ir norādīts virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">&nbsp;&nbsp;&nbsp;&nbsp; 20 N lejup; 15 m/s uz ziemeļiem</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 N lejup; 15 m/s uz ziemeļiem</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1051,12 +1100,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1088,7 +1138,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;Skalāri: 5 kg; 300 K; 8 s</p>
 <p class="p2">2)&nbsp;&nbsp;Vektori: 12 m uz austrumiem;</p>
-<p class="p2">&nbsp;&nbsp;&nbsp;&nbsp; 20 N lejup; 15 m/s uz ziemeļiem</p>
+<p class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 N lejup; 15 m/s uz ziemeļiem</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1096,10 +1146,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563;font-style:italic">Pazīme: ja nosaukts virziens, lielums ir vektors.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm ↔ 10 N?</p>
+<p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Spēks F = 40 N vērsts horizontāli pa labi. Kāds būs vektora garums zīmējumā, ja mērogs ir 1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 </div>
 </section>
@@ -1118,16 +1168,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1140,10 +1191,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="h1">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="h1">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="h1">1 cm ↔ 10 N?</p>
+<p class="h1">1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1165,22 +1216,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">DOTS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">F = 40 N</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1193,15 +1245,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">F = 40 N</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">mērogs: 1 cm ↔ 10 N</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1223,7 +1275,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1232,7 +1284,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = 40 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1242,12 +1294,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1260,19 +1313,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">F = 40 N</p>
-<p class="p1">mērogs: 1 cm ↔ 10 N</p>
+<p class="p1">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">l = ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1294,7 +1347,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1303,7 +1356,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = 40 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -1320,12 +1373,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1338,12 +1392,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">F = 40 N</p>
-<p class="p1">mērogs: 1 cm ↔ 10 N</p>
+<p class="p1">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -1354,7 +1408,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">l = F : (spēks uz 1 cm)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1376,7 +1430,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1385,7 +1439,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = 40 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -1409,12 +1463,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1427,12 +1482,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">F = 40 N</p>
-<p class="p1">mērogs: 1 cm ↔ 10 N</p>
+<p class="p1">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -1447,7 +1502,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;l = 40 N : 10 N/cm</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1469,7 +1524,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1478,7 +1533,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = 40 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -1495,9 +1550,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = F : (spēks uz 1 cm)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;l = 40 N : 10 N/cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;l = 40 N : 10 N/cm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1506,12 +1563,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1524,12 +1582,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">F = 40 N</p>
-<p class="p1">mērogs: 1 cm ↔ 10 N</p>
+<p class="p1">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -1548,7 +1606,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;l = 4,0 cm</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1570,7 +1628,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm ↔ 10 N?</p>
+<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">1 cm atbilst 10 N?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1579,7 +1637,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = 40 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 10 N</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -1596,10 +1654,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = F : (spēks uz 1 cm)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;l = 40 N : 10 N/cm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;l = 4,0 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;l = 40 N : 10 N/cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;l = 4,0 cm</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1609,12 +1671,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1627,12 +1690,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Vektora attēlošana</p>
 <p class="p2">Spēks F = 40 N vērsts horizontāli pa labi.</p>
 <p class="p2">Kāds būs vektora garums zīmējumā, ja mērogs ir</p>
-<p class="p2">1 cm ↔ 10 N?</p>
+<p class="p2">1 cm atbilst 10 N?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">F = 40 N</p>
-<p class="p1">mērogs: 1 cm ↔ 10 N</p>
+<p class="p1">mērogs: 1 cm atbilst 10 N</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -1653,7 +1716,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4B5563;font-style:italic">Mērogu vienmēr pieraksta blakus zīmējumam.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Zīmējumā ātruma vektors ir 6,5 cm garš. Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1674,7 +1737,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1684,6 +1747,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1695,7 +1759,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="h1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="h1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="h1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1719,13 +1783,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">DOTS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">l = 6,5 cm</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1735,6 +1799,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1746,12 +1811,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">l = 6,5 cm</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Skolēns aiziet 30 m uz priekšu un pēc tam 30 m atpakaļ. Cik liels ir noietais ceļš un cik liels pārvietojums?</p>
@@ -1775,7 +1840,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1783,8 +1848,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = 6,5 cm</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 4,0 m/s</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1800,6 +1865,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1811,12 +1877,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">l = 6,5 cm</p>
-<p class="p1">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="p1">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -1844,7 +1910,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1852,14 +1918,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = 6,5 cm</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 4,0 m/s</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
-<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:50.4815%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:52.0815%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:56.5407%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
@@ -1876,6 +1942,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1887,12 +1954,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">l = 6,5 cm</p>
-<p class="p1">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="p1">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -1924,7 +1991,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1932,21 +1999,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = 6,5 cm</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 4,0 m/s</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
-<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:50.4815%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:52.0815%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:56.5407%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:62.0074%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:63.6074%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:68.0667%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = l · (ātrums uz 1 cm)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
@@ -1963,6 +2030,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1974,12 +2042,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">l = 6,5 cm</p>
-<p class="p1">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="p1">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -2015,7 +2083,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2023,27 +2091,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = 6,5 cm</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 4,0 m/s</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
-<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:50.4815%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:52.0815%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:56.5407%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:62.0074%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:63.6074%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:68.0667%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = l · (ātrums uz 1 cm)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 6,5 · 4,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 6,5 · 4,0</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2058,6 +2128,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2069,12 +2140,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">l = 6,5 cm</p>
-<p class="p1">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="p1">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -2114,7 +2185,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2122,28 +2193,32 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">l = 6,5 cm</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm ↔ 4,0 m/s</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
-<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:50.4815%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:52.0815%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:56.5407%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<i style="left:4.1251%;top:62.0074%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:63.6074%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<div class="tb" style="left:4.1251%;top:68.0667%;width:24.0006%;height:4.1333%;justify-content:flex-start">
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = l · (ātrums uz 1 cm)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 6,5 · 4,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v = 26 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 6,5 · 4,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v = 26 m/s</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2159,6 +2234,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2170,12 +2246,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Modulis no zīmējuma</p>
 <p class="p1">Zīmējumā ātruma vektors ir 6,5 cm garš.</p>
-<p class="p1">Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?</p>
+<p class="p1">Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p1">l = 6,5 cm</p>
-<p class="p1">mērogs: 1 cm ↔ 4,0 m/s</p>
+<p class="p1">mērogs: 1 cm atbilst 4,0 m/s</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -2227,6 +2303,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2278,6 +2355,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2333,8 +2411,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">JĀAPRĒĶINA</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">s = ?</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">|d⃗| = ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">ceļš s = ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2344,6 +2422,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2364,8 +2443,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">s = ?</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">|d⃗| = ?</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">ceļš s = ?</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
@@ -2405,17 +2484,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:49.2141%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ceļš s = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:53.0590%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">d⃗ - vektors no sākuma uz beigām</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2425,6 +2504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2445,13 +2525,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">s = ?</p>
-<p class="p2">|d⃗| = ?</p>
+<p class="p2">ceļš s = ?</p>
+<p class="p2">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">d⃗ - vektors no sākuma uz beigām</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
@@ -2491,10 +2571,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:49.2141%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ceļš s = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:53.0590%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:4.1251%;top:57.7816%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.3816%;width:24.0006%;height:3.2010%;justify-content:flex-start">
@@ -2504,7 +2584,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8831%;width:24.0006%;height:6.7787%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">d⃗ - vektors no sākuma uz beigām</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2520,6 +2600,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2540,13 +2621,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">s = ?</p>
-<p class="p2">|d⃗| = ?</p>
+<p class="p2">ceļš s = ?</p>
+<p class="p2">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p2">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p class="p2">d⃗ - vektors no sākuma uz beigām</p>
+<p class="p2">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2590,10 +2671,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:49.2141%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ceļš s = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:53.0590%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:4.1251%;top:57.7816%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.3816%;width:24.0006%;height:3.2010%;justify-content:flex-start">
@@ -2603,12 +2684,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8831%;width:24.0006%;height:6.7787%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">d⃗ - vektors no sākuma uz beigām</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2623,6 +2706,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2643,13 +2727,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">s = ?</p>
-<p class="p2">|d⃗| = ?</p>
+<p class="p2">ceļš s = ?</p>
+<p class="p2">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p2">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p class="p2">d⃗ - vektors no sākuma uz beigām</p>
+<p class="p2">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2697,10 +2781,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:49.2141%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ceļš s = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:53.0590%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:4.1251%;top:57.7816%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.3816%;width:24.0006%;height:3.2010%;justify-content:flex-start">
@@ -2710,18 +2794,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8831%;width:24.0006%;height:6.7787%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">d⃗ - vektors no sākuma uz beigām</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Sākuma un beigu punkts sakrīt</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Sākuma un beigu punkts sakrīt</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;|d⃗| = 0</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2731,6 +2819,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2751,13 +2840,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">s = ?</p>
-<p class="p2">|d⃗| = ?</p>
+<p class="p2">ceļš s = ?</p>
+<p class="p2">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p2">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p class="p2">d⃗ - vektors no sākuma uz beigām</p>
+<p class="p2">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2766,7 +2855,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;|d⃗| = 0</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Uz kasti darbojas divi spēki pa 20 N: viens pa labi, otrs pa kreisi. Vai šie vektori ir vienādi? Pamato!</p>
@@ -2806,10 +2895,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:49.2141%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ceļš s = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:53.0590%;width:24.0006%;height:3.3893%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = ?</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <i style="left:4.1251%;top:57.7816%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.3816%;width:24.0006%;height:3.2010%;justify-content:flex-start">
@@ -2819,19 +2908,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8831%;width:24.0006%;height:6.7787%;justify-content:flex-start">
-<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">d⃗ - vektors no sākuma uz beigām</p>
+<p style="font-size:1.5365cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Sākuma un beigu punkts sakrīt</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;|d⃗| = 0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Sākuma un beigu punkts sakrīt</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">s = 60 m ;&nbsp;&nbsp; |d⃗| = 0 m</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">s = 60 m ;&nbsp;&nbsp; |<span class="vv">s</span>| = 0 m</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Šis piemērs vislabāk parāda atšķirību starp skalāru un vektoru.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -2842,6 +2937,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2862,23 +2958,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">s = ?</p>
-<p class="p2">|d⃗| = ?</p>
+<p class="p2">ceļš s = ?</p>
+<p class="p2">pārvietojums |<span class="vv">s</span>| = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p2">s = s₁ + s₂&nbsp;&nbsp;(skalārs)</p>
-<p class="p2">d⃗ - vektors no sākuma uz beigām</p>
+<p class="p2">pārvietojums <span class="vv">s</span> - no sākuma uz beigu punktu</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;s = 30 + 30 = 60 m</p>
 <p class="p2">2)&nbsp;&nbsp;Sākuma un beigu punkts sakrīt</p>
-<p class="p2">3)&nbsp;&nbsp;|d⃗| = 0</p>
+<p class="p2">3)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">s = 60 m ;&nbsp;&nbsp; |d⃗| = 0 m</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">s = 60 m ;&nbsp;&nbsp; |<span class="vv">s</span>| = 0 m</p>
 <p class="p2" style="color:#4B5563;font-style:italic">Šis piemērs vislabāk parāda atšķirību starp skalāru un vektoru.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -2913,6 +3009,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2964,6 +3061,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3019,7 +3117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">JĀAPRĒĶINA</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3029,6 +3127,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3049,7 +3148,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
@@ -3089,7 +3188,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3105,6 +3204,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3125,7 +3225,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="p1">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
@@ -3169,7 +3269,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -3192,6 +3292,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3212,7 +3313,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="p1">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
@@ -3260,7 +3361,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -3270,9 +3371,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektori vienādi, ja sakrīt modulis UN virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3287,6 +3390,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3307,7 +3411,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="p1">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
@@ -3359,7 +3463,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -3369,15 +3473,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektori vienādi, ja sakrīt modulis UN virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Virzieni pretēji</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Virzieni pretēji</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;Tātad F⃗₁ ≠ F⃗₂, bet F₁ = F₂</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;Tātad <span class="vv">F</span>₁ ≠ <span class="vv">F</span>₂, bet F₁ = F₂</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3387,6 +3495,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3407,7 +3516,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="p1">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
@@ -3420,7 +3529,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;Tātad F⃗₁ ≠ F⃗₂, bet F₁ = F₂</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;Tātad <span class="vv">F</span>₁ ≠ <span class="vv">F</span>₂, bet F₁ = F₂</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">6. uzdevums.&nbsp;&nbsp;Spēks 250 N zīmējumā jāattēlo ar aptuveni 5 cm garu bultu. Kādu ērtu mērogu izvēlēties?</p>
@@ -3460,7 +3569,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai F⃗₁ = F⃗₂ ?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
@@ -3470,16 +3579,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vektori vienādi, ja sakrīt modulis UN virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Virzieni pretēji</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Tātad F⃗₁ ≠ F⃗₂, bet F₁ = F₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Virzieni pretēji</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Tātad <span class="vv">F</span>₁ ≠ <span class="vv">F</span>₂, bet F₁ = F₂</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
 <p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">Moduļi vienādi, vektori nav vienādi: F⃗₂ = −F⃗₁.</p>
+<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">Moduļi vienādi, vektori nav vienādi: <span class="vv">F</span>₂ = −<span class="vv">F</span>₁.</p>
 <p style="font-size:1.3271cqw;color:#4B5563;text-align:center;padding-top:1.0615cqw;font-style:italic">Vektoru salīdzina pēc diviem raksturlielumiem, ne tikai pēc skaitļa.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -3490,6 +3605,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3510,7 +3626,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai F⃗₁ = F⃗₂ ?</p>
+<p class="p1">Vai <span class="vv">F</span>₁ = <span class="vv">F</span>₂ ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
@@ -3520,11 +3636,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;Moduļi vienādi: 20 N = 20 N</p>
 <p class="p2">2)&nbsp;&nbsp;Virzieni pretēji</p>
-<p class="p2">3)&nbsp;&nbsp;Tātad F⃗₁ ≠ F⃗₂, bet F₁ = F₂</p>
+<p class="p2">3)&nbsp;&nbsp;Tātad <span class="vv">F</span>₁ ≠ <span class="vv">F</span>₂, bet F₁ = F₂</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">Moduļi vienādi, vektori nav vienādi: F⃗₂ = −F⃗₁.</p>
+<p class="h2" style="color:#4F46E5;font-weight:700">Moduļi vienādi, vektori nav vienādi: <span class="vv">F</span>₂ = −<span class="vv">F</span>₁.</p>
 <p class="p3" style="color:#4B5563;font-style:italic">Vektoru salīdzina pēc diviem raksturlielumiem, ne tikai pēc skaitļa.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -3555,6 +3671,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3599,6 +3716,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3658,6 +3776,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3731,6 +3850,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3815,6 +3935,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3894,19 +4015,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs = F : l</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3940,7 +4064,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
@@ -3990,10 +4114,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs = F : l</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4004,6 +4132,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4034,7 +4163,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
-<p class="p2">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
+<p class="p2">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -4088,22 +4217,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mērogs = F : l</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Tad l = 250 : 50 = 5,0 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Tad l = 250 : 50 = 5,0 cm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.1907cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.9156cqw;font-weight:700">Mērogs 1 cm ↔ 50 N; bultas garums 5,0 cm.</p>
-<p style="font-size:1.3750cqw;color:#4B5563;text-align:center;padding-top:1.0990cqw;font-style:italic">Mērogam izvēlas apaļu skaitli: 1, 2, 5, 10, 50, 100.</p>
+<p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">Mērogs 1 cm atbilst 50 N; bultas garums 5,0 cm.</p>
+<p style="font-size:1.3271cqw;color:#4B5563;text-align:center;padding-top:1.0615cqw;font-style:italic">Mērogam izvēlas apaļu skaitli: 1, 2, 5, 10, 50, 100.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna brauc 60 km/h uz ziemeļiem, pēc līkuma tā brauc 60 km/h uz austrumiem. Vai ātrums mainījās?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4134,12 +4270,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;250 N : 5 cm = 50 N/cm</p>
-<p class="p2">2)&nbsp;&nbsp;Ērts mērogs: 1 cm ↔ 50 N</p>
+<p class="p2">2)&nbsp;&nbsp;Ērts mērogs: 1 cm atbilst 50 N</p>
 <p class="p2">3)&nbsp;&nbsp;Tad l = 250 : 50 = 5,0 cm</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">Mērogs 1 cm ↔ 50 N; bultas garums 5,0 cm.</p>
+<p class="h2" style="color:#4F46E5;font-weight:700">Mērogs 1 cm atbilst 50 N; bultas garums 5,0 cm.</p>
 <p class="p3" style="color:#4B5563;font-style:italic">Mērogam izvēlas apaļu skaitli: 1, 2, 5, 10, 50, 100.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -4166,6 +4302,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4209,6 +4346,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4261,11 +4399,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">JĀAPRĒĶINA</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Vai v⃗ mainījās?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4286,7 +4425,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">Vai v⃗ mainījās?</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -4323,17 +4462,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai v⃗ mainījās?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4354,11 +4494,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai v⃗ mainījās?</p>
+<p class="p1">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p class="h1" style="color:#4F46E5;font-weight:700"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -4395,14 +4535,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai v⃗ mainījās?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:8.2667%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -4413,6 +4553,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4433,11 +4574,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai v⃗ mainījās?</p>
+<p class="p1">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p class="p1"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -4478,19 +4619,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai v⃗ mainījās?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:8.2667%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4500,6 +4643,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4520,11 +4664,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai v⃗ mainījās?</p>
+<p class="p1">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p class="p1"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -4569,20 +4713,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai v⃗ mainījās?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:8.2667%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Virziens mainījās: Z → A</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Virziens mainījās: Z → A</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4592,6 +4740,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4612,11 +4761,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai v⃗ mainījās?</p>
+<p class="p1">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p class="p1"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -4662,31 +4811,38 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai v⃗ mainījās?</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:8.2667%;justify-content:flex-start">
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Virziens mainījās: Z → A</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Tātad ātruma vektors ir mainījies</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Modulis nemainījās: 60 = 60 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Virziens mainījās: Z → A</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Tātad ātruma vektors ir mainījies</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
 <p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">Ātruma modulis nemainījās, bet vektors v⃗ mainījās.</p>
+<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">Ātruma modulis nemainījās, bet vektors <span class="vv">v</span> mainījās.</p>
 <p style="font-size:1.3271cqw;color:#4B5563;text-align:center;padding-top:1.0615cqw;font-style:italic">Tāpēc līkumā automašīnai ir paātrinājums, kaut spidometrs rāda to pašu.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4707,11 +4863,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">Vai v⃗ mainījās?</p>
+<p class="p1">Vai <span class="vv">v</span> mainījās?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">v⃗ mainās, ja mainās modulis vai virziens</p>
+<p class="p1"><span class="vv">v</span> mainās, ja mainās modulis vai virziens</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -4721,7 +4877,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">Ātruma modulis nemainījās, bet vektors v⃗ mainījās.</p>
+<p class="h2" style="color:#4F46E5;font-weight:700">Ātruma modulis nemainījās, bet vektors <span class="vv">v</span> mainījās.</p>
 <p class="p3" style="color:#4B5563;font-style:italic">Tāpēc līkumā automašīnai ir paātrinājums, kaut spidometrs rāda to pašu.</p>
 </div>
 <div class="blk">
@@ -4743,15 +4899,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">•&nbsp;&nbsp;Skalāru nosaka skaitlis ar mērvienību; vektoram vajag arī virzienu.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Vektoru pieraksta ar bultiņu: v⃗, F⃗, a⃗.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Vektora modulis ir pozitīvs skaitlis: |v⃗| = v.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Vektoru pieraksta ar bultiņu: <span class="vv">v</span>, <span class="vv">F</span>, <span class="vv">a</span>.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Vektora modulis ir pozitīvs skaitlis: |<span class="vv">v</span>| = v.</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Zīmējumā vektora garums atbilst modulim izvēlētā mērogā.</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:1.478cqw"></i>
 <div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">MĀJASDARBS</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">1.&nbsp;&nbsp;Nosauc trīs skalārus un trīs vektorus no ikdienas.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">2.&nbsp;&nbsp;Uzzīmē spēku 25 N pa kreisi mērogā 1 cm ↔ 5 N.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">2.&nbsp;&nbsp;Uzzīmē spēku 25 N pa kreisi mērogā 1 cm atbilst 5 N.</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">3.&nbsp;&nbsp;Cilvēks apstaigā 400 m stadionu. Cik liels ir ceļš un cik pārvietojums?</p>
 </div>
 <i style="left:4.1251%;top:70.6667%;width:91.7498%;height:21.6000%;background:#FFFFFF;border:0.130cqw solid #4F46E5;border-radius:0.608cqw"></i>
@@ -4760,6 +4916,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu atšķirt skalāru no vektora&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pierakstīt vektoru&nbsp;&nbsp; ·&nbsp;&nbsp; Protu attēlot vektoru mērogā&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nolasīt moduli no zīmējuma</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: darbības ar vektoriem.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -4771,14 +4928,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
 <p class="p2">•&nbsp;&nbsp;Skalāru nosaka skaitlis ar mērvienību; vektoram vajag arī virzienu.</p>
-<p class="p2">•&nbsp;&nbsp;Vektoru pieraksta ar bultiņu: v⃗, F⃗, a⃗.</p>
-<p class="p2">•&nbsp;&nbsp;Vektora modulis ir pozitīvs skaitlis: |v⃗| = v.</p>
+<p class="p2">•&nbsp;&nbsp;Vektoru pieraksta ar bultiņu: <span class="vv">v</span>, <span class="vv">F</span>, <span class="vv">a</span>.</p>
+<p class="p2">•&nbsp;&nbsp;Vektora modulis ir pozitīvs skaitlis: |<span class="vv">v</span>| = v.</p>
 <p class="p2">•&nbsp;&nbsp;Zīmējumā vektora garums atbilst modulim izvēlētā mērogā.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĀJASDARBS</p>
 <p class="p2">1.&nbsp;&nbsp;Nosauc trīs skalārus un trīs vektorus no ikdienas.</p>
-<p class="p2">2.&nbsp;&nbsp;Uzzīmē spēku 25 N pa kreisi mērogā 1 cm ↔ 5 N.</p>
+<p class="p2">2.&nbsp;&nbsp;Uzzīmē spēku 25 N pa kreisi mērogā 1 cm atbilst 5 N.</p>
 <p class="p2">3.&nbsp;&nbsp;Cilvēks apstaigā 400 m stadionu. Cik liels ir ceļš un cik pārvietojums?</p>
 </div>
 <div class="card" style="border-color:#4F46E5">

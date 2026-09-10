@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Īpatnējais sadegšanas siltums · Q = q·m · Kurināmā salīdzināšana</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.5. Kurināmais un siltums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -313,93 +340,94 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:27.6753%;width:88.1497%;height:3.6741%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">q — īpatnējais sadegšanas siltums: cik enerģijas atbrīvojas, pilnībā sadegot 1 kg kurināmā.</p>
 </div>
-<i style="left:4.1251%;top:35.4667%;width:27.2257%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:5.0251%;top:36.8000%;width:25.4256%;height:3.7333%;justify-content:flex-start">
+<i style="left:4.1251%;top:35.4667%;width:27.2324%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:5.0251%;top:36.8000%;width:25.4323%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Kurināmais</p>
 </div>
-<i style="left:31.3508%;top:35.4667%;width:19.5005%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:32.2508%;top:36.8000%;width:17.7004%;height:3.7333%;justify-content:flex-start">
+<i style="left:31.3575%;top:35.4667%;width:19.5053%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:32.2575%;top:36.8000%;width:17.7052%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">q, MJ/kg</p>
 </div>
-<i style="left:50.8513%;top:35.4667%;width:45.0011%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:51.7513%;top:36.8000%;width:43.2011%;height:3.7333%;justify-content:flex-start">
+<i style="left:50.8627%;top:35.4667%;width:45.0122%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:51.7628%;top:36.8000%;width:43.2121%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Piezīmes</p>
 </div>
-<i style="left:4.1251%;top:42.1333%;width:27.2257%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:43.3333%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:42.1333%;width:27.2324%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:43.3333%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Malka (sausa)</p>
 </div>
-<i style="left:31.3508%;top:42.1333%;width:19.5005%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:43.3333%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:42.1333%;width:19.5053%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:43.3333%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">10–15</p>
 </div>
-<i style="left:50.8513%;top:42.1333%;width:45.0011%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:43.3333%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:42.1333%;width:45.0122%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:43.3333%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">atjaunojams, CO₂ neitrāls</p>
 </div>
-<i style="left:4.1251%;top:48.8000%;width:27.2257%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:50.0000%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:48.8000%;width:27.2324%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:50.0000%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Kūdra</p>
 </div>
-<i style="left:31.3508%;top:48.8000%;width:19.5005%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:50.0000%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:48.8000%;width:19.5053%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:50.0000%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">~15</p>
 </div>
-<i style="left:50.8513%;top:48.8000%;width:45.0011%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:50.0000%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:48.8000%;width:45.0122%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:50.0000%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">vietējais resurss</p>
 </div>
-<i style="left:4.1251%;top:55.4667%;width:27.2257%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:56.6667%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:55.4667%;width:27.2324%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:56.6667%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Akmeņogles</p>
 </div>
-<i style="left:31.3508%;top:55.4667%;width:19.5005%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:56.6667%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:55.4667%;width:19.5053%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:56.6667%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">~29</p>
 </div>
-<i style="left:50.8513%;top:55.4667%;width:45.0011%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:56.6667%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:55.4667%;width:45.0122%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:56.6667%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">daudz izmešu</p>
 </div>
-<i style="left:4.1251%;top:62.1333%;width:27.2257%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:63.3333%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:62.1333%;width:27.2324%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:63.3333%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dabasgāze</p>
 </div>
-<i style="left:31.3508%;top:62.1333%;width:19.5005%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:63.3333%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:62.1333%;width:19.5053%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:63.3333%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">~50</p>
 </div>
-<i style="left:50.8513%;top:62.1333%;width:45.0011%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:63.3333%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:62.1333%;width:45.0122%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:63.3333%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">mazāk CO₂ nekā oglēm</p>
 </div>
-<i style="left:4.1251%;top:68.8000%;width:27.2257%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:70.0000%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:68.8000%;width:27.2324%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:70.0000%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Benzīns</p>
 </div>
-<i style="left:31.3508%;top:68.8000%;width:19.5005%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:70.0000%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:68.8000%;width:19.5053%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:70.0000%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">~46</p>
 </div>
-<i style="left:50.8513%;top:68.8000%;width:45.0011%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:70.0000%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:68.8000%;width:45.0122%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:70.0000%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">transportam</p>
 </div>
-<i style="left:4.1251%;top:75.4667%;width:27.2257%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:76.6667%;width:25.4256%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:75.4667%;width:27.2324%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:76.6667%;width:25.4323%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Ūdeņradis</p>
 </div>
-<i style="left:31.3508%;top:75.4667%;width:19.5005%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:76.6667%;width:17.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:31.3575%;top:75.4667%;width:19.5053%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:76.6667%;width:17.7052%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">~120</p>
 </div>
-<i style="left:50.8513%;top:75.4667%;width:45.0011%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:51.7513%;top:76.6667%;width:43.2011%;height:4.2667%;justify-content:flex-start">
+<i style="left:50.8627%;top:75.4667%;width:45.0122%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:51.7628%;top:76.6667%;width:43.2121%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">nav CO₂, bet grūti uzglabāt</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.5. Kurināmais un siltums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -478,6 +506,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.5. Kurināmais un siltums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -514,6 +543,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Sadegšanas siltums un kurināmā daudzums</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -549,6 +579,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -600,6 +631,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -665,6 +697,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -741,6 +774,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -828,6 +862,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -906,9 +941,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = q · m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Q = 1,2·10⁷ · 15</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Q = 1,2·10⁷ · 15</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -923,6 +960,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1005,10 +1043,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = q · m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Q = 1,2·10⁷ · 15</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Q = 1,8·10⁸ J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Q = 1,2·10⁷ · 15</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Q = 1,8·10⁸ J</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1024,6 +1066,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Malkas q = 1,2·10⁷ J/kg, dabasgāzes q = 5,0·10⁷ J/kg. Cik reižu vairāk malkas vajag, lai iegūtu tikpat enerģijas?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1092,6 +1135,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1144,6 +1188,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1213,6 +1258,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1288,7 +1334,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Q = η · q · m</p>
 </div>
 <div class="tb" style="left:57.6460%;top:58.7370%;width:6.0335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.5295%;top:54.2333%;width:4.5001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Q</p>
@@ -1305,6 +1351,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1384,7 +1431,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = η · q · m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:65.9434%;width:1.9405%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -1407,6 +1454,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1490,7 +1538,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = η · q · m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:65.9434%;width:1.9405%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -1500,9 +1548,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η·q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1517,6 +1567,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1604,7 +1655,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = η · q · m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:65.9434%;width:1.9405%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -1614,10 +1665,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η·q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 4,0·10⁸ : 4,5·10⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 4,0·10⁸ : 4,5·10⁷</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1632,6 +1687,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1720,7 +1776,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = η · q · m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:65.9434%;width:1.9405%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -1730,11 +1786,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η·q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 4,0·10⁸ : 4,5·10⁷</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;m = 8,9 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,90 · 5,0·10⁷ = 4,5·10⁷ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 4,0·10⁸ : 4,5·10⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;m = 8,9 kg</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1750,6 +1812,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1817,6 +1880,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1861,6 +1925,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1919,6 +1984,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1984,7 +2050,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.7544%;top:44.7963%;width:6.0335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.6379%;top:40.2926%;width:2.2834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Q</p>
@@ -1994,7 +2060,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q</p>
 </div>
 <div class="tb" style="left:58.9044%;top:63.4778%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.8545%;top:58.9741%;width:2.9167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q₂</p>
@@ -2007,6 +2073,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2076,7 +2143,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:58.5350%;width:0.9999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2086,7 +2153,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:1.2739%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q₂</p>
@@ -2105,6 +2172,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2178,7 +2246,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:58.5350%;width:0.9999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2188,7 +2256,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:1.2739%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q₂</p>
@@ -2198,9 +2266,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q₁</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = 5,0·10⁷ : 1,2·10⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 5,0·10⁷ : 1,2·10⁷</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2211,6 +2281,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2288,7 +2359,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.7423%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1617%;top:58.5350%;width:0.9999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2298,7 +2369,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:1.2739%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q₂</p>
@@ -2308,10 +2379,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q₁</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = 5,0·10⁷ : 1,2·10⁷</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;n = 4,2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 5,0·10⁷ : 1,2·10⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = 4,2</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2323,6 +2398,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Mājas apkurei ziemā vajag 3,6·10¹⁰ J. Šķeldas q = 1,0·10⁷ J/kg, katla η = 85 %. Cik tonnu šķeldas vajag?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2384,6 +2460,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2428,6 +2505,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2489,6 +2567,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2558,7 +2637,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.8960%;top:54.1370%;width:6.0335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:63.7795%;top:49.6333%;width:6.0002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Q</p>
@@ -2570,6 +2649,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2642,7 +2722,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:2.9041%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2660,6 +2740,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2736,7 +2817,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:2.9041%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2746,9 +2827,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η · q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2758,6 +2841,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2838,7 +2922,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:2.9041%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2848,10 +2932,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η · q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 3,6·10¹⁰ : 8,5·10⁶</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 3,6·10¹⁰ : 8,5·10⁶</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2861,6 +2949,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2942,7 +3031,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:2.9041%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Q</p>
@@ -2952,11 +3041,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">η · q</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 3,6·10¹⁰ : 8,5·10⁶</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;m = 4,2·10³ kg = 4,2 t</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;η·q = 0,85 · 1,0·10⁷ = 8,5·10⁶ J/kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 3,6·10¹⁰ : 8,5·10⁶</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;m = 4,2·10³ kg = 4,2 t</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2967,6 +3062,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3041,6 +3137,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu lietot Q = q·m&nbsp;&nbsp; ·&nbsp;&nbsp; Protu ievērot lietderību&nbsp;&nbsp; ·&nbsp;&nbsp; Protu salīdzināt kurināmo&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt vajadzīgo daudzumu</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: elektroenerģija mājsaimniecībā.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

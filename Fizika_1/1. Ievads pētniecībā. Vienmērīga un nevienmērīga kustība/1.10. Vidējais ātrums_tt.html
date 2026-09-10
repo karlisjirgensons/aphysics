@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">v(vid) = s(kop)/t(kop) · Biežākā kļūda · Momentānais ātrums</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kāds ir ātrums, ja tas mainās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">v(vid) = <span class="f"><span class="n">s(kop)</span><span class="d">t(kop)</span></span> · Biežākā kļūda · Momentānais ātrums</p>
+<p class="p2" style="color:#C7D2FE">v(vid) =&nbsp;<span class="f"><span class="n">s(kop)</span><span class="d">t(kop)</span></span>&nbsp;· Biežākā kļūda · Momentānais ātrums</p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.10. Vidējais ātrums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">VIDĒJAIS ĀTRUMS</p>
 </div>
 <div class="tb" style="left:43.4569%;top:23.4315%;width:5.3064%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:49.0820%;top:21.3204%;width:6.9924%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s(kopējais)</p>
@@ -320,58 +347,59 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:29.3345%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Vienmēr: viss ceļš dalīts ar visu laiku. Nekad nesaskaita ātrumus un nedala ar posmu skaitu, ja posmu laiki atšķiras.</p>
 </div>
-<i style="left:4.1251%;top:40.8000%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.810cqw"></i>
-<div class="tb" style="left:5.9251%;top:42.7840%;width:40.8498%;height:2.2044%;justify-content:flex-start">
-<p style="font-size:0.9990cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">PAREIZI</p>
+<i style="left:4.1251%;top:40.8000%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.949cqw"></i>
+<div class="tb" style="left:5.9251%;top:42.7840%;width:40.8498%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.2000cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">PAREIZI</p>
 </div>
-<div class="tb" style="left:5.9251%;top:46.3218%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1) Aprēķina katra posma ceļu.</p>
+<div class="tb" style="left:5.9251%;top:47.0293%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1) Aprēķina katra posma ceļu.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:50.6655%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2) Aprēķina katra posma laiku.</p>
+<div class="tb" style="left:5.9251%;top:52.2418%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2) Aprēķina katra posma laiku.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:57.1692%;width:6.5252%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3) v(vid) = </p>
+<div class="tb" style="left:5.9251%;top:60.0462%;width:7.8002%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3) v(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:12.7503%;top:55.1425%;width:1.2750%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σs</p>
+<div class="tb" style="left:14.1153%;top:57.6142%;width:1.5300%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σs</p>
 </div>
-<i style="left:12.7503%;top:58.6892%;width:1.2750%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:12.7503%;top:59.1958%;width:1.2750%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σt</p>
+<i style="left:14.1153%;top:61.8915%;width:1.5300%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:14.1153%;top:62.4782%;width:1.5300%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σt</p>
 </div>
-<div class="tb" style="left:14.4754%;top:57.1692%;width:0.5250%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
-</div>
-<div class="tb" style="left:5.9251%;top:63.6196%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Der jebkurai kustībai.</p>
-</div>
-<i style="left:51.4250%;top:40.8000%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.810cqw"></i>
-<div class="tb" style="left:53.2251%;top:42.7840%;width:40.8498%;height:2.6453%;justify-content:flex-start">
-<p style="font-size:1.2000cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">BIEŽĀKĀ KĻŪDA</p>
-</div>
-<div class="tb" style="left:53.2251%;top:49.6213%;width:5.9371%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
-</div>
-<div class="tb" style="left:59.5522%;top:47.1893%;width:4.3741%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₁ + v₂</p>
-</div>
-<i style="left:59.5522%;top:51.4667%;width:4.3741%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:59.5522%;top:52.0533%;width:4.3741%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
-</div>
-<div class="tb" style="left:64.4664%;top:49.6213%;width:0.6000%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:16.1854%;top:60.0462%;width:0.6000%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
 </div>
-<div class="tb" style="left:53.2251%;top:57.3618%;width:40.8498%;height:3.9680%;justify-content:flex-start">
-<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Der TIKAI tad, ja abu posmu LAIKI ir vienādi.</p>
+<div class="tb" style="left:5.9251%;top:67.7867%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Der jebkurai kustībai.</p>
 </div>
-<div class="tb" style="left:53.2251%;top:62.5742%;width:40.8498%;height:3.9680%;justify-content:flex-start">
-<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ja vienādi ir CEĻI - atbilde ir nepareiza.</p>
+<i style="left:51.4250%;top:40.8000%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.949cqw"></i>
+<div class="tb" style="left:53.2251%;top:42.7840%;width:40.8498%;height:2.7556%;justify-content:flex-start">
+<p style="font-size:1.2500cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">BIEŽĀKĀ KĻŪDA</p>
+</div>
+<div class="tb" style="left:53.2251%;top:49.9062%;width:6.1783%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
+</div>
+<div class="tb" style="left:59.8159%;top:47.3729%;width:4.5564%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₁ + v₂</p>
+</div>
+<i style="left:59.8159%;top:51.8329%;width:4.5564%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:59.8159%;top:52.4395%;width:4.5564%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+</div>
+<div class="tb" style="left:64.9347%;top:49.9062%;width:0.6188%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
+</div>
+<div class="tb" style="left:53.2251%;top:57.9692%;width:40.8498%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Der TIKAI tad, ja abu posmu LAIKI ir vienādi.</p>
+</div>
+<div class="tb" style="left:53.2251%;top:67.5321%;width:40.8498%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ja vienādi ir CEĻI - atbilde ir nepareiza.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.10. Vidējais ātrums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -402,8 +430,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="mf" style="color:#374151"><span class="mc">3) v(vid) = <span class="f"><span class="n">Σs</span><span class="d">Σt</span></span>.</span></p>
 </div>
 <div class="card" style="border-color:#B91C1C">
-<p class="p2">Der TIKAI tad, ja abu posmu LAIKI ir vienādi.</p>
-<p class="p2">Ja vienādi ir CEĻI - atbilde ir nepareiza.</p>
+<p class="p1">Der TIKAI tad, ja abu posmu LAIKI ir vienādi.</p>
+<p class="p1">Ja vienādi ir CEĻI - atbilde ir nepareiza.</p>
 </div>
 <div class="card" style="border-color:#047857">
 <p class="p2">Der jebkurai kustībai.</p>
@@ -480,6 +508,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.10. Vidējais ātrums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -525,6 +554,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Vidējais ātrums vairākos posmos</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -560,6 +590,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -611,6 +642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -676,6 +708,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -747,7 +780,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = v·t</p>
 </div>
 <div class="tb" style="left:53.4376%;top:58.7370%;width:11.1503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.4379%;top:54.2333%;width:7.8002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ + s₂</p>
@@ -764,6 +797,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -839,7 +873,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:3.8116%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂</p>
@@ -862,6 +896,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -941,7 +976,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:3.8116%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂</p>
@@ -951,9 +986,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -968,6 +1005,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1051,7 +1089,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:3.8116%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂</p>
@@ -1061,10 +1099,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 240 km ;&nbsp;&nbsp;t = 3,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 240 km ;&nbsp;&nbsp;t = 3,0 h</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1079,6 +1121,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1163,7 +1206,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:3.8116%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂</p>
@@ -1173,11 +1216,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 240 km ;&nbsp;&nbsp;t = 3,0 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v(vid) = 240 : 3,0 = 80 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 90·2,0 = 180 km ;&nbsp;&nbsp;s₂ = 60·1,0 = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 240 km ;&nbsp;&nbsp;t = 3,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v(vid) = 240 : 3,0 = 80 km/h</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1193,6 +1242,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Velosipēdists 20 min brauc ar 18 km/h, tad 10 min atpūšas. Aprēķini vidējo ātrumu visā laikā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1263,6 +1313,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1311,7 +1362,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:42.6748%;top:63.3370%;width:11.1169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ = s₂ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:54.6418%;top:58.8333%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -1328,6 +1379,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1381,7 +1433,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1404,6 +1456,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1461,7 +1514,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1483,7 +1536,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.8877%;top:44.7963%;width:4.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2045%;top:40.2926%;width:1.5834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -1493,7 +1546,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v</p>
 </div>
 <div class="tb" style="left:53.6209%;top:63.4778%;width:11.1503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.6212%;top:58.9741%;width:7.4335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -1510,6 +1563,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1572,7 +1626,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1593,7 +1647,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.5956%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0271%;top:60.9742%;width:0.5400%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1603,7 +1657,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0098%;width:4.0081%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3432%;top:67.3884%;width:2.6401%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1626,6 +1680,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1692,7 +1747,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1713,7 +1768,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.5956%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0271%;top:60.9742%;width:0.5400%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1723,7 +1778,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0098%;width:4.0081%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3432%;top:67.3884%;width:2.6401%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1733,9 +1788,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1750,6 +1807,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1820,7 +1878,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1841,7 +1899,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.5956%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0271%;top:60.9742%;width:0.5400%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1851,7 +1909,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0098%;width:4.0081%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3432%;top:67.3884%;width:2.6401%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1861,10 +1919,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t₁ = 60:40 = 1,5 h ;&nbsp;&nbsp;t₂ = 60:60 = 1,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t₁ = 60:40 = 1,5 h ;&nbsp;&nbsp;t₂ = 60:60 = 1,0 h</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1879,6 +1941,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1950,7 +2013,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v₂ = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.3170%;width:4.0621%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3972%;top:40.6957%;width:0.6060%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1971,7 +2034,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.5956%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0271%;top:60.9742%;width:0.5400%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1981,7 +2044,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0098%;width:4.0081%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.3432%;top:67.3884%;width:2.6401%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -1991,11 +2054,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t₁ = 60:40 = 1,5 h ;&nbsp;&nbsp;t₂ = 60:60 = 1,0 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v(vid) = 120 : 2,5 = 48 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → s₁ = s₂ = 60 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t₁ = 60:40 = 1,5 h ;&nbsp;&nbsp;t₂ = 60:60 = 1,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v(vid) = 120 : 2,5 = 48 km/h</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2011,6 +2080,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Skrējējs noskrien 400 m apli 80 s laikā un atgriežas startā. Aprēķini vidējo ātruma moduli un vidējo ātrumu pēc pārvietojuma!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2082,6 +2152,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2134,6 +2205,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2203,6 +2275,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2278,7 +2351,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = v·t</p>
 </div>
 <div class="tb" style="left:53.1376%;top:58.7370%;width:11.1503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.1379%;top:54.2333%;width:8.4002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -2295,6 +2368,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2374,7 +2448,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:4.9123%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3318%;top:65.9434%;width:3.6292%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -2389,7 +2463,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
 </div>
 <div class="tb" style="left:40.0206%;top:54.1370%;width:9.5169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;t₁ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;t₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:50.3875%;top:49.6333%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1</p>
@@ -2399,7 +2473,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3</p>
 </div>
 <div class="tb" style="left:53.0709%;top:54.1370%;width:34.7342%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> h → s = 18 · 1/3 = 6,0 km</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;h → s = 18 · 1/3 = 6,0 km</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2409,6 +2483,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2492,7 +2567,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:4.9123%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3318%;top:65.9434%;width:3.6292%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -2502,9 +2577,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2519,6 +2596,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2549,7 +2627,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t₁ = <span class="f"><span class="n">1</span><span class="d">3</span></span> h → s = 18 · 1/3 = 6,0 km</p>
+<p class="p2">1)&nbsp;&nbsp;t₁ =&nbsp;<span class="f"><span class="n">1</span><span class="d">3</span></span>&nbsp;h → s = 18 · 1/3 = 6,0 km</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -2606,7 +2684,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:4.9123%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3318%;top:65.9434%;width:3.6292%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -2616,10 +2694,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2634,6 +2716,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2664,7 +2747,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t₁ = <span class="f"><span class="n">1</span><span class="d">3</span></span> h → s = 18 · 1/3 = 6,0 km</p>
+<p class="p2">1)&nbsp;&nbsp;t₁ =&nbsp;<span class="f"><span class="n">1</span><span class="d">3</span></span>&nbsp;h → s = 18 · 1/3 = 6,0 km</p>
 <p class="p2">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
@@ -2722,7 +2805,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = v·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:4.9123%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3318%;top:65.9434%;width:3.6292%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -2732,11 +2815,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v(vid) = 6,0 : 0,50 = 12 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t₁ = 1/3 h → s = 18 · 1/3 = 6,0 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v(vid) = 6,0 : 0,50 = 12 km/h</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2752,6 +2841,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2782,7 +2872,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t₁ = <span class="f"><span class="n">1</span><span class="d">3</span></span> h → s = 18 · 1/3 = 6,0 km</p>
+<p class="p2">1)&nbsp;&nbsp;t₁ =&nbsp;<span class="f"><span class="n">1</span><span class="d">3</span></span>&nbsp;h → s = 18 · 1/3 = 6,0 km</p>
 <p class="p2">2)&nbsp;&nbsp;t(kop) = 30 min = 0,50 h</p>
 <p class="p2">3)&nbsp;&nbsp;v(vid) = 6,0 : 0,50 = 12 km/h</p>
 </div>
@@ -2823,6 +2913,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2865,7 +2956,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">DOTS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">s = 400 m</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">t = 80 s</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">|d⃗| = 0</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2875,6 +2966,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2892,7 +2984,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">s = 400 m</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">t = 80 s</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">|d⃗| = 0</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
@@ -2928,14 +3020,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">JĀAPRĒĶINA</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v(vid) pēc ceļa = ?</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2945,6 +3037,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2962,12 +3055,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">v(vid) pēc ceļa = ?</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">v(vid) pēc d⃗ = ?</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
@@ -3003,7 +3096,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:45.1068%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:46.7068%;width:24.0006%;height:2.6155%;justify-content:flex-start">
@@ -3013,7 +3106,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc ceļa = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.8361%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3021,7 +3114,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.7961%;top:44.7963%;width:4.9001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.5462%;top:40.2926%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -3030,14 +3123,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:65.5462%;top:49.3000%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
 </div>
-<div class="tb" style="left:54.7626%;top:63.4778%;width:12.8337%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v⃗(vid) = </p>
+<div class="tb" style="left:56.6710%;top:63.4778%;width:11.1503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"><span class="vv">v</span>(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:68.4463%;top:58.9741%;width:3.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d⃗</p>
+<div class="tb" style="left:68.6713%;top:58.9741%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"><span class="vv">s</span></p>
 </div>
-<i style="left:68.4463%;top:66.9859%;width:3.4668%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:68.4463%;top:67.9815%;width:3.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:68.6713%;top:66.9859%;width:1.3334%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:68.6713%;top:67.9815%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -3048,6 +3141,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3065,17 +3159,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
 <p class="p3">v(vid) pēc ceļa = ?</p>
-<p class="p3">v(vid) pēc d⃗ = ?</p>
+<p class="p3">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="mf" style="color:#4F46E5"><span class="mc">v = <span class="f"><span class="n">s</span><span class="d">t</span></span></span></p>
-<p class="mf" style="color:#4F46E5"><span class="mc">v⃗(vid) = <span class="f"><span class="n">d⃗</span><span class="d">t</span></span></span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc"><span class="vv">v</span>(vid) = <span class="f"><span class="n"><span class="vv">s</span></span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
@@ -3111,7 +3205,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:45.1068%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:46.7068%;width:24.0006%;height:2.6155%;justify-content:flex-start">
@@ -3121,14 +3215,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc ceļa = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.8361%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:4.1251%;top:56.9387%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:58.5387%;width:24.0006%;height:2.6155%;justify-content:flex-start">
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.3354%;width:1.9088%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2608%;top:61.6381%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3137,14 +3231,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.2608%;top:65.0328%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
-<div class="tb" style="left:4.1251%;top:70.0503%;width:4.8234%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v⃗(vid) = </p>
+<div class="tb" style="left:4.1251%;top:70.0503%;width:4.1889%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">v</span>(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:9.1754%;top:68.3530%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d⃗</p>
+<div class="tb" style="left:8.5409%;top:68.3530%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">s</span></p>
 </div>
-<i style="left:9.1754%;top:71.3060%;width:1.2940%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:9.1754%;top:71.7477%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:8.5409%;top:71.3060%;width:0.4899%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.5409%;top:71.7477%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
@@ -3161,6 +3255,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3178,17 +3273,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
 <p class="p3">v(vid) pēc ceļa = ?</p>
-<p class="p3">v(vid) pēc d⃗ = ?</p>
+<p class="p3">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">v = <span class="f"><span class="n">s</span><span class="d">t</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">v⃗(vid) = <span class="f"><span class="n">d⃗</span><span class="d">t</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc"><span class="vv">v</span>(vid) = <span class="f"><span class="n"><span class="vv">s</span></span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -3228,7 +3323,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:45.1068%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:46.7068%;width:24.0006%;height:2.6155%;justify-content:flex-start">
@@ -3238,14 +3333,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc ceļa = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.8361%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:4.1251%;top:56.9387%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:58.5387%;width:24.0006%;height:2.6155%;justify-content:flex-start">
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.3354%;width:1.9088%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2608%;top:61.6381%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3254,25 +3349,27 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.2608%;top:65.0328%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
-<div class="tb" style="left:4.1251%;top:70.0503%;width:4.8234%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v⃗(vid) = </p>
+<div class="tb" style="left:4.1251%;top:70.0503%;width:4.1889%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">v</span>(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:9.1754%;top:68.3530%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d⃗</p>
+<div class="tb" style="left:8.5409%;top:68.3530%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">s</span></p>
 </div>
-<i style="left:9.1754%;top:71.3060%;width:1.2940%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:9.1754%;top:71.7477%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:8.5409%;top:71.3060%;width:0.4899%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.5409%;top:71.7477%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;|d⃗| = 0</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3282,6 +3379,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3299,17 +3397,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
 <p class="p3">v(vid) pēc ceļa = ?</p>
-<p class="p3">v(vid) pēc d⃗ = ?</p>
+<p class="p3">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">v = <span class="f"><span class="n">s</span><span class="d">t</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">v⃗(vid) = <span class="f"><span class="n">d⃗</span><span class="d">t</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc"><span class="vv">v</span>(vid) = <span class="f"><span class="n"><span class="vv">s</span></span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3317,7 +3415,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;|d⃗| = 0</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
@@ -3353,7 +3451,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:45.1068%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:46.7068%;width:24.0006%;height:2.6155%;justify-content:flex-start">
@@ -3363,14 +3461,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc ceļa = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.8361%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:4.1251%;top:56.9387%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:58.5387%;width:24.0006%;height:2.6155%;justify-content:flex-start">
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.3354%;width:1.9088%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2608%;top:61.6381%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3379,26 +3477,30 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.2608%;top:65.0328%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
-<div class="tb" style="left:4.1251%;top:70.0503%;width:4.8234%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v⃗(vid) = </p>
+<div class="tb" style="left:4.1251%;top:70.0503%;width:4.1889%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">v</span>(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:9.1754%;top:68.3530%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d⃗</p>
+<div class="tb" style="left:8.5409%;top:68.3530%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">s</span></p>
 </div>
-<i style="left:9.1754%;top:71.3060%;width:1.2940%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:9.1754%;top:71.7477%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:8.5409%;top:71.3060%;width:0.4899%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.5409%;top:71.7477%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;|d⃗| = 0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;|v⃗(vid)| = 0 : 80 = 0 m/s</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;|<span class="vv">v</span>(vid)| = 0 : 80 = 0 m/s</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3408,6 +3510,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3425,26 +3528,26 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
 <p class="p3">v(vid) pēc ceļa = ?</p>
-<p class="p3">v(vid) pēc d⃗ = ?</p>
+<p class="p3">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">v = <span class="f"><span class="n">s</span><span class="d">t</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">v⃗(vid) = <span class="f"><span class="n">d⃗</span><span class="d">t</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc"><span class="vv">v</span>(vid) = <span class="f"><span class="n"><span class="vv">s</span></span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
-<p class="p2">2)&nbsp;&nbsp;|d⃗| = 0</p>
+<p class="p2">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;|v⃗(vid)| = 0 : 80 = 0 m/s</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;|<span class="vv">v</span>(vid)| = 0 : 80 = 0 m/s</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Autobuss veic 10 km 30 min laikā, 5 km 10 min laikā un 15 km 20 min laikā. Aprēķini vidējo ātrumu!</p>
@@ -3480,7 +3583,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 80 s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:41.0041%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|d⃗| = 0</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">|<span class="vv">s</span>| = 0</p>
 </div>
 <i style="left:4.1251%;top:45.1068%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:46.7068%;width:24.0006%;height:2.6155%;justify-content:flex-start">
@@ -3490,14 +3593,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc ceļa = ?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:52.8361%;width:24.0006%;height:2.7693%;justify-content:flex-start">
-<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc d⃗ = ?</p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <i style="left:4.1251%;top:56.9387%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:58.5387%;width:24.0006%;height:2.6155%;justify-content:flex-start">
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:63.3354%;width:1.9088%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2608%;top:61.6381%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3506,22 +3609,28 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:6.2608%;top:65.0328%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
-<div class="tb" style="left:4.1251%;top:70.0503%;width:4.8234%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v⃗(vid) = </p>
+<div class="tb" style="left:4.1251%;top:70.0503%;width:4.1889%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">v</span>(vid) =&nbsp;</p>
 </div>
-<div class="tb" style="left:9.1754%;top:68.3530%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d⃗</p>
+<div class="tb" style="left:8.5409%;top:68.3530%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw"><span class="vv">s</span></p>
 </div>
-<i style="left:9.1754%;top:71.3060%;width:1.2940%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:9.1754%;top:71.7477%;width:1.2940%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:8.5409%;top:71.3060%;width:0.4899%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.5409%;top:71.7477%;width:0.4899%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;|d⃗| = 0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;|v⃗(vid)| = 0 : 80 = 0 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;|<span class="vv">v</span>(vid)| = 0 : 80 = 0 m/s</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3537,6 +3646,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3554,23 +3664,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
 <p class="p3">s = 400 m</p>
 <p class="p3">t = 80 s</p>
-<p class="p3">|d⃗| = 0</p>
+<p class="p3">|<span class="vv">s</span>| = 0</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
 <p class="p3">v(vid) pēc ceļa = ?</p>
-<p class="p3">v(vid) pēc d⃗ = ?</p>
+<p class="p3">v(vid) pēc <span class="vv">s</span> = ?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">v = <span class="f"><span class="n">s</span><span class="d">t</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">v⃗(vid) = <span class="f"><span class="n">d⃗</span><span class="d">t</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc"><span class="vv">v</span>(vid) = <span class="f"><span class="n"><span class="vv">s</span></span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;v = 400 : 80 = 5,0 m/s</p>
-<p class="p2">2)&nbsp;&nbsp;|d⃗| = 0</p>
-<p class="p2">3)&nbsp;&nbsp;|v⃗(vid)| = 0 : 80 = 0 m/s</p>
+<p class="p2">2)&nbsp;&nbsp;|<span class="vv">s</span>| = 0</p>
+<p class="p2">3)&nbsp;&nbsp;|<span class="vv">v</span>(vid)| = 0 : 80 = 0 m/s</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -3605,6 +3715,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3650,6 +3761,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3712,6 +3824,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3781,7 +3894,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:50.6292%;top:54.1370%;width:11.1503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6295%;top:49.6333%;width:13.4170%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ + s₂ + s₃</p>
@@ -3794,6 +3907,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3866,7 +3980,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:6.5754%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂ + s₃</p>
@@ -3885,6 +3999,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3961,7 +4076,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:6.5754%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂ + s₃</p>
@@ -3971,9 +4086,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂ + t₃</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3984,6 +4101,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4064,7 +4182,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:6.5754%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂ + s₃</p>
@@ -4074,10 +4192,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂ + t₃</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 30 + 10 + 20 = 60 min = 1,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 30 + 10 + 20 = 60 min = 1,0 h</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4088,6 +4210,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4169,7 +4292,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:5.4549%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.9250%;top:65.0462%;width:6.5754%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ + s₂ + s₃</p>
@@ -4179,11 +4302,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₁ + t₂ + t₃</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 30 + 10 + 20 = 60 min = 1,0 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v(vid) = 30 : 1,0 = 30 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 10 + 5 + 15 = 30 km</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 30 + 10 + 20 = 60 min = 1,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v(vid) = 30 : 1,0 = 30 km/h</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4195,6 +4324,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Pirmo pusi ceļa automašīna brauc ar 40 km/h. Ar kādu ātrumu jābrauc otrā puse, lai vidējais ātrums būtu 60 km/h?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4257,6 +4387,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4302,7 +4433,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:42.6748%;top:63.3370%;width:11.1169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ = s₂ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:54.6418%;top:58.8333%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -4314,6 +4445,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4364,7 +4496,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4382,6 +4514,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4436,7 +4569,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4458,7 +4591,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.7627%;top:49.5370%;width:4.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.0795%;top:45.0333%;width:7.8335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -4473,6 +4606,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4532,7 +4666,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4553,7 +4687,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.9389%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:63.1655%;width:2.9729%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4574,6 +4708,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4637,7 +4772,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4658,7 +4793,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.9389%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:63.1655%;width:2.9729%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4671,9 +4806,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4683,6 +4820,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4750,7 +4888,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4771,7 +4909,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.9389%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:63.1655%;width:2.9729%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4784,10 +4922,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t₁ = 60 : 40 = 1,5 h → t₂ = 0,50 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t₁ = 60 : 40 = 1,5 h → t₂ = 0,50 h</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4797,6 +4939,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4865,7 +5008,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v(vid) = 60 km/h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:43.3092%;width:4.4289%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁ = s₂ =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.7977%;top:41.5359%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4886,7 +5029,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.9389%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:63.1655%;width:2.9729%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -4899,11 +5042,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = t₁ + t₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t₁ = 60 : 40 = 1,5 h → t₂ = 0,50 h</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v₂ = 60 : 0,50 = 120 km/h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Pieņem s = 120 km → t = 120 : 60 = 2,0 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t₁ = 60 : 40 = 1,5 h → t₂ = 0,50 h</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v₂ = 60 : 0,50 = 120 km/h</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4914,6 +5063,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4989,6 +5139,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu aprēķināt vidējo ātrumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu izvairīties no tipiskās kļūdas&nbsp;&nbsp; ·&nbsp;&nbsp; Protu ņemt vērā apstāšanās laiku&nbsp;&nbsp; ·&nbsp;&nbsp; Protu atšķirt vidējo un momentāno</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: mērierīces un mērījumu kļūdas.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

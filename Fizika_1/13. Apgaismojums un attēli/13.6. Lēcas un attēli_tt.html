@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Savācējlēca · f = ab/(a + b) · Γ = b/a</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kā lēca veido attēlu?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">Savācējlēca · f = <span class="f"><span class="n">ab</span><span class="d">a + b</span></span> · Γ = <span class="f"><span class="n">b</span><span class="d">a</span></span></p>
+<p class="p2" style="color:#C7D2FE">Savācējlēca · f =&nbsp;<span class="f"><span class="n">ab</span><span class="d">a + b</span></span>&nbsp;· Γ =&nbsp;<span class="f"><span class="n">b</span><span class="d">a</span></span></p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">13.6. Lēcas un attēli</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">LĒCAS FORMULA UN PALIELINĀJUMS</p>
 </div>
 <div class="tb" style="left:40.1365%;top:23.4315%;width:2.1266%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:42.5818%;top:21.3204%;width:3.0938%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ab</p>
@@ -318,7 +345,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a + b</p>
 </div>
 <div class="tb" style="left:46.1444%;top:23.4315%;width:5.4314%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D =&nbsp;</p>
 </div>
 <div class="tb" style="left:51.8946%;top:21.3204%;width:0.7891%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1</p>
@@ -328,7 +355,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f</p>
 </div>
 <div class="tb" style="left:53.1524%;top:23.4315%;width:5.0876%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Γ = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:58.5588%;top:21.3204%;width:0.8360%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b</p>
@@ -361,6 +388,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">13.6. Lēcas un attēli</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -473,6 +501,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">13.6. Lēcas un attēli</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -526,6 +555,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Lēcas formula un palielinājums</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -561,6 +591,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -612,6 +643,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -677,6 +709,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -745,7 +778,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.4293%;top:54.1370%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6461%;top:49.6333%;width:6.6002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ab</p>
@@ -762,6 +795,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -833,7 +867,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.4326%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9533%;top:63.3050%;width:3.5557%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -856,6 +890,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -931,7 +966,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.4326%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9533%;top:63.3050%;width:3.5557%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -941,9 +976,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -958,6 +995,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1037,7 +1075,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.4326%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9533%;top:63.3050%;width:3.5557%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -1047,10 +1085,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a + b = 0,90</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a + b = 0,90</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1065,6 +1107,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1145,7 +1188,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.4326%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9533%;top:63.3050%;width:3.5557%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -1155,11 +1198,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a + b = 0,90</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;f = 0,18 : 0,90 = 0,20 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ab = 0,30 · 0,60 = 0,18</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a + b = 0,90</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;f = 0,18 : 0,90 = 0,20 m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1175,6 +1224,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Priekšmets ir 0,30 m no lēcas, attēls 0,60 m aiz tās. Priekšmeta augstums ir 4,0 cm. Aprēķini palielinājumu un attēla augstumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1243,6 +1293,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1291,6 +1342,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1350,6 +1402,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1412,7 +1465,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.3627%;top:54.1370%;width:5.4168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.6296%;top:49.6333%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1</p>
@@ -1429,6 +1482,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1494,7 +1548,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.9444%;width:3.0845%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D = </p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6221%;top:59.4111%;width:0.9469%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1</p>
@@ -1517,6 +1571,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1586,7 +1641,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.9444%;width:3.0845%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D = </p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6221%;top:59.4111%;width:0.9469%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1</p>
@@ -1596,9 +1651,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 1 : 0,20</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 1 : 0,20</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1613,6 +1670,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1686,7 +1744,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.9444%;width:3.0845%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D = </p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6221%;top:59.4111%;width:0.9469%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1</p>
@@ -1696,10 +1754,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 1 : 0,20</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;D = 5,0 dioptrijas</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 1 : 0,20</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;D = 5,0 dioptrijas</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1715,6 +1777,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1778,6 +1841,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1825,6 +1889,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1890,6 +1955,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1965,7 +2031,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.6794%;top:49.5370%;width:4.6835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2129%;top:45.0333%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b</p>
@@ -1981,6 +2047,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2060,7 +2127,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.0184%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4041%;top:63.7908%;width:0.7186%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b</p>
@@ -2082,6 +2149,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2165,7 +2233,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.0184%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4041%;top:63.7908%;width:0.7186%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b</p>
@@ -2178,9 +2246,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">H = Γ · h</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2191,6 +2261,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2278,7 +2349,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.0184%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4041%;top:63.7908%;width:0.7186%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b</p>
@@ -2291,10 +2362,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">H = Γ · h</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;H = 2,0 · 4,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;H = 2,0 · 4,0</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2305,6 +2380,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2393,7 +2469,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.0184%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4041%;top:63.7908%;width:0.7186%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b</p>
@@ -2406,11 +2482,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">H = Γ · h</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;H = 2,0 · 4,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;H = 8,0 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Γ = 0,60 : 0,30 = 2,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;H = 2,0 · 4,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;H = 8,0 cm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2422,6 +2504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Lēcai f = 0,10 m, priekšmets ir 0,15 m no tās. Aprēķini attālumu līdz attēlam!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2487,6 +2570,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2530,6 +2614,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2587,6 +2672,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2652,7 +2738,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.4293%;top:44.7963%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6461%;top:40.2926%;width:6.6002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ab</p>
@@ -2662,7 +2748,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a + b</p>
 </div>
 <div class="tb" style="left:57.4293%;top:63.4778%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b =&nbsp;</p>
 </div>
 <div class="tb" style="left:63.3795%;top:58.9741%;width:5.8668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">af</p>
@@ -2674,6 +2760,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2743,7 +2830,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.0090%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4285%;top:58.5350%;width:2.8959%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -2753,7 +2840,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:2.5700%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">af</p>
@@ -2771,6 +2858,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2844,7 +2932,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.0090%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4285%;top:58.5350%;width:2.8959%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -2854,7 +2942,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:2.5700%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">af</p>
@@ -2864,9 +2952,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a − f</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2876,6 +2966,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2953,7 +3044,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.0090%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4285%;top:58.5350%;width:2.8959%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -2963,7 +3054,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:2.5700%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">af</p>
@@ -2973,10 +3064,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a − f</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;af = 0,15 · 0,10 = 0,015</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;af = 0,15 · 0,10 = 0,015</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2986,6 +3081,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3064,7 +3160,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.0090%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4285%;top:58.5350%;width:2.8959%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
@@ -3074,7 +3170,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:2.5700%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">af</p>
@@ -3084,11 +3180,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a − f</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;af = 0,15 · 0,10 = 0,015</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;b = 0,015 : 0,05 = 0,30 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a − f = 0,15 − 0,10 = 0,05</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;af = 0,15 · 0,10 = 0,015</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;b = 0,015 : 0,05 = 0,30 m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3099,6 +3201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3153,12 +3256,47 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:1.478cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
+<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:2.7556%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">•&nbsp;&nbsp;Savācējlēca savāc starus, izkliedētājlēca tos izkliedē.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;f = ab/(a + b);&nbsp;&nbsp;D = 1/f;&nbsp;&nbsp;Γ = b/a.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Īstu attēlu var uztvert uz ekrāna, šķietamu - nevar.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Attēla veids atkarīgs no priekšmeta attāluma pret f un 2f.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:22.9618%;width:40.8498%;height:7.8074%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Savācējlēca savāc starus, izkliedētājlēca tos izkliedē.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:34.9858%;width:4.0548%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;f =&nbsp;</p>
+</div>
+<div class="tb" style="left:10.3612%;top:32.5932%;width:3.4621%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ab</p>
+</div>
+<i style="left:10.3612%;top:36.7995%;width:3.4621%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:10.3612%;top:37.3784%;width:3.4621%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a + b</p>
+</div>
+<div class="tb" style="left:14.3545%;top:34.9858%;width:4.1965%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">;&nbsp;&nbsp;D =&nbsp;</p>
+</div>
+<div class="tb" style="left:18.9322%;top:32.5932%;width:0.8943%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1</p>
+</div>
+<i style="left:18.9322%;top:36.7995%;width:0.8943%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:18.9322%;top:37.3784%;width:0.8943%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f</p>
+</div>
+<div class="tb" style="left:20.3578%;top:34.9858%;width:3.3641%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;&nbsp;Γ =&nbsp;</p>
+</div>
+<div class="tb" style="left:24.1032%;top:32.5932%;width:0.9297%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b</p>
+</div>
+<i style="left:24.1032%;top:36.7995%;width:0.9297%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:24.1032%;top:37.3784%;width:0.9297%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
+</div>
+<div class="tb" style="left:5.9251%;top:43.0432%;width:40.8498%;height:7.8074%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Īstu attēlu var uztvert uz ekrāna, šķietamu - nevar.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:52.5173%;width:40.8498%;height:7.8074%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Attēla veids atkarīgs no priekšmeta attāluma pret f un 2f.</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:1.478cqw"></i>
 <div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
@@ -3173,6 +3311,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Atšķiru lēcu veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu konstruēt attēlu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot lēcas formulu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt palielinājumu</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: acs, brilles un fotoaparāts.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -3183,16 +3322,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p class="p2">•&nbsp;&nbsp;Savācējlēca savāc starus, izkliedētājlēca tos izkliedē.</p>
-<p class="p2">•&nbsp;&nbsp;f = <span class="f"><span class="n">ab</span><span class="d">a + b</span></span>;&nbsp;&nbsp;D = <span class="f"><span class="n">1</span><span class="d">f</span></span>&nbsp;&nbsp;Γ = <span class="f"><span class="n">b</span><span class="d">a</span></span></p>
-<p class="p2">•&nbsp;&nbsp;Īstu attēlu var uztvert uz ekrāna, šķietamu - nevar.</p>
-<p class="p2">•&nbsp;&nbsp;Attēla veids atkarīgs no priekšmeta attāluma pret f un 2f.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĀJASDARBS</p>
 <p class="p2">1.&nbsp;&nbsp;a = 0,40 m, b = 0,40 m. Aprēķini f un Γ.</p>
 <p class="p2">2.&nbsp;&nbsp;f = 0,25 m. Aprēķini optisko stiprumu.</p>
 <p class="p2">3.&nbsp;&nbsp;Uzzīmē attēla konstrukciju, ja a = 3f.</p>
+</div>
+<div class="card" style="border-color:#7C3AED">
+<p class="p2">•&nbsp;&nbsp;Savācējlēca savāc starus, izkliedētājlēca tos izkliedē.</p>
+<p class="mf" style="color:#374151"><span class="mc">•</span><span class="mc">f = <span class="f"><span class="n">ab</span><span class="d">a + b</span></span>;</span><span class="mc">D = <span class="f"><span class="n">1</span><span class="d">f</span></span></span><span class="mc">Γ = <span class="f"><span class="n">b</span><span class="d">a</span></span></span></p>
+<p class="p2">•&nbsp;&nbsp;Īstu attēlu var uztvert uz ekrāna, šķietamu - nevar.</p>
+<p class="p2">•&nbsp;&nbsp;Attēla veids atkarīgs no priekšmeta attāluma pret f un 2f.</p>
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">PAŠVĒRTĒJUMS — atzīmē, cik droši jūties</p>

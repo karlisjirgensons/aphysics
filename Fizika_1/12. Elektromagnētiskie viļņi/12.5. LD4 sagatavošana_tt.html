@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Mērāmie attālumi · sin α = x/√(x² + L²) · Lāzera drošība</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kā noteikt gaismas viļņa garumu?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">Mērāmie attālumi · sin α = x/<span class="rt"><span class="rv">x² + L²</span></span> · Lāzera drošība</p>
+<p class="p2" style="color:#C7D2FE">Mērāmie attālumi · sin α = x/<span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">x² + L²</span></span>&nbsp;· Lāzera drošība</p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">12.5. LD4 sagatavošana</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">NO ATTĀLUMIEM UZ VIĻŅA GARUMU</p>
 </div>
 <div class="tb" style="left:39.2068%;top:23.4315%;width:4.7517%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:44.2772%;top:21.3204%;width:5.6798%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x</p>
@@ -318,7 +345,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√(x² + L²)</p>
 </div>
 <div class="tb" style="left:50.4258%;top:23.4315%;width:5.2048%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;λ = </p>
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:55.9494%;top:21.3204%;width:4.3751%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d·sin α</p>
@@ -409,6 +436,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">12.5. LD4 sagatavošana</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -420,7 +448,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">NO ATTĀLUMIEM UZ VIĻŅA GARUMU</p>
 <p class="mf" style="color:#4F46E5"><span class="mc">sin α = <span class="f"><span class="n">x</span><span class="d">√(x² + L²)</span></span></span><span class="mc">λ = <span class="f"><span class="n">d·sin α</span><span class="d">k</span></span></span></p>
-<p class="p2" style="color:#4B5563">L ir attālums no režģa līdz ekrānam, x - attālums no centrālā maksimuma līdz k-tās kārtas maksimumam. Ja x ir daudz mazāks par L, var lietot arī tan α = <span class="f"><span class="n">x</span><span class="d">L</span></span></p>
+<p class="p2" style="color:#4B5563">L ir attālums no režģa līdz ekrānam, x - attālums no centrālā maksimuma līdz k-tās kārtas maksimumam. Ja x ir daudz mazāks par L, var lietot arī tan α =&nbsp;<span class="f"><span class="n">x</span><span class="d">L</span></span></p>
 </div>
 <div class="blk">
 <div class="mtbl">
@@ -472,6 +500,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">12.5. LD4 sagatavošana</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -507,6 +536,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Mērījumu shēma un aprēķinu sagatavošana</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -543,6 +573,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -597,6 +628,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -668,6 +700,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -742,7 +775,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:51.8709%;top:54.1370%;width:9.9669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6878%;top:49.6333%;width:12.1170%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x</p>
@@ -759,6 +792,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -836,7 +870,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:4.9104%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3805%;top:65.0462%;width:5.9154%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x</p>
@@ -859,6 +893,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -940,7 +975,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:4.9104%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3805%;top:65.0462%;width:5.9154%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x</p>
@@ -950,14 +985,26 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√(x² + L²)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:54.5741%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;√2,41 ≈ 1,55</p>
+</div>
+<div class="tb" style="left:51.6692%;top:60.0630%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;</p>
+</div>
+<svg class="rg" style="left:56.8860%;top:59.8852%;width:3.3334%;height:5.9259%;fill:#3730A3" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:59.6061%;top:60.0630%;width:6.0668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">2,41</p>
+</div>
+<i style="left:58.9415%;top:59.8852%;width:6.7314%;height:0.3259%;background:#3730A3"></i>
+<div class="tb" style="left:66.9229%;top:60.0630%;width:9.2336%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;≈ 1,55</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -967,6 +1014,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1001,7 +1049,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;<span class="rt"><span class="rv">2,41</span></span> ≈ 1,55</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc"><span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">2,41</span></span> ≈ 1,55</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Režģim d = 2·10⁻⁶ m, pirmajai kārtai sin α = 0,258. Aprēķini viļņa garumu!</p>
@@ -1052,7 +1100,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:4.9104%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3805%;top:65.0462%;width:5.9154%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x</p>
@@ -1062,13 +1110,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√(x² + L²)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;√2,41 ≈ 1,55</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.8426%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;</p>
+</div>
+<svg class="rg" style="left:34.5634%;top:41.7481%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:36.0084%;top:41.8426%;width:3.2756%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2,41</p>
+</div>
+<i style="left:35.6554%;top:41.7481%;width:3.6286%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:39.8778%;top:41.8426%;width:4.9579%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;≈ 1,55</p>
+</div>
+<i style="left:31.8008%;top:48.9630%;width:64.0741%;height:30.2370%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.850cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.8296%;width:60.1740%;height:26.5037%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;sin α = 0,40 : 1,55 ≈ 0,258</p>
 </div>
@@ -1080,6 +1140,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1111,7 +1172,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
-<p class="p2">2)&nbsp;&nbsp;<span class="rt"><span class="rv">2,41</span></span> ≈ 1,55</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc"><span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">2,41</span></span> ≈ 1,55</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -1166,7 +1227,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:4.9104%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.3805%;top:65.0462%;width:5.9154%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x</p>
@@ -1176,14 +1237,28 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√(x² + L²)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;√2,41 ≈ 1,55</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;sin α = 0,40 : 1,55 ≈ 0,258</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.8426%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;</p>
+</div>
+<svg class="rg" style="left:34.5634%;top:41.7481%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:36.0084%;top:41.8426%;width:3.2756%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2,41</p>
+</div>
+<i style="left:35.6554%;top:41.7481%;width:3.6286%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:39.8778%;top:41.8426%;width:4.9579%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;≈ 1,55</p>
+</div>
+<div class="tb" style="left:31.8008%;top:47.1407%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;sin α = 0,40 : 1,55 ≈ 0,258</p>
+</div>
+<i style="left:31.8008%;top:53.9778%;width:64.0741%;height:25.2222%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.709cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.8444%;width:60.1740%;height:21.4889%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">sin α ≈ 0,26</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Saucējā ir attālums no režģa līdz maksimumam - taisnleņķa trijstūra hipotenūza.</p>
@@ -1196,6 +1271,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Attālums starp pirmās kārtas maksimumiem abās pusēs ir 0,84 m. Cik liels ir x vienam maksimumam un kāpēc tā mēra?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1227,8 +1303,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;x² + L² = 0,16 + 2,25 = 2,41</p>
-<p class="p2">2)&nbsp;&nbsp;<span class="rt"><span class="rv">2,41</span></span> ≈ 1,55</p>
 <p class="p2">3)&nbsp;&nbsp;sin α = 0,40 : 1,55 ≈ 0,258</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc"><span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">2,41</span></span> ≈ 1,55</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1267,6 +1343,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1319,6 +1396,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1388,6 +1466,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1460,7 +1539,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:55.7793%;top:54.1370%;width:4.9335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">λ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.5628%;top:49.6333%;width:9.3336%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d·sin α</p>
@@ -1477,6 +1556,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1552,7 +1632,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4848%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9549%;top:65.0462%;width:4.4716%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d·sin α</p>
@@ -1575,6 +1655,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1654,7 +1735,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4848%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9549%;top:65.0462%;width:4.4716%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d·sin α</p>
@@ -1664,9 +1745,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1681,6 +1764,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1764,7 +1848,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4848%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9549%;top:65.0462%;width:4.4716%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d·sin α</p>
@@ -1774,10 +1858,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;= 5,16·10⁻⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;= 5,16·10⁻⁷</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1792,6 +1880,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1876,7 +1965,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4848%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9549%;top:65.0462%;width:4.4716%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d·sin α</p>
@@ -1886,11 +1975,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;= 5,16·10⁻⁷</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;λ ≈ 5,2·10⁻⁷ m = 520 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d·sin α = 2·10⁻⁶ · 0,258</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;= 5,16·10⁻⁷</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;λ ≈ 5,2·10⁻⁷ m = 520 nm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1906,6 +2001,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1973,6 +2069,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2018,6 +2115,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2058,11 +2156,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2074,6 +2172,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2090,7 +2189,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -2118,38 +2217,32 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
-<i style="left:4.1251%;top:45.4108%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.0108%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:45.7926%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.3926%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.3363%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:51.8519%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
+<div class="tb" style="left:33.7508%;top:49.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:54.3626%;top:54.1370%;width:4.8501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x = </p>
-</div>
-<div class="tb" style="left:60.0627%;top:49.6333%;width:12.2503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">attālums</p>
-</div>
-<i style="left:60.0627%;top:57.6452%;width:12.2503%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:60.0627%;top:58.6407%;width:12.2503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
+<div class="tb" style="left:33.7508%;top:54.1370%;width:60.1740%;height:7.2296%;justify-content:center">
+<p style="font-size:3.2334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x = attālums/2</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2166,15 +2259,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p1">x = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">x = <span class="f"><span class="n">attālums</span><span class="d">2</span></span></span></p>
+<p class="h1" style="color:#4F46E5;font-weight:700">x = attālums/2</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
@@ -2198,32 +2291,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
-<i style="left:4.1251%;top:45.4108%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.0108%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:45.7926%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.3926%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.3363%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:51.8519%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:56.6790%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.2790%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.3185%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:58.9185%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.2234%;width:2.6690%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
-</div>
-<div class="tb" style="left:7.1898%;top:62.7661%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">attālums</p>
-</div>
-<i style="left:7.1898%;top:67.0891%;width:6.5022%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.1898%;top:67.6808%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<div class="tb" style="left:4.1251%;top:63.3778%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = attālums/2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2235,6 +2321,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2251,15 +2338,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p1">x = ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="f"><span class="n">attālums</span><span class="d">2</span></span></span></p>
+<p class="p2">x = attālums/2</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2287,37 +2374,32 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
-<i style="left:4.1251%;top:45.4108%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.0108%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:45.7926%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.3926%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.3363%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:51.8519%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:56.6790%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.2790%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.3185%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:58.9185%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.2234%;width:2.6690%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
-</div>
-<div class="tb" style="left:7.1898%;top:62.7661%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">attālums</p>
-</div>
-<i style="left:7.1898%;top:67.0891%;width:6.5022%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.1898%;top:67.6808%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<div class="tb" style="left:4.1251%;top:63.3778%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = attālums/2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2328,6 +2410,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2344,15 +2427,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p1">x = ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="f"><span class="n">attālums</span><span class="d">2</span></span></span></p>
+<p class="p2">x = attālums/2</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2384,38 +2467,35 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
-<i style="left:4.1251%;top:45.4108%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.0108%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:45.7926%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.3926%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.3363%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:51.8519%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:56.6790%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.2790%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.3185%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:58.9185%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.2234%;width:2.6690%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
-</div>
-<div class="tb" style="left:7.1898%;top:62.7661%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">attālums</p>
-</div>
-<i style="left:7.1898%;top:67.0891%;width:6.5022%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.1898%;top:67.6808%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<div class="tb" style="left:4.1251%;top:63.3778%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = attālums/2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;x = 0,42 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;x = 0,42 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2426,6 +2506,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2442,15 +2523,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p1">x = ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="f"><span class="n">attālums</span><span class="d">2</span></span></span></p>
+<p class="p2">x = attālums/2</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2483,39 +2564,38 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ir 0,84 m. Cik liels ir x vienam maksimumam un</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">kāpēc tā mēra?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:8.0187%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:8.2667%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Attālums starp maksimumiem 0,84 m</p>
 </div>
-<i style="left:4.1251%;top:45.4108%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.0108%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:45.7926%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.3926%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.3363%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:51.8519%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:56.6790%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.2790%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.3185%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:58.9185%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.2234%;width:2.6690%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
-</div>
-<div class="tb" style="left:7.1898%;top:62.7661%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">attālums</p>
-</div>
-<i style="left:7.1898%;top:67.0891%;width:6.5022%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.1898%;top:67.6808%;width:6.5022%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<div class="tb" style="left:4.1251%;top:63.3778%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = attālums/2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;x = 0,42 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Centra atrašanas kļūda izzūd</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x = 0,84 : 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;x = 0,42 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Centra atrašanas kļūda izzūd</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2527,6 +2607,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Izmērītais viļņa garums ir 520 nm, patiesais 532 nm. Aprēķini relatīvo novirzi procentos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2543,15 +2624,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Attālums starp maksimumiem 0,84 m</p>
+<p class="p1">Attālums starp maksimumiem 0,84 m</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p1">x = ?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="f"><span class="n">attālums</span><span class="d">2</span></span></span></p>
+<p class="p2">x = attālums/2</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2588,6 +2669,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2631,6 +2713,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2688,6 +2771,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2756,7 +2840,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δλ = λ(pat.) − λ(izm.)</p>
 </div>
 <div class="tb" style="left:58.5877%;top:58.7370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">δ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">δ =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.5379%;top:54.2333%;width:3.5501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δλ</p>
@@ -2768,6 +2852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2840,7 +2925,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δλ = λ(pat.) − λ(izm.)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0539%;top:65.0462%;width:1.6995%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δλ</p>
@@ -2858,6 +2943,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2934,7 +3020,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δλ = λ(pat.) − λ(izm.)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0539%;top:65.0462%;width:1.6995%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δλ</p>
@@ -2944,9 +3030,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2956,6 +3044,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3036,7 +3125,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δλ = λ(pat.) − λ(izm.)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0539%;top:65.0462%;width:1.6995%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δλ</p>
@@ -3046,10 +3135,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;δ = 12 : 532 ≈ 0,023</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;δ = 12 : 532 ≈ 0,023</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3059,6 +3152,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3140,7 +3234,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δλ = λ(pat.) − λ(izm.)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">δ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0539%;top:65.0462%;width:1.6995%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δλ</p>
@@ -3150,11 +3244,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;δ = 12 : 532 ≈ 0,023</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;δ ≈ 2,3 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δλ = 532 − 520 = 12 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;δ = 12 : 532 ≈ 0,023</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;δ ≈ 2,3 %</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3165,6 +3265,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3239,6 +3340,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu uzzīmēt shēmu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu izteikt sinusu&nbsp;&nbsp; ·&nbsp;&nbsp; Esmu sagatavojis tabulu&nbsp;&nbsp; ·&nbsp;&nbsp; Zinu lāzera drošību</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: LD4 - difrakcijas režģa pētīšana dubultstundā.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -3250,7 +3352,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
 <p class="p2">•&nbsp;&nbsp;Viļņa garumu nosaka no izmērītajiem attālumiem x un L.</p>
-<p class="p2">•&nbsp;&nbsp;sin α = x/<span class="rt"><span class="rv">x² + L²</span></span>; pēc tam λ = d·sin <span class="f"><span class="n">α</span><span class="d">k</span></span></p>
+<p class="p2">•&nbsp;&nbsp;sin α = x/<span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">x² + L²</span></span>; pēc tam λ = d·sin&nbsp;<span class="f"><span class="n">α</span><span class="d">k</span></span></p>
 <p class="p2">•&nbsp;&nbsp;Mēra starp simetriskajiem maksimumiem un dala ar 2.</p>
 <p class="p2">•&nbsp;&nbsp;Lāzera starā nekad neskatās.</p>
 </div>

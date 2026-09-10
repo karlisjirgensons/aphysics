@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">A = F·s · P = A/t · Vats un džouls</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kas fizikā ir darbs?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">A = F·s · P = <span class="f"><span class="n">A</span><span class="d">t</span></span> · Vats un džouls</p>
+<p class="p2" style="color:#C7D2FE">A = F·s · P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span>&nbsp;· Vats un džouls</p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.1. Darbs, enerģija, jauda</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -276,7 +303,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#FFFFFF;font-weight:700">2</p>
 </div>
 <div class="blk">
-<p class="p1">lietot P = <span class="f"><span class="n">A</span><span class="d">t</span></span></p>
+<p class="p1">lietot P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#FFFFFF;font-weight:700">3</p>
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">DARBS UN JAUDA</p>
 </div>
 <div class="tb" style="left:31.7350%;top:24.4778%;width:14.8514%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A = F · s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P = </p>
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A = F · s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P =&nbsp;</p>
 </div>
 <div class="tb" style="left:47.1239%;top:21.3815%;width:1.3865%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A</p>
@@ -342,6 +369,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.1. Darbs, enerģija, jauda</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -381,89 +409,90 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Mērvienības</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:23.4756%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:5.0251%;top:17.0667%;width:21.6755%;height:3.7333%;justify-content:flex-start">
+<i style="left:4.1251%;top:15.7333%;width:23.4813%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:5.0251%;top:17.0667%;width:21.6813%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Lielums</p>
 </div>
-<i style="left:27.6007%;top:15.7333%;width:21.0005%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:28.5007%;top:17.0667%;width:19.2005%;height:3.7333%;justify-content:flex-start">
+<i style="left:27.6064%;top:15.7333%;width:21.0057%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:28.5065%;top:17.0667%;width:19.2056%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Mērvienība</p>
 </div>
-<i style="left:48.6012%;top:15.7333%;width:23.2506%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:49.5012%;top:17.0667%;width:21.4505%;height:3.7333%;justify-content:flex-start">
+<i style="left:48.6121%;top:15.7333%;width:23.2563%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:49.5121%;top:17.0667%;width:21.4562%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Sakarība</p>
 </div>
-<i style="left:71.8518%;top:15.7333%;width:24.0006%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:72.7518%;top:17.0667%;width:22.2006%;height:3.7333%;justify-content:flex-start">
+<i style="left:71.8684%;top:15.7333%;width:24.0065%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:72.7684%;top:17.0667%;width:22.2064%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Piemērs</p>
 </div>
-<i style="left:4.1251%;top:22.4000%;width:23.4756%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:23.6000%;width:21.6755%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:22.4000%;width:23.4813%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:23.6000%;width:21.6813%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Darbs, enerģija</p>
 </div>
-<i style="left:27.6007%;top:22.4000%;width:21.0005%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:28.5007%;top:23.6000%;width:19.2005%;height:4.2667%;justify-content:flex-start">
+<i style="left:27.6064%;top:22.4000%;width:21.0057%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:28.5065%;top:23.6000%;width:19.2056%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">džouls (J)</p>
 </div>
-<i style="left:48.6012%;top:22.4000%;width:23.2506%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:49.5012%;top:23.6000%;width:21.4505%;height:4.2667%;justify-content:flex-start">
+<i style="left:48.6121%;top:22.4000%;width:23.2563%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:49.5121%;top:23.6000%;width:21.4562%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 J = 1 N·m</p>
 </div>
-<i style="left:71.8518%;top:22.4000%;width:24.0006%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.7518%;top:23.6000%;width:22.2006%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.8684%;top:22.4000%;width:24.0065%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.7684%;top:23.6000%;width:22.2064%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pacelt 1 kg par 10 cm</p>
 </div>
-<i style="left:4.1251%;top:29.0667%;width:23.4756%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:30.2667%;width:21.6755%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:29.0667%;width:23.4813%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:30.2667%;width:21.6813%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jauda</p>
 </div>
-<i style="left:27.6007%;top:29.0667%;width:21.0005%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:28.5007%;top:30.2667%;width:19.2005%;height:4.2667%;justify-content:flex-start">
+<i style="left:27.6064%;top:29.0667%;width:21.0057%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:28.5065%;top:30.2667%;width:19.2056%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">vats (W)</p>
 </div>
-<i style="left:48.6012%;top:29.0667%;width:23.2506%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:49.5012%;top:30.2667%;width:21.4505%;height:4.2667%;justify-content:flex-start">
+<i style="left:48.6121%;top:29.0667%;width:23.2563%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:49.5121%;top:30.2667%;width:21.4562%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 W = 1 J/s</p>
 </div>
-<i style="left:71.8518%;top:29.0667%;width:24.0006%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.7518%;top:30.2667%;width:22.2006%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.8684%;top:29.0667%;width:24.0065%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.7684%;top:30.2667%;width:22.2064%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">LED spuldze 8 W</p>
 </div>
-<i style="left:4.1251%;top:35.7333%;width:23.4756%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:36.9333%;width:21.6755%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:35.7333%;width:23.4813%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:36.9333%;width:21.6813%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Enerģija sadzīvē</p>
 </div>
-<i style="left:27.6007%;top:35.7333%;width:21.0005%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:28.5007%;top:36.9333%;width:19.2005%;height:4.2667%;justify-content:flex-start">
+<i style="left:27.6064%;top:35.7333%;width:21.0057%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:28.5065%;top:36.9333%;width:19.2056%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">kilovatstunda</p>
 </div>
-<i style="left:48.6012%;top:35.7333%;width:23.2506%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:49.5012%;top:36.9333%;width:21.4505%;height:4.2667%;justify-content:flex-start">
+<i style="left:48.6121%;top:35.7333%;width:23.2563%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:49.5121%;top:36.9333%;width:21.4562%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 kWh = 3,6·10⁶ J</p>
 </div>
-<i style="left:71.8518%;top:35.7333%;width:24.0006%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.7518%;top:36.9333%;width:22.2006%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.8684%;top:35.7333%;width:24.0065%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.7684%;top:36.9333%;width:22.2064%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">elektrības rēķins</p>
 </div>
-<i style="left:4.1251%;top:42.4000%;width:23.4756%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:43.6000%;width:21.6755%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:42.4000%;width:23.4813%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:43.6000%;width:21.6813%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Liela jauda</p>
 </div>
-<i style="left:27.6007%;top:42.4000%;width:21.0005%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:28.5007%;top:43.6000%;width:19.2005%;height:4.2667%;justify-content:flex-start">
+<i style="left:27.6064%;top:42.4000%;width:21.0057%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:28.5065%;top:43.6000%;width:19.2056%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">kilovats (kW)</p>
 </div>
-<i style="left:48.6012%;top:42.4000%;width:23.2506%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:49.5012%;top:43.6000%;width:21.4505%;height:4.2667%;justify-content:flex-start">
+<i style="left:48.6121%;top:42.4000%;width:23.2563%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:49.5121%;top:43.6000%;width:21.4562%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 kW = 10³ W</p>
 </div>
-<i style="left:71.8518%;top:42.4000%;width:24.0006%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.7518%;top:43.6000%;width:22.2006%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.8684%;top:42.4000%;width:24.0065%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.7684%;top:43.6000%;width:22.2064%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">tējkanna 2 kW</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">15.1. Darbs, enerģija, jauda</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -514,6 +543,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Darbs, jauda un enerģijas mērvienības</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -549,6 +579,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -600,6 +631,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -665,6 +697,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -741,6 +774,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -828,6 +862,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -906,9 +941,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F · s</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 250 N · 12 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 250 N · 12 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -923,6 +960,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1005,10 +1043,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F · s</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 250 N · 12 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A = 3,0·10³ J = 3,0 kJ</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 250 N · 12 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A = 3,0·10³ J = 3,0 kJ</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1024,6 +1066,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Skolēns (55 kg) uzskrien pa kāpnēm 6,0 m augstumā 8,0 s laikā. g = 9,81 m/s². Aprēķini viņa attīstīto jaudu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1092,6 +1135,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1144,6 +1188,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1214,6 +1259,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1296,7 +1342,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A = F·h</p>
 </div>
 <div class="tb" style="left:59.3627%;top:63.3370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2962%;top:58.8333%;width:2.0167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A</p>
@@ -1313,6 +1359,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1400,7 +1447,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:1.9905%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3424%;top:67.9212%;width:0.7286%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -1423,6 +1470,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1514,7 +1562,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:1.9905%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3424%;top:67.9212%;width:0.7286%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -1524,9 +1572,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1541,6 +1591,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1636,7 +1687,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:1.9905%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3424%;top:67.9212%;width:0.7286%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -1646,10 +1697,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A = 4905 · 12 = 5,9·10⁴ J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A = 4905 · 12 = 5,9·10⁴ J</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1664,6 +1719,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1760,7 +1816,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = F·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:1.9905%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3424%;top:67.9212%;width:0.7286%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -1770,11 +1826,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A = 4905 · 12 = 5,9·10⁴ J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;P = 5,9·10⁴ : 20 = 2,9·10³ W</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 500 · 9,81 = 4905 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A = 4905 · 12 = 5,9·10⁴ J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;P = 5,9·10⁴ : 20 = 2,9·10³ W</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1790,6 +1852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1859,6 +1922,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1904,6 +1968,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1966,6 +2031,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2038,7 +2104,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A = m·g·h</p>
 </div>
 <div class="tb" style="left:59.3627%;top:58.7370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2962%;top:54.2333%;width:2.0167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A</p>
@@ -2051,6 +2117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2127,7 +2194,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = m·g·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.3201%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7396%;top:65.9434%;width:0.8591%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -2146,6 +2213,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2226,7 +2294,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = m·g·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.3201%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7396%;top:65.9434%;width:0.8591%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -2236,9 +2304,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2249,6 +2319,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2333,7 +2404,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = m·g·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.3201%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7396%;top:65.9434%;width:0.8591%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -2343,10 +2414,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;P = 3237 : 8,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 3237 : 8,0</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2357,6 +2432,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2442,7 +2518,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = m·g·h</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.9448%;width:2.3201%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7396%;top:65.9434%;width:0.8591%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A</p>
@@ -2452,11 +2528,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;P = 3237 : 8,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;P = 4,0·10² W</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 55 · 9,81 · 6,0 = 3237 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 3237 : 8,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;P = 4,0·10² W</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2468,6 +2550,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Sildītāja jauda ir 1,8 kW, tas strādā 3,0 h. Aprēķini patērēto enerģiju kilovatstundās un džoulos!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2531,6 +2614,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2574,6 +2658,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2632,6 +2717,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2705,6 +2791,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2792,6 +2879,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2875,9 +2963,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 kWh = 3,6·10⁶ J</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2887,6 +2977,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2974,10 +3065,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 kWh = 3,6·10⁶ J</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A = 5,4 · 3,6·10⁶</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A = 5,4 · 3,6·10⁶</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2987,6 +3082,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3075,11 +3171,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 kWh = 3,6·10⁶ J</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A = 5,4 · 3,6·10⁶</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;A = 1,9·10⁷ J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A = 1,8 kW · 3,0 h = 5,4 kWh</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A = 5,4 · 3,6·10⁶</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;A = 1,9·10⁷ J</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3090,6 +3192,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3165,6 +3268,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu skaidrot darbu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot A = F·s&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot P = A/t&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pārvērst kWh un J</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: kinētiskā un potenciālā enerģija.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -3176,7 +3280,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
 <p class="p2">•&nbsp;&nbsp;A = F·s; darbs tiek veikts tikai tad, ja ķermenis pārvietojas.</p>
-<p class="p2">•&nbsp;&nbsp;P = <span class="f"><span class="n">A</span><span class="d">t</span></span> jauda rāda, cik ātri darbs tiek veikts.</p>
+<p class="p2">•&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span>&nbsp;jauda rāda, cik ātri darbs tiek veikts.</p>
 <p class="p2">•&nbsp;&nbsp;1 J = 1 N·m; 1 W = 1 J/s; 1 kWh = 3,6·10⁶ J.</p>
 <p class="p2">•&nbsp;&nbsp;Ceļot ķermeni, A = m·g·h.</p>
 </div>
@@ -3188,7 +3292,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">PAŠVĒRTĒJUMS — atzīmē, cik droši jūties</p>
-<p class="p2">Protu skaidrot darbu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot A = F·s&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot P = <span class="f"><span class="n">A</span><span class="d">t</span></span>&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pārvērst kWh un J</p>
+<p class="p2">Protu skaidrot darbu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot A = F·s&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span>&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp; Protu pārvērst kWh un J</p>
 <p class="p2" style="color:#4B5563;font-style:italic">Nākamā stunda: kinētiskā un potenciālā enerģija.</p>
 </div>
 </div>

@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Ep = mgh · Ep = kx²/2 · Atskaites līmenis</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kur «glabājas» pacelta ķermeņa enerģija?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">Ep = mgh · Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span> · Atskaites līmenis</p>
+<p class="p2" style="color:#C7D2FE">Ep = mgh · Ep =&nbsp;<span class="f"><span class="n">kx²</span><span class="d">2</span></span>&nbsp;· Atskaites līmenis</p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.5. Potenciālā enerģija</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -270,7 +297,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#FFFFFF;font-weight:700">1</p>
 </div>
 <div class="blk">
-<p class="p1">aprēķināt deformētas atsperes enerģiju Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></p>
+<p class="p1">aprēķināt deformētas atsperes enerģiju Ep =&nbsp;<span class="f"><span class="n">kx²</span><span class="d">2</span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#FFFFFF;font-weight:700">2</p>
@@ -303,60 +330,61 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Divi potenciālās enerģijas veidi</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.810cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:24.8320%;justify-content:flex-start">
-<p style="font-size:1.2125cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">GRAVITĀCIJAS</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Ep = mgh.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">h - augstums virs atskaites līmeņa.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Var būt arī negatīva.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Atskaites līmeni izvēlas brīvi.</p>
+<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.949cqw"></i>
+<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:29.7727%;justify-content:flex-start">
+<p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">GRAVITĀCIJAS</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.9375cqw">Ep = mgh.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">h - augstums virs atskaites līmeņa.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Var būt arī negatīva.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atskaites līmeni izvēlas brīvi.</p>
 </div>
-<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.810cqw"></i>
-<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:2.2044%;justify-content:flex-start">
-<p style="font-size:0.9990cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">ELASTĪBAS</p>
+<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.949cqw"></i>
+<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.2000cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">ELASTĪBAS</p>
 </div>
-<div class="tb" style="left:53.2251%;top:23.4151%;width:3.0976%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<div class="tb" style="left:53.2251%;top:24.5547%;width:3.6871%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:56.6227%;top:21.3884%;width:2.1750%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k x²</p>
+<div class="tb" style="left:57.3022%;top:22.1227%;width:2.6101%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k x²</p>
 </div>
-<i style="left:56.6227%;top:24.9351%;width:2.1750%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:56.6227%;top:25.4418%;width:2.1750%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<i style="left:57.3022%;top:26.4000%;width:2.6101%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:57.3022%;top:26.9867%;width:2.6101%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<div class="tb" style="left:59.2477%;top:23.4151%;width:0.5250%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
+<div class="tb" style="left:60.4523%;top:24.5547%;width:0.6000%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
 </div>
-<div class="tb" style="left:53.2251%;top:29.8655%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x - deformācija.</p>
+<div class="tb" style="left:53.2251%;top:32.2951%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x - deformācija.</p>
 </div>
-<div class="tb" style="left:53.2251%;top:34.2092%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmēr pozitīva.</p>
+<div class="tb" style="left:53.2251%;top:37.5076%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmēr pozitīva.</p>
 </div>
-<div class="tb" style="left:53.2251%;top:38.5529%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Nulle nedeformētā stāvoklī.</p>
+<div class="tb" style="left:53.2251%;top:42.7200%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Nulle nedeformētā stāvoklī.</p>
 </div>
-<i style="left:4.1251%;top:46.6667%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
-<div class="tb" style="left:5.9251%;top:48.4000%;width:88.1497%;height:3.2000%;justify-content:flex-start">
+<i style="left:4.1251%;top:51.6074%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
+<div class="tb" style="left:5.9251%;top:53.3407%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">KĀPĒC kx²/2</p>
 </div>
-<div class="tb" style="left:46.8124%;top:54.3648%;width:3.2360%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep = </p>
+<div class="tb" style="left:46.8124%;top:59.3055%;width:3.2360%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:50.3672%;top:52.2537%;width:2.3516%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:50.3672%;top:57.1944%;width:2.3516%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k x²</p>
 </div>
-<i style="left:50.3672%;top:55.9526%;width:2.3516%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:50.3672%;top:56.4759%;width:2.3516%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:50.3672%;top:60.8933%;width:2.3516%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:50.3672%;top:61.4167%;width:2.3516%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
-<div class="tb" style="left:5.9251%;top:60.2678%;width:88.1497%;height:7.3481%;justify-content:flex-start">
+<div class="tb" style="left:5.9251%;top:65.2086%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Atsperi stiepjot, spēks aug lineāri no 0 līdz kx. Vidējais spēks ir kx/2, un darbs A = (kx/2)·x = kx²/2. Tā ir laukums zem F(x) grafika - trijstūris.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.5. Potenciālā enerģija</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -367,10 +395,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">GRAVITĀCIJAS</p>
-<p class="p2">Ep = mgh.</p>
-<p class="p2">h - augstums virs atskaites līmeņa.</p>
-<p class="p2">Var būt arī negatīva.</p>
-<p class="p2">Atskaites līmeni izvēlas brīvi.</p>
+<p class="p1">Ep = mgh.</p>
+<p class="p1">h - augstums virs atskaites līmeņa.</p>
+<p class="p1">Var būt arī negatīva.</p>
+<p class="p1">Atskaites līmeni izvēlas brīvi.</p>
 </div>
 <div class="card" style="border-color:#047857">
 <p class="p3" style="color:#047857;font-weight:700">ELASTĪBAS</p>
@@ -380,9 +408,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2">Nulle nedeformētā stāvoklī.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
-<p class="p3" style="color:#B45309;font-weight:700">KĀPĒC <span class="f"><span class="n">kx²</span><span class="d">2</span></span></p>
+<p class="p3" style="color:#B45309;font-weight:700">KĀPĒC&nbsp;<span class="f"><span class="n">kx²</span><span class="d">2</span></span></p>
 <p class="mf" style="color:#4F46E5"><span class="mc">Ep = <span class="f"><span class="n">k x²</span><span class="d">2</span></span></span></p>
-<p class="p2" style="color:#4B5563">Atsperi stiepjot, spēks aug lineāri no 0 līdz kx. Vidējais spēks ir <span class="f"><span class="n">kx</span><span class="d">2</span></span> un darbs A = (<span class="f"><span class="n">kx</span><span class="d">2</span></span>)·x = <span class="f"><span class="n">kx²</span><span class="d">2</span></span> Tā ir laukums zem F(x) grafika - trijstūris.</p>
+<p class="p2" style="color:#4B5563">Atsperi stiepjot, spēks aug lineāri no 0 līdz kx. Vidējais spēks ir&nbsp;<span class="f"><span class="n">kx</span><span class="d">2</span></span>&nbsp;un darbs A = (<span class="f"><span class="n">kx</span><span class="d">2</span></span>)·x =&nbsp;<span class="f"><span class="n">kx²</span><span class="d">2</span></span>&nbsp;Tā ir laukums zem F(x) grafika - trijstūris.</p>
 </div>
 </div>
 </section>
@@ -443,7 +471,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:38.6344%;top:71.9704%;width:27.0073%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:39.5344%;top:75.4370%;width:3.4251%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.3095%;top:73.1852%;width:4.1168%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k·0,01</p>
@@ -462,7 +490,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:38.6344%;top:82.5185%;width:27.0073%;height:10.5481%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:39.5344%;top:85.9852%;width:3.4251%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.3095%;top:83.7333%;width:4.1168%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k·0,01</p>
@@ -478,6 +506,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.5. Potenciālā enerģija</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -528,6 +557,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Potenciālā enerģija gravitācijas laukā un atsperē</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -563,6 +593,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -615,6 +646,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -684,6 +716,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -764,6 +797,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -855,6 +889,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -937,9 +972,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -954,6 +991,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1040,10 +1078,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep = 117,6 · 25</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep = 117,6 · 25</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1058,6 +1100,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1145,11 +1188,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep = 117,6 · 25</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ep = 2940 J ≈ 2,9 kJ</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;mg = 12 · 9,8 = 117,6 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep = 117,6 · 25</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Ep = 2940 J ≈ 2,9 kJ</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1165,6 +1214,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis (m = 8,0 kg) pārvietots no 3,0 m augstuma uz 11 m augstumu. Aprēķini ΔEp! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1235,6 +1285,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1286,6 +1337,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1351,6 +1403,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1419,7 +1472,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.4127%;top:54.1370%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.9962%;top:49.6333%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">kx²</p>
@@ -1436,6 +1489,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1507,7 +1561,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.7239%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.2447%;top:63.3050%;width:2.2280%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -1530,6 +1584,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1605,7 +1660,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.7239%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.2447%;top:63.3050%;width:2.2280%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -1615,9 +1670,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1632,6 +1689,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1711,7 +1769,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.7239%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.2447%;top:63.3050%;width:2.2280%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -1721,10 +1779,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep = 400 · 0,0225 : 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep = 400 · 0,0225 : 2</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1739,6 +1801,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1819,7 +1882,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.7239%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.2447%;top:63.3050%;width:2.2280%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -1829,11 +1892,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep = 400 · 0,0225 : 2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ep = 4,5 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;x² = 0,0225 m²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep = 400 · 0,0225 : 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Ep = 4,5 J</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1849,6 +1918,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kā mainīsies atsperes enerģija, ja deformāciju palielinās 3 reizes?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1918,6 +1988,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1970,6 +2041,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2039,6 +2111,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2119,6 +2192,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2210,6 +2284,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2292,9 +2367,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔEp = mg(h₂ − h₁)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2309,6 +2386,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2395,10 +2473,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔEp = mg(h₂ − h₁)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ΔEp = 8,0 · 9,8 · 8,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ΔEp = 8,0 · 9,8 · 8,0</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2413,6 +2495,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2500,11 +2583,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔEp = mg(h₂ − h₁)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ΔEp = 8,0 · 9,8 · 8,0</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ΔEp = 627 J ≈ 6,3·10² J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δh = 11 − 3,0 = 8,0 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ΔEp = 8,0 · 9,8 · 8,0</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ΔEp = 627 J ≈ 6,3·10² J</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2520,6 +2609,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J. Par cik tā ir deformēta?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2590,6 +2680,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2641,6 +2732,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2705,7 +2797,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep₁</p>
 </div>
 <div class="tb" style="left:64.7545%;top:54.1370%;width:4.8668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2715,6 +2807,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2782,7 +2875,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
 </div>
 <div class="tb" style="left:7.0136%;top:50.8148%;width:2.2460%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2790,7 +2883,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.4127%;top:49.5370%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.9962%;top:45.0333%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">kx²</p>
@@ -2810,6 +2903,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2882,14 +2976,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
 </div>
 <div class="tb" style="left:7.0136%;top:50.8148%;width:2.2460%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:57.4938%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.0938%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.7497%;width:3.0607%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.4802%;top:62.7483%;width:1.8146%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -2907,7 +3001,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
 </div>
 <div class="tb" style="left:54.4709%;top:54.1370%;width:11.7836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;Ep₁ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;Ep₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:67.1046%;top:49.6333%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">kx₁²</p>
@@ -2924,6 +3018,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3000,14 +3095,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
 </div>
 <div class="tb" style="left:7.0136%;top:50.8148%;width:2.2460%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:57.4938%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.0938%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.7497%;width:3.0607%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.4802%;top:62.7483%;width:1.8146%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -3020,32 +3115,41 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep ~ x²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep₁ = kx₁²/2</p>
 </div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:39.0315%;width:6.2949%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ep₁ =&nbsp;</p>
+</div>
+<div class="tb" style="left:38.4770%;top:36.6389%;width:2.6032%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx₁²</p>
+</div>
+<i style="left:38.4770%;top:40.8452%;width:2.6032%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:38.4770%;top:41.4241%;width:2.6032%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+</div>
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:52.9444%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 </div>
-<div class="tb" style="left:46.4707%;top:60.0630%;width:12.0836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;Ep₂ = </p>
+<div class="tb" style="left:46.4707%;top:62.5815%;width:12.0836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;Ep₂ =&nbsp;</p>
 </div>
-<div class="tb" style="left:59.4044%;top:55.5593%;width:8.8502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:59.4044%;top:58.0778%;width:8.8502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k(3x₁)²</p>
 </div>
-<i style="left:59.4044%;top:63.5711%;width:8.8502%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:59.4044%;top:64.5667%;width:8.8502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:59.4044%;top:66.0896%;width:8.8502%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:59.4044%;top:67.0852%;width:8.8502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
-<div class="tb" style="left:69.2546%;top:60.0630%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = </p>
+<div class="tb" style="left:69.2546%;top:62.5815%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;=&nbsp;</p>
 </div>
-<div class="tb" style="left:73.4214%;top:55.5593%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:73.4214%;top:58.0778%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">9kx₁²</p>
 </div>
-<i style="left:73.4214%;top:63.5711%;width:6.7835%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:73.4214%;top:64.5667%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:73.4214%;top:66.0896%;width:6.7835%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:73.4214%;top:67.0852%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -3056,6 +3160,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3085,7 +3190,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Ep₁ = <span class="f"><span class="n">kx₁²</span><span class="d">2</span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">Ep₁ = <span class="f"><span class="n">kx₁²</span><span class="d">2</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -3136,14 +3241,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
 </div>
 <div class="tb" style="left:7.0136%;top:50.8148%;width:2.2460%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:57.4938%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.0938%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.7497%;width:3.0607%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.4802%;top:62.7483%;width:1.8146%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -3156,27 +3261,55 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep ~ x²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep₁ = kx₁²/2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep₂ = k(3x₁)²/2 = 9kx₁²/2</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
+<div class="tb" style="left:31.8008%;top:39.0315%;width:6.2949%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ep₁ =&nbsp;</p>
 </div>
-<div class="tb" style="left:56.0293%;top:62.5704%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;</p>
+<div class="tb" style="left:38.4770%;top:36.6389%;width:2.6032%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx₁²</p>
 </div>
-<div class="tb" style="left:61.2461%;top:58.0667%;width:4.5501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep₂</p>
+<i style="left:38.4770%;top:40.8452%;width:2.6032%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:38.4770%;top:41.4241%;width:2.6032%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<i style="left:61.2461%;top:66.0785%;width:4.5501%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:61.2461%;top:67.0741%;width:4.5501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep₁</p>
+<div class="tb" style="left:31.8008%;top:49.0833%;width:6.4543%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep₂ =&nbsp;</p>
 </div>
-<div class="tb" style="left:66.7962%;top:62.5704%;width:5.0001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 9</p>
+<div class="tb" style="left:38.6364%;top:46.6907%;width:4.5777%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k(3x₁)²</p>
+</div>
+<i style="left:38.6364%;top:50.8970%;width:4.5777%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:38.6364%;top:51.4759%;width:4.5777%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+</div>
+<div class="tb" style="left:43.7454%;top:49.0833%;width:1.8323%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
+</div>
+<div class="tb" style="left:45.9590%;top:46.6907%;width:3.4975%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">9kx₁²</p>
+</div>
+<i style="left:45.9590%;top:50.8970%;width:3.4975%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:45.9590%;top:51.4759%;width:3.4975%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+</div>
+<i style="left:31.8008%;top:58.4074%;width:64.0741%;height:20.7926%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.5704%;width:60.1740%;height:2.2687%;justify-content:flex-start">
+<p style="font-size:1.0282cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
+</div>
+<div class="tb" style="left:57.9034%;top:67.8945%;width:3.3547%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;</p>
+</div>
+<div class="tb" style="left:61.8681%;top:64.4717%;width:3.4581%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep₂</p>
+</div>
+<i style="left:61.8681%;top:70.5351%;width:3.4581%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:61.8681%;top:71.3173%;width:3.4581%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep₁</p>
+</div>
+<div class="tb" style="left:66.0862%;top:67.8945%;width:3.8361%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 9</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3186,6 +3319,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3215,8 +3349,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Ep₁ = <span class="f"><span class="n">kx₁²</span><span class="d">2</span></span></p>
-<p class="p2">2)&nbsp;&nbsp;Ep₂ = <span class="f"><span class="n">k(3x₁)²</span><span class="d">2</span></span> = <span class="f"><span class="n">9kx₁²</span><span class="d">2</span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">Ep₁ = <span class="f"><span class="n">kx₁²</span><span class="d">2</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">Ep₂ = <span class="f"><span class="n">k(3x₁)²</span><span class="d">2</span></span> = <span class="f"><span class="n">9kx₁²</span><span class="d">2</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -3267,14 +3401,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
 </div>
 <div class="tb" style="left:7.0136%;top:50.8148%;width:2.2460%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:57.4938%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:59.0938%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.7497%;width:3.0607%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.4802%;top:62.7483%;width:1.8146%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
@@ -3287,14 +3421,27 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep ~ x²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep₁ = kx₁²/2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep₂ = k(3x₁)²/2 = 9kx₁²/2</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ep₂/Ep₁ = 9</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.1111%;width:63.3241%;height:3.6741%;justify-content:flex-start">
+<p style="font-size:1.6667cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">…</p>
+</div>
+<div class="tb" style="left:31.8008%;top:43.4463%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3)&nbsp;&nbsp;</p>
+</div>
+<div class="tb" style="left:34.5634%;top:41.0537%;width:2.3907%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₂</p>
+</div>
+<i style="left:34.5634%;top:45.2600%;width:2.3907%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:34.5634%;top:45.8389%;width:2.3907%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep₁</p>
+</div>
+<div class="tb" style="left:37.4853%;top:43.4463%;width:2.7266%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 9</p>
+</div>
+<i style="left:31.8008%;top:52.7704%;width:64.0741%;height:26.4296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.743cqw"></i>
+<div class="tb" style="left:33.7508%;top:54.6370%;width:60.1740%;height:22.6963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Enerģija palielināsies 9 reizes.</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Tāpat kā kinētiskajā enerģijā - kvadrātiska atkarība.</p>
@@ -3307,6 +3454,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3336,9 +3484,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Ep₁ = <span class="f"><span class="n">kx₁²</span><span class="d">2</span></span></p>
-<p class="p2">2)&nbsp;&nbsp;Ep₂ = <span class="f"><span class="n">k(3x₁)²</span><span class="d">2</span></span> = <span class="f"><span class="n">9kx₁²</span><span class="d">2</span></span></p>
-<p class="p2">3)&nbsp;&nbsp;<span class="f"><span class="n">Ep₂</span><span class="d">Ep₁</span></span> = 9</p>
+<p class="p2" style="color:#4B5563">…</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc"><span class="f"><span class="n">Ep₂</span><span class="d">Ep₁</span></span> = 9</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -3377,6 +3524,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3428,6 +3576,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3470,14 +3619,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3493,6 +3642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3507,9 +3657,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -3539,47 +3689,49 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
-<i style="left:4.1251%;top:44.3559%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:45.9559%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:43.1606%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:44.7606%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:49.7463%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:48.1496%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:39.3074%;width:60.1740%;height:2.9852%;justify-content:flex-start">
+<div class="tb" style="left:33.7508%;top:34.0926%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:57.4127%;top:48.9444%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep = </p>
+<div class="tb" style="left:57.4127%;top:43.7296%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:64.9962%;top:44.4407%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:64.9962%;top:39.2259%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">kx²</p>
 </div>
-<i style="left:64.9962%;top:52.4526%;width:4.2668%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.9962%;top:53.4481%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:64.9962%;top:47.2378%;width:4.2668%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:64.9962%;top:48.2333%;width:4.2668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
-<div class="tb" style="left:59.9627%;top:65.2852%;width:2.5001%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x = </p>
+<div class="tb" style="left:54.7309%;top:63.4778%;width:4.8501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x =&nbsp;</p>
 </div>
-<div class="tb" style="left:62.3128%;top:65.2852%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
+<svg class="rg" style="left:60.4311%;top:57.6111%;width:3.3334%;height:17.7778%;fill:#3730A3" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:65.4445%;top:58.9741%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2Ep</p>
 </div>
-<div class="tb" style="left:63.1462%;top:65.2852%;width:4.2168%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2Ep/k</p>
+<i style="left:65.4445%;top:66.9859%;width:5.1001%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:65.4445%;top:67.9815%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k</p>
 </div>
-<i style="left:63.1462%;top:65.8926%;width:4.2168%;height:0.1867%;background:#3730A3"></i>
+<i style="left:63.7024%;top:57.6111%;width:7.9923%;height:0.3259%;background:#3730A3"></i>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
@@ -3588,6 +3740,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3602,18 +3755,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">x = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="mf" style="color:#4F46E5"><span class="mc">Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></span></p>
-<p class="mf" style="color:#4F46E5"><span class="mc">x = <span class="rt"><span class="rv">2Ep/k</span></span></span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">x = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">2Ep</span><span class="d">k</span></span></span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">6. uzdevums.&nbsp;&nbsp;Ķermeni (m = 5,0 kg) paceļ 10 m augstumā uz Marsa (g = 3,7 m/s²) un uz Zemes (g = 9,8 m/s²). Salīdzini potenciālās enerģijas!</p>
@@ -3639,46 +3792,48 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
-<i style="left:4.1251%;top:44.3559%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:45.9559%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:43.1606%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:44.7606%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:49.7463%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:48.1496%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5930%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1930%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:52.6243%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.2243%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:62.2783%;width:3.2818%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<div class="tb" style="left:4.1251%;top:59.6653%;width:2.9502%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:7.7350%;top:60.1250%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
+<div class="tb" style="left:7.3528%;top:57.7400%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
 </div>
-<i style="left:7.7350%;top:63.9000%;width:1.9524%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.7350%;top:64.4317%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<i style="left:7.3528%;top:61.1040%;width:1.7457%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.3528%;top:61.5907%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.5255%;width:1.4485%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
+<div class="tb" style="left:4.1251%;top:67.7382%;width:2.1237%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4236%;top:69.5255%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.5263%;top:65.2302%;width:1.4250%;height:7.6000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:8.6695%;top:65.8129%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep</p>
 </div>
-<div class="tb" style="left:5.8923%;top:69.5255%;width:2.3626%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep/k</p>
+<i style="left:8.6695%;top:69.1769%;width:2.1660%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.6695%;top:69.6635%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
-<i style="left:5.8923%;top:69.8672%;width:2.3626%;height:0.1867%;background:#312E81"></i>
+<i style="left:7.9248%;top:65.2302%;width:3.4883%;height:0.1393%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -3693,6 +3848,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3707,18 +3863,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">x = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt"><span class="rv">2Ep/k</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">2Ep</span><span class="d">k</span></span></span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -3748,50 +3904,54 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
-<i style="left:4.1251%;top:44.3559%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:45.9559%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:43.1606%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:44.7606%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:49.7463%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:48.1496%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5930%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1930%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:52.6243%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.2243%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:62.2783%;width:3.2818%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<div class="tb" style="left:4.1251%;top:59.6653%;width:2.9502%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:7.7350%;top:60.1250%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
+<div class="tb" style="left:7.3528%;top:57.7400%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
 </div>
-<i style="left:7.7350%;top:63.9000%;width:1.9524%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.7350%;top:64.4317%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<i style="left:7.3528%;top:61.1040%;width:1.7457%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.3528%;top:61.5907%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.5255%;width:1.4485%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
+<div class="tb" style="left:4.1251%;top:67.7382%;width:2.1237%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4236%;top:69.5255%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.5263%;top:65.2302%;width:1.4250%;height:7.6000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:8.6695%;top:65.8129%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep</p>
 </div>
-<div class="tb" style="left:5.8923%;top:69.5255%;width:2.3626%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep/k</p>
+<i style="left:8.6695%;top:69.1769%;width:2.1660%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.6695%;top:69.6635%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
-<i style="left:5.8923%;top:69.8672%;width:2.3626%;height:0.1867%;background:#312E81"></i>
+<i style="left:7.9248%;top:65.2302%;width:3.4883%;height:0.1393%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3806,6 +3966,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3820,18 +3981,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">x = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt"><span class="rv">2Ep/k</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">2Ep</span><span class="d">k</span></span></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3865,51 +4026,57 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
-<i style="left:4.1251%;top:44.3559%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:45.9559%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:43.1606%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:44.7606%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:49.7463%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:48.1496%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5930%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1930%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:52.6243%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.2243%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:62.2783%;width:3.2818%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<div class="tb" style="left:4.1251%;top:59.6653%;width:2.9502%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:7.7350%;top:60.1250%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
+<div class="tb" style="left:7.3528%;top:57.7400%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
 </div>
-<i style="left:7.7350%;top:63.9000%;width:1.9524%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.7350%;top:64.4317%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<i style="left:7.3528%;top:61.1040%;width:1.7457%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.3528%;top:61.5907%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.5255%;width:1.4485%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
+<div class="tb" style="left:4.1251%;top:67.7382%;width:2.1237%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4236%;top:69.5255%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.5263%;top:65.2302%;width:1.4250%;height:7.6000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:8.6695%;top:65.8129%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep</p>
 </div>
-<div class="tb" style="left:5.8923%;top:69.5255%;width:2.3626%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep/k</p>
+<i style="left:8.6695%;top:69.1769%;width:2.1660%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.6695%;top:69.6635%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
-<i style="left:5.8923%;top:69.8672%;width:2.3626%;height:0.1867%;background:#312E81"></i>
+<i style="left:7.9248%;top:65.2302%;width:3.4883%;height:0.1393%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;x² = 16 : 250 = 0,064 m²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;x² = 16 : 250 = 0,064 m²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3924,6 +4091,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3938,18 +4106,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">x = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt"><span class="rv">2Ep/k</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">2Ep</span><span class="d">k</span></span></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3984,52 +4152,60 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperē (k = 250 N/m) uzkrāta enerģija 8,0 J.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik tā ir deformēta?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.5237%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
+<div class="tb" style="left:4.1251%;top:35.1224%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">k = 250 N/m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.5093%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
+<div class="tb" style="left:4.1251%;top:38.6859%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = 8,0 J</p>
 </div>
-<i style="left:4.1251%;top:44.3559%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:45.9559%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:43.1606%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:44.7606%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:49.7463%;width:24.0006%;height:3.5133%;justify-content:flex-start">
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
+<div class="tb" style="left:4.1251%;top:48.1496%;width:24.0006%;height:3.1413%;justify-content:flex-start">
+<p style="font-size:1.4240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">x = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5930%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1930%;width:24.0006%;height:3.3181%;justify-content:flex-start">
-<p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:52.6243%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.2243%;width:24.0006%;height:2.9668%;justify-content:flex-start">
+<p style="font-size:1.3448cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:62.2783%;width:3.2818%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep = </p>
+<div class="tb" style="left:4.1251%;top:59.6653%;width:2.9502%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ep =&nbsp;</p>
 </div>
-<div class="tb" style="left:7.7350%;top:60.1250%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
+<div class="tb" style="left:7.3528%;top:57.7400%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">kx²</p>
 </div>
-<i style="left:7.7350%;top:63.9000%;width:1.9524%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.7350%;top:64.4317%;width:1.9524%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+<i style="left:7.3528%;top:61.1040%;width:1.7457%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.3528%;top:61.5907%;width:1.7457%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.5255%;width:1.4485%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x = </p>
+<div class="tb" style="left:4.1251%;top:67.7382%;width:2.1237%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">x =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4236%;top:69.5255%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.5263%;top:65.2302%;width:1.4250%;height:7.6000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:8.6695%;top:65.8129%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep</p>
 </div>
-<div class="tb" style="left:5.8923%;top:69.5255%;width:2.3626%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2Ep/k</p>
+<i style="left:8.6695%;top:69.1769%;width:2.1660%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.6695%;top:69.6635%;width:2.1660%;height:3.0907%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
-<i style="left:5.8923%;top:69.8672%;width:2.3626%;height:0.1867%;background:#312E81"></i>
+<i style="left:7.9248%;top:65.2302%;width:3.4883%;height:0.1393%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;x² = 16 : 250 = 0,064 m²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;x = 0,25 m = 25 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2Ep = 16 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;x² = 16 : 250 = 0,064 m²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;x = 0,25 m = 25 cm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4045,6 +4221,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4059,18 +4236,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p1">Par cik tā ir deformēta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">k = 250 N/m</p>
-<p class="p2">Ep = 8,0 J</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">k = 250 N/m</p>
+<p class="p3">Ep = 8,0 J</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">x = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">x = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="mf" style="color:#374151"><span class="mc">Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span></span></p>
-<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt"><span class="rv">2Ep/k</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">x = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">2Ep</span><span class="d">k</span></span></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -4112,6 +4289,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4159,6 +4337,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4224,6 +4403,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4303,6 +4483,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4393,6 +4574,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4478,9 +4660,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4491,6 +4675,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4580,10 +4765,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep(Z) = 5,0 · 9,8 · 10 = 490 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep(Z) = 5,0 · 9,8 · 10 = 490 J</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4594,6 +4783,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4684,11 +4874,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Ep(Z) = 5,0 · 9,8 · 10 = 490 J</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Attiecība 490 : 185 ≈ 2,6</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ep(M) = 5,0 · 3,7 · 10 = 185 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Ep(Z) = 5,0 · 9,8 · 10 = 490 J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Attiecība 490 : 185 ≈ 2,6</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4700,6 +4896,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Ūdenskrātuvē ir 5,0·10⁵ m³ ūdens, kas atrodas vidēji 40 m virs turbīnas. Aprēķini uzkrāto potenciālo enerģiju! (ρ = 1000 kg/m³; g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4765,6 +4962,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4811,6 +5009,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4875,6 +5074,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4954,6 +5154,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5047,6 +5248,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5136,9 +5338,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -5148,6 +5352,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5241,10 +5446,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;mg = 4,9·10⁹ N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;mg = 4,9·10⁹ N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -5254,6 +5463,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5348,11 +5558,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ep = mgh</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;mg = 4,9·10⁹ N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ep = 4,9·10⁹ · 40 = 1,96·10¹¹ J</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 1000 · 5,0·10⁵ = 5,0·10⁸ kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;mg = 4,9·10⁹ N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Ep = 4,9·10⁹ · 40 = 1,96·10¹¹ J</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -5363,6 +5579,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5440,6 +5657,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu rēķināt Ep = mgh&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt atsperes enerģiju&nbsp;&nbsp; ·&nbsp;&nbsp; Protu izvēlēties atskaites līmeni&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt ΔEp</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: enerģijas nezūdamība un LD4 plāns.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -5450,7 +5668,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p class="p2">•&nbsp;&nbsp;Ep = mgh gravitācijas laukā; Ep = <span class="f"><span class="n">kx²</span><span class="d">2</span></span> atsperē.</p>
+<p class="p2">•&nbsp;&nbsp;Ep = mgh gravitācijas laukā; Ep =&nbsp;<span class="f"><span class="n">kx²</span><span class="d">2</span></span>&nbsp;atsperē.</p>
 <p class="p2">•&nbsp;&nbsp;Atskaites līmeni izvēlas brīvi, bet nemaina uzdevuma vidū.</p>
 <p class="p2">•&nbsp;&nbsp;Svarīga ir Ep IZMAIŅA, ne absolūtā vērtība.</p>
 <p class="p2">•&nbsp;&nbsp;Abas potenciālās enerģijas ir kvadrātiski atkarīgas no attiecīgā lieluma vai lineāri no h.</p>

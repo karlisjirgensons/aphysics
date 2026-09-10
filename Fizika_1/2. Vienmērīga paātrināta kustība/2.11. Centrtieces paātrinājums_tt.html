@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">a = v²/R = ω²R · Virziens uz centru</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -190,7 +216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h2" style="color:#C7D2FE">Kāpēc kustība pa riņķi ir paātrināta?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#C7D2FE">a = <span class="f"><span class="n">v²</span><span class="d">R</span></span> = ω²R · Virziens uz centru</p>
+<p class="p2" style="color:#C7D2FE">a =&nbsp;<span class="f"><span class="n">v²</span><span class="d">R</span></span>&nbsp;= ω²R · Virziens uz centru</p>
 </div>
 </div>
 </section>
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2.11. Centrtieces paātrinājums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -270,7 +297,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#FFFFFF;font-weight:700">1</p>
 </div>
 <div class="blk">
-<p class="p1">lietot a = <span class="f"><span class="n">v²</span><span class="d">R</span></span> un a = ω²R;</p>
+<p class="p1">lietot a =&nbsp;<span class="f"><span class="n">v²</span><span class="d">R</span></span>&nbsp;un a = ω²R;</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#FFFFFF;font-weight:700">2</p>
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">CENTRTIECES PAĀTRINĀJUMS</p>
 </div>
 <div class="tb" style="left:39.2003%;top:24.4778%;width:3.4615%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.1993%;top:21.3815%;width:1.8678%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v²</p>
@@ -318,7 +345,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
 </div>
 <div class="tb" style="left:45.7546%;top:24.4778%;width:8.7440%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = ω² R = </p>
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= ω² R =&nbsp;</p>
 </div>
 <div class="tb" style="left:55.0361%;top:21.3815%;width:5.0762%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">4π² R</p>
@@ -338,6 +365,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2.11. Centrtieces paātrinājums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -427,41 +455,42 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:71.0430%;top:43.6000%;width:23.9319%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">400 g</p>
 </div>
-<i style="left:4.1251%;top:51.2000%;width:29.0832%;height:18.6667%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.525cqw"></i>
-<div class="tb" style="left:5.9251%;top:53.1840%;width:25.4831%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">MAZĀKS R</p>
+<i style="left:4.1251%;top:51.2000%;width:29.0832%;height:23.8741%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.671cqw"></i>
+<div class="tb" style="left:5.9251%;top:53.1840%;width:25.4831%;height:4.4089%;justify-content:flex-start">
+<p style="font-size:2.0001cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">MAZĀKS R</p>
 </div>
-<div class="tb" style="left:5.9251%;top:59.6600%;width:1.9733%;height:2.7653%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2740cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<div class="tb" style="left:5.9251%;top:61.8187%;width:2.5811%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
-<div class="tb" style="left:8.1310%;top:57.9373%;width:2.8624%;height:2.7653%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2740cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
+<div class="tb" style="left:8.8662%;top:59.5218%;width:3.8166%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
 </div>
-<i style="left:8.1310%;top:60.9360%;width:2.8624%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.1310%;top:61.3827%;width:2.8624%;height:2.7653%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2740cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R aug</p>
+<i style="left:8.8662%;top:63.5556%;width:3.8166%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:8.8662%;top:64.1155%;width:3.8166%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R aug</p>
 </div>
-<div class="tb" style="left:11.3759%;top:59.6600%;width:0.4688%;height:2.7653%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2740cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
+<div class="tb" style="left:13.1928%;top:61.8187%;width:0.5750%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:64.9280%;width:25.4831%;height:2.8107%;justify-content:flex-start">
-<p style="font-size:1.2740cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ass līkums - bīstamāks.</p>
+<div class="tb" style="left:5.9251%;top:68.8427%;width:25.4831%;height:3.7476%;justify-content:flex-start">
+<p style="font-size:1.7000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ass līkums - bīstamāks.</p>
 </div>
-<i style="left:35.4584%;top:51.2000%;width:29.0832%;height:18.6667%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.525cqw"></i>
-<div class="tb" style="left:37.2584%;top:53.1840%;width:25.4831%;height:14.6987%;justify-content:flex-start">
-<p style="font-size:1.7073cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">LIELĀKS v</p>
-<p style="font-size:1.4511cqw;color:#374151;text-align:left;padding-top:0.8531cqw">a ~ v² - aug kvadrātā.</p>
-<p style="font-size:1.4511cqw;color:#374151;text-align:left;padding-top:0.4261cqw">Divreiz ātrāk - četrreiz lielāks a.</p>
+<i style="left:35.4584%;top:51.2000%;width:29.0832%;height:23.8741%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:0.671cqw"></i>
+<div class="tb" style="left:37.2584%;top:53.1840%;width:25.4831%;height:19.9061%;justify-content:flex-start">
+<p style="font-size:2.0834cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">LIELĀKS v</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.0417cqw">a ~ v² - aug kvadrātā.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.5208cqw">Divreiz ātrāk - četrreiz lielāks a.</p>
 </div>
-<i style="left:66.7917%;top:51.2000%;width:29.0832%;height:18.6667%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.525cqw"></i>
-<div class="tb" style="left:68.5917%;top:53.1840%;width:25.4831%;height:14.6987%;justify-content:flex-start">
-<p style="font-size:1.9573cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">VIRZIENS</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.9781cqw">Vienmēr uz centru.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.4886cqw">Perpendikulāri ātrumam.</p>
+<i style="left:66.7917%;top:51.2000%;width:29.0832%;height:23.8741%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.671cqw"></i>
+<div class="tb" style="left:68.5917%;top:53.1840%;width:25.4831%;height:19.9061%;justify-content:flex-start">
+<p style="font-size:2.0834cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">VIRZIENS</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Vienmēr uz centru.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.5208cqw">Perpendikulāri ātrumam.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2.11. Centrtieces paātrinājums</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -495,12 +524,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 </div>
 <div class="card" style="border-color:#B91C1C">
-<p class="p2" style="color:#B91C1C;font-weight:700">MAZĀKS R</p>
+<p class="p1" style="color:#B91C1C;font-weight:700">MAZĀKS R</p>
 </div>
 <div class="card" style="border-color:#B91C1C">
-<p class="p2" style="color:#B91C1C;font-weight:700">LIELĀKS v</p>
-<p class="p3">a ~ v² - aug kvadrātā.</p>
-<p class="p3">Divreiz ātrāk - četrreiz lielāks a.</p>
+<p class="p1" style="color:#B91C1C;font-weight:700">LIELĀKS v</p>
+<p class="p2">a ~ v² - aug kvadrātā.</p>
+<p class="p2">Divreiz ātrāk - četrreiz lielāks a.</p>
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p1" style="color:#7C3AED;font-weight:700">VIRZIENS</p>
@@ -509,7 +538,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#B91C1C">
 <p class="mf" style="color:#374151"><span class="mc">a = <span class="f"><span class="n">v²</span><span class="d">R aug</span></span>.</span></p>
-<p class="p3">Ass līkums - bīstamāks.</p>
+<p class="p2">Ass līkums - bīstamāks.</p>
 </div>
 </div>
 </section>
@@ -525,6 +554,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Centrtieces paātrinājums un pārslodze</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -560,6 +590,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -611,6 +642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -676,6 +708,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -744,7 +777,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0711%;top:54.1370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.8879%;top:49.6333%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v²</p>
@@ -761,6 +794,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -832,7 +866,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:1.4278%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -855,6 +889,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -930,7 +965,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:1.4278%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -940,9 +975,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -957,6 +994,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1036,7 +1074,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:1.4278%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1046,10 +1084,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v² = 400 m²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v² = 400 m²/s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1064,6 +1106,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1144,7 +1187,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:1.4278%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1154,11 +1197,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v² = 400 m²/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = 400 : 100 = 4,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 72 : 3,6 = 20 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v² = 400 m²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = 400 : 100 = 4,0 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1174,6 +1223,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Karuseļa rādiuss 5,0 m, apgrieziena periods 4,0 s. Aprēķini centrtieces paātrinājumu! (π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1243,6 +1293,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1294,6 +1345,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1358,7 +1410,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a₁</p>
 </div>
 <div class="tb" style="left:63.8712%;top:54.1370%;width:4.8668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = ?</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1368,6 +1420,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1435,7 +1488,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
 </div>
 <div class="tb" style="left:6.3803%;top:52.0413%;width:2.4052%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1443,7 +1496,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0711%;top:54.1370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.8879%;top:49.6333%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v²</p>
@@ -1460,6 +1513,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1531,14 +1585,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
 </div>
 <div class="tb" style="left:6.3803%;top:52.0413%;width:2.4052%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:59.1263%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:60.7263%;width:24.0006%;height:3.3181%;justify-content:flex-start">
 <p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8117%;width:2.4291%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8824%;top:64.6583%;width:1.2511%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1553,7 +1607,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
 </div>
 <div class="tb" style="left:56.1293%;top:54.1370%;width:10.0169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;a₁ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;a₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:66.9963%;top:49.6333%;width:3.5501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v₁²</p>
@@ -1570,6 +1624,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1645,14 +1700,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
 </div>
 <div class="tb" style="left:6.3803%;top:52.0413%;width:2.4052%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:59.1263%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:60.7263%;width:24.0006%;height:3.3181%;justify-content:flex-start">
 <p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8117%;width:2.4291%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8824%;top:64.6583%;width:1.2511%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1662,32 +1717,41 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = v₁²/R</p>
 </div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:39.0315%;width:5.3475%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;a₁ =&nbsp;</p>
+</div>
+<div class="tb" style="left:37.5296%;top:36.6389%;width:1.8240%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₁²</p>
+</div>
+<i style="left:37.5296%;top:40.8452%;width:1.8240%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:37.5296%;top:41.4241%;width:1.8240%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
+</div>
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:52.9444%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 </div>
-<div class="tb" style="left:48.9041%;top:60.0630%;width:10.3169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;a₂ = </p>
+<div class="tb" style="left:48.9041%;top:62.5815%;width:10.3169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;a₂ =&nbsp;</p>
 </div>
-<div class="tb" style="left:60.0711%;top:55.5593%;width:7.3002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:60.0711%;top:58.0778%;width:7.3002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">(3v₁)²</p>
 </div>
-<i style="left:60.0711%;top:63.5711%;width:7.3002%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:60.0711%;top:64.5667%;width:7.3002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:60.0711%;top:66.0896%;width:7.3002%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:60.0711%;top:67.0852%;width:7.3002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
 </div>
-<div class="tb" style="left:68.3713%;top:60.0630%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = </p>
+<div class="tb" style="left:68.3713%;top:62.5815%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;=&nbsp;</p>
 </div>
-<div class="tb" style="left:72.5381%;top:55.5593%;width:5.2335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:72.5381%;top:58.0778%;width:5.2335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">9v₁²</p>
 </div>
-<i style="left:72.5381%;top:63.5711%;width:5.2335%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:72.5381%;top:64.5667%;width:5.2335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:72.5381%;top:66.0896%;width:5.2335%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:72.5381%;top:67.0852%;width:5.2335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -1698,6 +1762,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1726,7 +1791,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a₁ = <span class="f"><span class="n">v₁²</span><span class="d">R</span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">a₁ = <span class="f"><span class="n">v₁²</span><span class="d">R</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -1777,14 +1842,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
 </div>
 <div class="tb" style="left:6.3803%;top:52.0413%;width:2.4052%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:59.1263%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:60.7263%;width:24.0006%;height:3.3181%;justify-content:flex-start">
 <p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8117%;width:2.4291%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8824%;top:64.6583%;width:1.2511%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1794,27 +1859,55 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = v₁²/R</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a₂ = (3v₁)²/R = 9v₁²/R</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
+<div class="tb" style="left:31.8008%;top:39.0315%;width:5.3475%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;a₁ =&nbsp;</p>
 </div>
-<div class="tb" style="left:56.9127%;top:62.5704%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;</p>
+<div class="tb" style="left:37.5296%;top:36.6389%;width:1.8240%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₁²</p>
 </div>
-<div class="tb" style="left:62.1295%;top:58.0667%;width:2.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a₂</p>
+<i style="left:37.5296%;top:40.8452%;width:1.8240%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:37.5296%;top:41.4241%;width:1.8240%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
-<i style="left:62.1295%;top:66.0785%;width:2.7834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:62.1295%;top:67.0741%;width:2.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a₁</p>
+<div class="tb" style="left:31.8008%;top:49.0833%;width:5.5069%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;a₂ =&nbsp;</p>
 </div>
-<div class="tb" style="left:65.9129%;top:62.5704%;width:5.0001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 9</p>
+<div class="tb" style="left:37.6890%;top:46.6907%;width:3.7985%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(3v₁)²</p>
+</div>
+<i style="left:37.6890%;top:50.8970%;width:3.7985%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:37.6890%;top:51.4759%;width:3.7985%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
+</div>
+<div class="tb" style="left:42.0188%;top:49.0833%;width:1.8323%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
+</div>
+<div class="tb" style="left:44.2324%;top:46.6907%;width:2.7183%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">9v₁²</p>
+</div>
+<i style="left:44.2324%;top:50.8970%;width:2.7183%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:44.2324%;top:51.4759%;width:2.7183%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
+</div>
+<i style="left:31.8008%;top:58.4074%;width:64.0741%;height:20.7926%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.5704%;width:60.1740%;height:2.2687%;justify-content:flex-start">
+<p style="font-size:1.0282cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
+</div>
+<div class="tb" style="left:58.5747%;top:67.8945%;width:3.3547%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;</p>
+</div>
+<div class="tb" style="left:62.5395%;top:64.4717%;width:2.1154%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a₂</p>
+</div>
+<i style="left:62.5395%;top:70.5351%;width:2.1154%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:62.5395%;top:71.3173%;width:2.1154%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a₁</p>
+</div>
+<div class="tb" style="left:65.4149%;top:67.8945%;width:3.8361%;height:5.4945%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 9</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1824,6 +1917,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1852,8 +1946,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a₁ = <span class="f"><span class="n">v₁²</span><span class="d">R</span></span></p>
-<p class="p2">2)&nbsp;&nbsp;a₂ = <span class="f"><span class="n">(3v₁)²</span><span class="d">R</span></span> = <span class="f"><span class="n">9v₁²</span><span class="d">R</span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">a₁ = <span class="f"><span class="n">v₁²</span><span class="d">R</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">a₂ = <span class="f"><span class="n">(3v₁)²</span><span class="d">R</span></span> = <span class="f"><span class="n">9v₁²</span><span class="d">R</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -1904,14 +1998,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
 </div>
 <div class="tb" style="left:6.3803%;top:52.0413%;width:2.4052%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ?</p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ?</p>
 </div>
 <i style="left:4.1251%;top:59.1263%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:60.7263%;width:24.0006%;height:3.3181%;justify-content:flex-start">
 <p style="font-size:1.5042cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:66.8117%;width:2.4291%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8824%;top:64.6583%;width:1.2511%;height:3.4567%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -1921,14 +2015,27 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = v₁²/R</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a₂ = (3v₁)²/R = 9v₁²/R</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a₂ / a₁ = 9</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.1111%;width:63.3241%;height:3.6741%;justify-content:flex-start">
+<p style="font-size:1.6667cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">…</p>
+</div>
+<div class="tb" style="left:31.8008%;top:43.4463%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3)&nbsp;&nbsp;</p>
+</div>
+<div class="tb" style="left:34.5634%;top:41.0537%;width:1.4433%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₂</p>
+</div>
+<i style="left:34.5634%;top:45.2600%;width:1.4433%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:34.5634%;top:45.8389%;width:1.4433%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a₁</p>
+</div>
+<div class="tb" style="left:36.5379%;top:43.4463%;width:2.7266%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 9</p>
+</div>
+<i style="left:31.8008%;top:52.7704%;width:64.0741%;height:26.4296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.743cqw"></i>
+<div class="tb" style="left:33.7508%;top:54.6370%;width:60.1740%;height:22.6963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Palielināsies 9 reizes.</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Tāpēc pirms līkuma vienmēr samazina ātrumu, nevis tikai «brauc uzmanīgi».</p>
@@ -1941,6 +2048,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Aprēķini centrtieces paātrinājumu uz ekvatora! (R = 6,4·10⁶ m; T = 24 h = 86 400 s; π² ≈ 9,87)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1969,9 +2077,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a₁ = <span class="f"><span class="n">v₁²</span><span class="d">R</span></span></p>
-<p class="p2">2)&nbsp;&nbsp;a₂ = <span class="f"><span class="n">(3v₁)²</span><span class="d">R</span></span> = <span class="f"><span class="n">9v₁²</span><span class="d">R</span></span></p>
-<p class="p2">3)&nbsp;&nbsp;<span class="f"><span class="n">a₂</span><span class="d">a₁</span></span> = 9</p>
+<p class="p2" style="color:#4B5563">…</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc"><span class="f"><span class="n">a₂</span><span class="d">a₁</span></span> = 9</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2010,6 +2117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2061,6 +2169,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2126,6 +2235,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2194,7 +2304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.1127%;top:54.1370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.9295%;top:49.6333%;width:6.6335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">4π²R</p>
@@ -2211,6 +2321,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2282,7 +2393,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -2305,6 +2416,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2380,7 +2492,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -2390,9 +2502,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2407,6 +2521,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2486,7 +2601,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -2496,10 +2611,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T² = 16 s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T² = 16 s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2514,6 +2633,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2594,7 +2714,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -2604,11 +2724,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T² = 16 s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = 39,5 · 5,0 : 16 = 12,3 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π² = 39,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T² = 16 s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = 39,5 · 5,0 : 16 = 12,3 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2624,6 +2750,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Automašīna brauc ar 15 m/s. Cik liels jābūt līkuma rādiusam, lai centrtieces paātrinājums būtu 2,5 m/s²?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2693,6 +2820,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2744,6 +2872,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2809,6 +2938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2877,7 +3007,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.1127%;top:54.1370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.9295%;top:49.6333%;width:6.6335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">4π²R</p>
@@ -2894,6 +3024,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2965,7 +3096,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -2988,6 +3119,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3063,7 +3195,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -3073,9 +3205,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3090,6 +3224,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3169,7 +3304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -3179,10 +3314,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3197,6 +3336,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3277,7 +3417,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.7509%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2716%;top:63.3050%;width:3.5285%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -3287,11 +3427,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = 2,53·10⁸ : 7,46·10⁹ ≈ 0,034 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;4π²R = 39,5 · 6,4·10⁶ = 2,53·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = 2,53·10⁸ : 7,46·10⁹ ≈ 0,034 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3307,6 +3453,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3372,6 +3519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3416,6 +3564,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3474,6 +3623,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3539,7 +3689,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0711%;top:44.7963%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.8879%;top:40.2926%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v²</p>
@@ -3549,7 +3699,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
 </div>
 <div class="tb" style="left:58.9544%;top:63.4778%;width:5.2001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.0045%;top:58.9741%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v²</p>
@@ -3562,6 +3712,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3631,7 +3782,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6877%;top:58.5350%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3641,7 +3792,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3645%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7840%;top:66.4526%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3660,6 +3811,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3733,7 +3885,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6877%;top:58.5350%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3743,7 +3895,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3645%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7840%;top:66.4526%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3753,9 +3905,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3766,6 +3920,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3843,7 +3998,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6877%;top:58.5350%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3853,7 +4008,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3645%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7840%;top:66.4526%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3863,10 +4018,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;R = 225 : 2,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;R = 225 : 2,5</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3877,6 +4036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3955,7 +4115,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6877%;top:58.5350%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3965,7 +4125,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3645%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7840%;top:66.4526%;width:1.1628%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -3975,11 +4135,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;R = 225 : 2,5</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;R = 90 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v² = 225 m²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;R = 225 : 2,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;R = 90 m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3991,6 +4157,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Slīpripa ar rādiusu 0,20 m griežas ar frekvenci 5,0 Hz. Aprēķini centrtieces paātrinājumu malas punktam! (π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4053,6 +4220,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4096,6 +4264,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4154,6 +4323,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4227,6 +4397,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4314,6 +4485,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4397,9 +4569,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = ω²R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4409,6 +4583,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4496,10 +4671,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = ω²R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ω² = 986 rad²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ω² = 986 rad²/s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4509,6 +4688,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4597,11 +4777,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = ω²R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ω² = 986 rad²/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = 986 · 0,20 ≈ 197 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ω = 2 · 3,14 · 5,0 = 31,4 rad/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ω² = 986 rad²/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = 986 · 0,20 ≈ 197 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4612,6 +4798,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4671,7 +4858,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
 </div>
 <div class="tb" style="left:5.9251%;top:25.5118%;width:4.3647%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;a = </p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;a =&nbsp;</p>
 </div>
 <div class="tb" style="left:10.6711%;top:23.1192%;width:1.3901%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v²</p>
@@ -4681,7 +4868,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
 </div>
 <div class="tb" style="left:12.5925%;top:25.5118%;width:6.3038%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> = ω²R = </p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= ω²R =&nbsp;</p>
 </div>
 <div class="tb" style="left:19.2776%;top:23.1192%;width:3.4355%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²R</p>
@@ -4715,6 +4902,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu paskaidrot, kāpēc a ≠ 0&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt a pēc v un R&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt a pēc T&nbsp;&nbsp; ·&nbsp;&nbsp; Protu novērtēt pārslodzi</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: uzdevumi par riņķa kustību.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

@@ -911,7 +911,7 @@ dict(
                        "3)  v = 1,98 ≈ 2,0 m/s"],
              atbilde="v ≈ 2,0 m/s",
              piezime="Svārsts ir enerģijas nezūdamības uzskatāmākais "
-                     "piemērs: Ep ↔ Ek."),
+                     "piemērs: Ep pārvēršas par Ek un atpakaļ."),
     ],
     kopsavilkums=dict(
         iemacijamies=[

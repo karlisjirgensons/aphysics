@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Ģeostacionārā orbīta · Orbītu veidi · Lietojumi</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4.7. Mākslīgie pavadoņi</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -289,7 +316,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">ATKĀRTOJUMS</p>
-<p class="p3">4.5. stundā: T = 2π<span class="rt"><span class="rv">(</span></span><span class="f"><span class="n">r³</span><span class="d">GM</span></span>). Ja periods ir tieši 24 stundas, satelīts griežas kopā ar Zemi - un no zemes izskatās nekustīgs.</p>
+<p class="p3">4.5. stundā: T = 2π<span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">r³</span><span class="d">GM</span></span></span></span>. Ja periods ir tieši 24 stundas, satelīts griežas kopā ar Zemi - un no zemes izskatās nekustīgs.</p>
 </div>
 </div>
 </section>
@@ -337,6 +364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4.7. Mākslīgie pavadoņi</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -448,6 +476,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4.7. Mākslīgie pavadoņi</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -498,6 +527,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Orbītu aprēķini un lietojumi</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -533,6 +563,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -584,6 +615,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -649,6 +681,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -717,7 +750,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.1960%;top:54.1370%;width:5.6168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r³ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6628%;top:49.6333%;width:7.8169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">GMT²</p>
@@ -734,6 +767,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -805,7 +839,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.1237%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6445%;top:63.3050%;width:4.1923%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -828,6 +862,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -903,7 +938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.1237%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6445%;top:63.3050%;width:4.1923%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -913,9 +948,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -930,6 +967,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1009,7 +1047,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.1237%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6445%;top:63.3050%;width:4.1923%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -1019,10 +1057,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 7,46·10⁹ : 39,5 = 7,56·10²²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 7,46·10⁹ : 39,5 = 7,56·10²²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1037,6 +1079,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1117,7 +1160,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.1237%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.6445%;top:63.3050%;width:4.1923%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -1127,11 +1170,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">4π²</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 7,46·10⁹ : 39,5 = 7,56·10²²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;r = ∛(7,56·10²²) ≈ 4,23·10⁷ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 7,46·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 7,46·10⁹ : 39,5 = 7,56·10²²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;r = ∛(7,56·10²²) ≈ 4,23·10⁷ m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1147,6 +1196,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Cik ilgā laikā signāls no Zemes sasniedz ģeostacionāro satelītu un atgriežas? (h = 3,6·10⁷ m; c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1216,6 +1266,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1267,6 +1318,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1332,6 +1384,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1400,7 +1453,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.0627%;top:54.1370%;width:4.9001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:63.8128%;top:49.6333%;width:4.8001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2πr</p>
@@ -1417,6 +1470,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1488,7 +1542,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6963%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2171%;top:63.3050%;width:2.5645%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
@@ -1511,6 +1565,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1586,7 +1641,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6963%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2171%;top:63.3050%;width:2.5645%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
@@ -1596,9 +1651,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1613,6 +1670,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1692,7 +1750,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6963%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2171%;top:63.3050%;width:2.5645%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
@@ -1702,10 +1760,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v = 2,66·10⁸ : 86 400</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v = 2,66·10⁸ : 86 400</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1720,6 +1782,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1800,7 +1863,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6963%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2171%;top:63.3050%;width:2.5645%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
@@ -1810,11 +1873,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v = 2,66·10⁸ : 86 400</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;v ≈ 3,08·10³ m/s ≈ 3,1 km/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;2πr = 2 · 3,14 · 4,23·10⁷ = 2,66·10⁸ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v = 2,66·10⁸ : 86 400</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v ≈ 3,08·10³ m/s ≈ 3,1 km/s</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1830,6 +1899,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1899,6 +1969,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1950,6 +2021,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2015,6 +2087,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2091,6 +2164,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2115,7 +2189,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">t = <span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
+<p class="h1" style="color:#4F46E5;font-weight:700">t =&nbsp;<span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;GPS uztvērēja pulkstenis kļūdās par 1,0·10⁻⁸ s. Cik liela ir attāluma kļūda? (c = 3,0·10⁸ m/s)</p>
@@ -2178,6 +2252,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2202,7 +2277,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">t = <span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
+<p class="p1">t =&nbsp;<span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2256,9 +2331,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 2h/c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2273,6 +2350,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2297,7 +2375,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">t = <span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
+<p class="p1">t =&nbsp;<span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2355,10 +2433,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 2h/c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 7,2·10⁷ : 3,0·10⁸</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 7,2·10⁷ : 3,0·10⁸</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2373,6 +2455,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2397,7 +2480,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">t = <span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
+<p class="p1">t =&nbsp;<span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2456,11 +2539,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 2h/c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 7,2·10⁷ : 3,0·10⁸</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;t = 0,24 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Ceļš turp un atpakaļ: 2h = 7,2·10⁷ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 7,2·10⁷ : 3,0·10⁸</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;t = 0,24 s</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2476,6 +2565,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Satelīta apriņķošanas periods ir 12 h. Aprēķini orbītas rādiusu un augstumu virs virsmas! (GM = 4,0·10¹⁴ m³/s²; π² ≈ 9,87; R = 6,4·10⁶ m)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2500,7 +2590,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">t = <span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
+<p class="p1">t =&nbsp;<span class="f"><span class="n">2h</span><span class="d">c</span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2545,6 +2635,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2596,6 +2687,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2661,6 +2753,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2737,6 +2830,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2824,6 +2918,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2902,9 +2997,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δs = c · Δt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δs = 3,0·10⁸ · 1,0·10⁻⁸</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δs = 3,0·10⁸ · 1,0·10⁻⁸</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2919,6 +3016,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3001,10 +3099,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Δs = c · Δt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δs = 3,0·10⁸ · 1,0·10⁻⁸</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Δs = 3,0 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δs = 3,0·10⁸ · 1,0·10⁻⁸</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δs = 3,0 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3020,6 +3122,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3085,6 +3188,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3131,6 +3235,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3192,6 +3297,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3263,7 +3369,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.1960%;top:49.5370%;width:5.6168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r³ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.6628%;top:45.0333%;width:7.8169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">GMT²</p>
@@ -3279,6 +3385,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3354,7 +3461,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.5719%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9914%;top:62.2392%;width:3.4144%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -3376,6 +3483,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3455,7 +3563,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.5719%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9914%;top:62.2392%;width:3.4144%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -3468,9 +3576,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = r − R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3481,6 +3591,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3564,7 +3675,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.5719%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9914%;top:62.2392%;width:3.4144%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -3577,10 +3688,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = r − R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 1,87·10⁹ : 39,5 = 1,89·10²²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 1,87·10⁹ : 39,5 = 1,89·10²²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3591,6 +3706,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3675,7 +3791,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.5719%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r³ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9914%;top:62.2392%;width:3.4144%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GMT²</p>
@@ -3688,11 +3804,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = r − R</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 1,87·10⁹ : 39,5 = 1,89·10²²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;r = 2,66·10⁷ m ;&nbsp;&nbsp;h = 2,66·10⁷ − 6,4·10⁶ ≈ 2,0·10⁷ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T² = 1,87·10⁹ s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;r³ = 4,0·10¹⁴ · 1,87·10⁹ : 39,5 = 1,89·10²²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;r = 2,66·10⁷ m ;&nbsp;&nbsp;h = 2,66·10⁷ − 6,4·10⁶ ≈ 2,0·10⁷ m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3704,6 +3826,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Novērošanas satelīts riņķo 800 km augstumā. Aprēķini ātrumu un periodu! (GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3769,6 +3892,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3814,6 +3938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3855,14 +3980,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3874,6 +3999,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3920,56 +4046,59 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
-<i style="left:4.1251%;top:42.3637%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:43.9637%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:41.5668%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:43.1668%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:47.0852%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
+<div class="tb" style="left:4.1251%;top:46.0207%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:50.3674%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
+<div class="tb" style="left:4.1251%;top:49.0216%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:34.7074%;width:60.1740%;height:2.9852%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
+<div class="tb" style="left:33.7508%;top:33.6271%;width:60.1740%;height:2.5076%;justify-content:flex-start">
+<p style="font-size:1.1365cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:33.7508%;top:39.5444%;width:60.1740%;height:7.3481%;justify-content:flex-start">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r = R + h</p>
+<div class="tb" style="left:33.7508%;top:37.6902%;width:60.1740%;height:6.1724%;justify-content:flex-start">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r = R + h</p>
 </div>
-<div class="tb" style="left:60.0711%;top:51.2037%;width:2.5251%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v = </p>
+<div class="tb" style="left:56.1950%;top:50.3462%;width:4.1401%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v =&nbsp;</p>
 </div>
-<div class="tb" style="left:62.4461%;top:51.2037%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
+<svg class="rg" style="left:61.0252%;top:45.4182%;width:2.8001%;height:14.9333%;fill:#3730A3" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:65.2365%;top:46.5631%;width:4.2281%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">GM</p>
 </div>
-<div class="tb" style="left:63.2795%;top:51.2037%;width:3.9751%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">GM/r</p>
+<i style="left:65.2365%;top:53.2760%;width:4.2281%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:65.2365%;top:54.1293%;width:4.2281%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">r</p>
 </div>
-<i style="left:63.2795%;top:51.8111%;width:3.9751%;height:0.1867%;background:#3730A3"></i>
-<div class="tb" style="left:58.0294%;top:63.9296%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">T = </p>
+<i style="left:63.7731%;top:45.4182%;width:6.6816%;height:0.2738%;background:#3730A3"></i>
+<div class="tb" style="left:58.9587%;top:66.9347%;width:4.1961%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">T =&nbsp;</p>
 </div>
-<div class="tb" style="left:63.8462%;top:59.4259%;width:4.8001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2πr</p>
+<div class="tb" style="left:63.8448%;top:63.1515%;width:4.0321%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2πr</p>
 </div>
-<i style="left:63.8462%;top:67.4378%;width:4.8001%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:63.8462%;top:68.4333%;width:4.8001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v</p>
+<i style="left:63.8448%;top:69.8644%;width:4.0321%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:63.8448%;top:70.7178%;width:4.0321%;height:6.0729%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.7990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3996,8 +4125,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">r = R + h</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">v = <span class="rt"><span class="rv">GM/r</span></span></span></p>
+<p class="h2" style="color:#4F46E5;font-weight:700">r = R + h</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">v = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">GM</span><span class="d">r</span></span></span></span></span></p>
 <p class="mf" style="color:#4F46E5"><span class="mc">T = <span class="f"><span class="n">2πr</span><span class="d">v</span></span></span></p>
 </div>
 <div class="blk">
@@ -4022,51 +4151,53 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
-<i style="left:4.1251%;top:42.3637%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:43.9637%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:41.5668%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:43.1668%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:47.0852%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
+<div class="tb" style="left:4.1251%;top:46.0207%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:50.3674%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
+<div class="tb" style="left:4.1251%;top:49.0216%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5941%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1941%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:53.0003%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.6003%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:59.3155%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
+<div class="tb" style="left:4.1251%;top:57.4542%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.2611%;width:1.4625%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<div class="tb" style="left:4.1251%;top:62.5671%;width:1.8300%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4376%;top:63.2611%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.1651%;top:60.4551%;width:1.2000%;height:6.4000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:7.9700%;top:60.9458%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM</p>
 </div>
-<div class="tb" style="left:5.9064%;top:63.2611%;width:2.2313%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM/r</p>
+<i style="left:7.9700%;top:63.7618%;width:1.7820%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.9700%;top:64.1884%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r</p>
 </div>
-<i style="left:5.9064%;top:63.6028%;width:2.2313%;height:0.1867%;background:#312E81"></i>
-<div class="tb" style="left:4.1251%;top:68.2367%;width:2.0335%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<i style="left:7.3428%;top:60.4551%;width:2.9192%;height:0.1173%;background:#312E81"></i>
+<div class="tb" style="left:4.1251%;top:69.3653%;width:1.8720%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
-<div class="tb" style="left:6.4023%;top:66.4633%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
+<div class="tb" style="left:6.2072%;top:67.7440%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
 </div>
-<i style="left:6.4023%;top:69.5533%;width:1.8507%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4023%;top:70.0100%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
+<i style="left:6.2072%;top:70.5600%;width:1.6920%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:6.2072%;top:70.9867%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -4077,6 +4208,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4104,7 +4236,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">r = R + h</p>
-<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt"><span class="rv">GM/r</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">GM</span><span class="d">r</span></span></span></span></span></p>
 <p class="mf" style="color:#374151"><span class="mc">T = <span class="f"><span class="n">2πr</span><span class="d">v</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
@@ -4133,77 +4265,80 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
-<i style="left:4.1251%;top:42.3637%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:43.9637%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:41.5668%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:43.1668%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:47.0852%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
+<div class="tb" style="left:4.1251%;top:46.0207%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:50.3674%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
+<div class="tb" style="left:4.1251%;top:49.0216%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5941%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1941%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:53.0003%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.6003%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:59.3155%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
+<div class="tb" style="left:4.1251%;top:57.4542%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.2611%;width:1.4625%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<div class="tb" style="left:4.1251%;top:62.5671%;width:1.8300%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4376%;top:63.2611%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.1651%;top:60.4551%;width:1.2000%;height:6.4000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:7.9700%;top:60.9458%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM</p>
 </div>
-<div class="tb" style="left:5.9064%;top:63.2611%;width:2.2313%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM/r</p>
+<i style="left:7.9700%;top:63.7618%;width:1.7820%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.9700%;top:64.1884%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r</p>
 </div>
-<i style="left:5.9064%;top:63.6028%;width:2.2313%;height:0.1867%;background:#312E81"></i>
-<div class="tb" style="left:4.1251%;top:68.2367%;width:2.0335%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<i style="left:7.3428%;top:60.4551%;width:2.9192%;height:0.1173%;background:#312E81"></i>
+<div class="tb" style="left:4.1251%;top:69.3653%;width:1.8720%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
-<div class="tb" style="left:6.4023%;top:66.4633%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
+<div class="tb" style="left:6.2072%;top:67.7440%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
 </div>
-<i style="left:6.4023%;top:69.5533%;width:1.8507%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4023%;top:70.0100%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
+<i style="left:6.2072%;top:70.5600%;width:1.6920%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:6.2072%;top:70.9867%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:54.5741%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 </div>
-<div class="tb" style="left:50.0875%;top:61.8704%;width:4.6334%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;v = </p>
+<div class="tb" style="left:35.1105%;top:60.0630%;width:9.1169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;v =&nbsp;</p>
 </div>
-<div class="tb" style="left:54.5709%;top:61.8704%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
+<svg class="rg" style="left:45.0774%;top:59.8852%;width:3.3334%;height:5.9259%;fill:#3730A3" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:47.7974%;top:60.0630%;width:22.8172%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">4,0·10¹⁴ : 7,2·10⁶</p>
 </div>
-<div class="tb" style="left:55.4043%;top:61.8704%;width:11.4836%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">4,0·10¹⁴ : 7,2·10⁶</p>
-</div>
-<i style="left:55.4043%;top:62.4778%;width:11.4836%;height:0.1867%;background:#3730A3"></i>
-<div class="tb" style="left:67.2379%;top:61.8704%;width:10.5003%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 7,45·10³ m/s</p>
+<i style="left:47.1329%;top:59.8852%;width:23.4818%;height:0.3259%;background:#3730A3"></i>
+<div class="tb" style="left:71.8647%;top:60.0630%;width:20.8505%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 7,45·10³ m/s</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4231,7 +4366,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">r = R + h</p>
-<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt"><span class="rv">GM/r</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">GM</span><span class="d">r</span></span></span></span></span></p>
 <p class="mf" style="color:#374151"><span class="mc">T = <span class="f"><span class="n">2πr</span><span class="d">v</span></span></span></p>
 </div>
 <div class="blk">
@@ -4240,7 +4375,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">v = <span class="rt"><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">v = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -4264,66 +4399,81 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
-<i style="left:4.1251%;top:42.3637%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:43.9637%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:41.5668%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:43.1668%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:47.0852%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
+<div class="tb" style="left:4.1251%;top:46.0207%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:50.3674%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
+<div class="tb" style="left:4.1251%;top:49.0216%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5941%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1941%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:53.0003%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.6003%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:59.3155%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
+<div class="tb" style="left:4.1251%;top:57.4542%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.2611%;width:1.4625%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<div class="tb" style="left:4.1251%;top:62.5671%;width:1.8300%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4376%;top:63.2611%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.1651%;top:60.4551%;width:1.2000%;height:6.4000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:7.9700%;top:60.9458%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM</p>
 </div>
-<div class="tb" style="left:5.9064%;top:63.2611%;width:2.2313%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM/r</p>
+<i style="left:7.9700%;top:63.7618%;width:1.7820%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.9700%;top:64.1884%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r</p>
 </div>
-<i style="left:5.9064%;top:63.6028%;width:2.2313%;height:0.1867%;background:#312E81"></i>
-<div class="tb" style="left:4.1251%;top:68.2367%;width:2.0335%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<i style="left:7.3428%;top:60.4551%;width:2.9192%;height:0.1173%;background:#312E81"></i>
+<div class="tb" style="left:4.1251%;top:69.3653%;width:1.8720%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
-<div class="tb" style="left:6.4023%;top:66.4633%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
+<div class="tb" style="left:6.2072%;top:67.7440%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
 </div>
-<i style="left:6.4023%;top:69.5533%;width:1.8507%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4023%;top:70.0100%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
+<i style="left:6.2072%;top:70.5600%;width:1.6920%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:6.2072%;top:70.9867%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v = √(4,0·10¹⁴ : 7,2·10⁶) = 7,45·10³ m/s</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.8426%;width:4.8605%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;v =&nbsp;</p>
+</div>
+<svg class="rg" style="left:37.0426%;top:41.7481%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:38.4876%;top:41.8426%;width:12.0503%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4,0·10¹⁴ : 7,2·10⁶</p>
+</div>
+<i style="left:38.1346%;top:41.7481%;width:12.4033%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:51.1317%;top:41.8426%;width:10.9701%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 7,45·10³ m/s</p>
+</div>
+<i style="left:31.8008%;top:48.9630%;width:64.0741%;height:30.2370%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.850cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.8296%;width:60.1740%;height:26.5037%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;T = 6,28 · 7,2·10⁶ : 7,45·10³ ≈ 6,07·10³ s ≈ 101 min</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4351,13 +4501,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">r = R + h</p>
-<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt"><span class="rv">GM/r</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">GM</span><span class="d">r</span></span></span></span></span></p>
 <p class="mf" style="color:#374151"><span class="mc">T = <span class="f"><span class="n">2πr</span><span class="d">v</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
-<p class="p2">2)&nbsp;&nbsp;v = <span class="rt"><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">v = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -4385,61 +4535,77 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini ātrumu un periodu!</p>
 <p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">(GM = 4,0·10¹⁴ m³/s²; R = 6,4·10⁶ m; π ≈ 3,14)</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:34.8548%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
+<div class="tb" style="left:4.1251%;top:34.5873%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">h = 8,0·10⁵ m</p>
 </div>
-<div class="tb" style="left:4.1251%;top:38.1370%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
+<div class="tb" style="left:4.1251%;top:37.5881%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">R = 6,4·10⁶ m</p>
 </div>
-<i style="left:4.1251%;top:42.3637%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:43.9637%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:41.5668%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:43.1668%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:47.0852%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
+<div class="tb" style="left:4.1251%;top:46.0207%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = ?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:50.3674%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
+<div class="tb" style="left:4.1251%;top:49.0216%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = ?</p>
 </div>
-<i style="left:4.1251%;top:54.5941%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:56.1941%;width:24.0006%;height:2.7326%;justify-content:flex-start">
-<p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:53.0003%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:54.6003%;width:24.0006%;height:2.4984%;justify-content:flex-start">
+<p style="font-size:1.1323cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:59.3155%;width:24.0006%;height:2.8933%;justify-content:flex-start">
-<p style="font-size:1.3115cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
+<div class="tb" style="left:4.1251%;top:57.4542%;width:24.0006%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.1990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">r = R + h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.2611%;width:1.4625%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<div class="tb" style="left:4.1251%;top:62.5671%;width:1.8300%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
-<div class="tb" style="left:5.4376%;top:63.2611%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:6.1651%;top:60.4551%;width:1.2000%;height:6.4000%;fill:#312E81" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg>
+<div class="tb" style="left:7.9700%;top:60.9458%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM</p>
 </div>
-<div class="tb" style="left:5.9064%;top:63.2611%;width:2.2313%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">GM/r</p>
+<i style="left:7.9700%;top:63.7618%;width:1.7820%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:7.9700%;top:64.1884%;width:1.7820%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r</p>
 </div>
-<i style="left:5.9064%;top:63.6028%;width:2.2313%;height:0.1867%;background:#312E81"></i>
-<div class="tb" style="left:4.1251%;top:68.2367%;width:2.0335%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<i style="left:7.3428%;top:60.4551%;width:2.9192%;height:0.1173%;background:#312E81"></i>
+<div class="tb" style="left:4.1251%;top:69.3653%;width:1.8720%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
-<div class="tb" style="left:6.4023%;top:66.4633%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
+<div class="tb" style="left:6.2072%;top:67.7440%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2πr</p>
 </div>
-<i style="left:6.4023%;top:69.5533%;width:1.8507%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4023%;top:70.0100%;width:1.8507%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
+<i style="left:6.2072%;top:70.5600%;width:1.6920%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:6.2072%;top:70.9867%;width:1.6920%;height:2.6027%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.1990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;v = √(4,0·10¹⁴ : 7,2·10⁶) = 7,45·10³ m/s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;T = 6,28 · 7,2·10⁶ : 7,45·10³ ≈ 6,07·10³ s ≈ 101 min</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.8426%;width:4.8605%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;v =&nbsp;</p>
+</div>
+<svg class="rg" style="left:37.0426%;top:41.7481%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:38.4876%;top:41.8426%;width:12.0503%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4,0·10¹⁴ : 7,2·10⁶</p>
+</div>
+<i style="left:38.1346%;top:41.7481%;width:12.4033%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:51.1317%;top:41.8426%;width:10.9701%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 7,45·10³ m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:47.1407%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;T = 6,28 · 7,2·10⁶ : 7,45·10³ ≈ 6,07·10³ s ≈ 101 min</p>
+</div>
+<i style="left:31.8008%;top:53.9778%;width:64.0741%;height:25.2222%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.709cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.8444%;width:60.1740%;height:21.4889%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v ≈ 7,5 km/s ;&nbsp;&nbsp; T ≈ 1,0·10² minūtes</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Zeme zem satelīta pagriežas, tāpēc katrā aplī tas redz jaunu joslu.</p>
@@ -4447,6 +4613,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4474,14 +4641,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">r = R + h</p>
-<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt"><span class="rv">GM/r</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">v = <span class="rt" style="--rw:1.044em"><svg class="rk" viewBox="0 0 1.0440 3.0200" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0330 2.2333 L0.2161 2.1324 L0.5458 3.0200 L1.0440 0.0129 L0.9738 0.0000 L0.5193 2.7427 L0.2535 2.0270 L0.0000 2.1666 Z"/></svg><span class="rv"><span class="f"><span class="n">GM</span><span class="d">r</span></span></span></span></span></p>
 <p class="mf" style="color:#374151"><span class="mc">T = <span class="f"><span class="n">2πr</span><span class="d">v</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;r = 7,2·10⁶ m</p>
-<p class="p2">2)&nbsp;&nbsp;v = <span class="rt"><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</p>
 <p class="p2">3)&nbsp;&nbsp;T = 6,28 · 7,2·10⁶ : 7,45·10³ ≈ 6,07·10³ s ≈ 101 min</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">v = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">4,0·10¹⁴ : 7,2·10⁶</span></span> = 7,45·10³ m/s</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -4524,6 +4691,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu nosaukt orbītu veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt orbītas rādiusu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt ātrumu orbītā&nbsp;&nbsp; ·&nbsp;&nbsp; Protu izskaidrot GPS</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: Keplera likumi.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

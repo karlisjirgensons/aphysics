@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Fizikālie lielumi · SI mērvienības · Priedēkļi · Uzdevuma risinājuma pieraksts</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -250,6 +276,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.1. Matērija. Viela un lauks. Mikropasaule, makropasaule, megapasaule</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -339,6 +366,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.1. Matērija. Viela un lauks. Mikropasaule, makropasaule, megapasaule</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -433,6 +461,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:87.3173%;width:88.1497%;height:4.8320%;justify-content:center">
 <p style="font-size:1.4511cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Iedalījums ir NOSACĪTS — robežas nav stingri noteiktas. Katras pasaules pētīšanai vajadzīgas savas metodes un mērierīces.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -603,6 +632,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.1. Matērija. Viela un lauks. Mikropasaule, makropasaule, megapasaule</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -847,6 +877,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.1. Matērija. Viela un lauks. Mikropasaule, makropasaule, megapasaule</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -1089,6 +1120,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6813cqw;color:#374151;text-align:left;padding-top:0.6188cqw">1 nm = 10⁻⁹ m&nbsp;&nbsp; ·&nbsp;&nbsp; 1 µm = 10⁻⁶ m&nbsp;&nbsp; ·&nbsp;&nbsp; 1 mm = 10⁻³ m&nbsp;&nbsp; ·&nbsp;&nbsp; 1 km = 10³ m</p>
 <p style="font-size:1.6813cqw;color:#B91C1C;text-align:left;padding-top:0.6188cqw;font-weight:700">0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -1232,14 +1264,33 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">Paraugs: metāla detaļas masa 540 g, tilpums 200 cm³ — aprēķini blīvumu.</p>
 </div>
 <i style="left:4.1251%;top:21.3333%;width:29.2507%;height:51.4667%;background:#F7F8FC;border:0.130cqw solid #E5E7EB;border-radius:1.448cqw"></i>
-<div class="tb" style="left:5.9251%;top:23.3173%;width:25.6506%;height:47.4987%;justify-content:flex-start">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
-<p style="font-size:1.9792cqw;color:#374151;text-align:left;padding-top:0.7292cqw">m = 540 g</p>
-<p style="font-size:1.9792cqw;color:#374151;text-align:left;padding-top:0.4167cqw">V = 200 cm³</p>
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:left;padding-top:1.8750cqw;font-weight:700">Jāaprēķina:</p>
-<p style="font-size:1.9792cqw;color:#374151;text-align:left;padding-top:0.7292cqw">ρ = ?</p>
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:left;padding-top:1.8750cqw;font-weight:700">Formulas:</p>
-<p style="font-size:1.9792cqw;color:#374151;text-align:left;padding-top:0.7292cqw">ρ = m / V</p>
+<div class="tb" style="left:5.9251%;top:23.3173%;width:25.6506%;height:4.6477%;justify-content:flex-start">
+<p style="font-size:2.1073cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+</div>
+<div class="tb" style="left:5.9251%;top:29.1576%;width:25.6506%;height:4.0139%;justify-content:flex-start">
+<p style="font-size:1.8198cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = 540 g</p>
+</div>
+<div class="tb" style="left:5.9251%;top:33.8530%;width:25.6506%;height:4.0139%;justify-content:flex-start">
+<p style="font-size:1.8198cqw;color:#374151;text-align:left;padding-top:0.0000cqw">V = 200 cm³</p>
+</div>
+<div class="tb" style="left:5.9251%;top:40.9336%;width:25.6506%;height:4.6477%;justify-content:flex-start">
+<p style="font-size:2.1073cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+</div>
+<div class="tb" style="left:5.9251%;top:46.7739%;width:25.6506%;height:4.0139%;justify-content:flex-start">
+<p style="font-size:1.8198cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ρ = ?</p>
+</div>
+<div class="tb" style="left:5.9251%;top:53.8545%;width:25.6506%;height:4.6477%;justify-content:flex-start">
+<p style="font-size:2.1073cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+</div>
+<div class="tb" style="left:5.9251%;top:62.3168%;width:2.8085%;height:3.9492%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8198cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
+</div>
+<div class="tb" style="left:9.1299%;top:59.8567%;width:1.4567%;height:3.9492%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8198cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
+</div>
+<i style="left:9.1299%;top:64.1847%;width:1.4567%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:9.1299%;top:64.7770%;width:1.4567%;height:3.9492%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8198cqw;color:#374151;text-align:center;padding-top:0.0000cqw">V</p>
 </div>
 <i style="left:35.6259%;top:21.3333%;width:60.2490%;height:51.4667%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:1.448cqw"></i>
 <div class="tb" style="left:37.4259%;top:23.3173%;width:56.6489%;height:47.4987%;justify-content:flex-start">
@@ -1255,6 +1306,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7698cqw;color:#4F46E5;text-align:left;padding-top:0.6188cqw;font-weight:700">1. Dots&nbsp;&nbsp;→&nbsp;&nbsp;2. Jāaprēķina&nbsp;&nbsp;→&nbsp;&nbsp;3. Formulas&nbsp;&nbsp;→&nbsp;&nbsp;4. Aprēķins&nbsp;&nbsp;→&nbsp;&nbsp;5. Atbilde</p>
 <p style="font-size:1.4157cqw;color:#4B5563;text-align:left;padding-top:0.5302cqw">Vispirms pārvērs lielumus SI vienībās, tikai tad ievieto skaitļus formulā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -1267,20 +1319,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4B5563">Paraugs: metāla detaļas masa 540 g, tilpums 200 cm³ — aprēķini blīvumu.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="h2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p1">m = 540 g</p>
-<p class="p1">V = 200 cm³</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p1">ρ = ?</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p1">ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span></p>
+<p class="p1" style="color:#4F46E5;font-weight:700">Dots:</p>
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="h2" style="color:#7C3AED;font-weight:700">Aprēķins:</p>
 <p class="p1">1)&nbsp;&nbsp;m = 540 g = 0,54 kg</p>
 <p class="p1">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
-<p class="p1">3)&nbsp;&nbsp;ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span> = 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
+<p class="p1">3)&nbsp;&nbsp;ρ =&nbsp;<span class="f"><span class="n">m</span><span class="d">V</span></span>&nbsp;= 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
 <p class="p1" style="color:#B91C1C;font-weight:700">Atbilde:&nbsp;&nbsp;ρ = 2700 kg/m³ = 2,7 · 10³ kg/m³</p>
+</div>
+<div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
+<p class="p2">m = 540 g</p>
+<p class="p2">V = 200 cm³</p>
+<p class="p1" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p2">ρ = ?</p>
+<p class="p1" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="mf" style="color:#374151"><span class="mc">ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5 SOĻI KATRĀ UZDEVUMĀ</p>
@@ -1301,6 +1355,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Mikropasaule · Makropasaule · Megapasaule</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -1337,6 +1392,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1390,6 +1446,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1458,6 +1515,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1532,7 +1590,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.2627%;top:54.1370%;width:5.5168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.6296%;top:49.6333%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">L</p>
@@ -1549,6 +1607,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1626,7 +1685,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.7818%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2519%;top:65.0462%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">L</p>
@@ -1649,6 +1708,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1730,7 +1790,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.7818%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2519%;top:65.0462%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">L</p>
@@ -1740,9 +1800,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1757,6 +1819,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1842,7 +1905,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.7818%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2519%;top:65.0462%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">L</p>
@@ -1852,17 +1915,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;L = 1 mm = 1 · 10⁻³ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;L = 1 mm = 1 · 10⁻³ m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:54.2333%;width:60.1740%;height:2.6270%;justify-content:flex-start">
 <p style="font-size:1.1907cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 </div>
 <div class="tb" style="left:34.1591%;top:62.7139%;width:8.5835%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;N = </p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;N =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.4727%;top:58.7507%;width:1.5694%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">L</p>
@@ -1872,7 +1939,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d</p>
 </div>
 <div class="tb" style="left:45.9221%;top:62.7139%;width:47.7445%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1882,6 +1949,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1968,7 +2036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.7818%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2519%;top:65.0462%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">L</p>
@@ -1978,11 +2046,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;L = 1 mm = 1 · 10⁻³ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;N = L / d = (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;L = 1 mm = 1 · 10⁻³ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;N = L / d = (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1998,6 +2072,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Vidējais attālums no Zemes līdz Saulei ir 1,50 · 10¹¹ m (1 au), gaismas ātrums vakuumā c = 3,00 · 10⁸ m/s. Cik ilgā laikā Saules gaisma sasniedz Zemi? Izsaki atbildi arī minūtēs!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2030,7 +2105,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;d = 0,28 nm = 0,28 · 10⁻⁹ m = 2,8 · 10⁻¹⁰ m</p>
 <p class="p2">2)&nbsp;&nbsp;L = 1 mm = 1 · 10⁻³ m</p>
-<p class="p2">3)&nbsp;&nbsp;N = <span class="f"><span class="n">L</span><span class="d">d</span></span> = (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
+<p class="p2">3)&nbsp;&nbsp;N =&nbsp;<span class="f"><span class="n">L</span><span class="d">d</span></span>&nbsp;= (1 · 10⁻³ m) : (2,8 · 10⁻¹⁰ m) ≈ 3,6 · 10⁶</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2069,6 +2144,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2121,6 +2197,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2190,6 +2267,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2262,7 +2340,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0127%;top:54.1370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.9462%;top:49.6333%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m</p>
@@ -2279,6 +2357,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2354,7 +2433,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5591%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0292%;top:65.0462%;width:1.3200%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -2377,6 +2456,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2456,7 +2536,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5591%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0292%;top:65.0462%;width:1.3200%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -2466,9 +2546,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2483,6 +2565,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2566,7 +2649,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5591%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0292%;top:65.0462%;width:1.3200%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -2576,17 +2659,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:53.8000%;width:60.1740%;height:2.7464%;justify-content:flex-start">
 <p style="font-size:1.2459cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 </div>
 <div class="tb" style="left:33.9908%;top:62.6661%;width:8.5682%;height:6.6513%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;ρ = </p>
+<p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.3290%;top:58.5227%;width:2.4994%;height:6.6513%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m</p>
@@ -2596,7 +2683,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">V</p>
 </div>
 <div class="tb" style="left:46.7484%;top:62.6661%;width:47.0865%;height:6.6513%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
+<p style="font-size:3.0667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2606,6 +2693,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2690,7 +2778,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.5591%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0292%;top:65.0462%;width:1.3200%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -2700,11 +2788,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ρ = m / V = 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ρ = m / V = 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2720,6 +2814,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Zemes masa ir 5,97 · 10²⁴ kg, bet rādiuss 6,37 · 10⁶ m. Aprēķini Zemes vidējo blīvumu! Lodes tilpumu aprēķina pēc formulas V = (4/3)·π·R³.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2751,7 +2846,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;m = 540 g = 540 · 10⁻³ kg = 0,54 kg</p>
 <p class="p2">2)&nbsp;&nbsp;V = 200 cm³ = 200 · 10⁻⁶ m³ = 2 · 10⁻⁴ m³</p>
-<p class="p2">3)&nbsp;&nbsp;ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span> = 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
+<p class="p2">3)&nbsp;&nbsp;ρ =&nbsp;<span class="f"><span class="n">m</span><span class="d">V</span></span>&nbsp;= 0,54 kg : (2 · 10⁻⁴ m³) = 2700 kg/m³</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2790,6 +2885,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2841,6 +2937,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2907,6 +3004,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2979,7 +3077,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.7961%;top:44.7963%;width:4.9001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.5462%;top:40.2926%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -2989,7 +3087,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
 </div>
 <div class="tb" style="left:59.9794%;top:63.4778%;width:4.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2962%;top:58.9741%;width:1.4000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -3006,6 +3104,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3082,7 +3181,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9875%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3564%;top:59.4322%;width:0.5119%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3092,7 +3191,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:66.4478%;width:0.5578%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3107,7 +3206,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
 </div>
 <div class="tb" style="left:35.0371%;top:54.1370%;width:8.6836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;t = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;t =&nbsp;</p>
 </div>
 <div class="tb" style="left:44.5707%;top:49.6333%;width:1.4000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
@@ -3117,7 +3216,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
 </div>
 <div class="tb" style="left:46.9708%;top:54.1370%;width:45.8178%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3127,6 +3226,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3207,7 +3307,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9875%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3564%;top:59.4322%;width:0.5119%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3217,7 +3317,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:66.4478%;width:0.5578%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3227,9 +3327,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3244,6 +3346,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3274,7 +3377,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t = <span class="f"><span class="n">s</span><span class="d">c</span></span> = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+<p class="p2">1)&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">s</span><span class="d">c</span></span>&nbsp;= (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -3328,7 +3431,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9875%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3564%;top:59.4322%;width:0.5119%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3338,7 +3441,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:66.4478%;width:0.5578%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3348,10 +3451,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3366,6 +3473,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3396,7 +3504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t = <span class="f"><span class="n">s</span><span class="d">c</span></span> = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+<p class="p2">1)&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">s</span><span class="d">c</span></span>&nbsp;= (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
 <p class="p2">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
@@ -3451,7 +3559,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9875%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3564%;top:59.4322%;width:0.5119%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3461,7 +3569,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.8366%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.2055%;top:66.4478%;width:0.5578%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
@@ -3471,11 +3579,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;t = 500 s : 60 s/min ≈ 8,3 min</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = s / c = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;t = 500 s : 60 s/min ≈ 8,3 min</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3491,6 +3605,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Elektrona masa ir 9,1 · 10⁻³¹ kg, bet protona masa 1,67 · 10⁻²⁷ kg. Cik reižu protona masa ir lielāka par elektrona masu?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3521,7 +3636,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;t = <span class="f"><span class="n">s</span><span class="d">c</span></span> = (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
+<p class="p2">1)&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">s</span><span class="d">c</span></span>&nbsp;= (1,50 · 10¹¹ m) : (3,00 · 10⁸ m/s)</p>
 <p class="p2">2)&nbsp;&nbsp;t = 0,50 · 10³ s = 5,00 · 10² s = 500 s</p>
 <p class="p2">3)&nbsp;&nbsp;t = 500 s : 60 s/min ≈ 8,3 min</p>
 </div>
@@ -3562,6 +3677,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3614,6 +3730,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3683,6 +3800,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3755,7 +3873,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0127%;top:49.5370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.9462%;top:45.0333%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m</p>
@@ -3775,6 +3893,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3851,7 +3970,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -3877,6 +3996,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3957,7 +4077,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -3970,9 +4090,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">V = (4/3) · π · R³</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3987,6 +4109,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4071,7 +4194,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4084,17 +4207,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">V = (4/3) · π · R³</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 </div>
 <div class="tb" style="left:33.9454%;top:62.5704%;width:9.3002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;ρ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:44.0957%;top:58.0667%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m</p>
@@ -4104,7 +4231,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">V</p>
 </div>
 <div class="tb" style="left:47.8124%;top:62.5704%;width:46.0678%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -4114,6 +4241,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4199,7 +4327,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4212,11 +4340,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">V = (4/3) · π · R³</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ρ = m / V = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ρ = m / V = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4231,6 +4365,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4263,7 +4398,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
 <p class="p2">2)&nbsp;&nbsp;V = (<span class="f"><span class="n">4</span><span class="d">3</span></span>) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
-<p class="p2">3)&nbsp;&nbsp;ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span> = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
+<p class="p2">3)&nbsp;&nbsp;ρ =&nbsp;<span class="f"><span class="n">m</span><span class="d">V</span></span>&nbsp;= (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 4. SOLIS</p>
@@ -4317,7 +4452,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4330,14 +4465,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">V = (4/3) · π · R³</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ρ = m / V = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">4)&nbsp;&nbsp;ρ ≈ 5,53 · 10³ kg/m³</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;V = (4/3) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ρ = m / V = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;ρ ≈ 5,53 · 10³ kg/m³</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">ρ ≈ 5,5 · 10³ kg/m³ = 5500 kg/m³</p>
@@ -4351,6 +4494,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4383,7 +4527,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;R³ = (6,37 · 10⁶ m)³ = 2,58 · 10²⁰ m³</p>
 <p class="p2">2)&nbsp;&nbsp;V = (<span class="f"><span class="n">4</span><span class="d">3</span></span>) · 3,14 · 2,58 · 10²⁰ m³ ≈ 1,08 · 10²¹ m³</p>
-<p class="p2">3)&nbsp;&nbsp;ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span> = (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
+<p class="p2">3)&nbsp;&nbsp;ρ =&nbsp;<span class="f"><span class="n">m</span><span class="d">V</span></span>&nbsp;= (5,97 · 10²⁴ kg) : (1,08 · 10²¹ m³)</p>
 <p class="p2">4)&nbsp;&nbsp;ρ ≈ 5,53 · 10³ kg/m³</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
@@ -4419,6 +4563,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4463,6 +4608,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4521,6 +4667,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4586,7 +4733,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.3877%;top:54.1370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.3379%;top:49.6333%;width:3.9501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">mₚ</p>
@@ -4599,6 +4746,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4667,7 +4815,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:2.1098%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₚ</p>
@@ -4686,6 +4834,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4758,7 +4907,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:2.1098%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₚ</p>
@@ -4768,9 +4917,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₑ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4781,6 +4932,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4857,7 +5009,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:2.1098%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₚ</p>
@@ -4867,10 +5019,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₑ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;n = (1,67 : 9,1) · 10⁴ = 0,1835 · 10⁴</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = (1,67 : 9,1) · 10⁴ = 0,1835 · 10⁴</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4881,6 +5037,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4958,7 +5115,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:2.1098%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₚ</p>
@@ -4968,11 +5125,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">mₑ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;n = (1,67 : 9,1) · 10⁴ = 0,1835 · 10⁴</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;n ≈ 1,8 · 10³ ≈ 1835</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = (1,67 · 10⁻²⁷ kg) : (9,1 · 10⁻³¹ kg)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = (1,67 : 9,1) · 10⁴ = 0,1835 · 10⁴</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;n ≈ 1,8 · 10³ ≈ 1835</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4984,6 +5147,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Zvaigzne Proksima Kentaura atrodas 4,24 gaismas gadu attālumā no Zemes. Izsaki šo attālumu metros un parsekos! Izmanto datu bukletu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5045,6 +5209,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5087,6 +5252,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5141,6 +5307,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5210,6 +5377,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5293,6 +5461,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5372,9 +5541,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 pc = 3,09 · 10¹⁶ m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -5384,6 +5555,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5467,10 +5639,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 pc = 3,09 · 10¹⁶ m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 4,01 · 10¹⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 4,01 · 10¹⁶ m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -5480,6 +5656,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5564,11 +5741,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1 pc = 3,09 · 10¹⁶ m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 4,01 · 10¹⁶ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;s = (4,01 · 10¹⁶ m) : (3,09 · 10¹⁶ m) = 1,30 pc</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 4,24 · 9,46 · 10¹⁵ m = 40,1 · 10¹⁵ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 4,01 · 10¹⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;s = (4,01 · 10¹⁶ m) : (3,09 · 10¹⁶ m) = 1,30 pc</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -5579,6 +5762,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5656,6 +5840,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu atšķirt vielu no lauka&nbsp;&nbsp; ·&nbsp;&nbsp; Protu klasificēt objektu mikro-/makro-/megapasaulē&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pārvērst mērvienības SI sistēmā&nbsp;&nbsp; ·&nbsp;&nbsp; Protu noformēt risinājumu</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: pasaules pētīšanas metodes un mērierīces — mikroskops, sensori, teleskops.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

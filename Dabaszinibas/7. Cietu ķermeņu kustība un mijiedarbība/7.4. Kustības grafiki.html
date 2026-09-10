@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">x(t) grafiks · υ(t) grafiks · Slīpums · Laukums</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7.4. Kustības grafiki</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -303,45 +330,61 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Divi kustības grafiki</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.810cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:24.8320%;justify-content:flex-start">
-<p style="font-size:1.2125cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">x(t) — KOORDINĀTA NO LAIKA</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Slīpums = ātrums:&nbsp;&nbsp;υ = Δx / Δt</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Stāvāka līnija → lielāks ātrums.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Horizontāla līnija → ķermenis stāv.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Lejupejoša līnija → kustība atpakaļ.</p>
+<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.949cqw"></i>
+<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.2000cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">x(t) — KOORDINĀTA NO LAIKA</p>
 </div>
-<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.810cqw"></i>
-<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:24.8320%;justify-content:flex-start">
-<p style="font-size:1.2125cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">υ(t) — ĀTRUMS NO LAIKA</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Laukums zem grafika = ceļš.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Horizontāla līnija → vienmērīga kustība.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Augšupejoša līnija → paātrināta kustība.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Slīpums = paātrinājums.</p>
+<div class="tb" style="left:5.9251%;top:24.5547%;width:16.7104%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Slīpums = ātrums:&nbsp;&nbsp;υ =&nbsp;</p>
 </div>
-<i style="left:4.1251%;top:46.6667%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
-<div class="tb" style="left:5.9251%;top:48.4000%;width:88.1497%;height:3.2000%;justify-content:flex-start">
+<div class="tb" style="left:23.0256%;top:22.1227%;width:1.8000%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
+</div>
+<i style="left:23.0256%;top:26.4000%;width:1.8000%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:23.0256%;top:26.9867%;width:1.8000%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
+</div>
+<div class="tb" style="left:5.9251%;top:32.2951%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Stāvāka līnija → lielāks ātrums.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:37.5076%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Horizontāla līnija → ķermenis stāv.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:42.7200%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lejupejoša līnija → kustība atpakaļ.</p>
+</div>
+<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.949cqw"></i>
+<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:29.7727%;justify-content:flex-start">
+<p style="font-size:1.2500cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">υ(t) — ĀTRUMS NO LAIKA</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.9375cqw">Laukums zem grafika = ceļš.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Horizontāla līnija → vienmērīga kustība.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Augšupejoša līnija → paātrināta kustība.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Slīpums = paātrinājums.</p>
+</div>
+<i style="left:4.1251%;top:51.6074%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
+<div class="tb" style="left:5.9251%;top:53.3407%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">DIVAS GALVENĀS SAKARĪBAS</p>
 </div>
-<div class="tb" style="left:24.2066%;top:55.4111%;width:3.5876%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ = </p>
+<div class="tb" style="left:24.2066%;top:60.3518%;width:3.5876%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ =&nbsp;</p>
 </div>
-<div class="tb" style="left:28.3317%;top:52.3148%;width:2.3834%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:28.3317%;top:57.2556%;width:2.3834%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx</p>
 </div>
-<i style="left:28.3317%;top:57.7896%;width:2.3834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:28.3317%;top:58.5074%;width:2.3834%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:28.3317%;top:62.7304%;width:2.3834%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:28.3317%;top:63.4481%;width:2.3834%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δt</p>
 </div>
-<div class="tb" style="left:31.4027%;top:55.4111%;width:44.5407%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp; (x(t) slīpums)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s = υ · t&nbsp;&nbsp; (laukums zem υ(t))</p>
+<div class="tb" style="left:31.4027%;top:60.3518%;width:44.5407%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;(x(t) slīpums)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s = υ · t&nbsp;&nbsp; (laukums zem υ(t))</p>
 </div>
-<div class="tb" style="left:5.9251%;top:63.9419%;width:88.1497%;height:3.6741%;justify-content:flex-start">
+<div class="tb" style="left:5.9251%;top:68.8827%;width:88.1497%;height:3.6741%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Vienmēr vispirms nosaki, KURŠ grafiks dots — x(t) vai υ(t). No tā atkarīgs viss risinājums.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7.4. Kustības grafiki</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -352,17 +395,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">x(t) — KOORDINĀTA NO LAIKA</p>
-<p class="p2">Slīpums = ātrums:&nbsp;&nbsp;υ = <span class="f"><span class="n">Δx</span><span class="d">Δt</span></span></p>
-<p class="p2">Stāvāka līnija → lielāks ātrums.</p>
-<p class="p2">Horizontāla līnija → ķermenis stāv.</p>
-<p class="p2">Lejupejoša līnija → kustība atpakaļ.</p>
 </div>
 <div class="card" style="border-color:#047857">
 <p class="p3" style="color:#047857;font-weight:700">υ(t) — ĀTRUMS NO LAIKA</p>
-<p class="p2">Laukums zem grafika = ceļš.</p>
-<p class="p2">Horizontāla līnija → vienmērīga kustība.</p>
-<p class="p2">Augšupejoša līnija → paātrināta kustība.</p>
-<p class="p2">Slīpums = paātrinājums.</p>
+<p class="p1">Laukums zem grafika = ceļš.</p>
+<p class="p1">Horizontāla līnija → vienmērīga kustība.</p>
+<p class="p1">Augšupejoša līnija → paātrināta kustība.</p>
+<p class="p1">Slīpums = paātrinājums.</p>
+</div>
+<div class="card" style="border-color:#7C3AED">
+<p class="mf" style="color:#374151"><span class="mc">Slīpums = ātrums:</span><span class="mc">υ = <span class="f"><span class="n">Δx</span><span class="d">Δt</span></span></span></p>
+<p class="p2">Stāvāka līnija → lielāks ātrums.</p>
+<p class="p2">Horizontāla līnija → ķermenis stāv.</p>
+<p class="p2">Lejupejoša līnija → kustība atpakaļ.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">DIVAS GALVENĀS SAKARĪBAS</p>
@@ -381,64 +426,64 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Kā lasa grafiku</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:28.7257%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:5.0251%;top:17.0667%;width:26.9257%;height:3.7333%;justify-content:flex-start">
+<i style="left:4.1251%;top:15.7333%;width:28.7328%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:5.0251%;top:17.0667%;width:26.9327%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Ko redz grafikā</p>
 </div>
-<i style="left:32.8508%;top:15.7333%;width:31.5008%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:33.7508%;top:17.0667%;width:29.7007%;height:3.7333%;justify-content:flex-start">
+<i style="left:32.8579%;top:15.7333%;width:31.5085%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:33.7579%;top:17.0667%;width:29.7085%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">x(t) nozīme</p>
 </div>
-<i style="left:64.3516%;top:15.7333%;width:31.5008%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:65.2516%;top:17.0667%;width:29.7007%;height:3.7333%;justify-content:flex-start">
+<i style="left:64.3664%;top:15.7333%;width:31.5085%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:65.2664%;top:17.0667%;width:29.7085%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">υ(t) nozīme</p>
 </div>
-<i style="left:4.1251%;top:22.4000%;width:28.7257%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:23.6000%;width:26.9257%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:22.4000%;width:28.7328%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:23.6000%;width:26.9327%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Horizontāla līnija</p>
 </div>
-<i style="left:32.8508%;top:22.4000%;width:31.5008%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:33.7508%;top:23.6000%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:32.8579%;top:22.4000%;width:31.5085%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:33.7579%;top:23.6000%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ķermenis stāv (υ = 0)</p>
 </div>
-<i style="left:64.3516%;top:22.4000%;width:31.5008%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:65.2516%;top:23.6000%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:64.3664%;top:22.4000%;width:31.5085%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:65.2664%;top:23.6000%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">vienmērīga kustība</p>
 </div>
-<i style="left:4.1251%;top:29.0667%;width:28.7257%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:30.2667%;width:26.9257%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:29.0667%;width:28.7328%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:30.2667%;width:26.9327%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Augšupejoša taisne</p>
 </div>
-<i style="left:32.8508%;top:29.0667%;width:31.5008%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:33.7508%;top:30.2667%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:32.8579%;top:29.0667%;width:31.5085%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:33.7579%;top:30.2667%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">kustība uz priekšu</p>
 </div>
-<i style="left:64.3516%;top:29.0667%;width:31.5008%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:65.2516%;top:30.2667%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:64.3664%;top:29.0667%;width:31.5085%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:65.2664%;top:30.2667%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">vienmērīgi paātrināta</p>
 </div>
-<i style="left:4.1251%;top:35.7333%;width:28.7257%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:36.9333%;width:26.9257%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:35.7333%;width:28.7328%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:36.9333%;width:26.9327%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Lejupejoša taisne</p>
 </div>
-<i style="left:32.8508%;top:35.7333%;width:31.5008%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:33.7508%;top:36.9333%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:32.8579%;top:35.7333%;width:31.5085%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:33.7579%;top:36.9333%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">kustība atpakaļ</p>
 </div>
-<i style="left:64.3516%;top:35.7333%;width:31.5008%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:65.2516%;top:36.9333%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:64.3664%;top:35.7333%;width:31.5085%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:65.2664%;top:36.9333%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">bremzēšana</p>
 </div>
-<i style="left:4.1251%;top:42.4000%;width:28.7257%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:43.6000%;width:26.9257%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:42.4000%;width:28.7328%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:43.6000%;width:26.9327%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Stāvāka līnija</p>
 </div>
-<i style="left:32.8508%;top:42.4000%;width:31.5008%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:33.7508%;top:43.6000%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:32.8579%;top:42.4000%;width:31.5085%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:33.7579%;top:43.6000%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">lielāks ātrums</p>
 </div>
-<i style="left:64.3516%;top:42.4000%;width:31.5008%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:65.2516%;top:43.6000%;width:29.7007%;height:4.2667%;justify-content:flex-start">
+<i style="left:64.3664%;top:42.4000%;width:31.5085%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:65.2664%;top:43.6000%;width:29.7085%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">lielāks paātrinājums</p>
 </div>
 <i style="left:4.1251%;top:51.2000%;width:91.7498%;height:41.8667%;background:#FFFFFF;border:0.130cqw solid #B91C1C;border-radius:1.178cqw"></i>
@@ -449,6 +494,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7.4. Kustības grafiki</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -499,6 +545,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Ātrums un ceļš no grafikiem</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -534,6 +581,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -585,6 +633,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -650,6 +699,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -718,7 +768,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.6044%;top:54.1370%;width:5.1501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.6045%;top:49.6333%;width:3.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx</p>
@@ -735,6 +785,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -806,7 +857,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8600%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3807%;top:63.3050%;width:1.8188%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
@@ -829,6 +880,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -904,7 +956,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8600%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3807%;top:63.3050%;width:1.8188%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
@@ -914,9 +966,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -931,6 +985,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1010,7 +1065,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8600%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3807%;top:63.3050%;width:1.8188%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
@@ -1020,10 +1075,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Δt = 8,0 − 2,0 = 6,0 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δt = 8,0 − 2,0 = 6,0 s</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1038,6 +1097,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1118,7 +1178,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8600%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3807%;top:63.3050%;width:1.8188%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
@@ -1128,11 +1188,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Δt = 8,0 − 2,0 = 6,0 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;υ = 30 : 6,0 = 5,0 m/s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δx = 40 − 10 = 30 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δt = 8,0 − 2,0 = 6,0 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;υ = 30 : 6,0 = 5,0 m/s</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1148,6 +1214,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermenis 10 s brauc ar 6,0 m/s, tad 5,0 s stāv, tad vēl 10 s brauc ar 4,0 m/s. Aprēķini kopējo ceļu un vidējo ātrumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1217,6 +1284,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1268,6 +1336,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1333,6 +1402,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1409,6 +1479,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1496,6 +1567,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1574,9 +1646,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t&nbsp;&nbsp;(laukums zem grafika)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 12 m/s · 15 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 12 m/s · 15 s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1591,6 +1665,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1673,10 +1748,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t&nbsp;&nbsp;(laukums zem grafika)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s = 12 m/s · 15 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 180 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s = 12 m/s · 15 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 180 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1692,6 +1771,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1756,6 +1836,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1801,6 +1882,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1864,6 +1946,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1940,7 +2023,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = υ·t</p>
 </div>
 <div class="tb" style="left:52.9209%;top:58.7370%;width:11.4003%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.1712%;top:54.2333%;width:8.5835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s(kop)</p>
@@ -1953,6 +2036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2033,7 +2117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:4.6738%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.0596%;top:67.2137%;width:3.4288%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s(kop)</p>
@@ -2052,6 +2136,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2136,7 +2221,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:4.6738%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.0596%;top:67.2137%;width:3.4288%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s(kop)</p>
@@ -2146,9 +2231,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2159,6 +2246,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2247,7 +2335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:4.6738%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.0596%;top:67.2137%;width:3.4288%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s(kop)</p>
@@ -2257,10 +2345,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2271,6 +2363,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2360,7 +2453,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:4.6738%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.0596%;top:67.2137%;width:3.4288%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s(kop)</p>
@@ -2370,11 +2463,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;t = 10 + 5,0 + 10 = 25 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;t = 10 + 5,0 + 10 = 25 s</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2385,6 +2484,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2475,7 +2575,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ·t</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:4.6738%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:9.0596%;top:67.2137%;width:3.4288%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s(kop)</p>
@@ -2485,14 +2585,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t(kop)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;t = 10 + 5,0 + 10 = 25 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">4)&nbsp;&nbsp;υ(vid) = 100 : 25 = 4,0 m/s</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;s₁ = 6,0 · 10 = 60 m ;&nbsp;&nbsp;s₂ = 0 ;&nbsp;&nbsp;s₃ = 4,0 · 10 = 40 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 60 + 0 + 40 = 100 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;t = 10 + 5,0 + 10 = 25 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;υ(vid) = 100 : 25 = 4,0 m/s</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">s = 100 m ;&nbsp;&nbsp; υ(vid) = 4,0 m/s</p>
@@ -2502,6 +2610,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmā ķermeņa x(t) grafiks: x = 0 + 8t. Otrā: x = 60 − 4t. Aprēķini, kurā laika momentā un kurā koordinātā tie satiksies!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2567,6 +2676,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2610,6 +2720,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2668,6 +2779,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2740,6 +2852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2823,6 +2936,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2902,9 +3016,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Satiekas, kad x₁ = x₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2914,6 +3030,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2997,10 +3114,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Satiekas, kad x₁ = x₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;12t = 60&nbsp;&nbsp;→&nbsp;&nbsp;t = 5,0 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;12t = 60&nbsp;&nbsp;→&nbsp;&nbsp;t = 5,0 s</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3010,6 +3131,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3094,11 +3216,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Satiekas, kad x₁ = x₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;12t = 60&nbsp;&nbsp;→&nbsp;&nbsp;t = 5,0 s</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;x = 8 · 5,0 = 40 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;8t = 60 − 4t</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;12t = 60&nbsp;&nbsp;→&nbsp;&nbsp;t = 5,0 s</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;x = 8 · 5,0 = 40 m</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3109,6 +3237,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3183,6 +3312,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu nolasīt grafikus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt ātrumu pēc slīpuma&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt ceļu pēc laukuma&nbsp;&nbsp; ·&nbsp;&nbsp; Protu atrast satikšanās punktu</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: paātrinājums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -3193,7 +3323,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p class="p2">•&nbsp;&nbsp;x(t) grafika slīpums ir ātrums: υ = <span class="f"><span class="n">Δx</span><span class="d">Δt</span></span></p>
+<p class="p2">•&nbsp;&nbsp;x(t) grafika slīpums ir ātrums: υ =&nbsp;<span class="f"><span class="n">Δx</span><span class="d">Δt</span></span></p>
 <p class="p2">•&nbsp;&nbsp;Laukums zem υ(t) grafika ir veiktais ceļš.</p>
 <p class="p2">•&nbsp;&nbsp;Horizontāla līnija x(t) grafikā — ķermenis stāv.</p>
 <p class="p2">•&nbsp;&nbsp;Vidējais ātrums = viss ceļš dalīts ar visu laiku.</p>

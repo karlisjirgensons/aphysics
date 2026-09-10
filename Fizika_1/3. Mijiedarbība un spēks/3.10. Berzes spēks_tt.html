@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">F(b) = µN · Miera un slīdes berze · Ripošanas berze</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.10. Berzes spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -337,6 +364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.10. Berzes spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -460,6 +488,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.10. Berzes spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -515,6 +544,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Berzes spēks un berzes koeficients</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -550,6 +580,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -602,6 +633,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -672,6 +704,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -757,6 +790,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -856,6 +890,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -946,9 +981,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -963,6 +1000,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1057,10 +1095,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,35 · 392</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,35 · 392</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1075,6 +1117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1170,11 +1213,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,35 · 392</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F(b) = 137 ≈ 1,4·10² N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 40 · 9,8 = 392 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,35 · 392</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F(b) = 137 ≈ 1,4·10² N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1190,6 +1239,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Automašīna brauc 20 m/s. Aprēķini bremzēšanas ceļu uz sausa (µ = 0,75) un slapja (µ = 0,40) asfalta! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1262,6 +1312,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1313,6 +1364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1378,6 +1430,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1449,7 +1502,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Vienmērīgi → F = F(b)</p>
 </div>
 <div class="tb" style="left:57.6210%;top:58.7370%;width:5.2001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">µ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:63.6712%;top:54.2333%;width:5.3835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F(b)</p>
@@ -1466,6 +1519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1541,7 +1595,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmērīgi → F = F(b)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.6251%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0952%;top:65.0462%;width:2.6318%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F(b)</p>
@@ -1564,6 +1618,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1643,7 +1698,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmērīgi → F = F(b)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.6251%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0952%;top:65.0462%;width:2.6318%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F(b)</p>
@@ -1653,9 +1708,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1670,6 +1727,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1753,7 +1811,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmērīgi → F = F(b)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.6251%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0952%;top:65.0462%;width:2.6318%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F(b)</p>
@@ -1763,10 +1821,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = F = 75 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = F = 75 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1781,6 +1843,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1865,7 +1928,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Vienmērīgi → F = F(b)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.6251%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0952%;top:65.0462%;width:2.6318%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F(b)</p>
@@ -1875,11 +1938,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = F = 75 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;µ = 75 : 245 ≈ 0,31</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 25 · 9,8 = 245 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = F = 75 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;µ = 75 : 245 ≈ 0,31</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1895,6 +1964,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Kasti (m = 30 kg) velk ar 150 N; µ = 0,25. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1965,6 +2035,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2017,6 +2088,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2087,6 +2159,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2166,7 +2239,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = µg</p>
 </div>
 <div class="tb" style="left:58.5627%;top:58.7370%;width:4.6501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.0628%;top:54.2333%;width:4.0501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v₀²</p>
@@ -2183,6 +2256,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2266,7 +2340,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:1.9842%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3699%;top:67.2137%;width:1.6083%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₀²</p>
@@ -2289,6 +2363,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2376,7 +2451,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:1.9842%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3699%;top:67.2137%;width:1.6083%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₀²</p>
@@ -2386,9 +2461,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2403,6 +2480,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2494,7 +2572,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:1.9842%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3699%;top:67.2137%;width:1.6083%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₀²</p>
@@ -2504,10 +2582,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a₂ = 0,40 · 9,8 = 3,92 m/s² → s₂ = 400 : 7,84 = 51 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a₂ = 0,40 · 9,8 = 3,92 m/s² → s₂ = 400 : 7,84 = 51 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
@@ -2524,7 +2606,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s₁</p>
 </div>
 <div class="tb" style="left:64.4795%;top:62.5704%;width:7.5502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> ≈ 1,9</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;≈ 1,9</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2534,6 +2616,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2626,7 +2709,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:1.9842%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3699%;top:67.2137%;width:1.6083%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₀²</p>
@@ -2636,17 +2719,33 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a₂ = 0,40 · 9,8 = 3,92 m/s² → s₂ = 400 : 7,84 = 51 m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;s₂ / s₁ ≈ 1,9</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">s₁ ≈ 27 m ;&nbsp;&nbsp; s₂ ≈ 51 m - gandrīz divreiz garāks.</p>
-<p style="font-size:1.3271cqw;color:#4B5563;text-align:center;padding-top:1.0615cqw;font-style:italic">Masa saīsinās: bremzēšanas ceļš nav atkarīgs no automašīnas masas.</p>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a₂ = 0,40 · 9,8 = 3,92 m/s² → s₂ = 400 : 7,84 = 51 m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:49.0611%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3)&nbsp;&nbsp;</p>
+</div>
+<div class="tb" style="left:34.5634%;top:46.6685%;width:1.2839%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₂</p>
+</div>
+<i style="left:34.5634%;top:50.8748%;width:1.2839%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:34.5634%;top:51.4537%;width:1.2839%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s₁</p>
+</div>
+<div class="tb" style="left:36.3785%;top:49.0611%;width:4.0636%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;≈ 1,9</p>
+</div>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2519%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:0.9875cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:2.4324cqw;color:#4F46E5;text-align:center;padding-top:0.7594cqw;font-weight:700">s₁ ≈ 27 m ;&nbsp;&nbsp; s₂ ≈ 51 m - gandrīz divreiz garāks.</p>
+<p style="font-size:1.1396cqw;color:#4B5563;text-align:center;padding-top:0.9115cqw;font-style:italic">Masa saīsinās: bremzēšanas ceļš nav atkarīgs no automašīnas masas.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2656,6 +2755,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Kastes masu palielina no 20 kg līdz 40 kg; µ = 0,30 nemainās. Kā mainās berzes spēks? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2689,7 +2789,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;a₁ = 0,75 · 9,8 = 7,35 m/s² → s₁ = 400 : 14,7 = 27 m</p>
 <p class="p2">2)&nbsp;&nbsp;a₂ = 0,40 · 9,8 = 3,92 m/s² → s₂ = 400 : 7,84 = 51 m</p>
-<p class="p2">3)&nbsp;&nbsp;<span class="f"><span class="n">s₂</span><span class="d">s₁</span></span> ≈ 1,9</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc"><span class="f"><span class="n">s₂</span><span class="d">s₁</span></span> ≈ 1,9</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2728,6 +2828,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2780,6 +2881,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2849,6 +2951,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2927,7 +3030,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F(b) = µN</p>
 </div>
 <div class="tb" style="left:55.3876%;top:63.3370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.2044%;top:58.8333%;width:10.0836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F − F(b)</p>
@@ -2944,6 +3047,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3027,7 +3131,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -3050,6 +3154,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3137,7 +3242,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -3147,9 +3252,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3164,6 +3271,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3255,7 +3363,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -3265,10 +3373,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,25 · 294 = 73,5 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,25 · 294 = 73,5 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3283,6 +3395,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3375,7 +3488,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µN</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -3385,11 +3498,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,25 · 294 = 73,5 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = (150 − 73,5) : 30 = 2,55 ≈ 2,6 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 30 · 9,8 = 294 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,25 · 294 = 73,5 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = (150 − 73,5) : 30 = 2,55 ≈ 2,6 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3405,6 +3524,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Cik liels spēks vajadzīgs, lai 60 kg kasti vilktu vienmērīgi pa horizontālu grīdu, ja µ = 0,20? (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3477,6 +3597,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3529,6 +3650,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3599,6 +3721,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3684,6 +3807,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3783,6 +3907,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3873,9 +3998,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3890,6 +4017,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3984,10 +4112,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b2) = 0,30 · 40 · 9,8 = 117,6 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b2) = 0,30 · 40 · 9,8 = 117,6 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4002,6 +4134,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4097,11 +4230,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b2) = 0,30 · 40 · 9,8 = 117,6 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F(b2) : F(b1) = 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F(b1) = 0,30 · 20 · 9,8 = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b2) = 0,30 · 40 · 9,8 = 117,6 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F(b2) : F(b1) = 2</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4117,6 +4256,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4185,6 +4325,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4230,6 +4371,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4292,6 +4434,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4366,6 +4509,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4454,6 +4598,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4537,9 +4682,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4550,6 +4697,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4637,10 +4785,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 588</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 588</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4651,6 +4803,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4739,11 +4892,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µmg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 588</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F = 117,6 ≈ 1,2·10² N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N = 60 · 9,8 = 588 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 588</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F = 117,6 ≈ 1,2·10² N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4755,6 +4914,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Automašīna no 15 m/s apstājas 25 m garā bremzēšanas ceļā. Aprēķini berzes koeficientu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4818,6 +4978,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4862,6 +5023,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4924,6 +5086,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5003,7 +5166,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = µg</p>
 </div>
 <div class="tb" style="left:59.4877%;top:63.3370%;width:5.2001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">µ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.5379%;top:58.8333%;width:1.6500%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a</p>
@@ -5015,6 +5178,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5099,7 +5263,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0344%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3864%;top:67.9212%;width:0.6030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
@@ -5117,6 +5281,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5205,7 +5370,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0344%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3864%;top:67.9212%;width:0.6030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
@@ -5215,9 +5380,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -5227,6 +5394,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5319,7 +5487,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0344%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3864%;top:67.9212%;width:0.6030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
@@ -5329,10 +5497,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;µ = 4,5 : 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;µ = 4,5 : 9,8</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -5342,6 +5514,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5435,7 +5608,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a = µg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0344%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">µ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3864%;top:67.9212%;width:0.6030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a</p>
@@ -5445,11 +5618,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;µ = 4,5 : 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;µ ≈ 0,46</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = 225 : (2 · 25) = 4,5 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;µ = 4,5 : 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;µ ≈ 0,46</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -5460,6 +5639,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5537,6 +5717,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu lietot F(b) = µN&nbsp;&nbsp; ·&nbsp;&nbsp; Protu atšķirt berzes veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt bremzēšanas ceļu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu atrast paātrinājumu ar berzi</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: uzdevumi par berzi.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -5550,7 +5731,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2">•&nbsp;&nbsp;F(b) = µN; µ nav mērvienības.</p>
 <p class="p2">•&nbsp;&nbsp;Miera berze var būt lielāka par slīdes berzi.</p>
 <p class="p2">•&nbsp;&nbsp;Ripošanas berze ir daudz mazāka par slīdes berzi.</p>
-<p class="p2">•&nbsp;&nbsp;Bremzēšanas ceļš nav atkarīgs no masas: s = <span class="f"><span class="n">v₀²</span><span class="d">2µg</span></span>.</p>
+<p class="p2">•&nbsp;&nbsp;Bremzēšanas ceļš nav atkarīgs no masas: s =&nbsp;<span class="f"><span class="n">v₀²</span><span class="d">2µg</span></span>.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĀJASDARBS</p>

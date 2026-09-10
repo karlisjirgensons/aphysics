@@ -120,6 +120,57 @@ def rule(slide, x, y, w, color=LINEGREY, h=0.015, name="RULE"):
     box(slide, x, y, w, h, fill=color, line=None, rounded=False, name=name)
 
 
+# ------------------------------------------------------- bultas un nogriežņi
+# Vektoru zīmējumi. Ģeometriju glabā formas nosaukumā (ARR:x1,y1,x2,y2,...),
+# tāpēc HTML zīmētājs to var atkārtot precīzi tādu pašu (DRY) - collās, tāpat
+# kā slaidā.
+
+ARROW_LW = 0.030          # bultas kāta biezums collās
+ARROW_HEAD = 0.20         # uzgaļa garums collās
+
+
+def _arrow_pts(x1, y1, x2, y2, lw, head):
+    """Bultas kontūra: kāts + trīsstūra uzgalis (vai tikai nogrieznis)."""
+    dx, dy = x2 - x1, y2 - y1
+    ln = (dx * dx + dy * dy) ** 0.5 or 1e-6
+    ux, uy = dx / ln, dy / ln
+    px, py = -uy, ux                       # perpendikuls
+    hl = min(head, ln * 0.34) if head else 0.0
+    hw = lw * 2.2
+    sw = lw / 2.0
+
+    def pt(u, v):
+        return (x1 + ux * u + px * v, y1 + uy * u + py * v)
+
+    if not head:
+        return [pt(0, -sw), pt(ln, -sw), pt(ln, sw), pt(0, sw)]
+    return [pt(0, -sw), pt(ln - hl, -sw), pt(ln - hl, -hw), pt(ln, 0),
+            pt(ln - hl, hw), pt(ln - hl, sw), pt(0, sw)]
+
+
+def arrow(slide, x1, y1, x2, y2, color=BLUE, lw=ARROW_LW, head=True,
+          name=None):
+    """Vektora bulta no (x1, y1) uz (x2, y2) collās."""
+    pts = _arrow_pts(x1, y1, x2, y2, lw, head)
+    bld = slide.shapes.build_freeform(pts[0][0], pts[0][1], Inches(1).emu)
+    bld.add_line_segments(pts[1:], close=True)
+    shp = bld.convert_to_shape()
+    shp.fill.solid()
+    shp.fill.fore_color.rgb = color
+    shp.line.fill.background()
+    shp.shadow.inherit = False
+    shp.name = "%s|ARR:%.3f,%.3f,%.3f,%.3f,%.3f,%d" % (
+        name or "FIG", x1, y1, x2, y2, lw, 1 if head else 0)
+    return shp
+
+
+def segment(slide, x1, y1, x2, y2, color=LINEGREY, lw=0.014, name=None):
+    """Palīglīnija bez uzgaļa (paralelograma malas, projekcijas)."""
+    shp = arrow(slide, x1, y1, x2, y2, color, lw, head=False, name=name)
+    shp.name = shp.name.replace("|ARR:", "|SEG:", 1)
+    return shp
+
+
 def txt(slide, x, y, w, h, anchor=MSO_ANCHOR.TOP, name=None):
     tb = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     if name:
@@ -129,6 +180,29 @@ def txt(slide, x, y, w, h, anchor=MSO_ANCHOR.TOP, name=None):
     tf.vertical_anchor = anchor
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     return tf
+
+
+# Vektora bultiņas (U+20D7) Calibri fontā nav, tāpēc PowerPoint to aizstāj
+# ar citu fontu un bultiņa nostājas blakus burtam, nevis virs tā. Simbolu
+# fontā burts un bultiņa ir kopā, tāpēc vektora simbolu raksta ar to.
+VEC_FONT = "Segoe UI Symbol"
+
+
+def _write_runs(p, text, size, bold, italic, color):
+    """Teksta gabalus ieraksta rindkopā; vektoram - vektora fontu.
+
+    Viss teksts .pptx failos iet caur šo funkciju (DRY), tāpēc bultiņas
+    labojums der visām prezentācijām uzreiz.
+    """
+    for kind, chunk in MF.split_vectors(text) or [("t", "")]:
+        r = p.add_run()
+        r.text = chunk + (MF.VEC_MARK if kind == "v" else "")
+        f = r.font
+        f.name = VEC_FONT if kind == "v" else FONT
+        f.size = Pt(size)
+        f.bold = bold
+        f.italic = italic
+        f.color.rgb = color
 
 
 def put(slide, x, y, w, h, lines, anchor=MSO_ANCHOR.TOP, autofit=True,
@@ -142,14 +216,8 @@ def put(slide, x, y, w, h, lines, anchor=MSO_ANCHOR.TOP, autofit=True,
         p.alignment = ln.get("align", PP_ALIGN.LEFT)
         p.space_before = Pt(ln.get("space", 0))
         p.space_after = Pt(ln.get("after", 0))
-        r = p.add_run()
-        r.text = ln["t"]
-        f = r.font
-        f.name = FONT
-        f.size = Pt(ln.get("size", 20))
-        f.bold = ln.get("bold", False)
-        f.italic = ln.get("italic", False)
-        f.color.rgb = ln.get("color", DARK)
+        _write_runs(p, ln["t"], ln.get("size", 20), ln.get("bold", False),
+                    ln.get("italic", False), ln.get("color", DARK))
     return tf
 
 
@@ -221,11 +289,17 @@ def panel(slide, x, y, w, h, lines, accent=BLUE, fill=WHITE, pad=0.24,
 # rules_lessons.txt: dalījumu raksta ar skaitītāju virs saucēja, nevis rindā.
 # Mērvienības (m/s, kg/m³, N/m²) paliek rindā - tā ir latviešu standarta forma.
 
-MATH_LH = 1.22            # rindas augstums fonta izmēra reizinājumā
-MATH_PAD = 0.30           # atstarpe ap daļas svītru (fonta izmēra daļās)
-MATH_H = 2.0 * MATH_LH + MATH_PAD + 0.10      # daļas kopējais augstums
-MATH_ROOT_LH = MATH_LH + 0.22                 # vieta vinkulam virs saknes
-ROOT_SIDE = 0.30          # elpa aiz saknes (fonta izmēra daļās)
+# Formulas izmēri (fonta izmēra daļās) dzīvo mathfmt - tos pašus lieto arī
+# HTML zīmētājs, tāpēc slaids un lapa izskatās vienādi (DRY).
+from mathfmt import (                          # noqa: E402
+    MATH_LH, MATH_PAD, MATH_H, MATH_ROOT_LH, ROOT_SIDE, ROOT_ASC, ROOT_DESC,
+    ROOT_BAR, ROOT_LEAD, ROOT_INNER, BASE_OFF, ROOT_TOP, root_extent)
+
+
+def root_sign_w(atoms, size):
+    """Saknes zīmes platums punktos - tas seko zīmes augstumam."""
+    up, dn = root_extent(atoms)
+    return MF.root_width(up + dn) * size
 
 
 def _atom_w(a, size, bold=False, italic=False):
@@ -233,9 +307,9 @@ def _atom_w(a, size, bold=False, italic=False):
     if a[0] == "t":
         return MF.text_w(a[1], size, bold, italic)
     if a[0] == "r":
-        return (MF.text_w(MF.ROOT_SIGN, size, bold, italic)
-                + MF.text_w(a[1], size, bold, italic)
-                + ROOT_SIDE * size)
+        return ((ROOT_LEAD + ROOT_INNER + ROOT_SIDE) * size
+                + root_sign_w(a[1], size)
+                + sum(_atom_w(x, size, bold, italic) for x in a[1]))
     return (max(MF.text_w(a[1], size, bold, italic),
                 MF.text_w(a[2], size, bold, italic))
             + 0.60 * size)               # elpa abās pusēs daļai
@@ -249,9 +323,16 @@ def math_w(text, size, bold=False, italic=False, atoms=None):
 
 
 def math_h(text, size, atoms=None):
-    """Rindas augstums collās (ar daļu tas ir gandrīz trīskāršs)."""
+    """Rindas augstums collās (ar daļu tas ir gandrīz trīskāršs).
+
+    Augstumu mēra simetriski ap rindas viduslīniju - tur put_math() liek
+    daļas svītru -, tāpēc te ir divkāršs lielākais izlēciens uz augšu vai
+    leju.
+    """
     if atoms is None:
         atoms = MF.parse_math(text)
+    if any(MF.has_root_fraction(a) for a in atoms):
+        return (MATH_H + 2 * ROOT_TOP) * size / 72.0
     if any(a[0] == "f" for a in atoms):
         return MATH_H * size / 72.0
     if any(a[0] == "r" for a in atoms):
@@ -263,7 +344,8 @@ def math_fits(text, w_in, size, bold=False):
     return math_w(text, size, bold) <= w_in
 
 
-def _mline(slide, x, y, w, text, size, color, bold, italic, name=None):
+def _mline(slide, x, y, w, text, size, color, bold, italic, name=None,
+           align=PP_ALIGN.CENTER):
     """Viena teksta gabala zīmēšana bez aplaušanas."""
     tb = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w),
                                   Inches(MATH_LH * size / 72.0))
@@ -274,16 +356,81 @@ def _mline(slide, x, y, w, text, size, color, bold, italic, name=None):
     tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
     p = tf.paragraphs[0]
-    p.alignment = PP_ALIGN.CENTER
-    r = p.add_run()
-    r.text = text
-    f = r.font
-    f.name = FONT
-    f.size = Pt(size)
-    f.bold = bold
-    f.italic = italic
-    f.color.rgb = color
+    p.alignment = align
+    _write_runs(p, text, size, bold, italic, color)
     return tb
+
+
+def root_sign(slide, x, y, h_em, size, color, name=None):
+    """Saknes zīme kā daudzstūris (MF.root_pts) - to būvē pēc augstuma."""
+    k = Inches(size / 72.0).emu
+    _, pts = MF.root_pts(h_em)
+    bld = slide.shapes.build_freeform(pts[0][0], pts[0][1], k)
+    bld.add_line_segments(pts[1:], close=True)
+    shp = bld.convert_to_shape(Inches(x), Inches(y))
+    shp.fill.solid()
+    shp.fill.fore_color.rgb = color
+    shp.line.fill.background()
+    shp.shadow.inherit = False
+    if name:
+        shp.name = name
+    return shp
+
+
+def _draw_atoms(slide, atoms, cx, ym, ctx, sub=""):
+    """Uzzīmē atomu virkni pa kreisi no cx; atgriež jauno cx.
+
+    Viena vieta, kur zināms, kā izskatās teksts, daļa un sakne (SRP) -
+    sakne izsauc to pašu funkciju saviem apakšatomiem, tāpēc daļa zem
+    vinkula sanāk pati no sevis (DRY).
+    """
+    size, color = ctx["size"], ctx["color"]
+    bold, italic = ctx["bold"], ctx["italic"]
+    lh, pad = ctx["lh"], ctx["pad"]
+
+    def nm(role):
+        return "%sMATH:%s:%s%s" % (ctx["pfx"], ctx["mid"], sub, role)
+
+    for a in atoms:
+        if a[0] == "t":
+            tw = MF.text_w(a[1], size, bold, italic) / 72.0
+            if tw <= 0:
+                continue
+            _mline(slide, cx, ym - lh / 2.0, tw + 0.02, a[1], size, color,
+                   bold, italic, name=nm("t"),
+                   align=PP_ALIGN.LEFT if sub else PP_ALIGN.CENTER)
+            cx += tw
+        elif a[0] == "r":
+            # saknes zīme aptver visu izteiksmi; vinkuls turpina zīmes
+            # augšmalu, tāpēc tas sākas tieši tur, kur zīme beidzas
+            up, dn = root_extent(a[1])
+            top = ym - up * size / 72.0
+            rw = root_sign_w(a[1], size) / 72.0
+            inner = ROOT_INNER * size / 72.0
+            ew = sum(_atom_w(x, size, bold, italic) for x in a[1]) / 72.0
+            cx += ROOT_LEAD * size / 72.0
+            tall = any(z[0] == "f" for z in a[1])
+            root_sign(slide, cx, top, up + dn, size, color,
+                      name=nm("rgT" if tall else "rg"))
+            _draw_atoms(slide, a[1], cx + rw + inner, ym, ctx, sub="r")
+            box(slide, cx + rw * 0.94, top,
+                rw * 0.06 + inner + ew + 0.02, ROOT_BAR * size / 72.0,
+                fill=color, line=None, rounded=False, name=nm("rv"))
+            cx += rw + inner + ew + ROOT_SIDE * size / 72.0
+        else:
+            num, den = a[1], a[2]
+            fw = max(MF.text_w(num, size, bold, italic),
+                     MF.text_w(den, size, bold, italic)) / 72.0
+            side = 0.30 * size / 72.0
+            cx += side
+            _mline(slide, cx, ym - pad / 2.0 - lh, fw, num, size, color,
+                   bold, italic, name=nm("n"))
+            box(slide, cx, ym - 0.008, fw, 0.016, fill=color, line=None,
+                rounded=False, name=nm("b"))
+            _mline(slide, cx, ym + pad / 2.0, fw, den, size, color, bold,
+                   italic, name=nm("d"))
+            cx += fw + side
+    return cx
 
 
 def put_math(slide, x, y, w, h, text, size, color=DARK, bold=False,
@@ -306,9 +453,12 @@ def put_math(slide, x, y, w, h, text, size, color=DARK, bold=False,
     pfx = (name + "|") if name else ""
 
     # samazina, līdz ietilpst platumā un augstumā
+    # Augstumu prasa tik, cik rindai tiešām vajag: saknes rindai pietiek ar
+    # vienu rindu un vinkulu, daļai - ar divām. Agrāk abām prasīja daļas
+    # augstumu, tāpēc saknes formulas sarāvās līdz min_size.
     while size > min_size:
         if (math_w(text, size, bold, italic, atoms) <= w
-                and MATH_H * size / 72.0 <= h):
+                and math_h(text, size, atoms=atoms) <= h):
             break
         size -= 0.5
     size = max(size, min_size)
@@ -325,41 +475,9 @@ def put_math(slide, x, y, w, h, text, size, color=DARK, bold=False,
     cx = max(x, cx)
     ym = y + h / 2.0                       # daļas svītras līmenis
 
-    for a in atoms:
-        if a[0] == "t":
-            tw = MF.text_w(a[1], size, bold, italic) / 72.0
-            if tw <= 0:
-                continue
-            _mline(slide, cx, ym - lh / 2.0, tw + 0.02, a[1], size, color,
-                   bold, italic, name=pfx + "MATH:%s:t" % mid)
-            cx += tw
-        elif a[0] == "r":
-            # saknes zīme + izteiksme, un pāri izteiksmei - vinkuls
-            gw = MF.text_w(MF.ROOT_SIGN, size, bold, italic) / 72.0
-            ew = MF.text_w(a[1], size, bold, italic) / 72.0
-            _mline(slide, cx, ym - lh / 2.0, gw + 0.02, MF.ROOT_SIGN, size,
-                   color, bold, italic, name=pfx + "MATH:%s:rg" % mid)
-            cx += gw
-            _mline(slide, cx, ym - lh / 2.0, ew + 0.02, a[1], size, color,
-                   bold, italic, name=pfx + "MATH:%s:r" % mid)
-            cap = 0.70 * size / 72.0                  # aptuvens lielo burtu augstums
-            box(slide, cx, ym - cap / 2.0 - 0.055 * size / 72.0,
-                ew + 0.02, 0.014, fill=color, line=None, rounded=False,
-                name=pfx + "MATH:%s:rb" % mid)
-            cx += ew + ROOT_SIDE * size / 72.0
-        else:
-            num, den = a[1], a[2]
-            fw = max(MF.text_w(num, size, bold, italic),
-                     MF.text_w(den, size, bold, italic)) / 72.0
-            side = 0.30 * size / 72.0
-            cx += side
-            _mline(slide, cx, ym - pad / 2.0 - lh, fw, num, size, color,
-                   bold, italic, name=pfx + "MATH:%s:n" % mid)
-            box(slide, cx, ym - 0.008, fw, 0.016, fill=color, line=None,
-                rounded=False, name=pfx + "MATH:%s:b" % mid)
-            _mline(slide, cx, ym + pad / 2.0, fw, den, size, color, bold,
-                   italic, name=pfx + "MATH:%s:d" % mid)
-            cx += fw + side
+    ctx = dict(size=size, color=color, bold=bold, italic=italic,
+               pfx=pfx, mid=mid, lh=lh, pad=pad)
+    _draw_atoms(slide, atoms, cx, ym, ctx)
     return size
 
 
@@ -1030,11 +1148,14 @@ def draw_gap(slide, u, step):
 
     # --- aprēķina soļi; ja pietrūkst vietas, noņem vecākos -----------------
     def apr_lines(items, trimmed):
+        # Jau atklātie soļi jāzīmē tāpat kā "Formulas:" sleja - ar daļām un
+        # saknēm, nevis rindas tekstā (rules_lessons.txt).
         out = [{"t": "Aprēķins:", "size": 17, "bold": True, "color": NAVY}]
         if trimmed:
             out.append({"t": "…", "size": 16, "color": GREY, "space": 4})
         for it in items:
-            out.append({"t": it, "size": 17, "space": 6})
+            out.append({"t": it, "size": 17, "space": 6,
+                        "math": math_line(it)})
         return out
 
     # ja soļiem pietrūkst vietas, noņem vecākos; ja neviens vairs neietilpst,
@@ -1047,7 +1168,7 @@ def draw_gap(slide, u, step):
     trimmed = 0
     while True:
         lines = apr_lines(shown, trimmed) if shown else []
-        apr_h = est_h(lines, apr_w) if lines else 0.0
+        apr_h = _lines_h(lines, apr_w) if lines else 0.0
         card_top = apr_y + (apr_h + 0.22 if lines else 0.0)
         if CARD_BOTTOM - card_top >= min_card or not shown:
             break
@@ -1055,8 +1176,7 @@ def draw_gap(slide, u, step):
         trimmed += 1
 
     if lines:
-        put(slide, RIGHT_X, apr_y, apr_w, apr_h, lines, autofit=False,
-            name="TXT:CALC")
+        _put_lines(slide, RIGHT_X, apr_y, apr_w, lines, name="TXT:CALC")
 
     # --- uzmanības kartīte -------------------------------------------------
     wanted_top = CARD_BOTTOM - max(min_card, CARD_BOTTOM - card_top)

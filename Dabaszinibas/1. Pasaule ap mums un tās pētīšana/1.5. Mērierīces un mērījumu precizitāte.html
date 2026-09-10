@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Iedaļas vērtība · Absolūtā un relatīvā kļūda · Rezultāta pieraksts</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.5. Mērierīces un mērījumu precizitāte</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -304,11 +331,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:16.0000%;width:44.4499%;height:31.2000%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.878cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:27.2320%;justify-content:flex-start">
-<p style="font-size:1.3136cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">IEDAĻAS VĒRTĪBA c</p>
-<p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.8084cqw">Cik lielai lieluma izmaiņai atbilst viena skalas iedaļa.</p>
-<p style="font-size:2.4251cqw;color:#4F46E5;text-align:center;padding-top:1.0094cqw;font-weight:700">c = (b − a) / N</p>
-<p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:0.8084cqw">a, b — divu apzīmētu svītriņu vērtības; N — iedaļu skaits starp tām.</p>
+<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:2.3881%;justify-content:flex-start">
+<p style="font-size:1.0823cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">IEDAĻAS VĒRTĪBA c</p>
+</div>
+<div class="tb" style="left:5.9251%;top:21.5573%;width:40.8498%;height:3.1230%;justify-content:flex-start">
+<p style="font-size:1.4157cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cik lielai lieluma izmaiņai atbilst viena skalas iedaļa.</p>
+</div>
+<div class="tb" style="left:22.3999%;top:29.0418%;width:2.8901%;height:4.3378%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.9990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c =&nbsp;</p>
+</div>
+<div class="tb" style="left:25.7400%;top:26.3395%;width:3.9601%;height:4.3378%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.9990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b − a</p>
+</div>
+<i style="left:25.7400%;top:31.1040%;width:3.9601%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:25.7400%;top:31.7440%;width:3.9601%;height:4.3378%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.9990cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N</p>
+</div>
+<div class="tb" style="left:5.9251%;top:37.4447%;width:40.8498%;height:5.5111%;justify-content:flex-start">
+<p style="font-size:1.2490cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">a, b — divu apzīmētu svītriņu vērtības; N — iedaļu skaits starp tām.</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:31.2000%;background:#FFFFFF;border:0.130cqw solid #B45309;border-radius:0.878cqw"></i>
 <div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:27.2320%;justify-content:flex-start">
@@ -338,7 +378,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:28.8757%;top:61.0667%;width:33.0008%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:29.7757%;top:64.5333%;width:20.4922%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">puse no iedaļas vērtības: Δx = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">puse no iedaļas vērtības: Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:50.6179%;top:62.2815%;width:0.8417%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -379,6 +419,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.7840%;width:88.1497%;height:7.2320%;justify-content:center">
 <p style="font-size:1.7063cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Neviens mērījums nav absolūti precīzs. Tāpēc fizikā vienmēr norāda ne tikai vērtību, bet arī tās kļūdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -389,15 +430,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">IEDAĻAS VĒRTĪBA c</p>
-<p class="p2">Cik lielai lieluma izmaiņai atbilst viena skalas iedaļa.</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">c = <span class="f"><span class="n">b − a</span><span class="d">N</span></span></p>
-<p class="p2" style="color:#4B5563">a, b — divu apzīmētu svītriņu vērtības; N — iedaļu skaits starp tām.</p>
 </div>
 <div class="card" style="border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĒRDIAPAZONS</p>
 <p class="p2">No mazākās līdz lielākajai vērtībai, ko ierīce spēj izmērīt.</p>
 <p class="p2">Mēraparātu izvēlas tā, lai mērāmā vērtība būtu diapazona vidusdaļā.</p>
 <p class="p2" style="color:#B91C1C">Pārsniedzot diapazonu, ierīci var sabojāt.</p>
+</div>
+<div class="card" style="border-color:#7C3AED">
+<p class="p3">Cik lielai lieluma izmaiņai atbilst viena skalas iedaļa.</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">c = <span class="f"><span class="n">b − a</span><span class="d">N</span></span></span></p>
+<p class="p3" style="color:#4B5563">a, b — divu apzīmētu svītriņu vērtības; N — iedaļu skaits starp tām.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">INSTRUMENTA KĻŪDA — cik daudz varam kļūdīties jau ierīces dēļ:</p>
@@ -444,11 +487,27 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.9792cqw;color:#4F46E5;text-align:left;padding-top:1.0417cqw;font-weight:700">l = 25,0 cm ;&nbsp;&nbsp;Δl = 0,05 cm</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:34.6667%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.975cqw"></i>
-<div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:30.6987%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">RELATĪVĀ KĻŪDA&nbsp;&nbsp;ε</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.8334cqw">Cik liela ir kļūda salīdzinājumā ar pašu lielumu.</p>
-<p style="font-size:2.5001cqw;color:#4F46E5;text-align:center;padding-top:0.8334cqw;font-weight:700">ε = Δx / x · 100 %</p>
-<p style="font-size:1.9792cqw;color:#B91C1C;text-align:left;padding-top:0.8334cqw;font-weight:700">ε = 0,05 : 25,0 · 100 % = 0,2 %</p>
+<div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:2.7464%;justify-content:flex-start">
+<p style="font-size:1.2459cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">RELATĪVĀ KĻŪDA&nbsp;&nbsp;ε</p>
+</div>
+<div class="tb" style="left:53.2251%;top:22.0933%;width:40.8498%;height:3.5914%;justify-content:flex-start">
+<p style="font-size:1.6282cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cik liela ir kļūda salīdzinājumā ar pašu lielumu.</p>
+</div>
+<div class="tb" style="left:66.4738%;top:30.3597%;width:3.3931%;height:4.9884%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.3001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε =&nbsp;</p>
+</div>
+<div class="tb" style="left:70.4069%;top:27.2521%;width:2.3921%;height:4.9884%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.3001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx</p>
+</div>
+<i style="left:70.4069%;top:32.7473%;width:2.3921%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:70.4069%;top:33.4672%;width:2.3921%;height:4.9884%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.3001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">x</p>
+</div>
+<div class="tb" style="left:73.4890%;top:30.3597%;width:7.4872%;height:4.9884%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.3001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;· 100 %</p>
+</div>
+<div class="tb" style="left:53.2251%;top:40.0231%;width:40.8498%;height:4.0139%;justify-content:flex-start">
+<p style="font-size:1.8198cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">ε = 0,05 : 25,0 · 100 % = 0,2 %</p>
 </div>
 <i style="left:4.1251%;top:53.0667%;width:91.7498%;height:17.3333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.488cqw"></i>
 <div class="tb" style="left:5.9251%;top:55.0507%;width:88.1497%;height:13.3653%;justify-content:flex-start">
@@ -462,6 +521,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0167cqw;color:#4F46E5;text-align:center;padding-top:0.7323cqw;font-weight:700">l = (25,00 ± 0,05) cm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t = (23,0 ± 0,5) °C</p>
 <p style="font-size:1.5573cqw;color:#4B5563;text-align:center;padding-top:0.7323cqw">Vērtību un kļūdu raksta ar vienādu ciparu skaitu aiz komata. Nerakstām vairāk ciparu, nekā ierīce spēj izmērīt.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -479,8 +539,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="card" style="border-color:#047857">
 <p class="p3" style="color:#047857;font-weight:700">RELATĪVĀ KĻŪDA&nbsp;&nbsp;ε</p>
 <p class="p2">Cik liela ir kļūda salīdzinājumā ar pašu lielumu.</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">ε = <span class="f"><span class="n">Δx</span><span class="d">x</span></span> · 100 %</p>
-<p class="p1" style="color:#B91C1C;font-weight:700">ε = 0,05 : 25,0 · 100 % = 0,2 %</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">ε = <span class="f"><span class="n">Δx</span><span class="d">x</span></span> · 100 %</span></p>
+<p class="p2" style="color:#B91C1C;font-weight:700">ε = 0,05 : 25,0 · 100 % = 0,2 %</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">PRECIZITĀTI SALĪDZINA PĒC RELATĪVĀS KĻŪDAS</p>
@@ -545,6 +605,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.5. Mērierīces un mērījumu precizitāte</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -600,6 +661,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Iedaļas vērtība, kļūdas un rezultāta pieraksts</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -635,6 +697,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -686,6 +749,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -752,6 +816,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -824,7 +889,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:57.2543%;top:44.7963%;width:4.7168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.8211%;top:40.2926%;width:6.6002%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b − a</p>
@@ -834,7 +899,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N</p>
 </div>
 <div class="tb" style="left:58.4627%;top:63.4778%;width:7.2168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔV = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔV =&nbsp;</p>
 </div>
 <div class="tb" style="left:66.5296%;top:58.9741%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
@@ -851,6 +916,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -927,7 +993,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9547%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3236%;top:59.4322%;width:2.5660%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b − a</p>
@@ -937,7 +1003,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:2.8801%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2489%;top:66.4478%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -960,6 +1026,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1040,7 +1107,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9547%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3236%;top:59.4322%;width:2.5660%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b − a</p>
@@ -1050,7 +1117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:2.8801%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2489%;top:66.4478%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1060,16 +1127,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;c = (50 mL − 0 mL) : 25 = 2 mL</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;c = (50 mL − 0 mL) : 25 = 2 mL</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 </div>
 <div class="tb" style="left:44.5707%;top:60.0630%;width:11.4336%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;ΔV = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;ΔV =&nbsp;</p>
 </div>
 <div class="tb" style="left:56.8543%;top:55.5593%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
@@ -1079,7 +1148,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
 <div class="tb" style="left:59.5377%;top:60.0630%;width:23.7173%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 2 mL : 2 = 1 mL</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 2 mL : 2 = 1 mL</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1089,6 +1158,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1173,7 +1243,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:1.9547%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3236%;top:59.4322%;width:2.5660%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">b − a</p>
@@ -1183,7 +1253,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:2.8801%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔV =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2489%;top:66.4478%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1193,13 +1263,27 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;c = (50 mL − 0 mL) : 25 = 2 mL</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ΔV = c / 2 = 2 mL : 2 = 1 mL</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;c = (50 mL − 0 mL) : 25 = 2 mL</p>
+</div>
+<div class="tb" style="left:31.8008%;top:44.0463%;width:6.0647%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2)&nbsp;&nbsp;ΔV =&nbsp;</p>
+</div>
+<div class="tb" style="left:38.2468%;top:41.6537%;width:0.8943%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
+</div>
+<i style="left:38.2468%;top:45.8600%;width:0.8943%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:38.2468%;top:46.4389%;width:0.8943%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
+</div>
+<div class="tb" style="left:39.6723%;top:44.0463%;width:12.5904%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 2 mL : 2 = 1 mL</p>
+</div>
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">c = 2 mL ;&nbsp;&nbsp; ΔV = 1 mL</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Analogai ierīcei kļūdu pieņem kā pusi no iedaļas vērtības.</p>
@@ -1212,6 +1296,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Lodītes diametrs mērīts piecas reizes: 12,3 mm; 12,5 mm; 12,4 mm; 12,6 mm; 12,2 mm. Aprēķini vidējo vērtību un absolūto kļūdu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1243,7 +1328,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;c = (50 mL − 0 mL) : 25 = 2 mL</p>
-<p class="p2">2)&nbsp;&nbsp;ΔV = <span class="f"><span class="n">c</span><span class="d">2</span></span> = 2 mL : 2 = 1 mL</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">ΔV = <span class="f"><span class="n">c</span><span class="d">2</span></span> = 2 mL : 2 = 1 mL</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1282,6 +1367,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1333,6 +1419,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1399,6 +1486,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1471,7 +1559,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0377%;top:44.7963%;width:6.0668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δl = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δl =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.9546%;top:40.2926%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
@@ -1481,7 +1569,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
 <div class="tb" style="left:53.7959%;top:63.4778%;width:4.8501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:59.4961%;top:58.9741%;width:2.7501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δl</p>
@@ -1491,7 +1579,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">l</p>
 </div>
 <div class="tb" style="left:63.2462%;top:63.4778%;width:10.7836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> · 100 %</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;· 100 %</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1501,6 +1589,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1577,7 +1666,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.4404%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8092%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1587,7 +1676,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.0435%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -1597,7 +1686,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:7.8002%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1613,6 +1702,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1693,7 +1783,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.4404%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8092%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1703,7 +1793,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.0435%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -1713,12 +1803,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:7.8002%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1733,6 +1825,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1817,7 +1910,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.4404%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8092%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1827,7 +1920,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.0435%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -1837,13 +1930,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:7.8002%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε = 0,05 cm : 25,0 cm · 100 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε = 0,05 cm : 25,0 cm · 100 %</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1858,6 +1955,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1943,7 +2041,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.4404%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.8092%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -1953,7 +2051,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.0435%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -1963,14 +2061,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:7.8002%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε = 0,05 cm : 25,0 cm · 100 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ε = 0,002 · 100 % = 0,2 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δl = 1 mm : 2 = 0,5 mm = 0,05 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε = 0,05 cm : 25,0 cm · 100 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ε = 0,002 · 100 % = 0,2 %</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1986,6 +2090,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmais skolēns izmērīja 8,0 cm ar kļūdu 0,5 mm. Otrais izmērīja 250 cm ar kļūdu 5 mm. Kurš mērījums ir precīzāks? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2057,6 +2162,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2108,6 +2214,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2174,6 +2281,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2246,7 +2354,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:50.1292%;top:44.7963%;width:11.3503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d(vid) = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.3295%;top:40.2926%;width:14.2170%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d₁ + … + d₅</p>
@@ -2256,7 +2364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N</p>
 </div>
 <div class="tb" style="left:48.3541%;top:63.4778%;width:7.0335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δd = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δd =&nbsp;</p>
 </div>
 <div class="tb" style="left:56.2377%;top:58.9741%;width:22.0839%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d(max) − d(min)</p>
@@ -2273,6 +2381,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2349,7 +2458,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.9632%;width:4.2832%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.6351%;top:61.2659%;width:5.2952%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d₁ + … + d₅</p>
@@ -2359,7 +2468,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6781%;width:2.7128%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0648%;top:67.9808%;width:8.1533%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(max) − d(min)</p>
@@ -2382,6 +2491,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2462,7 +2572,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.9632%;width:4.2832%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.6351%;top:61.2659%;width:5.2952%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d₁ + … + d₅</p>
@@ -2472,7 +2582,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6781%;width:2.7128%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0648%;top:67.9808%;width:8.1533%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(max) − d(min)</p>
@@ -2482,9 +2592,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2499,6 +2611,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2583,7 +2696,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.9632%;width:4.2832%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.6351%;top:61.2659%;width:5.2952%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d₁ + … + d₅</p>
@@ -2593,7 +2706,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6781%;width:2.7128%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0648%;top:67.9808%;width:8.1533%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(max) − d(min)</p>
@@ -2603,10 +2716,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d(vid) = 62,0 mm : 5 = 12,4 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d(vid) = 62,0 mm : 5 = 12,4 mm</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2621,6 +2738,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2706,7 +2824,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1854cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.9632%;width:4.2832%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(vid) =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.6351%;top:61.2659%;width:5.2952%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d₁ + … + d₅</p>
@@ -2716,7 +2834,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6781%;width:2.7128%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δd =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.0648%;top:67.9808%;width:8.1533%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(max) − d(min)</p>
@@ -2726,11 +2844,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d(vid) = 62,0 mm : 5 = 12,4 mm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Δd = (12,6 − 12,2) : 2 = 0,2 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σd = 12,3 + 12,5 + 12,4 + 12,6 + 12,2 = 62,0 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d(vid) = 62,0 mm : 5 = 12,4 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Δd = (12,6 − 12,2) : 2 = 0,2 mm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2746,6 +2870,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Šķidruma termometra iedaļas vērtība ir 2 °C, rādījums 36 °C. Digitālais termometrs rāda 36,4 °C ar kļūdu 0,1 °C. Salīdzini abu mērījumu relatīvās kļūdas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2817,6 +2942,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2868,6 +2994,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2934,6 +3061,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3006,7 +3134,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:53.7959%;top:54.1370%;width:4.8501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:59.4961%;top:49.6333%;width:2.7501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δl</p>
@@ -3016,7 +3144,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">l</p>
 </div>
 <div class="tb" style="left:63.2462%;top:54.1370%;width:10.7836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> · 100 %</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;· 100 %</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3026,6 +3154,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3101,7 +3230,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9384%;top:65.0462%;width:1.3118%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -3111,7 +3240,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:8.7452%;top:67.2755%;width:5.3559%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3127,6 +3256,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3206,7 +3336,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9384%;top:65.0462%;width:1.3118%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -3216,12 +3346,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:8.7452%;top:67.2755%;width:5.3559%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3236,6 +3368,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3319,7 +3452,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9384%;top:65.0462%;width:1.3118%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -3329,13 +3462,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:8.7452%;top:67.2755%;width:5.3559%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε₂ = 0,5 cm : 250 cm · 100 % = 0,20 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε₂ = 0,5 cm : 250 cm · 100 % = 0,20 %</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3350,6 +3487,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3434,7 +3572,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.9384%;top:65.0462%;width:1.3118%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δl</p>
@@ -3444,14 +3582,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">l</p>
 </div>
 <div class="tb" style="left:8.7452%;top:67.2755%;width:5.3559%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε₂ = 0,5 cm : 250 cm · 100 % = 0,20 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ε₂ &lt; ε₁</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ε₁ = 0,05 cm : 8,0 cm · 100 % = 0,63 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε₂ = 0,5 cm : 250 cm · 100 % = 0,20 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ε₂ &lt; ε₁</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3467,6 +3611,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3533,6 +3678,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3577,6 +3723,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3636,6 +3783,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3705,7 +3853,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.4544%;top:44.7963%;width:7.2335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δt₁ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δt₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:66.5379%;top:40.2926%;width:1.6834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
@@ -3715,7 +3863,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2</p>
 </div>
 <div class="tb" style="left:53.6293%;top:63.4778%;width:4.8501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:59.3294%;top:58.9741%;width:3.0834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δt</p>
@@ -3725,12 +3873,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
 </div>
 <div class="tb" style="left:63.4128%;top:63.4778%;width:10.7836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> · 100 %</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;· 100 %</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3804,7 +3953,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.8998%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2686%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -3814,7 +3963,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.1813%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
@@ -3824,7 +3973,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:7.9380%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -3836,6 +3985,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3913,7 +4063,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.8998%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2686%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -3923,7 +4073,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.1813%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
@@ -3933,12 +4083,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:7.9380%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3949,6 +4101,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4030,7 +4183,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.8998%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2686%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -4040,7 +4193,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.1813%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
@@ -4050,13 +4203,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:7.9380%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε₁ = 1 : 36 · 100 % = 2,8 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε₁ = 1 : 36 · 100 % = 2,8 %</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4067,6 +4224,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4149,7 +4307,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2386cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.2055%;width:2.8998%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt₁ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.2686%;top:59.4322%;width:0.6628%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
@@ -4159,7 +4317,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.2211%;width:1.9941%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε = </p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ε =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3630%;top:66.4478%;width:1.1813%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
@@ -4169,14 +4327,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
 </div>
 <div class="tb" style="left:7.9380%;top:68.2211%;width:4.2910%;height:2.8467%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw"> · 100 %</p>
+<p style="font-size:1.3115cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;· 100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε₁ = 1 : 36 · 100 % = 2,8 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ε₂ = 0,1 : 36,4 · 100 % = 0,27 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δt₁ = 2 °C : 2 = 1 °C</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε₁ = 1 : 36 · 100 % = 2,8 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ε₂ = 0,1 : 36,4 · 100 % = 0,27 %</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4188,6 +4352,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Izmērīts: m = (50,0 ± 0,1) g un V = (20,0 ± 0,5) cm³. Aprēķini blīvumu un tā relatīvo kļūdu! (ε(ρ) = ε(m) + ε(V))</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4251,6 +4416,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4294,6 +4460,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4352,6 +4519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4421,7 +4589,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.0127%;top:49.5370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.9462%;top:45.0333%;width:2.7167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m</p>
@@ -4436,6 +4604,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4509,7 +4678,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4530,6 +4699,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4607,7 +4777,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4620,9 +4790,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ε(ρ) = ε(m) + ε(V)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4632,6 +4804,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4713,7 +4886,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4726,10 +4899,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ε(ρ) = ε(m) + ε(V)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4739,6 +4916,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4821,7 +4999,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4834,11 +5012,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ε(ρ) = ε(m) + ε(V)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ε(V) = 0,5 : 20,0 · 100 % = 2,5 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ε(V) = 0,5 : 20,0 · 100 % = 2,5 %</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4848,6 +5032,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4931,7 +5116,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:64.2406%;width:2.3127%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7322%;top:62.2392%;width:1.1850%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
@@ -4944,14 +5129,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ε(ρ) = ε(m) + ε(V)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ε(V) = 0,5 : 20,0 · 100 % = 2,5 %</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">4)&nbsp;&nbsp;ε(ρ) = 0,2 % + 2,5 % = 2,7 %</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ρ = 0,0500 kg : (2,00 · 10⁻⁵ m³) = 2500 kg/m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;ε(m) = 0,1 : 50,0 · 100 % = 0,2 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ε(V) = 0,5 : 20,0 · 100 % = 2,5 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;ε(ρ) = 0,2 % + 2,5 % = 2,7 %</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">ρ = 2500 kg/m³ ;&nbsp;&nbsp; ε(ρ) ≈ 2,7 %</p>
@@ -4960,6 +5153,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5037,6 +5231,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu noteikt iedaļas vērtību&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt absolūto un relatīvo kļūdu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pierakstīt rezultātu ar kļūdu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pamatot mērierīces izvēli</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: pētījuma plānošana un dati — kā veikt godīgu pētījumu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -5047,8 +5242,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p class="p2">•&nbsp;&nbsp;Iedaļas vērtība c = <span class="f"><span class="n">b − a</span><span class="d">N</span></span> analogai ierīcei Δx = <span class="f"><span class="n">c</span><span class="d">2</span></span> digitālai Δx = pēdējā cipara vienība.</p>
-<p class="p2">•&nbsp;&nbsp;Absolūtā kļūda Δx ir vienībās, relatīvā ε = <span class="f"><span class="n">Δx</span><span class="d">x</span></span> · 100 %.</p>
+<p class="p2">•&nbsp;&nbsp;Iedaļas vērtība c =&nbsp;<span class="f"><span class="n">b − a</span><span class="d">N</span></span>&nbsp;analogai ierīcei Δx =&nbsp;<span class="f"><span class="n">c</span><span class="d">2</span></span>&nbsp;digitālai Δx = pēdējā cipara vienība.</p>
+<p class="p2">•&nbsp;&nbsp;Absolūtā kļūda Δx ir vienībās, relatīvā ε =&nbsp;<span class="f"><span class="n">Δx</span><span class="d">x</span></span>&nbsp;· 100 %.</p>
 <p class="p2">•&nbsp;&nbsp;Precizitāti salīdzina pēc relatīvās kļūdas, nevis absolūtās.</p>
 <p class="p2">•&nbsp;&nbsp;Rezultātu pieraksta formā x = (x ± Δx) mērvienība.</p>
 <p class="p2">•&nbsp;&nbsp;Digitāla ierīce nav automātiski precīzāka — svarīga ir tās kļūda.</p>

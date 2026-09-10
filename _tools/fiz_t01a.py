@@ -4,13 +4,78 @@
 A daļa: 1.1.-1.7. stunda (vektori un vienmērīga kustība).
 """
 
-from fiz_common import NAVY, BLUE, GOLD, GREY, RED, GREEN     # noqa: F401
+from fiz_common import (NAVY, BLUE, GOLD, GREY, RED, GREEN,   # noqa: F401
+                        LINEGREY)
 
 TEMATS = "1. temats. Ievads pētniecībā. Vienmērīga un nevienmērīga kustība"
 KICKER = "FIZIKA I · 10. KLASE · 1. TEMATS: IEVADS PĒTNIECĪBĀ UN KUSTĪBA"
 KURSS = "FIZIKA I · 10. KLASE"
 MAPE = ("C:/aphysics/Fizika_1/"
         "1. Ievads pētniecībā. Vienmērīga un nevienmērīga kustība")
+
+# ---------------------------------------------------- 1.3. stundas zīmējumi
+# Vektoru darbības vislabāk saprot no zīmējuma, tāpēc ģeometrija ir šeit,
+# blakus stundas saturam; kā to uzzīmēt, zina zimejumi.py (SRP).
+# Koordinātas: x pa labi, y uz leju.
+
+ZIM_SASKAITISANA = dict(w=20, h=6.8, hin=2.55, items=[
+    ("t", 4.6, 0.5, "TRIJSTŪRA LIKUMS", GREY, 13),
+    ("v", 1.0, 5.4, 5.4, 5.4, BLUE),
+    ("t", 3.2, 6.1, "a⃗", BLUE, 16),
+    ("v", 5.4, 5.4, 8.2, 1.8, GREEN),
+    ("t", 8.0, 3.9, "b⃗", GREEN, 16),
+    ("v", 1.0, 5.4, 8.2, 1.8, RED),
+    ("t", 3.4, 3.0, "a⃗ + b⃗", RED, 16),
+
+    ("t", 15.2, 0.5, "PARALELOGRAMA LIKUMS", GREY, 13),
+    ("s", 16.0, 5.4, 18.8, 1.8, GREY),
+    ("s", 14.4, 1.8, 18.8, 1.8, GREY),
+    ("v", 11.6, 5.4, 16.0, 5.4, BLUE),
+    ("t", 13.8, 6.1, "a⃗", BLUE, 16),
+    ("v", 11.6, 5.4, 14.4, 1.8, GREEN),
+    ("t", 12.4, 3.2, "b⃗", GREEN, 16),
+    ("v", 11.6, 5.4, 18.8, 1.8, RED),
+    ("t", 17.4, 4.3, "a⃗ + b⃗", RED, 16),
+])
+
+ZIM_ATNEMSANA = dict(w=20, h=6.8, hin=3.90, items=[
+    ("t", 4.6, 0.5, "STARPĪBA a⃗ − b⃗", GREY, 13),
+    ("v", 1.2, 5.4, 6.4, 5.4, BLUE),
+    ("t", 3.8, 6.1, "a⃗", BLUE, 16),
+    ("v", 1.2, 5.4, 3.6, 1.8, GREEN),
+    ("t", 1.8, 3.2, "b⃗", GREEN, 16),
+    ("v", 3.6, 1.8, 6.4, 5.4, RED),
+    ("t", 6.0, 3.0, "a⃗ − b⃗", RED, 16),
+
+    ("t", 15.3, 0.5, "PRETĒJAIS VEKTORS", GREY, 13),
+    ("v", 12.0, 5.4, 14.8, 1.8, GREEN),
+    ("t", 12.4, 3.2, "b⃗", GREEN, 16),
+    ("v", 18.6, 1.8, 15.8, 5.4, GREEN),
+    ("t", 18.4, 3.6, "−b⃗", GREEN, 16),
+    ("t", 15.3, 6.3, "vienāds garums, pretējs virziens", GREY, 12),
+])
+
+ZIM_KOPVEKTORS = dict(w=20, h=6.8, hin=2.75, items=[
+    ("t", 3.8, 0.5, "PERPENDIKULĀRI SPĒKI", GREY, 13),
+    ("s", 5.75, 5.4, 5.75, 4.85, GREY),
+    ("s", 5.75, 4.85, 6.2, 4.85, GREY),
+    ("v", 1.4, 5.4, 6.2, 5.4, BLUE),
+    ("t", 3.8, 6.2, "F⃗₁ = 40 N", BLUE, 14),
+    ("v", 6.2, 5.4, 6.2, 1.8, GREEN),
+    ("t", 7.9, 3.6, "F⃗₂ = 30 N", GREEN, 14),
+    ("v", 1.4, 5.4, 6.2, 1.8, RED),
+    ("t", 2.6, 3.0, "F = 50 N", RED, 14),
+
+    ("t", 14.8, 0.5, "CEĻŠ UN PĀRVIETOJUMS", GREY, 13),
+    ("v", 12.4, 5.6, 12.4, 2.0, BLUE),
+    ("t", 10.1, 3.8, "300 m (Z)", BLUE, 14),
+    ("v", 12.4, 2.0, 17.2, 2.0, GREEN),
+    ("t", 14.8, 1.3, "400 m (A)", GREEN, 14),
+    ("v", 12.4, 5.6, 17.2, 2.0, RED),
+    ("t", 15.8, 4.5, "500 m", RED, 14),
+    ("t", 14.8, 6.4, "ceļš 700 m, pārvietojums 500 m", GREY, 12),
+])
+
 
 STUNDAS = [
 
@@ -204,7 +269,7 @@ dict(
                   "Spēkam - pielikšanas punkts."]),
                 ("GARUMS", BLUE,
                  ["Attēlo moduli izvēlētā mērogā.",
-                  "Piemērs: 1 cm ↔ 10 N."]),
+                  "Piemērs: 1 cm atbilst 10 N."]),
                 ("BULTA", RED,
                  ["Rāda virzienu.",
                   "Bez bultas zīmējums nav vektors."]),
@@ -233,8 +298,8 @@ dict(
         dict(nr=2, virsraksts="Vektora attēlošana",
              teksts="Spēks F = 40 N vērsts horizontāli pa labi.\n"
                     "Kāds būs vektora garums zīmējumā, ja mērogs ir\n"
-                    "1 cm ↔ 10 N?",
-             dots=["F = 40 N", "mērogs: 1 cm ↔ 10 N"],
+                    "1 cm atbilst 10 N?",
+             dots=["F = 40 N", "mērogs: 1 cm atbilst 10 N"],
              jaaprekina=["l = ?"],
              formulas=["l = F : (spēks uz 1 cm)"],
              aprekins=["1)  l = 40 N : 10 N/cm",
@@ -243,8 +308,8 @@ dict(
              piezime="Mērogu vienmēr pieraksta blakus zīmējumam."),
         dict(nr=3, virsraksts="Modulis no zīmējuma",
              teksts="Zīmējumā ātruma vektors ir 6,5 cm garš.\n"
-                    "Mērogs: 1 cm ↔ 4,0 m/s. Cik liels ir ātrums?",
-             dots=["l = 6,5 cm", "mērogs: 1 cm ↔ 4,0 m/s"],
+                    "Mērogs: 1 cm atbilst 4,0 m/s. Cik liels ir ātrums?",
+             dots=["l = 6,5 cm", "mērogs: 1 cm atbilst 4,0 m/s"],
              jaaprekina=["v = ?"],
              formulas=["v = l · (ātrums uz 1 cm)"],
              aprekins=["1)  v = 6,5 · 4,0",
@@ -257,13 +322,13 @@ dict(
                     "atpakaļ.\nCik liels ir noietais ceļš un cik liels "
                     "pārvietojums?",
              dots=["s₁ = 30 m", "s₂ = 30 m (atpakaļ)"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
+             jaaprekina=["ceļš s = ?", "pārvietojums |s⃗| = ?"],
              formulas=["s = s₁ + s₂  (skalārs)",
-                       "d⃗ - vektors no sākuma uz beigām"],
+                       "pārvietojums s⃗ - no sākuma uz beigu punktu"],
              aprekins=["1)  s = 30 + 30 = 60 m",
                        "2)  Sākuma un beigu punkts sakrīt",
-                       "3)  |d⃗| = 0"],
-             atbilde="s = 60 m ;   |d⃗| = 0 m",
+                       "3)  |s⃗| = 0"],
+             atbilde="s = 60 m ;   |s⃗| = 0 m",
              piezime="Šis piemērs vislabāk parāda atšķirību starp skalāru "
                      "un vektoru."),
         dict(nr=5, virsraksts="Kad vektori ir vienādi",
@@ -286,9 +351,9 @@ dict(
              jaaprekina=["mērogs = ?", "l = ?"],
              formulas=["mērogs = F : l"],
              aprekins=["1)  250 N : 5 cm = 50 N/cm",
-                       "2)  Ērts mērogs: 1 cm ↔ 50 N",
+                       "2)  Ērts mērogs: 1 cm atbilst 50 N",
                        "3)  Tad l = 250 : 50 = 5,0 cm"],
-             atbilde="Mērogs 1 cm ↔ 50 N; bultas garums 5,0 cm.",
+             atbilde="Mērogs 1 cm atbilst 50 N; bultas garums 5,0 cm.",
              piezime="Mērogam izvēlas apaļu skaitli: 1, 2, 5, 10, 50, "
                      "100."),
         dict(nr=7, virsraksts="Vai ātrums mainījās",
@@ -316,7 +381,7 @@ dict(
         ],
         majasdarbs=[
             "Nosauc trīs skalārus un trīs vektorus no ikdienas.",
-            "Uzzīmē spēku 25 N pa kreisi mērogā 1 cm ↔ 5 N.",
+            "Uzzīmē spēku 25 N pa kreisi mērogā 1 cm atbilst 5 N.",
             "Cilvēks apstaigā 400 m stadionu. Cik liels ir ceļš un cik "
             "pārvietojums?",
         ],
@@ -358,16 +423,21 @@ dict(
                   "F = √(F₁² + F₂²)",
                   "tg α = F₂ / F₁"]),
             ]),
+            ("zimejums", ZIM_SASKAITISANA),
             ("panelis", "TRIJSTŪRA LIKUMS",
              ["Otrā vektora sākumu pieliek pirmā vektora galam. Kopvektors "
               "iet no pirmā sākuma līdz otrā galam. Rezultāts nav atkarīgs "
               "no saskaitīšanas secības: a⃗ + b⃗ = b⃗ + a⃗."], NAVY),
         ]),
-        ("Atņemšana un mērogs", [
+        ("Vektoru atņemšana", [
+            ("zimejums", ZIM_ATNEMSANA),
             ("formula", "VEKTORU ATŅEMŠANA",
              "a⃗ − b⃗ = a⃗ + (−b⃗)",
              "Vektoru −b⃗ iegūst, pagriežot b⃗ par 180°. Tāpēc atņemšana "
              "vienmēr ir saskaitīšana ar pretējo vektoru.", GOLD),
+        ]),
+        ("Kopvektors zīmējumā", [
+            ("zimejums", ZIM_KOPVEKTORS),
             ("tabula",
              ["Gadījums", "Kopvektora modulis", "Piemērs"],
              [["Vienā virzienā", "F = F₁ + F₂", "3 N + 4 N = 7 N"],
@@ -417,12 +487,12 @@ dict(
              teksts="Tūrists nostaigā 300 m uz ziemeļiem, tad 400 m uz\n"
                     "austrumiem. Cik liels ir ceļš un cik pārvietojums?",
              dots=["s₁ = 300 m (Z)", "s₂ = 400 m (A)"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = s₁ + s₂", "|d⃗| = √(s₁² + s₂²)"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = s₁ + s₂", "|s⃗| = √(s₁² + s₂²)"],
              aprekins=["1)  s = 300 + 400 = 700 m",
-                       "2)  |d⃗|² = 90 000 + 160 000 = 250 000 m²",
-                       "3)  |d⃗| = 500 m"],
-             atbilde="s = 700 m ;   |d⃗| = 500 m",
+                       "2)  |s⃗|² = 90 000 + 160 000 = 250 000 m²",
+                       "3)  |s⃗| = 500 m"],
+             atbilde="s = 700 m ;   |s⃗| = 500 m",
              piezime="Pārvietojums nekad nav lielāks par ceļu."),
         dict(nr=5, virsraksts="Trīs spēki uz vienas taisnes",
              teksts="Uz ķermeni gar vienu taisni darbojas 50 N un 30 N "
@@ -596,15 +666,15 @@ dict(
              piezime="Jo stāvāks leņķis, jo mazāka horizontālā "
                      "projekcija - vilkt kļūst neizdevīgi."),
         dict(nr=6, virsraksts="Leņķis no projekcijām",
-             teksts="Pārvietojuma projekcijas ir dₓ = 9,0 m un\n"
-                    "d_y = 12 m. Aprēķini moduli un leņķi pret x asi!",
-             dots=["dₓ = 9,0 m", "d_y = 12 m"],
-             jaaprekina=["d = ?", "α = ?"],
-             formulas=["d = √(dₓ² + d_y²)", "tg α = d_y / dₓ"],
-             aprekins=["1)  d² = 81 + 144 = 225 m²",
-                       "2)  d = 15 m",
+             teksts="Pārvietojuma projekcijas ir sₓ = 9,0 m un\n"
+                    "s_y = 12 m. Aprēķini moduli un leņķi pret x asi!",
+             dots=["sₓ = 9,0 m", "s_y = 12 m"],
+             jaaprekina=["s = ?", "α = ?"],
+             formulas=["s = √(sₓ² + s_y²)", "tg α = s_y / sₓ"],
+             aprekins=["1)  s² = 81 + 144 = 225 m²",
+                       "2)  s = 15 m",
                        "3)  tg α = 12 : 9,0 = 1,33 → α ≈ 53°"],
-             atbilde="d = 15 m ;   α ≈ 53° pret x asi",
+             atbilde="s = 15 m ;   α ≈ 53° pret x asi",
              piezime="Atkal 3-4-5 trijstūris, reizināts ar 3."),
         dict(nr=7, virsraksts="Trīs spēki projekcijās",
              teksts="Uz ķermeni darbojas F₁ = 40 N gar +x, F₂ = 30 N gar "
@@ -733,12 +803,12 @@ dict(
                     "kāda laika\nx₂ = −5 m. Aprēķini pārvietojuma "
                     "projekciju!",
              dots=["x₁ = 12 m", "x₂ = −5 m"],
-             jaaprekina=["dₓ = ?"],
-             formulas=["dₓ = x₂ − x₁"],
-             aprekins=["1)  dₓ = −5 − 12",
-                       "2)  dₓ = −17 m",
-                       "3)  Modulis |d| = 17 m, virziens - pretēji asij"],
-             atbilde="dₓ = −17 m ;   |d⃗| = 17 m",
+             jaaprekina=["sₓ = ?"],
+             formulas=["sₓ = x₂ − x₁"],
+             aprekins=["1)  sₓ = −5 − 12",
+                       "2)  sₓ = −17 m",
+                       "3)  Modulis |s⃗| = 17 m, virziens - pretēji asij"],
+             atbilde="sₓ = −17 m ;   |s⃗| = 17 m",
              piezime="Pārvietojuma projekciju vienmēr rēķina kā beigu "
                      "mīnus sākuma koordināta."),
         dict(nr=5, virsraksts="Atskaites sistēma lidmašīnā",
@@ -773,12 +843,12 @@ dict(
                     "un\ntad uz x₂ = −6 m. Aprēķini ceļu un "
                     "pārvietojuma projekciju!",
              dots=["x₀ = 4 m", "x₁ = 20 m", "x₂ = −6 m"],
-             jaaprekina=["s = ?", "dₓ = ?"],
-             formulas=["s = |x₁ − x₀| + |x₂ − x₁|", "dₓ = x₂ − x₀"],
+             jaaprekina=["s = ?", "sₓ = ?"],
+             formulas=["s = |x₁ − x₀| + |x₂ − x₁|", "sₓ = x₂ − x₀"],
              aprekins=["1)  s₁ = |20 − 4| = 16 m",
                        "2)  s₂ = |−6 − 20| = 26 m ;  s = 42 m",
-                       "3)  dₓ = −6 − 4 = −10 m"],
-             atbilde="s = 42 m ;   dₓ = −10 m",
+                       "3)  sₓ = −6 − 4 = −10 m"],
+             atbilde="s = 42 m ;   sₓ = −10 m",
              piezime="Ceļu saskaita pa posmiem, pārvietojumu rēķina "
                      "tikai no gala koordinātām."),
     ],
@@ -807,12 +877,12 @@ dict(
 dict(
     nr="1.6", virsraksts="Ceļš un pārvietojums",
     jautajums="Kāpēc ceļš un pārvietojums nav viens un tas pats?",
-    apaksraksts="s - skalārs · d⃗ - vektors · s ≥ |d⃗|",
+    apaksraksts="Ceļš s - skalārs · Pārvietojums s⃗ - vektors · s ≥ |s⃗|",
     merkis="Iemācīties atšķirt ceļu no pārvietojuma un aprēķināt abus "
            "lielumus dažādās trajektorijās.",
     protu=["definēt ceļu un pārvietojumu;",
            "aprēķināt abus lielumus dotai trajektorijai;",
-           "pamatot, kāpēc s ≥ |d⃗|;",
+           "pamatot, kāpēc s ≥ |s⃗|;",
            "noteikt, kad ceļš ir vienāds ar pārvietojumu."],
     atkartojums="1.5. stundā: trajektorija ir līnija, pa kuru ķermenis "
                 "kustas. Tās garums ir ceļš. Bet no sākuma līdz beigām "
@@ -826,19 +896,19 @@ dict(
                "SKALĀRS - tikai skaitlis ar mērvienību.",
                "Vienmēr pieaug, nekad nesamazinās.",
                "Mēra metros."]),
-             ("PĀRVIETOJUMS  d⃗", RED,
+             ("PĀRVIETOJUMS  s⃗", RED,
               ["Vektors no sākuma uz beigu punktu.",
                "VEKTORS - modulis un virziens.",
                "Var būt nulle, arī ja ceļš nav nulle.",
                "Mēra metros."])),
             ("formula", "SVARĪGĀKĀ SAKARĪBA",
-             "s ≥ |d⃗|        s = |d⃗|  tikai taisnvirziena kustībā "
+             "s ≥ |s⃗|        s = |s⃗|  tikai taisnvirziena kustībā "
              "bez atgriešanās",
              "Ceļš nekad nevar būt mazāks par pārvietojuma moduli.", GOLD),
         ]),
         ("Tipiskās situācijas", [
             ("tabula",
-             ["Situācija", "Ceļš s", "Pārvietojums |d⃗|"],
+             ["Situācija", "Ceļš s", "Pārvietojums |s⃗|"],
              [["Taisni 100 m uz priekšu", "100 m", "100 m"],
               ["50 m turp un 50 m atpakaļ", "100 m", "0 m"],
               ["Aplis ar rādiusu R (viss)", "2πR", "0 m"],
@@ -856,48 +926,48 @@ dict(
              teksts="Skrējējs noskrien 400 m pa stadionu un atgriežas "
                     "starta\nvietā. Aprēķini ceļu un pārvietojumu!",
              dots=["viens aplis = 400 m"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
              formulas=["s = trajektorijas garums",
-                       "d⃗ - no sākuma uz beigām"],
+                       "s⃗ - no sākuma uz beigām"],
              aprekins=["1)  s = 400 m",
                        "2)  Sākuma un beigu punkts sakrīt",
-                       "3)  |d⃗| = 0 m"],
-             atbilde="s = 400 m ;   |d⃗| = 0 m",
+                       "3)  |s⃗| = 0 m"],
+             atbilde="s = 400 m ;   |s⃗| = 0 m",
              piezime="Ceļš nav nulle, bet pārvietojums ir - tas ir "
                      "normāli."),
         dict(nr=2, virsraksts="Puse apļa",
              teksts="Ķermenis pārvietojas pa pusapli ar rādiusu 20 m.\n"
                     "Aprēķini ceļu un pārvietojumu! (π ≈ 3,14)",
              dots=["R = 20 m", "puse apļa"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = πR", "|d⃗| = 2R (diametrs)"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = πR", "|s⃗| = 2R (diametrs)"],
              aprekins=["1)  s = 3,14 · 20 = 62,8 m",
-                       "2)  |d⃗| = 2 · 20 = 40 m",
+                       "2)  |s⃗| = 2 · 20 = 40 m",
                        "3)  Pārbaude: 62,8 > 40 ✔"],
-             atbilde="s = 62,8 m ;   |d⃗| = 40 m",
-             piezime="s vienmēr lielāks vai vienāds ar |d⃗|."),
+             atbilde="s = 62,8 m ;   |s⃗| = 40 m",
+             piezime="s vienmēr lielāks vai vienāds ar |s⃗|."),
         dict(nr=3, virsraksts="Lauzta trajektorija",
              teksts="Cilvēks iet 90 m uz ziemeļiem, tad 120 m uz "
                     "austrumiem.\nAprēķini ceļu un pārvietojumu!",
              dots=["s₁ = 90 m (Z)", "s₂ = 120 m (A)"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = s₁ + s₂", "|d⃗| = √(s₁² + s₂²)"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = s₁ + s₂", "|s⃗| = √(s₁² + s₂²)"],
              aprekins=["1)  s = 90 + 120 = 210 m",
-                       "2)  |d⃗|² = 8100 + 14 400 = 22 500 m²",
-                       "3)  |d⃗| = 150 m"],
-             atbilde="s = 210 m ;   |d⃗| = 150 m",
+                       "2)  |s⃗|² = 8100 + 14 400 = 22 500 m²",
+                       "3)  |s⃗| = 150 m"],
+             atbilde="s = 210 m ;   |s⃗| = 150 m",
              piezime="Atkal 3-4-5 trijstūris, tikai reizināts ar 30."),
         dict(nr=4, virsraksts="Kad tie sakrīt",
              teksts="Automašīna brauc pa taisnu šoseju 12 km vienā "
                     "virzienā\nun neapgriežas. Salīdzini ceļu un "
                     "pārvietojumu!",
              dots=["taisna trajektorija", "s = 12 km"],
-             jaaprekina=["|d⃗| = ?"],
-             formulas=["Taisnvirziena kustībā bez atgriešanās  s = |d⃗|"],
+             jaaprekina=["|s⃗| = ?"],
+             formulas=["Taisnvirziena kustībā bez atgriešanās  s = |s⃗|"],
              aprekins=["1)  Trajektorija - taisne",
                        "2)  Virziens nemainās",
-                       "3)  |d⃗| = 12 km = 1,2·10⁴ m"],
-             atbilde="s = |d⃗| = 12 km",
+                       "3)  |s⃗| = 12 km = 1,2·10⁴ m"],
+             atbilde="s = |s⃗| = 12 km",
              piezime="Tas ir vienīgais gadījums, kad abi lielumi ir "
                      "vienādi."),
         dict(nr=5, virsraksts="Ceturtdaļa apļa",
@@ -905,45 +975,45 @@ dict(
                     "ar\nrādiusu 50 m. Aprēķini ceļu un pārvietojumu! "
                     "(π ≈ 3,14)",
              dots=["R = 50 m", "ceturtdaļa apļa"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = 2πR : 4", "|d⃗| = R√2"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = 2πR : 4", "|s⃗| = R√2"],
              aprekins=["1)  s = 2 · 3,14 · 50 : 4 = 78,5 m",
-                       "2)  |d⃗| = 50 · 1,41",
-                       "3)  |d⃗| ≈ 71 m"],
-             atbilde="s ≈ 78,5 m ;   |d⃗| ≈ 71 m",
+                       "2)  |s⃗| = 50 · 1,41",
+                       "3)  |s⃗| ≈ 71 m"],
+             atbilde="s ≈ 78,5 m ;   |s⃗| ≈ 71 m",
              piezime="Gala punktus savieno horda - tā ir kvadrāta "
                      "diagonāle ar malu R."),
         dict(nr=6, virsraksts="Lifts augšup un lejup",
              teksts="Lifts paceļas par 12 m, tad nolaižas par 5 m.\n"
                     "Aprēķini ceļu un pārvietojumu!",
              dots=["s₁ = 12 m (augšup)", "s₂ = 5 m (lejup)"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = s₁ + s₂", "d_y = s₁ − s₂"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = s₁ + s₂", "s_y = s₁ − s₂"],
              aprekins=["1)  s = 12 + 5 = 17 m",
-                       "2)  d_y = 12 − 5 = 7 m",
-                       "3)  |d⃗| = 7 m augšup"],
-             atbilde="s = 17 m ;   |d⃗| = 7 m augšup",
+                       "2)  s_y = 12 − 5 = 7 m",
+                       "3)  |s⃗| = 7 m augšup"],
+             atbilde="s = 17 m ;   |s⃗| = 7 m augšup",
              piezime="Pretējos virzienos vērstus pārvietojumus atņem, "
                      "ceļus - vienmēr saskaita."),
         dict(nr=7, virsraksts="Pusotrs aplis",
              teksts="Skrējējs veic 1,5 apļus pa 400 m stadionu.\n"
                     "Aprēķini ceļu un pārvietojumu! (π ≈ 3,14)",
-             dots=["viens aplis = 400 m", "n = 1,5"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = n · 400 m", "400 = 2πR", "|d⃗| = 2R"],
+             dots=["viens aplis = 400 m", "N = 1,5"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = N · 400 m", "400 = 2πR", "|s⃗| = 2R"],
              aprekins=["1)  s = 1,5 · 400 = 600 m",
                        "2)  R = 400 : (2 · 3,14) = 63,7 m",
-                       "3)  |d⃗| = 2 · 63,7 ≈ 127 m"],
-             atbilde="s = 600 m ;   |d⃗| ≈ 1,3·10² m",
+                       "3)  |s⃗| = 2 · 63,7 ≈ 127 m"],
+             atbilde="s = 600 m ;   |s⃗| ≈ 1,3·10² m",
              piezime="Pēc pusotra apļa skrējējs ir stadiona pretējā "
                      "pusē - tur beidzas pārvietojums."),
     ],
     kopsavilkums=dict(
         iemacijamies=[
             "Ceļš s ir trajektorijas garums - skalārs.",
-            "Pārvietojums d⃗ ir vektors no sākuma uz beigu punktu.",
-            "Vienmēr s ≥ |d⃗|.",
-            "s = |d⃗| tikai taisnvirziena kustībā vienā virzienā.",
+            "Pārvietojums s⃗ ir vektors no sākuma uz beigu punktu.",
+            "Vienmēr s ≥ |s⃗|.",
+            "s = |s⃗| tikai taisnvirziena kustībā vienā virzienā.",
         ],
         majasdarbs=[
             "Ķermenis apiet kvadrātu ar malu 25 m. Aprēķini ceļu un "
@@ -955,7 +1025,7 @@ dict(
         ],
         pasvertejums=["Protu definēt ceļu un pārvietojumu",
                       "Protu tos aprēķināt",
-                      "Protu pamatot s ≥ |d⃗|",
+                      "Protu pamatot s ≥ |s⃗|",
                       "Protu atpazīt, kad tie sakrīt"],
         nakama="Nākamā stunda: vienmērīga taisnvirziena kustība."),
 ),
@@ -970,7 +1040,7 @@ dict(
            "lietot v = s/t un izteikt no tās s un t;",
            "pārveidot km/h un m/s;",
            "pārbaudīt rezultāta ticamību."],
-    atkartojums="1.6. stundā: taisnvirziena kustībā s = |d⃗|. Tagad "
+    atkartojums="1.6. stundā: taisnvirziena kustībā s = |s⃗|. Tagad "
                 "pievienojam laiku un iegūstam ātrumu.",
     uzdevumu_apraksts="Ātrums, ceļš un laiks vienmērīgā kustībā",
     teorija=[

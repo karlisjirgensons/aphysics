@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Kopējā masa · Virves spraigums · Divi vienādojumi</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.14. Ķermeņu sistēmas</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -303,60 +330,61 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Divas metodes</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.810cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:2.2044%;justify-content:flex-start">
-<p style="font-size:0.9990cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">KOPĒJĀS MASAS METODE</p>
+<i style="left:4.1251%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.949cqw"></i>
+<div class="tb" style="left:5.9251%;top:17.7173%;width:40.8498%;height:2.6453%;justify-content:flex-start">
+<p style="font-size:1.2000cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">KOPĒJĀS MASAS METODE</p>
 </div>
-<div class="tb" style="left:5.9251%;top:21.2551%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Sistēmu skata kā vienu ķermeni.</p>
+<div class="tb" style="left:5.9251%;top:21.9627%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Sistēmu skata kā vienu ķermeni.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:27.7588%;width:2.2951%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<div class="tb" style="left:5.9251%;top:29.7671%;width:2.7241%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
-<div class="tb" style="left:8.5202%;top:25.7321%;width:5.7451%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΣF(ārējie)</p>
+<div class="tb" style="left:9.0392%;top:27.3351%;width:6.8942%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΣF(ārējie)</p>
 </div>
-<i style="left:8.5202%;top:29.2788%;width:5.7451%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.5202%;top:29.7855%;width:5.7451%;height:3.2533%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4990cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σm</p>
+<i style="left:9.0392%;top:31.6124%;width:6.8942%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:9.0392%;top:32.1991%;width:6.8942%;height:3.9040%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σm</p>
 </div>
-<div class="tb" style="left:5.9251%;top:34.2092%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ātri atrod paātrinājumu.</p>
+<div class="tb" style="left:5.9251%;top:37.5076%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ātri atrod paātrinājumu.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:38.5529%;width:40.8498%;height:3.3067%;justify-content:flex-start">
-<p style="font-size:1.4990cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spraigumu neatrod.</p>
+<div class="tb" style="left:5.9251%;top:42.7200%;width:40.8498%;height:3.9680%;justify-content:flex-start">
+<p style="font-size:1.8000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spraigumu neatrod.</p>
 </div>
-<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:28.8000%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.810cqw"></i>
-<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:24.8320%;justify-content:flex-start">
-<p style="font-size:1.2125cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ATSEVIŠĶO ĶERMEŅU METODE</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Katram ķermenim savs vienādojums.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Iekšējie spēki parādās.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Atrod arī spraigumu T.</p>
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.7073cqw">Divi vienādojumi, divi nezināmie.</p>
+<i style="left:51.4250%;top:15.7333%;width:44.4499%;height:33.7407%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.949cqw"></i>
+<div class="tb" style="left:53.2251%;top:17.7173%;width:40.8498%;height:29.7727%;justify-content:flex-start">
+<p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ATSEVIŠĶO ĶERMEŅU METODE</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.9375cqw">Katram ķermenim savs vienādojums.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Iekšējie spēki parādās.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atrod arī spraigumu T.</p>
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divi vienādojumi, divi nezināmie.</p>
 </div>
-<i style="left:4.1251%;top:46.6667%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
-<div class="tb" style="left:5.9251%;top:48.4000%;width:88.1497%;height:3.2000%;justify-content:flex-start">
+<i style="left:4.1251%;top:51.6074%;width:91.7498%;height:22.9333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.645cqw"></i>
+<div class="tb" style="left:5.9251%;top:53.3407%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">TIPISKS PIEMĒRS</p>
 </div>
-<div class="tb" style="left:15.1887%;top:55.4111%;width:48.2647%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m₁ un m₂ savienoti ar virvi, velk ar spēku F:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a = </p>
+<div class="tb" style="left:15.1887%;top:60.3518%;width:48.2647%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m₁ un m₂ savienoti ar virvi, velk ar spēku F:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a =&nbsp;</p>
 </div>
-<div class="tb" style="left:63.9910%;top:52.3148%;width:7.2648%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:63.9910%;top:57.2556%;width:7.2648%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
 </div>
-<i style="left:63.9910%;top:57.7896%;width:7.2648%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:63.9910%;top:58.5074%;width:7.2648%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:63.9910%;top:62.7304%;width:7.2648%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:63.9910%;top:63.4481%;width:7.2648%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m₁ + m₂</p>
 </div>
-<div class="tb" style="left:71.9433%;top:55.4111%;width:13.0180%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:71.9433%;top:60.3518%;width:13.0180%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T = m₂ · a</p>
 </div>
-<div class="tb" style="left:5.9251%;top:63.9419%;width:88.1497%;height:3.6741%;justify-content:flex-start">
+<div class="tb" style="left:5.9251%;top:68.8827%;width:88.1497%;height:3.6741%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Spraigumu vienmēr atrod, rakstot vienādojumu TAM ķermenim, uz kuru darbojas mazāk spēku.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.14. Ķermeņu sistēmas</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -370,10 +398,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ATSEVIŠĶO ĶERMEŅU METODE</p>
-<p class="p2">Katram ķermenim savs vienādojums.</p>
-<p class="p2">Iekšējie spēki parādās.</p>
-<p class="p2">Atrod arī spraigumu T.</p>
-<p class="p2">Divi vienādojumi, divi nezināmie.</p>
+<p class="p1">Katram ķermenim savs vienādojums.</p>
+<p class="p1">Iekšējie spēki parādās.</p>
+<p class="p1">Atrod arī spraigumu T.</p>
+<p class="p1">Divi vienādojumi, divi nezināmie.</p>
 </div>
 <div class="card" style="border-color:#047857">
 <p class="p2">Sistēmu skata kā vienu ķermeni.</p>
@@ -406,7 +434,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7240cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Divi atsvari pār bloku: smagākais velk vieglāko.</p>
 </div>
 <div class="tb" style="left:5.9251%;top:29.2650%;width:2.6168%;height:3.7413%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.9095%;top:26.9344%;width:7.2624%;height:3.7413%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁ − m₂)g</p>
@@ -416,7 +444,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m₁ + m₂</p>
 </div>
 <div class="tb" style="left:5.9251%;top:39.1670%;width:2.6254%;height:3.7413%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.9181%;top:36.8363%;width:5.4425%;height:3.7413%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.7240cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2m₁m₂g</p>
@@ -446,7 +474,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:36.3838%;top:61.4222%;width:32.2587%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:37.2838%;top:64.8889%;width:2.5334%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:40.1672%;top:62.6370%;width:4.4668%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -465,7 +493,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:36.3838%;top:71.9704%;width:32.2587%;height:10.5481%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:37.2838%;top:75.4370%;width:2.5334%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:40.1672%;top:73.1852%;width:6.2668%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -476,7 +504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:68.6425%;top:71.9704%;width:27.2324%;height:10.5481%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:69.5426%;top:75.4370%;width:2.5417%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">T =&nbsp;</p>
 </div>
 <div class="tb" style="left:72.4343%;top:73.1852%;width:5.2585%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2m₁m₂g</p>
@@ -491,7 +519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:36.3838%;top:82.5185%;width:32.2587%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:37.2838%;top:85.9852%;width:2.5334%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:40.1672%;top:83.7333%;width:6.1502%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − µΣmg</p>
@@ -507,6 +535,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.14. Ķermeņu sistēmas</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -555,6 +584,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Saistīti ķermeņi un virves spraigums</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -591,6 +621,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -645,6 +676,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -717,6 +749,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -795,7 +828,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:55.8960%;top:49.5370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.7128%;top:45.0333%;width:9.0669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -815,6 +848,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -897,7 +931,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -923,6 +957,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1009,7 +1044,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1022,9 +1057,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1039,6 +1076,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1129,7 +1167,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1142,10 +1180,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a = 24 : 8,0 = 3,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 24 : 8,0 = 3,0 m/s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1160,6 +1202,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1251,7 +1294,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1264,11 +1307,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a = 24 : 8,0 = 3,0 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;T = 5,0 · 3,0 = 15 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 8,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 24 : 8,0 = 3,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;T = 5,0 · 3,0 = 15 N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1284,6 +1333,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Divas kastes (2,0 kg un 4,0 kg) uz virsmas ar µ = 0,20 velk ar 30 N. Aprēķini paātrinājumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1357,6 +1407,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1409,6 +1460,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1479,6 +1531,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1555,7 +1608,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:54.0709%;top:49.5370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:59.8877%;top:45.0333%;width:12.7170%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">(m₁−m₂)g</p>
@@ -1575,6 +1628,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1655,7 +1709,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:5.1466%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -1681,6 +1735,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1765,7 +1820,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:5.1466%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -1778,9 +1833,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂(g + a)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1795,6 +1852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1883,7 +1941,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:5.1466%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -1896,10 +1954,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂(g + a)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T = 4,0 · (9,8 + 1,96)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T = 4,0 · (9,8 + 1,96)</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1914,6 +1976,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2003,7 +2066,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:5.1466%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -2016,11 +2079,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₂(g + a)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T = 4,0 · (9,8 + 1,96)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;T = 4,0 · 11,76 = 47 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (6,0 − 4,0) · 9,8 : 10,0 = 1,96 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T = 4,0 · (9,8 + 1,96)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;T = 4,0 · 11,76 = 47 N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2036,6 +2105,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Automašīna (1200 kg) velk piekabi (400 kg) ar paātrinājumu 1,5 m/s². Aprēķini vilcēja spēku uz piekabi un dzinēja radīto kopspēku!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2109,6 +2179,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2164,6 +2235,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2239,6 +2311,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2320,7 +2393,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F(b) = µ(m₁+m₂)g</p>
 </div>
 <div class="tb" style="left:55.3876%;top:58.7370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.2044%;top:54.2333%;width:10.0836%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F − F(b)</p>
@@ -2337,6 +2410,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2422,7 +2496,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µ(m₁+m₂)g</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -2445,6 +2519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2534,7 +2609,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µ(m₁+m₂)g</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -2544,9 +2619,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σm</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2561,6 +2638,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2654,7 +2732,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µ(m₁+m₂)g</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -2664,10 +2742,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σm</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 58,8 = 11,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 58,8 = 11,8 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2682,6 +2764,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2776,7 +2859,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F(b) = µ(m₁+m₂)g</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.0630%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:67.2137%;width:4.1132%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F − F(b)</p>
@@ -2786,11 +2869,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Σm</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 58,8 = 11,8 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;a = (30 − 11,8) : 6,0 = 3,03 ≈ 3,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg ;&nbsp;&nbsp;N = 58,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F(b) = 0,20 · 58,8 = 11,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;a = (30 − 11,8) : 6,0 = 3,03 ≈ 3,0 m/s²</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2806,6 +2895,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Trīs kastes (1,0 kg; 2,0 kg; 3,0 kg) savienotas ar virvēm un tiek vilktas ar 12 N. Berzes nav. Aprēķini paātrinājumu un abu virvju spraigumus!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2880,6 +2970,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2934,6 +3025,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3006,6 +3098,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3093,6 +3186,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3194,6 +3288,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3286,9 +3381,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = (m₁+m₂)a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3303,6 +3400,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3399,10 +3497,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = (m₁+m₂)a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Σm = 1600 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Σm = 1600 kg</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3417,6 +3519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3514,11 +3617,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = (m₁+m₂)a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Σm = 1600 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F = 1600 · 1,5 = 2400 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;T = 400 · 1,5 = 600 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Σm = 1600 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F = 1600 · 1,5 = 2400 N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3534,6 +3643,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3604,6 +3714,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3652,6 +3763,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3722,6 +3834,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3805,7 +3918,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:58.2877%;top:44.9370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.1045%;top:40.4333%;width:4.2834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -3824,6 +3937,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3912,7 +4026,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0261cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.3175%;width:1.7052%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0065%;top:63.8482%;width:1.3703%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3937,6 +4051,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4029,7 +4144,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0261cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.3175%;width:1.7052%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0065%;top:63.8482%;width:1.3703%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -4045,9 +4160,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T₂ = m₃a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4058,6 +4175,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4154,7 +4272,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0261cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.3175%;width:1.7052%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0065%;top:63.8482%;width:1.3703%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -4170,10 +4288,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T₂ = m₃a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T₁ = (2,0 + 3,0) · 2,0 = 10 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T₁ = (2,0 + 3,0) · 2,0 = 10 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4184,6 +4306,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4281,7 +4404,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0261cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.3175%;width:1.7052%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0065%;top:63.8482%;width:1.3703%;height:2.3587%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.0865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -4297,11 +4420,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T₂ = m₃a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;T₁ = (2,0 + 3,0) · 2,0 = 10 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;T₂ = 3,0 · 2,0 = 6,0 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 6,0 kg → a = 12 : 6,0 = 2,0 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;T₁ = (2,0 + 3,0) · 2,0 = 10 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;T₂ = 3,0 · 2,0 = 6,0 N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4313,6 +4442,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Uz gluda galda ir 2,0 kg kaste, savienota pār bloku ar 3,0 kg atsvaru. Aprēķini paātrinājumu un virves spraigumu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4382,6 +4512,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4428,6 +4559,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4492,6 +4624,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4567,7 +4700,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:55.8960%;top:49.5370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.7128%;top:45.0333%;width:9.0669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m₂g</p>
@@ -4582,6 +4715,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4661,7 +4795,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m₂g</p>
@@ -4682,6 +4816,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4765,7 +4900,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m₂g</p>
@@ -4778,9 +4913,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₁a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4790,6 +4927,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4877,7 +5015,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m₂g</p>
@@ -4890,10 +5028,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₁a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a = 3,0 · 9,8 : 5,0 = 5,88 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 3,0 · 9,8 : 5,0 = 5,88 m/s²</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4903,6 +5045,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4991,7 +5134,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.4931%;top:63.7908%;width:3.6683%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m₂g</p>
@@ -5004,11 +5147,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">T = m₁a</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;a = 3,0 · 9,8 : 5,0 = 5,88 m/s²</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;T = 2,0 · 5,88 = 11,8 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Σm = 5,0 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 3,0 · 9,8 : 5,0 = 5,88 m/s²</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;T = 2,0 · 5,88 = 11,8 N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -5019,6 +5168,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5086,7 +5236,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Spraigumu atrod, rakstot vienādojumu vienam ķermenim.</p>
 </div>
 <div class="tb" style="left:5.9251%;top:44.4599%;width:10.6159%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;Blokam: a = </p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;Blokam: a =&nbsp;</p>
 </div>
 <div class="tb" style="left:16.9223%;top:42.0673%;width:6.6585%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">(m₁−m₂)g</p>
@@ -5114,6 +5264,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu lietot kopējās masas metodi&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt spraigumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu strādāt ar bloku&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pārbaudīt rezultātu</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: spiediens cietās vielās.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

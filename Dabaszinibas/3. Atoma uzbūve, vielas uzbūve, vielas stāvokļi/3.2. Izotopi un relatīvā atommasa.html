@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Izotopi · Relatīvā atommasa · Vidējā svērtā vērtība</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.2. Izotopi un relatīvā atommasa</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -309,129 +336,130 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.9375cqw">IZOTOPI ir viena ķīmiskā elementa atomi ar VIENĀDU protonu skaitu (Z), bet ATŠĶIRĪGU neitronu skaitu (N).</p>
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tāpēc tiem ir vienādas ķīmiskās īpašības, bet atšķirīga masa. Pieraksta: ¹²C un ¹⁴C jeb ogleklis-12 un ogleklis-14.</p>
 </div>
-<i style="left:4.1251%;top:53.0667%;width:22.7256%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:5.0251%;top:54.4000%;width:20.9255%;height:3.7333%;justify-content:flex-start">
+<i style="left:4.1251%;top:53.0667%;width:22.7311%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:5.0251%;top:54.4000%;width:20.9311%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Izotops</p>
 </div>
-<i style="left:26.8507%;top:53.0667%;width:16.5004%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:27.7507%;top:54.4000%;width:14.7004%;height:3.7333%;justify-content:flex-start">
+<i style="left:26.8562%;top:53.0667%;width:16.5045%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:27.7563%;top:54.4000%;width:14.7044%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Z (protoni)</p>
 </div>
-<i style="left:43.3511%;top:53.0667%;width:17.2504%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:44.2511%;top:54.4000%;width:15.4504%;height:3.7333%;justify-content:flex-start">
+<i style="left:43.3607%;top:53.0667%;width:17.2547%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:44.2607%;top:54.4000%;width:15.4546%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">N (neitroni)</p>
 </div>
-<i style="left:60.6015%;top:53.0667%;width:10.5003%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:61.5015%;top:54.4000%;width:8.7002%;height:3.7333%;justify-content:flex-start">
+<i style="left:60.6154%;top:53.0667%;width:10.5028%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:61.5154%;top:54.4000%;width:8.7028%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">A</p>
 </div>
-<i style="left:71.1018%;top:53.0667%;width:24.7506%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:72.0018%;top:54.4000%;width:22.9506%;height:3.7333%;justify-content:flex-start">
+<i style="left:71.1182%;top:53.0667%;width:24.7567%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:72.0182%;top:54.4000%;width:22.9566%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Īpatsvars dabā</p>
 </div>
-<i style="left:4.1251%;top:59.7333%;width:22.7256%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:60.9333%;width:20.9255%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:59.7333%;width:22.7311%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:60.9333%;width:20.9311%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Ūdeņradis ¹H</p>
 </div>
-<i style="left:26.8507%;top:59.7333%;width:16.5004%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:27.7507%;top:60.9333%;width:14.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:26.8562%;top:59.7333%;width:16.5045%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:27.7563%;top:60.9333%;width:14.7044%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1</p>
 </div>
-<i style="left:43.3511%;top:59.7333%;width:17.2504%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:44.2511%;top:60.9333%;width:15.4504%;height:4.2667%;justify-content:flex-start">
+<i style="left:43.3607%;top:59.7333%;width:17.2547%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:44.2607%;top:60.9333%;width:15.4546%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">0</p>
 </div>
-<i style="left:60.6015%;top:59.7333%;width:10.5003%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:61.5015%;top:60.9333%;width:8.7002%;height:4.2667%;justify-content:flex-start">
+<i style="left:60.6154%;top:59.7333%;width:10.5028%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:61.5154%;top:60.9333%;width:8.7028%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1</p>
 </div>
-<i style="left:71.1018%;top:59.7333%;width:24.7506%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.0018%;top:60.9333%;width:22.9506%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.1182%;top:59.7333%;width:24.7567%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.0182%;top:60.9333%;width:22.9566%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">99,98 %</p>
 </div>
-<i style="left:4.1251%;top:66.4000%;width:22.7256%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:67.6000%;width:20.9255%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:66.4000%;width:22.7311%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:67.6000%;width:20.9311%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Deitērijs ²H</p>
 </div>
-<i style="left:26.8507%;top:66.4000%;width:16.5004%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:27.7507%;top:67.6000%;width:14.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:26.8562%;top:66.4000%;width:16.5045%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:27.7563%;top:67.6000%;width:14.7044%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1</p>
 </div>
-<i style="left:43.3511%;top:66.4000%;width:17.2504%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:44.2511%;top:67.6000%;width:15.4504%;height:4.2667%;justify-content:flex-start">
+<i style="left:43.3607%;top:66.4000%;width:17.2547%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:44.2607%;top:67.6000%;width:15.4546%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1</p>
 </div>
-<i style="left:60.6015%;top:66.4000%;width:10.5003%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:61.5015%;top:67.6000%;width:8.7002%;height:4.2667%;justify-content:flex-start">
+<i style="left:60.6154%;top:66.4000%;width:10.5028%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:61.5154%;top:67.6000%;width:8.7028%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2</p>
 </div>
-<i style="left:71.1018%;top:66.4000%;width:24.7506%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.0018%;top:67.6000%;width:22.9506%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.1182%;top:66.4000%;width:24.7567%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.0182%;top:67.6000%;width:22.9566%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">0,02 %</p>
 </div>
-<i style="left:4.1251%;top:73.0667%;width:22.7256%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:74.2667%;width:20.9255%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:73.0667%;width:22.7311%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:74.2667%;width:20.9311%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Tritijs ³H</p>
 </div>
-<i style="left:26.8507%;top:73.0667%;width:16.5004%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:27.7507%;top:74.2667%;width:14.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:26.8562%;top:73.0667%;width:16.5045%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:27.7563%;top:74.2667%;width:14.7044%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1</p>
 </div>
-<i style="left:43.3511%;top:73.0667%;width:17.2504%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:44.2511%;top:74.2667%;width:15.4504%;height:4.2667%;justify-content:flex-start">
+<i style="left:43.3607%;top:73.0667%;width:17.2547%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:44.2607%;top:74.2667%;width:15.4546%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2</p>
 </div>
-<i style="left:60.6015%;top:73.0667%;width:10.5003%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:61.5015%;top:74.2667%;width:8.7002%;height:4.2667%;justify-content:flex-start">
+<i style="left:60.6154%;top:73.0667%;width:10.5028%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:61.5154%;top:74.2667%;width:8.7028%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3</p>
 </div>
-<i style="left:71.1018%;top:73.0667%;width:24.7506%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.0018%;top:74.2667%;width:22.9506%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.1182%;top:73.0667%;width:24.7567%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.0182%;top:74.2667%;width:22.9566%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pēdas, radioaktīvs</p>
 </div>
-<i style="left:4.1251%;top:79.7333%;width:22.7256%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:80.9333%;width:20.9255%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:79.7333%;width:22.7311%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:80.9333%;width:20.9311%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Ogleklis ¹²C</p>
 </div>
-<i style="left:26.8507%;top:79.7333%;width:16.5004%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:27.7507%;top:80.9333%;width:14.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:26.8562%;top:79.7333%;width:16.5045%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:27.7563%;top:80.9333%;width:14.7044%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">6</p>
 </div>
-<i style="left:43.3511%;top:79.7333%;width:17.2504%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:44.2511%;top:80.9333%;width:15.4504%;height:4.2667%;justify-content:flex-start">
+<i style="left:43.3607%;top:79.7333%;width:17.2547%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:44.2607%;top:80.9333%;width:15.4546%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">6</p>
 </div>
-<i style="left:60.6015%;top:79.7333%;width:10.5003%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:61.5015%;top:80.9333%;width:8.7002%;height:4.2667%;justify-content:flex-start">
+<i style="left:60.6154%;top:79.7333%;width:10.5028%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:61.5154%;top:80.9333%;width:8.7028%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">12</p>
 </div>
-<i style="left:71.1018%;top:79.7333%;width:24.7506%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.0018%;top:80.9333%;width:22.9506%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.1182%;top:79.7333%;width:24.7567%;height:6.6667%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.0182%;top:80.9333%;width:22.9566%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">98,9 %</p>
 </div>
-<i style="left:4.1251%;top:86.4000%;width:22.7256%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:87.6000%;width:20.9255%;height:4.2667%;justify-content:flex-start">
+<i style="left:4.1251%;top:86.4000%;width:22.7311%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:87.6000%;width:20.9311%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Ogleklis ¹⁴C</p>
 </div>
-<i style="left:26.8507%;top:86.4000%;width:16.5004%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:27.7507%;top:87.6000%;width:14.7004%;height:4.2667%;justify-content:flex-start">
+<i style="left:26.8562%;top:86.4000%;width:16.5045%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:27.7563%;top:87.6000%;width:14.7044%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">6</p>
 </div>
-<i style="left:43.3511%;top:86.4000%;width:17.2504%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:44.2511%;top:87.6000%;width:15.4504%;height:4.2667%;justify-content:flex-start">
+<i style="left:43.3607%;top:86.4000%;width:17.2547%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:44.2607%;top:87.6000%;width:15.4546%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">8</p>
 </div>
-<i style="left:60.6015%;top:86.4000%;width:10.5003%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:61.5015%;top:87.6000%;width:8.7002%;height:4.2667%;justify-content:flex-start">
+<i style="left:60.6154%;top:86.4000%;width:10.5028%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:61.5154%;top:87.6000%;width:8.7028%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">14</p>
 </div>
-<i style="left:71.1018%;top:86.4000%;width:24.7506%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:72.0018%;top:87.6000%;width:22.9506%;height:4.2667%;justify-content:flex-start">
+<i style="left:71.1182%;top:86.4000%;width:24.7567%;height:6.6667%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:72.0182%;top:87.6000%;width:22.9566%;height:4.2667%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">pēdas, radioaktīvs</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.2. Izotopi un relatīvā atommasa</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -501,7 +529,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">VIDĒJĀ SVĒRTĀ VĒRTĪBA</p>
 </div>
 <div class="tb" style="left:38.0372%;top:24.4778%;width:4.5272%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar = </p>
+<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:43.1019%;top:21.3815%;width:18.1734%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A₁ · w₁ + A₂ · w₂ + …</p>
@@ -513,23 +541,40 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:33.0086%;width:88.1497%;height:3.6741%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">A — izotopa masas skaitlis, w — tā īpatsvars dabā procentos.</p>
 </div>
-<i style="left:4.1251%;top:40.8000%;width:44.4499%;height:24.0000%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.675cqw"></i>
-<div class="tb" style="left:5.9251%;top:42.7840%;width:40.8498%;height:20.0320%;justify-content:flex-start">
+<i style="left:4.1251%;top:40.8000%;width:44.4499%;height:28.9407%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.814cqw"></i>
+<div class="tb" style="left:5.9251%;top:42.7840%;width:40.8498%;height:2.7556%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">PIEMĒRS — hlors</p>
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.9375cqw">³⁵Cl — 75 %,&nbsp;&nbsp;³⁷Cl — 25 %</p>
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ar = (35 · 75 + 37 · 25) / 100</p>
-<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ar = (2625 + 925) / 100 = 35,5</p>
 </div>
-<i style="left:51.4250%;top:40.8000%;width:44.4499%;height:24.0000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.675cqw"></i>
-<div class="tb" style="left:53.2251%;top:42.7840%;width:40.8498%;height:20.0320%;justify-content:flex-start">
-<p style="font-size:1.0615cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">KĀPĒC NE VESELS SKAITLIS</p>
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.7959cqw">Tabulā redzamā atommasa ir dabā sastopamo izotopu VIDĒJĀ vērtība.</p>
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Tāpēc Ar(Cl) = 35,5, nevis 35 vai 37.</p>
-<p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Atsevišķa atoma A vienmēr ir vesels skaitlis.</p>
+<div class="tb" style="left:5.9251%;top:47.2062%;width:40.8498%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">³⁵Cl — 75 %,&nbsp;&nbsp;³⁷Cl — 25 %</p>
+</div>
+<div class="tb" style="left:5.9251%;top:52.6358%;width:40.8498%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = (35 · 75 + 37 · 25) / 100</p>
+</div>
+<div class="tb" style="left:5.9251%;top:60.7655%;width:3.6751%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
+</div>
+<div class="tb" style="left:10.0128%;top:58.2321%;width:8.4096%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2625 + 925</p>
+</div>
+<i style="left:10.0128%;top:62.6921%;width:8.4096%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:10.0128%;top:63.2988%;width:8.4096%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100</p>
+</div>
+<div class="tb" style="left:18.9848%;top:60.7655%;width:5.2408%;height:4.0667%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.8750cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 35,5</p>
+</div>
+<i style="left:51.4250%;top:40.8000%;width:44.4499%;height:28.9407%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.814cqw"></i>
+<div class="tb" style="left:53.2251%;top:42.7840%;width:40.8498%;height:24.9727%;justify-content:flex-start">
+<p style="font-size:1.1750cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">KĀPĒC NE VESELS SKAITLIS</p>
+<p style="font-size:1.7615cqw;color:#374151;text-align:left;padding-top:0.8802cqw">Tabulā redzamā atommasa ir dabā sastopamo izotopu VIDĒJĀ vērtība.</p>
+<p style="font-size:1.7615cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Tāpēc Ar(Cl) = 35,5, nevis 35 vai 37.</p>
+<p style="font-size:1.7615cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Atsevišķa atoma A vienmēr ir vesels skaitlis.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.2. Izotopi un relatīvā atommasa</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -545,15 +590,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">PIEMĒRS — hlors</p>
-<p class="p1">³⁵Cl — 75 %,&nbsp;&nbsp;³⁷Cl — 25 %</p>
-<p class="p1">Ar = (35 · 75 + 37 · 25) / 100</p>
-<p class="p1">Ar = <span class="f"><span class="n">2625 + 925</span><span class="d">100</span></span> = 35,5</p>
 </div>
 <div class="card" style="border-color:#047857">
 <p class="p3" style="color:#047857;font-weight:700">KĀPĒC NE VESELS SKAITLIS</p>
 <p class="p2">Tabulā redzamā atommasa ir dabā sastopamo izotopu VIDĒJĀ vērtība.</p>
 <p class="p2">Tāpēc Ar(Cl) = 35,5, nevis 35 vai 37.</p>
 <p class="p2">Atsevišķa atoma A vienmēr ir vesels skaitlis.</p>
+</div>
+<div class="card" style="border-color:#7C3AED">
+<p class="p1">³⁵Cl — 75 %,&nbsp;&nbsp;³⁷Cl — 25 %</p>
+<p class="p1">Ar = (35 · 75 + 37 · 25) / 100</p>
+<p class="mf" style="color:#374151"><span class="mc">Ar = <span class="f"><span class="n">2625 + 925</span><span class="d">100</span></span> = 35,5</span></p>
 </div>
 </div>
 </section>
@@ -569,6 +616,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Izotopi un relatīvās atommasas aprēķini</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -604,6 +652,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -655,6 +704,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -722,6 +772,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -806,6 +857,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -901,6 +953,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -987,9 +1040,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1004,6 +1059,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1094,10 +1150,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;N₂ = 65 − 29 = 36</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;N₂ = 65 − 29 = 36</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1112,6 +1172,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1203,11 +1264,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;N₂ = 65 − 29 = 36</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ΔN = 36 − 34 = 2</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 63 − 29 = 34</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;N₂ = 65 − 29 = 36</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ΔN = 36 − 34 = 2</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1223,6 +1290,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Dabā vara izotopu īpatsvars ir: ⁶³Cu — 69 %, ⁶⁵Cu — 31 %. Aprēķini vara relatīvo atommasu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1294,6 +1362,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1345,6 +1414,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1410,6 +1480,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1478,7 +1549,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:50.7042%;top:54.1370%;width:6.5168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:58.0710%;top:49.6333%;width:17.9004%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A₁·w₁ + A₂·w₂</p>
@@ -1495,6 +1566,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1566,7 +1638,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -1589,6 +1661,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1664,7 +1737,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -1674,9 +1747,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1691,6 +1766,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1770,7 +1846,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -1780,10 +1856,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A₂·w₂ = 37 · 25 = 925</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A₂·w₂ = 37 · 25 = 925</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1798,6 +1878,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1878,7 +1959,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -1888,11 +1969,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;A₂·w₂ = 37 · 25 = 925</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ar = (2625 + 925) : 100 = 35,5</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;A₁·w₁ = 35 · 75 = 2625</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;A₂·w₂ = 37 · 25 = 925</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Ar = (2625 + 925) : 100 = 35,5</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1908,6 +1995,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94. Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1977,6 +2065,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2028,6 +2117,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2093,6 +2183,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2161,7 +2252,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:50.7042%;top:54.1370%;width:6.5168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:58.0710%;top:49.6333%;width:17.9004%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">A₁·w₁ + A₂·w₂</p>
@@ -2178,6 +2269,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2249,7 +2341,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -2272,6 +2364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2347,7 +2440,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -2357,9 +2450,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2374,6 +2469,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2453,7 +2549,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -2463,10 +2559,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;65 · 31 = 2015</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;65 · 31 = 2015</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2481,6 +2581,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2561,7 +2662,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar =&nbsp;</p>
 </div>
 <div class="tb" style="left:8.0901%;top:63.3050%;width:9.4577%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">A₁·w₁ + A₂·w₂</p>
@@ -2571,11 +2672,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100 %</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;65 · 31 = 2015</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Ar = (4347 + 2015) : 100 = 63,6</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;63 · 69 = 4347</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;65 · 31 = 2015</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Ar = (4347 + 2015) : 100 = 63,6</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2591,6 +2698,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2656,6 +2764,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2700,6 +2809,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2739,14 +2849,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2758,6 +2868,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2773,8 +2884,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -2801,41 +2912,35 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
-<i style="left:4.1251%;top:45.9497%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.5497%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.8752%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
+<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
+<div class="tb" style="left:33.7508%;top:49.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:46.7291%;top:54.1370%;width:6.5168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar = </p>
-</div>
-<div class="tb" style="left:54.0959%;top:49.6333%;width:25.8506%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">6·(100 − w₂) + 7·w₂</p>
-</div>
-<i style="left:54.0959%;top:57.6452%;width:25.8506%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:54.0959%;top:58.6407%;width:25.8506%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">100</p>
+<div class="tb" style="left:33.7508%;top:54.1370%;width:60.1740%;height:7.2296%;justify-content:center">
+<p style="font-size:3.2334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2851,16 +2956,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">w₂ = ?&nbsp;&nbsp;(%)</p>
+<p class="p1">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">Ar = <span class="f"><span class="n">6·(100 − w₂) + 7·w₂</span><span class="d">100</span></span></span></p>
+<p class="h1" style="color:#4F46E5;font-weight:700">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
@@ -2883,35 +2988,28 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
-<i style="left:4.1251%;top:45.9497%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.5497%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.8752%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
+<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
-<i style="left:4.1251%;top:57.2178%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
-</div>
-<div class="tb" style="left:8.0901%;top:63.3050%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">6·(100 − w₂) + 7·w₂</p>
-</div>
-<i style="left:8.0901%;top:67.6280%;width:13.8865%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.0901%;top:68.2197%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100</p>
+<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2923,6 +3021,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2938,16 +3037,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">w₂ = ?&nbsp;&nbsp;(%)</p>
+<p class="p1">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">Ar = <span class="f"><span class="n">6·(100 − w₂) + 7·w₂</span><span class="d">100</span></span></span></p>
+<p class="p2">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2974,40 +3073,35 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
-<i style="left:4.1251%;top:45.9497%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.5497%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.8752%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
+<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
-<i style="left:4.1251%;top:57.2178%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
-</div>
-<div class="tb" style="left:8.0901%;top:63.3050%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">6·(100 − w₂) + 7·w₂</p>
-</div>
-<i style="left:8.0901%;top:67.6280%;width:13.8865%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.0901%;top:68.2197%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100</p>
+<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3018,6 +3112,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3033,16 +3128,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">w₂ = ?&nbsp;&nbsp;(%)</p>
+<p class="p1">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">Ar = <span class="f"><span class="n">6·(100 − w₂) + 7·w₂</span><span class="d">100</span></span></span></p>
+<p class="p2">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3073,41 +3168,38 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
-<i style="left:4.1251%;top:45.9497%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.5497%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.8752%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
+<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
-<i style="left:4.1251%;top:57.2178%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
-</div>
-<div class="tb" style="left:8.0901%;top:63.3050%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">6·(100 − w₂) + 7·w₂</p>
-</div>
-<i style="left:8.0901%;top:67.6280%;width:13.8865%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.0901%;top:68.2197%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100</p>
+<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;694 = 600 + w₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;694 = 600 + w₂</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3118,6 +3210,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3133,16 +3226,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">w₂ = ?&nbsp;&nbsp;(%)</p>
+<p class="p1">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">Ar = <span class="f"><span class="n">6·(100 − w₂) + 7·w₂</span><span class="d">100</span></span></span></p>
+<p class="p2">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3174,42 +3267,41 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Litijam ir divi izotopi: ⁶Li un ⁷Li. Relatīvā atommasa ir 6,94.</p>
 <p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini, cik procentu dabā ir izotopa ⁷Li!</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:36.0588%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<div class="tb" style="left:4.1251%;top:36.1926%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
 </div>
-<div class="tb" style="left:4.1251%;top:40.6070%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
+<div class="tb" style="left:4.1251%;top:40.8815%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = 6,94</p>
 </div>
-<i style="left:4.1251%;top:45.9497%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:47.5497%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.3481%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.9481%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:51.8752%;width:24.0006%;height:4.0093%;justify-content:flex-start">
-<p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
+<div class="tb" style="left:4.1251%;top:52.4074%;width:24.0006%;height:4.1333%;justify-content:flex-start">
+<p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
-<i style="left:4.1251%;top:57.2178%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
-<p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:57.8741%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:59.4741%;width:24.0006%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:3.5693%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Ar = </p>
-</div>
-<div class="tb" style="left:8.0901%;top:63.3050%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">6·(100 − w₂) + 7·w₂</p>
-</div>
-<i style="left:8.0901%;top:67.6280%;width:13.8865%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.0901%;top:68.2197%;width:13.8865%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">100</p>
+<div class="tb" style="left:4.1251%;top:63.9333%;width:24.0006%;height:4.0667%;justify-content:center">
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;694 = 600 + w₂</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;w₂ = 94 %</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;694 = 600 − 6w₂ + 7w₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;694 = 600 + w₂</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;w₂ = 94 %</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3221,6 +3313,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Urāna izotopiem ²³⁵U un ²³⁸U kārtas skaitlis ir 92. Cik neitronu ir katrā? Cik reižu ²³⁸U dabā ir vairāk, ja to īpatsvars ir 99,3 % un 0,7 %?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3236,16 +3329,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
-<p class="p2">Ar = 6,94</p>
+<p class="p1">A₁ = 6 ;&nbsp;&nbsp;A₂ = 7</p>
+<p class="p1">Ar = 6,94</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">w₂ = ?&nbsp;&nbsp;(%)</p>
+<p class="p1">w₂ = ?&nbsp;&nbsp;(%)</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">Ar = <span class="f"><span class="n">6·(100 − w₂) + 7·w₂</span><span class="d">100</span></span></span></p>
+<p class="p2">Ar = (6·(100 − w₂) + 7·w₂) / 100</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3282,6 +3375,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3326,6 +3420,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3389,6 +3484,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3469,7 +3565,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">N = A − Z</p>
 </div>
 <div class="tb" style="left:58.5544%;top:58.7370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.5045%;top:54.2333%;width:3.6168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">w₂</p>
@@ -3481,6 +3577,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3565,7 +3662,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3550%;top:67.9212%;width:1.3191%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₂</p>
@@ -3583,6 +3680,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3671,7 +3769,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3550%;top:67.9212%;width:1.3191%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₂</p>
@@ -3681,9 +3779,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₁</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3693,6 +3793,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3785,7 +3886,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3550%;top:67.9212%;width:1.3191%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₂</p>
@@ -3795,10 +3896,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₁</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;N₂ = 238 − 92 = 146</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;N₂ = 238 − 92 = 146</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3808,6 +3913,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3901,7 +4007,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">N = A − Z</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0030%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3550%;top:67.9212%;width:1.3191%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₂</p>
@@ -3911,11 +4017,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">w₁</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;N₂ = 238 − 92 = 146</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;n = 99,3 : 0,7 ≈ 142</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;N₁ = 235 − 92 = 143</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;N₂ = 238 − 92 = 146</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;n = 99,3 : 0,7 ≈ 142</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3926,6 +4038,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4003,6 +4116,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu izskaidrot izotopus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt N&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt Ar&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pamatot, kāpēc Ar nav vesels skaitlis</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: elektronu enerģijas līmeņi un atoma spektri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

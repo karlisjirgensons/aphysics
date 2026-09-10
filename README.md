@@ -41,7 +41,8 @@ vietās:
 | `_tools/palette.py` | krāsas, fonti, formas; arī veco slaidu krāsu pārnešana |
 | `_tools/site_index.py` | sākumlapa un tematu saraksti |
 | `_tools/html_deck.py` | `.pptx` → responsīva HTML prezentācija |
-| `_tools/mathfmt*.py` | formulas: vertikālas daļas un kvadrātsaknes |
+| `_tools/mathfmt*.py` | formulas: vertikālas daļas, kvadrātsaknes, vektori |
+| `_tools/zimejumi.py` | vektoru zīmējumi slaidos (bultas, apzīmējumi) |
 
 Krāsu shēma (indigo–violets–ciāns) ir viena visai vietnei un dzīvo tikai
 `palette.py`; to nomainot un pārbūvējot, mainās visas lapas.

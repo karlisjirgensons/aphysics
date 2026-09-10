@@ -138,25 +138,25 @@ dict(
              dots=["l = 0,25 m", "g = 9,8 m/s²"],
              jaaprekina=["T = ?", "f = ?"],
              formulas=["T = 2π√(l/g)", "f = 1/T"],
-             aprekins=["1)  l/g = 0,25 : 9,8 = 0,0255 s²",
-                       "2)  T = 6,28 · 0,160 = 1,00 s",
-                       "3)  f = 1 : 1,00 = 1,0 Hz"],
+             aprekins=["1)  T = 2π√(l/g)",
+                       "2)  T = 2 · 3,14 · √(0,25 / 9,8)",
+                       "3)  T ≈ 1,0 s",
+                       "4)  f = 1 : 1,0 ≈ 1,0 Hz"],
              atbilde="T ≈ 1,0 s;  f ≈ 1,0 Hz",
              piezime="Periodu nosaka tikai garums un g - svārsta masa "
                      "to neietekmē."),
-        dict(nr=6, virsraksts="Ceļš svārstībās",
-             teksts="Svārstību amplitūda ir 3,0 cm.\n"
-                    "Cik lielu ceļu ķermenis veic vienā pilnā "
-                    "svārstībā\nun cik piecās svārstībās?",
-             dots=["A = 3,0 cm", "N = 5"],
-             jaaprekina=["s(1) = ?", "s(5) = ?"],
-             formulas=["Vienā svārstībā s = 4A", "s(N) = 4AN"],
-             aprekins=["1)  s(1) = 4 · 3,0 = 12 cm",
-                       "2)  s(5) = 12 · 5",
-                       "3)  s(5) = 60 cm = 0,60 m"],
-             atbilde="s(1) = 12 cm;  s(5) = 0,60 m",
-             piezime="Pilnā svārstībā ķermenis četras reizes veic "
-                     "amplitūdas garumu, bet pārvietojums ir nulle."),
+        dict(nr=6, virsraksts="Svārstību skaits",
+             teksts="Kamertonis skan ar frekvenci 440 Hz.\n"
+                    "Cik pilnas svārstības tas veic 0,50 s laikā?",
+             dots=["f = 440 Hz", "t = 0,50 s"],
+             jaaprekina=["N = ?"],
+             formulas=["T = t/N", "N = f · t"],
+             aprekins=["1)  N = f · t",
+                       "2)  N = 440 · 0,50",
+                       "3)  N = 220"],
+             atbilde="N = 220 svārstības",
+             piezime="Frekvence jau ir svārstību skaits vienā "
+                     "sekundē - tāpēc pietiek to reizināt ar laiku."),
         dict(nr=7, virsraksts="Atsperes svārstības",
              teksts="Pie atsperes (k = 80 N/m) piekārts 0,20 kg "
                     "atsvars.\nAprēķini svārstību periodu un frekvenci! "
@@ -164,9 +164,10 @@ dict(
              dots=["k = 80 N/m", "m = 0,20 kg"],
              jaaprekina=["T = ?", "f = ?"],
              formulas=["T = 2π√(m/k)", "f = 1/T"],
-             aprekins=["1)  m/k = 0,20 : 80 = 0,0025 s²",
-                       "2)  T = 6,28 · 0,050 = 0,314 s",
-                       "3)  f = 1 : 0,314 ≈ 3,2 Hz"],
+             aprekins=["1)  T = 2π√(m/k)",
+                       "2)  T = 2 · 3,14 · √(0,20 / 80)",
+                       "3)  T ≈ 0,31 s",
+                       "4)  f = 1 : 0,31 ≈ 3,2 Hz"],
              atbilde="T ≈ 0,31 s;  f ≈ 3,2 Hz",
              piezime="Atsperes svārstam masa ir svarīga - atšķirībā no "
                      "matemātiskā svārsta."),

@@ -31,6 +31,8 @@ from gen_dabaszinibas_1_1 import (            # noqa: E402
     MSO_ANCHOR, RGBColor, new_deck, blank, box, rule, txt, put, panel,
     header, footer, est_h, fit, put_math, math_h, math_w, uid)
 
+import zimejumi as ZIM                       # noqa: E402
+
 PALE = RGBColor(0xBD, 0xD7, 0xEE)
 PALE2 = RGBColor(0x9D, 0xC3, 0xE6)
 
@@ -138,10 +140,13 @@ def slide_kopsavilkums(prs, k):
 
 # ------------------------------------------------------------------- palīgrīki
 def tabula_rowh(rows, size=17, rowh=0.52):
-    """Rindas augstums; ar vertikālu daļu šūnā vajag vairāk vietas."""
-    if any(S.MF.has_math(v) for row in rows for v in row):
-        return max(rowh, math_h("a/b", size) + 0.16)
-    return rowh
+    """Rindas augstums; ar vertikālu daļu vai sakni šūnā vajag vairāk vietas.
+
+    Augstumu prasa tik, cik augstākajai šūnai tiešām vajag - daļa zem
+    saknes vinkula ir augstāka nekā parasta daļa.
+    """
+    hs = [math_h(v, size) for row in rows for v in row if S.MF.has_math(v)]
+    return max(rowh, max(hs) + 0.16) if hs else rowh
 
 
 def tabula(slide, x, y, w, hdr, rows, colw, accent=NAVY, rowh=0.52,
@@ -222,6 +227,7 @@ def build_lesson(meta, theory_fns, uzdevumi, kopsavilkums, out_path):
 #   ("tabula", [galva], [rindas], [platumi])
 #   ("formula", etikete, formula, skaidrojums, krāsa)
 #   ("divi", (virsr, krāsa, [rindas]), (virsr, krāsa, [rindas]))
+#   ("zimejums", spec)  - vektoru zīmējums (sk. zimejumi.py)
 
 TOP_Y = 1.18
 BOT_Y = 6.98
@@ -241,19 +247,35 @@ def _panel_lines(virsraksts, rindas, c):
     return lines
 
 
+RINDA_H = 0.34             # parastas teksta rindas augstums kartītē
+
+
+def _rindu_h(rindas, rinda_h=RINDA_H, size=17):
+    """Rindu kopējais augstums; formulas rindai vajag vairāk vietas.
+
+    Vertikāla daļa aizņem trīs rindas, sakne - vienu ar vinkulu. Bez šī
+    kartīte ar daļu iznāktu par zemu un viss tās teksts tiktu samazināts.
+    """
+    kopa = 0.0
+    for r in rindas:
+        t = r["t"] if isinstance(r, dict) else r
+        kopa += (math_h(t, size) + 0.06) if S.math_line(t) else rinda_h
+    return kopa
+
+
 def _dabiskais_h(b):
     kind = b[0]
     if kind == "tabula":
         return 0.50 + len(b[2]) * tabula_rowh(b[2], 16, 0.50)
     if kind == "kartitas":
-        n = max(len(x[2]) for x in b[1])
-        return 0.72 + n * 0.34
+        return 0.72 + max(_rindu_h(x[2]) for x in b[1])
     if kind == "formula":
         # vertikālai daļai vajag vairāk augstuma nekā rindas pierakstam
         return 1.72 if S.MF.has_math(b[2]) else 1.32
     if kind == "divi":
-        n = max(len(b[1][2]), len(b[2][2]))
-        return 0.72 + n * 0.36
+        return 0.72 + max(_rindu_h(b[1][2], 0.36), _rindu_h(b[2][2], 0.36))
+    if kind == "zimejums":
+        return b[1].get("hin", 2.40)
     return None            # panelis - elastīgs
 
 
@@ -332,6 +354,8 @@ def content_slide(prs, title, blocks, ar_footer=True):
         elif kind == "formula":
             _, etik, form, skaidr, c = b
             formula_panel(s, MX, y, CW, h, etik, form, skaidr, c)
+        elif kind == "zimejums":
+            ZIM.zimejums(s, MX, y, CW, h, b[1])
         elif kind == "divi":
             colw = (CW - 0.38) / 2
             for i, blk in enumerate((b[1], b[2])):

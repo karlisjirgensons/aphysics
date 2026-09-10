@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Mijiedarbība · Spēks · Dinamometrs · [F] = N</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.1. Mijiedarbība un spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -308,7 +335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">SPĒKS</p>
 </div>
 <div class="tb" style="left:5.9251%;top:21.0667%;width:88.1497%;height:4.5333%;justify-content:center">
-<p style="font-size:1.9761cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F⃗ - vektors;&nbsp;&nbsp;[F] = ņūtons (N);&nbsp;&nbsp;1 N = 1 kg · m/s²</p>
+<p style="font-size:1.9761cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"><span class="vv">F</span> - vektors;&nbsp;&nbsp;[F] = ņūtons (N);&nbsp;&nbsp;1 N = 1 kg · m/s²</p>
 </div>
 <div class="tb" style="left:5.9251%;top:25.7493%;width:88.1497%;height:5.6000%;justify-content:flex-start">
 <p style="font-size:1.6167cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Spēks ir divu ķermeņu mijiedarbības mērs. Spēks nekad nav viena ķermeņa īpašība - vienmēr ir DIVI ķermeņi.</p>
@@ -337,6 +364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.1. Mijiedarbība un spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -347,7 +375,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">SPĒKS</p>
-<p class="p1" style="color:#4F46E5;font-weight:700">F⃗ - vektors;&nbsp;&nbsp;[F] = ņūtons (N);&nbsp;&nbsp;1 N = 1 kg · m/s²</p>
+<p class="p1" style="color:#4F46E5;font-weight:700"><span class="vv">F</span> - vektors;&nbsp;&nbsp;[F] = ņūtons (N);&nbsp;&nbsp;1 N = 1 kg · m/s²</p>
 <p class="p2" style="color:#4B5563">Spēks ir divu ķermeņu mijiedarbības mērs. Spēks nekad nav viena ķermeņa īpašība - vienmēr ir DIVI ķermeņi.</p>
 </div>
 <div class="card" style="border-color:#7C3AED">
@@ -460,6 +488,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3.1. Mijiedarbība un spēks</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -515,6 +544,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Spēka raksturlielumi un mērīšana</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Risinājumu pieraksta latviešu standartā: Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -550,6 +580,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -601,6 +632,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -667,6 +699,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -747,6 +780,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -838,6 +872,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -920,9 +955,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -937,6 +974,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1023,10 +1061,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1041,6 +1083,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1128,16 +1171,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Virziens - vertikāli lejup;</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Virziens - vertikāli lejup;</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 4. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp; pielikts somas smaguma centrā</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pielikts somas smaguma centrā</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1147,6 +1196,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1182,7 +1232,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 4. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp; pielikts somas smaguma centrā</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pielikts somas smaguma centrā</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Dinamometra skalā starp 0 N un 10 N ir 20 iedaļas. Rādītājs stāv uz 13. iedaļas. Kāds ir spēks un kļūda?</p>
@@ -1235,14 +1285,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Virziens - vertikāli lejup;</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">&nbsp;&nbsp;&nbsp;&nbsp; pielikts somas smaguma centrā</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Virziens - vertikāli lejup;</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pielikts somas smaguma centrā</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:0.9469cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:2.3323cqw;color:#4F46E5;text-align:center;padding-top:0.7281cqw;font-weight:700">F ≈ 39 N, vertikāli lejup, pielikts smaguma centrā.</p>
@@ -1256,6 +1314,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Grāmata guļ uz galda. Nosauc visus spēkus, kas uz to darbojas, un norādi otro ķermeni katrā mijiedarbībā!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1288,7 +1347,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2">1)&nbsp;&nbsp;F = 4,0 · 9,8</p>
 <p class="p2">2)&nbsp;&nbsp;F = 39,2 ≈ 39 N</p>
 <p class="p2">3)&nbsp;&nbsp;Virziens - vertikāli lejup;</p>
-<p class="p2">&nbsp;&nbsp;&nbsp;&nbsp; pielikts somas smaguma centrā</p>
+<p class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pielikts somas smaguma centrā</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1327,6 +1386,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1379,6 +1439,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1450,6 +1511,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1536,7 +1598,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = C · iedaļu skaits</p>
 </div>
 <div class="tb" style="left:58.6377%;top:63.2778%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔF = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔF =&nbsp;</p>
 </div>
 <div class="tb" style="left:66.2712%;top:58.7741%;width:1.7667%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">C</p>
@@ -1553,6 +1615,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1644,7 +1707,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = C · iedaļu skaits</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5708%;width:2.4090%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7272%;top:68.0254%;width:0.6119%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">C</p>
@@ -1667,6 +1730,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1762,7 +1826,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = C · iedaļu skaits</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5708%;width:2.4090%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7272%;top:68.0254%;width:0.6119%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">C</p>
@@ -1772,9 +1836,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1789,6 +1855,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1888,7 +1955,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = C · iedaļu skaits</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5708%;width:2.4090%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7272%;top:68.0254%;width:0.6119%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">C</p>
@@ -1898,10 +1965,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 0,50 · 13 = 6,5 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 0,50 · 13 = 6,5 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1916,6 +1987,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2016,7 +2088,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = C · iedaļu skaits</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5708%;width:2.4090%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7272%;top:68.0254%;width:0.6119%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">C</p>
@@ -2026,11 +2098,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">2</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 0,50 · 13 = 6,5 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;ΔF = 0,25 N → F = (6,50 ± 0,25) N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;C = 10 : 20 = 0,50 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 0,50 · 13 = 6,5 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;ΔF = 0,25 N → F = (6,50 ± 0,25) N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2046,6 +2124,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2120,6 +2199,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2171,6 +2251,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2236,6 +2317,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2312,6 +2394,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2389,7 +2472,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2399,6 +2482,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2427,7 +2511,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
@@ -2477,14 +2561,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Katram spēkam - divi ķermeņi</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2494,6 +2580,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2522,11 +2609,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
+<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Futbolists sit pa bumbu. Nosauc, kas ar bumbu notiek sitiena laikā, un paskaidro abas sekas!</p>
@@ -2576,10 +2663,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Katram spēkam - divi ķermeņi</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2594,6 +2685,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2622,8 +2714,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
-<p class="p2">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
+<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
+<p class="p2">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -2677,11 +2769,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Katram spēkam - divi ķermeņi</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Kopspēks = 0, jo ātrums nemainās</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Kopspēks = 0, jo ātrums nemainās</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2697,6 +2795,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Uz ķermeni darbojas smaguma spēks 245 N. Aprēķini tā masu! (g = 9,8 m/s²)</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2725,8 +2824,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme ↔ grāmata</p>
-<p class="p2">2)&nbsp;&nbsp;Balsta reakcija: galds ↔ grāmata</p>
+<p class="p2">1)&nbsp;&nbsp;Smaguma spēks: Zeme un grāmata</p>
+<p class="p2">2)&nbsp;&nbsp;Balsta reakcija: galds un grāmata</p>
 <p class="p2">3)&nbsp;&nbsp;Kopspēks = 0, jo ātrums nemainās</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
@@ -2766,6 +2865,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2816,6 +2916,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2877,6 +2978,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2949,6 +3051,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3032,6 +3135,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3106,9 +3210,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks maina ātrumu vai deformē</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3123,6 +3229,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3201,10 +3308,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks maina ātrumu vai deformē</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Bumbas ātrums strauji mainās</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Bumbas ātrums strauji mainās</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3219,6 +3330,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3298,11 +3410,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks maina ātrumu vai deformē</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Bumbas ātrums strauji mainās</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Abas sekas notiek vienlaikus</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Bumba deformējas (saspiežas)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Bumbas ātrums strauji mainās</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Abas sekas notiek vienlaikus</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3318,6 +3436,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Nosauc abus ķermeņus katrā mijiedarbībā: a) magnēts pievelk naglu;&nbsp;&nbsp;b) Zeme un Mēness; c) roka atbalstās pret galdu.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3386,6 +3505,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3437,6 +3557,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3502,6 +3623,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3573,7 +3695,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = mg</p>
 </div>
 <div class="tb" style="left:59.1044%;top:58.7370%;width:6.0335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.9879%;top:54.2333%;width:1.5834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -3590,6 +3712,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3665,7 +3788,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:0.7755%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3688,6 +3811,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3767,7 +3891,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:0.7755%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3777,9 +3901,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3794,6 +3920,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3877,7 +4004,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:0.7755%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3887,10 +4014,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 25 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 25 kg</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3905,6 +4036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3989,7 +4121,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.2755%;width:3.0376%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m = </p>
+<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.5077%;top:65.0462%;width:0.7755%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3999,11 +4131,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">g</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 25 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Pārbaude: 25 · 9,8 = 245 N ✔</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;m = 245 : 9,8</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 25 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Pārbaude: 25 · 9,8 = 245 N ✔</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4019,6 +4157,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4086,6 +4225,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4131,6 +4271,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4187,6 +4328,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4254,6 +4396,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4326,12 +4469,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4360,7 +4504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
@@ -4405,19 +4549,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks vienmēr ir starp DIVIEM ķermeņiem</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4446,11 +4593,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
+<p class="p2">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
@@ -4495,20 +4642,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks vienmēr ir starp DIVIEM ķermeņiem</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;c) roka ↔ galds (saskares)</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;c) roka un galds (saskares)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4537,12 +4689,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
-<p class="p2">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
+<p class="p2">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
+<p class="p2">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;c) roka ↔ galds (saskares)</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;c) roka un galds (saskares)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
@@ -4587,11 +4739,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēks vienmēr ir starp DIVIEM ķermeņiem</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;c) roka ↔ galds (saskares)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;c) roka un galds (saskares)</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4603,6 +4761,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7. uzdevums.&nbsp;&nbsp;Divi dinamometri velk gredzenu ar 12 N un 9,0 N. Aprēķini kopspēku, ja tie vērsti: a) vienā virzienā; b) pretēji;&nbsp;&nbsp;c) perpendikulāri.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4631,9 +4790,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a) magnēts ↔ nagla (magnētiska)</p>
-<p class="p2">2)&nbsp;&nbsp;b) Zeme ↔ Mēness (gravitācijas)</p>
-<p class="p2">3)&nbsp;&nbsp;c) roka ↔ galds (saskares)</p>
+<p class="p2">1)&nbsp;&nbsp;a) magnēts un nagla (magnētiska)</p>
+<p class="p2">2)&nbsp;&nbsp;b) Zeme un Mēness (gravitācijas)</p>
+<p class="p2">3)&nbsp;&nbsp;c) roka un galds (saskares)</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -4665,6 +4824,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4710,6 +4870,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4771,6 +4932,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4851,19 +5013,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:53.4852%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">b) |F₁ − F₂|</p>
 </div>
-<div class="tb" style="left:59.7586%;top:65.1444%;width:1.7417%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c) </p>
+<div class="tb" style="left:54.4526%;top:63.3370%;width:3.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c)&nbsp;</p>
 </div>
-<div class="tb" style="left:61.3503%;top:65.1444%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
+<svg class="rg" style="left:58.6360%;top:63.1593%;width:3.3334%;height:5.9259%;fill:#3730A3" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:61.3561%;top:63.3370%;width:10.6169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">F₁² + F₂²</p>
 </div>
-<div class="tb" style="left:62.1836%;top:65.1444%;width:5.3835%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F₁² + F₂²</p>
-</div>
-<i style="left:62.1836%;top:65.7519%;width:5.3835%;height:0.1867%;background:#3730A3"></i>
+<i style="left:60.6916%;top:63.1593%;width:11.2815%;height:0.3259%;background:#3730A3"></i>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4893,7 +5054,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">a) F₁ + F₂</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">b) |F₁ − F₂|</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">c) <span class="rt"><span class="rv">F₁² + F₂²</span></span></span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">c) <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">F₁² + F₂²</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -4949,16 +5110,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:67.0920%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) |F₁ − F₂|</p>
 </div>
-<div class="tb" style="left:4.1251%;top:71.2502%;width:1.0453%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c) </p>
+<div class="tb" style="left:4.1251%;top:70.7825%;width:1.4572%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c)&nbsp;</p>
 </div>
-<div class="tb" style="left:5.0204%;top:71.2502%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:5.8429%;top:70.7096%;width:1.3688%;height:2.4333%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:6.9599%;top:70.7825%;width:4.4206%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F₁² + F₂²</p>
 </div>
-<div class="tb" style="left:5.4892%;top:71.2502%;width:3.0751%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F₁² + F₂²</p>
-</div>
-<i style="left:5.4892%;top:71.5919%;width:3.0751%;height:0.1867%;background:#312E81"></i>
+<i style="left:6.6870%;top:70.7096%;width:4.6935%;height:0.1338%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -4968,6 +5127,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4997,7 +5157,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">a) F₁ + F₂</p>
 <p class="p3">b) |F₁ − F₂|</p>
-<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt"><span class="rv">F₁² + F₂²</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">F₁² + F₂²</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -5057,20 +5217,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:67.0920%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) |F₁ − F₂|</p>
 </div>
-<div class="tb" style="left:4.1251%;top:71.2502%;width:1.0453%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c) </p>
+<div class="tb" style="left:4.1251%;top:70.7825%;width:1.4572%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c)&nbsp;</p>
 </div>
-<div class="tb" style="left:5.0204%;top:71.2502%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:5.8429%;top:70.7096%;width:1.3688%;height:2.4333%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:6.9599%;top:70.7825%;width:4.4206%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F₁² + F₂²</p>
 </div>
-<div class="tb" style="left:5.4892%;top:71.2502%;width:3.0751%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F₁² + F₂²</p>
-</div>
-<i style="left:5.4892%;top:71.5919%;width:3.0751%;height:0.1867%;background:#312E81"></i>
+<i style="left:6.6870%;top:70.7096%;width:4.6935%;height:0.1338%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -5080,6 +5240,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5109,7 +5270,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">a) F₁ + F₂</p>
 <p class="p3">b) |F₁ − F₂|</p>
-<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt"><span class="rv">F₁² + F₂²</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">F₁² + F₂²</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -5173,52 +5334,51 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:67.0920%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) |F₁ − F₂|</p>
 </div>
-<div class="tb" style="left:4.1251%;top:71.2502%;width:1.0453%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c) </p>
+<div class="tb" style="left:4.1251%;top:70.7825%;width:1.4572%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c)&nbsp;</p>
 </div>
-<div class="tb" style="left:5.0204%;top:71.2502%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:5.8429%;top:70.7096%;width:1.3688%;height:2.4333%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:6.9599%;top:70.7825%;width:4.4206%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F₁² + F₂²</p>
 </div>
-<div class="tb" style="left:5.4892%;top:71.2502%;width:3.0751%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F₁² + F₂²</p>
-</div>
-<i style="left:5.4892%;top:71.5919%;width:3.0751%;height:0.1867%;background:#312E81"></i>
+<i style="left:6.6870%;top:70.7096%;width:4.6935%;height:0.1338%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;b) F = |12 − 9,0| = 3,0 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;b) F = |12 − 9,0| = 3,0 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:57.0815%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 </div>
-<div class="tb" style="left:52.1584%;top:64.3778%;width:6.2002%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;c) F = </p>
+<div class="tb" style="left:38.0255%;top:62.5704%;width:12.2503%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">3)&nbsp;&nbsp;c) F =&nbsp;</p>
 </div>
-<div class="tb" style="left:58.2085%;top:64.3778%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
+<svg class="rg" style="left:51.1259%;top:62.3926%;width:3.3334%;height:5.9259%;fill:#3730A3" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:53.8459%;top:62.5704%;width:11.7336%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">144 + 81</p>
 </div>
-<div class="tb" style="left:59.0419%;top:64.3778%;width:5.9418%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">144 + 81</p>
+<i style="left:53.1814%;top:62.3926%;width:12.3982%;height:0.3259%;background:#3730A3"></i>
+<div class="tb" style="left:66.8296%;top:62.5704%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;=&nbsp;</p>
 </div>
-<i style="left:59.0419%;top:64.9852%;width:5.9418%;height:0.1867%;background:#3730A3"></i>
-<div class="tb" style="left:65.3337%;top:64.3778%;width:1.7334%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = </p>
+<svg class="rg" style="left:70.9964%;top:62.3926%;width:3.3334%;height:5.9259%;fill:#3730A3" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:73.7164%;top:62.5704%;width:5.2001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">225</p>
 </div>
-<div class="tb" style="left:66.9171%;top:64.3778%;width:0.9833%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">√</p>
-</div>
-<div class="tb" style="left:67.7504%;top:64.3778%;width:2.6751%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">225</p>
-</div>
-<i style="left:67.7504%;top:64.9852%;width:2.6751%;height:0.1867%;background:#3730A3"></i>
-<div class="tb" style="left:70.7755%;top:64.3778%;width:4.8918%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = 15 N</p>
+<i style="left:73.0519%;top:62.3926%;width:5.8647%;height:0.3259%;background:#3730A3"></i>
+<div class="tb" style="left:80.1666%;top:62.5704%;width:9.6336%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 15 N</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5248,7 +5408,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">a) F₁ + F₂</p>
 <p class="p3">b) |F₁ − F₂|</p>
-<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt"><span class="rv">F₁² + F₂²</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">F₁² + F₂²</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -5257,7 +5417,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">3)</span><span class="mc">c) F = <span class="rt"><span class="rv">144 + 81</span></span> = <span class="rt"><span class="rv">225</span></span> = 15 N</span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">3)</span><span class="mc">c) F = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">144 + 81</span></span> = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">225</span></span> = 15 N</span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -5313,25 +5473,45 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:67.0920%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) |F₁ − F₂|</p>
 </div>
-<div class="tb" style="left:4.1251%;top:71.2502%;width:1.0453%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c) </p>
+<div class="tb" style="left:4.1251%;top:70.7825%;width:1.4572%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c)&nbsp;</p>
 </div>
-<div class="tb" style="left:5.0204%;top:71.2502%;width:0.6188%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">√</p>
+<svg class="rg" style="left:5.8429%;top:70.7096%;width:1.3688%;height:2.4333%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:6.9599%;top:70.7825%;width:4.4206%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F₁² + F₂²</p>
 </div>
-<div class="tb" style="left:5.4892%;top:71.2502%;width:3.0751%;height:2.0333%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:0.9375cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F₁² + F₂²</p>
-</div>
-<i style="left:5.4892%;top:71.5919%;width:3.0751%;height:0.1867%;background:#312E81"></i>
+<i style="left:6.6870%;top:70.7096%;width:4.6935%;height:0.1338%;background:#312E81"></i>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;b) F = |12 − 9,0| = 3,0 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;c) F = √(144 + 81) = √225 = 15 N</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;b) F = |12 − 9,0| = 3,0 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.8574%;width:6.5694%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">3)&nbsp;&nbsp;c) F =&nbsp;</p>
+</div>
+<svg class="rg" style="left:38.7515%;top:46.7630%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:40.1965%;top:46.8574%;width:6.3038%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">144 + 81</p>
+</div>
+<i style="left:39.8435%;top:46.7630%;width:6.6568%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:47.0941%;top:46.8574%;width:1.8323%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
+</div>
+<svg class="rg" style="left:49.3077%;top:46.7630%;width:1.7709%;height:3.1481%;fill:#312E81" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg>
+<div class="tb" style="left:50.7527%;top:46.8574%;width:2.8329%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">225</p>
+</div>
+<i style="left:50.3997%;top:46.7630%;width:3.1859%;height:0.1731%;background:#312E81"></i>
+<div class="tb" style="left:54.1794%;top:46.8574%;width:5.1616%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 15 N</p>
+</div>
+<i style="left:31.8008%;top:53.9778%;width:64.0741%;height:25.2222%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.709cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.8444%;width:60.1740%;height:21.4889%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">a) 21 N ;&nbsp;&nbsp; b) 3,0 N ;&nbsp;&nbsp; c) 15 N</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Tie paši vektoru likumi, ko mācījāmies 1.3. stundā.</p>
@@ -5339,6 +5519,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -5368,13 +5549,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
 <p class="p3">a) F₁ + F₂</p>
 <p class="p3">b) |F₁ − F₂|</p>
-<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt"><span class="rv">F₁² + F₂²</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">c) <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">F₁² + F₂²</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;a) F = 12 + 9,0 = 21 N</p>
 <p class="p2">2)&nbsp;&nbsp;b) F = |12 − 9,0| = 3,0 N</p>
-<p class="p2">3)&nbsp;&nbsp;c) F = <span class="rt"><span class="rv">144 + 81</span></span> = <span class="rt"><span class="rv">225</span></span> = 15 N</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc">c) F = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">144 + 81</span></span> = <span class="rt" style="--rw:0.656em"><svg class="rk" viewBox="0 0 0.6560 1.0800" preserveAspectRatio="none" aria-hidden="true"><path d="M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z"/></svg><span class="rv">225</span></span> = 15 N</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -5417,6 +5598,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu definēt spēku&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nosaukt raksturlielumus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu atpazīt mijiedarbības&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot dinamometru</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: Ņūtona pirmais likums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

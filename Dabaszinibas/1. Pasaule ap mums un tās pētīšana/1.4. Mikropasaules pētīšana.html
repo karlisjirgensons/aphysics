@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Palielinājums · Izšķirtspēja · Optiskais, elektronu un atomspēku mikroskops</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.4. Mikropasaules pētīšana — mikroskopi un to iespējas</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -339,6 +366,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.5927cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Redzamās gaismas viļņa garums ir 400–700 nm, tāpēc optiskā mikroskopa izšķirtspēja nav labāka par ≈ 200 nm.</p>
 <p style="font-size:1.5927cqw;color:#4B5563;text-align:left;padding-top:0.6188cqw">Elektronu viļņa garums ir tūkstošiem reižu mazāks — tāpēc elektronmikroskops saskata daudz sīkākus objektus.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -498,6 +526,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.7840%;width:88.1497%;height:7.2320%;justify-content:center">
 <p style="font-size:1.6115cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">DROŠĪBA:&nbsp;&nbsp;mikroskopu nes ar abām rokām (statni un pamatni); elektroiekārtu neieslēdz ar slapjām rokām; lāzera un UV gaismā neskatās.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -575,11 +604,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.9792cqw;color:#B91C1C;text-align:left;padding-top:0.6250cqw;font-weight:700">Γ = 40 · 10 = 400×</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:33.3333%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:0.938cqw"></i>
-<div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:29.3653%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">OBJEKTA PATIESAIS IZMĒRS</p>
-<p style="font-size:2.7084cqw;color:#4F46E5;text-align:center;padding-top:1.2500cqw;font-weight:700">d = D / Γ</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">D — attēla izmērs, d — objekta izmērs</p>
-<p style="font-size:1.9792cqw;color:#B91C1C;text-align:left;padding-top:0.6250cqw;font-weight:700">Piemērs: D = 8 mm, Γ = 400× → d = 20 µm</p>
+<div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:2.8658%;justify-content:flex-start">
+<p style="font-size:1.3000cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">OBJEKTA PATIESAIS IZMĒRS</p>
+</div>
+<div class="tb" style="left:70.1204%;top:26.7271%;width:4.0111%;height:5.6391%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.6001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d =&nbsp;</p>
+</div>
+<div class="tb" style="left:74.7615%;top:23.2142%;width:1.6380%;height:5.6391%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.6001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
+</div>
+<i style="left:74.7615%;top:29.4400%;width:1.6380%;height:0.2133%;background:#3730A3"></i>
+<div class="tb" style="left:74.7615%;top:30.2400%;width:1.6380%;height:5.6391%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:2.6001cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ</p>
+</div>
+<div class="tb" style="left:53.2251%;top:38.2436%;width:40.8498%;height:3.7476%;justify-content:flex-start">
+<p style="font-size:1.7000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">D — attēla izmērs, d — objekta izmērs</p>
+</div>
+<div class="tb" style="left:53.2251%;top:43.0578%;width:40.8498%;height:4.1884%;justify-content:flex-start">
+<p style="font-size:1.8990cqw;color:#B91C1C;text-align:left;padding-top:0.0000cqw;font-weight:700">Piemērs: D = 8 mm, Γ = 400× → d = 20 µm</p>
 </div>
 <i style="left:4.1251%;top:51.7333%;width:91.7498%;height:18.1333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:0.510cqw"></i>
 <div class="tb" style="left:5.9251%;top:53.7173%;width:88.1497%;height:14.1653%;justify-content:flex-start">
@@ -596,6 +638,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">1.4. Mikropasaules pētīšana — mikroskopi un to iespējas</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -612,7 +655,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">OBJEKTA PATIESAIS IZMĒRS</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span></span></p>
 <p class="p2">D — attēla izmērs, d — objekta izmērs</p>
 <p class="p1" style="color:#B91C1C;font-weight:700">Piemērs: D = 8 mm, Γ = 400× → d = 20 µm</p>
 </div>
@@ -640,6 +683,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Palielinājums, izšķirtspēja un attēla izmērs</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -675,6 +719,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -726,6 +771,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -791,6 +837,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -867,6 +914,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -954,6 +1002,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1032,9 +1081,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Γ = Γ(ob) · Γ(ok)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Γ = 40 · 15</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Γ = 40 · 15</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1049,6 +1100,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1131,15 +1183,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8750cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Γ = Γ(ob) · Γ(ok)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;Γ = 40 · 15</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Γ = 600</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Γ = 40 · 15</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Γ = 600</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Γ = 600× </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Γ = 600×&nbsp;</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Palielinājumus reizina, nevis saskaita.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
@@ -1150,6 +1206,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Optiskā mikroskopa izšķirtspēja ir 200 nm, bet elektronmikroskopa — 0,10 nm. Cik reižu elektronmikroskopa izšķirtspēja ir labāka?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1183,7 +1240,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">Γ = 600× </p>
+<p class="h1" style="color:#4F46E5;font-weight:700">Γ = 600×&nbsp;</p>
 <p class="p2" style="color:#4B5563;font-style:italic">Palielinājumus reizina, nevis saskaita.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -1218,6 +1275,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1269,6 +1327,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1334,6 +1393,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1402,7 +1462,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.5211%;top:44.7963%;width:4.6835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.0545%;top:40.2926%;width:2.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
@@ -1412,7 +1472,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d</p>
 </div>
 <div class="tb" style="left:59.3127%;top:63.4778%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.2629%;top:58.9741%;width:2.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
@@ -1429,6 +1489,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1501,7 +1562,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.1720%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5914%;top:58.5350%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1511,7 +1572,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1534,6 +1595,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1610,7 +1672,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.1720%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5914%;top:58.5350%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1620,7 +1682,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1630,16 +1692,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 </div>
 <div class="tb" style="left:33.9538%;top:60.0630%;width:9.3169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;d = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">2)&nbsp;&nbsp;d =&nbsp;</p>
 </div>
 <div class="tb" style="left:44.1207%;top:55.5593%;width:2.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
@@ -1649,7 +1713,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ</p>
 </div>
 <div class="tb" style="left:47.2208%;top:60.0630%;width:46.6512%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700"> = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1659,6 +1723,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1739,7 +1804,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.1720%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5914%;top:58.5350%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1749,7 +1814,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1759,10 +1824,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = D / Γ = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = D / Γ = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1777,6 +1846,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1807,7 +1877,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
-<p class="p2">2)&nbsp;&nbsp;d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span> = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
+<p class="p2">2)&nbsp;&nbsp;d =&nbsp;<span class="f"><span class="n">D</span><span class="d">Γ</span></span>&nbsp;= (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -1858,7 +1928,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:60.5363%;width:2.1720%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5914%;top:58.5350%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1868,7 +1938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d = </p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.7544%;top:66.4526%;width:0.9110%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -1878,11 +1948,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = D / Γ = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;d = 2,0 · 10⁻⁵ m = 20 µm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = D / Γ = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;d = 2,0 · 10⁻⁵ m = 20 µm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1898,6 +1974,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Gripas vīrusa diametrs ir 100 nm. Skolēnam ir optiskais mikroskops ar izšķirtspēju 200 nm un palielinājumu 1500×. Vai ar to var saskatīt vīrusu? Pamato ar aprēķinu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1928,7 +2005,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;D = 12 mm = 12 · 10⁻³ m</p>
-<p class="p2">2)&nbsp;&nbsp;d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span> = (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
+<p class="p2">2)&nbsp;&nbsp;d =&nbsp;<span class="f"><span class="n">D</span><span class="d">Γ</span></span>&nbsp;= (12 · 10⁻³ m) : 600 = 2,0 · 10⁻⁵ m</p>
 <p class="p2">3)&nbsp;&nbsp;d = 2,0 · 10⁻⁵ m = 20 µm</p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
@@ -1968,6 +2045,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2019,6 +2097,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2084,6 +2163,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2152,7 +2232,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.0710%;top:54.1370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.0211%;top:49.6333%;width:8.5835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">d(opt)</p>
@@ -2169,6 +2249,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2240,7 +2321,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:4.5834%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(opt)</p>
@@ -2263,6 +2344,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2338,7 +2420,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:4.5834%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(opt)</p>
@@ -2348,9 +2430,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(el)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = 200 nm : 0,10 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 200 nm : 0,10 nm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2365,6 +2449,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2444,7 +2529,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.3535%;top:63.3050%;width:4.5834%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(opt)</p>
@@ -2454,10 +2539,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d(el)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;n = 200 nm : 0,10 nm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;n = 2,0 · 10³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 200 nm : 0,10 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = 2,0 · 10³</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2473,6 +2562,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5. uzdevums.&nbsp;&nbsp;Cilvēka acs izšķirtspēja ir 0,10 mm. Skolēns vēlas saskatīt baktēriju, kuras garums ir 5,0 µm. Cik liels palielinājums vajadzīgs vismaz?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2541,6 +2631,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2593,6 +2684,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2662,6 +2754,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2742,6 +2835,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2833,6 +2927,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2915,9 +3010,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Saskata, ja&nbsp;&nbsp;d(objekta) &gt; d(izšķirtspējas)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2932,6 +3029,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3018,10 +3116,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Saskata, ja&nbsp;&nbsp;d(objekta) &gt; d(izšķirtspējas)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Objekts ir mazāks par izšķirtspēju</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Objekts ir mazāks par izšķirtspēju</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3036,6 +3138,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3123,11 +3226,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Saskata, ja&nbsp;&nbsp;d(objekta) &gt; d(izšķirtspējas)</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;Objekts ir mazāks par izšķirtspēju</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;D = d · Γ = 100 nm · 1500 = 1,5 · 10⁻⁴ m = 0,15 mm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;100 nm &lt; 200 nm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Objekts ir mazāks par izšķirtspēju</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;D = d · Γ = 100 nm · 1500 = 1,5 · 10⁻⁴ m = 0,15 mm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3143,6 +3252,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3209,6 +3319,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3253,6 +3364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3311,6 +3423,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3376,7 +3489,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.5211%;top:54.1370%;width:4.6835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.0545%;top:49.6333%;width:2.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
@@ -3389,6 +3502,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3457,7 +3571,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -3476,6 +3590,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3548,7 +3663,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -3558,9 +3673,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3571,6 +3688,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3647,7 +3765,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -3657,10 +3775,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = 5,0 µm = 5,0 · 10⁻⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = 5,0 µm = 5,0 · 10⁻⁶ m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3671,6 +3793,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3748,7 +3871,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -3758,22 +3881,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = 5,0 µm = 5,0 · 10⁻⁶ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Γ = (1,0 · 10⁻⁴ m) : (5,0 · 10⁻⁶ m) = 20</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 0,10 mm = 1,0 · 10⁻⁴ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = 5,0 µm = 5,0 · 10⁻⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Γ = (1,0 · 10⁻⁴ m) : (5,0 · 10⁻⁶ m) = 20</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Γ ≥ 20× </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Γ ≥ 20×&nbsp;</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Praksē izvēlas lielāku palielinājumu, lai attēls būtu ērti aplūkojams, piemēram, 400×.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;Mācību grāmatā baktērija, kuras patiesais garums ir 2,0 µm, attēlota 4,0 cm gara. Cik liels ir attēla palielinājums?</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3808,7 +3938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">Γ ≥ 20× </p>
+<p class="h1" style="color:#4F46E5;font-weight:700">Γ ≥ 20×&nbsp;</p>
 <p class="p2" style="color:#4B5563;font-style:italic">Praksē izvēlas lielāku palielinājumu, lai attēls būtu ērti aplūkojams, piemēram, 400×.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -3835,6 +3965,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3878,6 +4009,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3935,6 +4067,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4000,7 +4133,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.5211%;top:54.1370%;width:4.6835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.0545%;top:49.6333%;width:2.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">D</p>
@@ -4012,6 +4145,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4080,7 +4214,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -4098,6 +4232,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4170,7 +4305,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -4180,9 +4315,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -4192,6 +4329,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4268,7 +4406,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -4278,10 +4416,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = 2,0 µm = 2,0 · 10⁻⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = 2,0 µm = 2,0 · 10⁻⁶ m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -4291,6 +4433,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4368,7 +4511,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.7623%;width:2.6327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ = </p>
+<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ =&nbsp;</p>
 </div>
 <div class="tb" style="left:7.1534%;top:63.3050%;width:1.1186%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
@@ -4378,11 +4521,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;d = 2,0 µm = 2,0 · 10⁻⁶ m</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Γ = (4,0 · 10⁻² m) : (2,0 · 10⁻⁶ m) = 2,0 · 10⁴</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;D = 4,0 cm = 4,0 · 10⁻² m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;d = 2,0 µm = 2,0 · 10⁻⁶ m</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Γ = (4,0 · 10⁻² m) : (2,0 · 10⁻⁶ m) = 2,0 · 10⁴</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -4393,6 +4542,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -4446,13 +4596,30 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FFFFFF;border:0.130cqw solid #7C3AED;border-radius:1.478cqw"></i>
-<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
-<p style="font-size:1.1750cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:1.1750cqw">•&nbsp;&nbsp;Palielinājums rāda, cik reižu attēls lielāks; izšķirtspēja — cik sīkas detaļas vēl var atšķirt.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.8802cqw">•&nbsp;&nbsp;Ar gaismu nevar saskatīt objektu, mazāku par gaismas viļņa garumu → optiskā mikroskopa robeža ~200 nm.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.8802cqw">•&nbsp;&nbsp;Γ = Γ(ob) · Γ(ok)&nbsp;&nbsp;un&nbsp;&nbsp;d = D / Γ.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.8802cqw">•&nbsp;&nbsp;Objektu saskata tikai tad, ja tas ir lielāks par izšķirtspēju.</p>
-<p style="font-size:1.6636cqw;color:#374151;text-align:left;padding-top:0.8802cqw">•&nbsp;&nbsp;Vīrusus un atomus pēta ar elektronu un atomspēku mikroskopu.</p>
+<div class="tb" style="left:5.9251%;top:17.9840%;width:40.8498%;height:2.3147%;justify-content:flex-start">
+<p style="font-size:1.0490cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
+</div>
+<div class="tb" style="left:5.9251%;top:22.1653%;width:40.8498%;height:6.5582%;justify-content:flex-start">
+<p style="font-size:1.4865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Palielinājums rāda, cik reižu attēls lielāks; izšķirtspēja — cik sīkas detaļas vēl var atšķirt.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:30.1235%;width:40.8498%;height:6.5582%;justify-content:flex-start">
+<p style="font-size:1.4865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Ar gaismu nevar saskatīt objektu, mazāku par gaismas viļņa garumu → optiskā mikroskopa robeža ~200 nm.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:40.2238%;width:15.7989%;height:3.2262%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;Γ = Γ(ob) · Γ(ok)&nbsp;&nbsp;un&nbsp;&nbsp;d =&nbsp;</p>
+</div>
+<div class="tb" style="left:22.0203%;top:38.2140%;width:0.9148%;height:3.2262%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">D</p>
+</div>
+<i style="left:22.0203%;top:41.7302%;width:0.9148%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:22.0203%;top:42.2336%;width:0.9148%;height:3.2262%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.4865cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Γ</p>
+</div>
+<div class="tb" style="left:5.9251%;top:46.9920%;width:40.8498%;height:6.5582%;justify-content:flex-start">
+<p style="font-size:1.4865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Objektu saskata tikai tad, ja tas ir lielāks par izšķirtspēju.</p>
+</div>
+<div class="tb" style="left:5.9251%;top:54.9502%;width:40.8498%;height:6.5582%;justify-content:flex-start">
+<p style="font-size:1.4865cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Vīrusus un atomus pēta ar elektronu un atomspēku mikroskopu.</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:1.478cqw"></i>
 <div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
@@ -4467,6 +4634,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu atšķirt palielinājumu no izšķirtspējas&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt Γ un objekta izmēru&nbsp;&nbsp; ·&nbsp;&nbsp; Protu salīdzināt mikroskopu veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pamatot mikroskopa izvēli</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: mērierīces un mērījumu precizitāte — vai digitāls mērījums vienmēr ir precīzāks.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -4477,17 +4645,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">ŠODIEN IEMĀCĪJĀMIES</p>
-<p class="p2">•&nbsp;&nbsp;Palielinājums rāda, cik reižu attēls lielāks; izšķirtspēja — cik sīkas detaļas vēl var atšķirt.</p>
-<p class="p2">•&nbsp;&nbsp;Ar gaismu nevar saskatīt objektu, mazāku par gaismas viļņa garumu → optiskā mikroskopa robeža ~200 nm.</p>
-<p class="p2">•&nbsp;&nbsp;Γ = Γ(ob) · Γ(ok)&nbsp;&nbsp;un&nbsp;&nbsp;d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span></p>
-<p class="p2">•&nbsp;&nbsp;Objektu saskata tikai tad, ja tas ir lielāks par izšķirtspēju.</p>
-<p class="p2">•&nbsp;&nbsp;Vīrusus un atomus pēta ar elektronu un atomspēku mikroskopu.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĀJASDARBS</p>
 <p class="p2">1.&nbsp;&nbsp;Objektīvs 100×, okulārs 12,5×. Aprēķini palielinājumu.</p>
 <p class="p2">2.&nbsp;&nbsp;Ar 400× mikroskopu šūnas attēls ir 10 mm. Cik liela ir šūna mikrometros?</p>
 <p class="p2">3.&nbsp;&nbsp;Vai ar optisko mikroskopu (izšķirtspēja 200 nm) var saskatīt molekulu (1 nm)? Pamato ar salīdzinājumu.</p>
+</div>
+<div class="card" style="border-color:#7C3AED">
+<p class="p2">•&nbsp;&nbsp;Palielinājums rāda, cik reižu attēls lielāks; izšķirtspēja — cik sīkas detaļas vēl var atšķirt.</p>
+<p class="p2">•&nbsp;&nbsp;Ar gaismu nevar saskatīt objektu, mazāku par gaismas viļņa garumu → optiskā mikroskopa robeža ~200 nm.</p>
+<p class="mf" style="color:#374151"><span class="mc">•</span><span class="mc">Γ = Γ(ob) · Γ(ok)</span><span class="mc">un</span><span class="mc">d = <span class="f"><span class="n">D</span><span class="d">Γ</span></span></span></p>
+<p class="p2">•&nbsp;&nbsp;Objektu saskata tikai tad, ja tas ir lielāks par izšķirtspēju.</p>
+<p class="p2">•&nbsp;&nbsp;Vīrusus un atomus pēta ar elektronu un atomspēku mikroskopu.</p>
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">PAŠVĒRTĒJUMS — atzīmē, cik droši jūties</p>

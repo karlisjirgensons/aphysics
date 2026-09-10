@@ -21,6 +21,7 @@ Lietošana:
 
 import glob
 import html
+import math
 import re
 import os
 import sys
@@ -126,7 +127,9 @@ def _lighten_on_dark(shapes):
     Ģeometrija ir šejienes ziņa, krāsu izvēle - palette.on_dark ziņa.
     """
     dark = [s for s in shapes
-            if s["fill"] and s["text"] is None and is_dark(s["fill"])]
+            if s["fill"] and s["text"] is None and is_dark(s["fill"])
+            and "MATH:" not in s["name"] and "|ARR:" not in s["name"]
+            and "|SEG:" not in s["name"]]
     for t in shapes:
         if not t["text"]:
             continue
@@ -142,17 +145,89 @@ def _lighten_on_dark(shapes):
 
 # --------------------------------------------------------------------- HTML
 def esc(s):
+    """Tikai HTML rakstzīmju aizsegšana - bez formulu noformējuma."""
     return html.escape(s, quote=False)
 
 
+def txt_html(s):
+    """Teksts HTML: aizsegts un ar uzzīmētām vektoru bultiņām.
+
+    Viss slaida teksts iet caur šo funkciju (DRY) - tāpēc vektora
+    pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un formulās.
+    """
+    if not MF.has_vector(s):
+        return esc(s)
+    return "".join(esc(v) if k == "t" else vec_html(v)
+                   for k, v in MF.split_vectors(s))
+
+
+def vec_html(base):
+    """Vektora simbols: bultiņu zīmē CSS, nevis fonta kombinējošā zīme."""
+    return '<span class="vv">%s</span>' % esc(base)
+
+
 def _sp(s):
-    """Vairākas atstarpes HTML nesaspiež - tās notur formulu atstatumus."""
-    return esc(s).replace("  ", "&nbsp;&nbsp;")
+    """Atstarpes HTML nesaspiež - tās notur formulu atstatumus.
+
+    Rindas sākuma un beigu atstarpi pārlūks izmet pavisam, tāpēc centrēts
+    gabals ("√2500" un " = 50 N") saslīdētu kopā; te tās paliek kā &nbsp;.
+    """
+    lead = len(s) - len(s.lstrip(" "))
+    trail = len(s) - len(s.rstrip(" ")) if s.strip() else 0
+    core = s[lead:len(s) - trail] if trail else s[lead:]
+    body = txt_html(core).replace("  ", "&nbsp;&nbsp;")
+    return "&nbsp;" * lead + body + "&nbsp;" * trail
 
 
-def root_html(expr):
-    """√-izteiksme: vinkuls (svītra) pāri VISAI izteiksmei, ne tikai iekavai."""
-    return '<span class="rt"><span class="rv">%s</span></span>' % esc(expr)
+# Saknes zīmes augstums fonta izmēra daļās nāk no mathfmt - tie paši mēri,
+# pēc kuriem zīmi uzzīmē arī .pptx, tāpēc abi skati sakrīt.
+ROOT_EM = MF.root_em([("t", "")])
+ROOT_EM_TALL = MF.root_em([("f", "", "")])
+
+
+def root_svg(h=ROOT_EM, cls="rk", style=""):
+    """Saknes zīme kā SVG - viena forma abiem skatiem (MF.root_pts)."""
+    w, _ = MF.root_pts(h)
+    return ('<svg class="%s"%s viewBox="0 0 %.4f %.4f" '
+            'preserveAspectRatio="none" aria-hidden="true">'
+            '<path d="%s"/></svg>'
+            % (cls, (' style="%s"' % style) if style else "",
+               w, h, MF.root_path_d(h)))
+
+
+def root_html(inner, tall=False):
+    """√-izteiksme: vinkuls (svītra) pāri VISAI izteiksmei, ne tikai iekavai.
+
+    Saknes zīmi zīmē pati lapa (MF.ROOT_PTS), tāpēc tā izstiepjas līdz
+    satura augstumam - arī tad, ja zem vinkula ir vertikāla daļa - un
+    vinkuls turpinās no tās augšmalas. `inner` jau ir gatavs HTML.
+    """
+    h = ROOT_EM_TALL if tall else ROOT_EM
+    w, _ = MF.root_pts(h)
+    return ('<span class="rt" style="--rw:%.3fem">%s'
+            '<span class="rv">%s</span></span>'
+            % (w, root_svg(h), inner))
+
+
+def frac_span(num, den):
+    """Vertikāla daļa: skaitītājs virs saucēja."""
+    return ('<span class="f"><span class="n">%s</span>'
+            '<span class="d">%s</span></span>'
+            % (txt_html(num), txt_html(den)))
+
+
+def atoms_html(atoms):
+    """Atomu virkne uz HTML - viena vieta abiem parsētājiem (DRY)."""
+    out = []
+    for a in atoms:
+        if a[0] == "t":
+            out.append(_sp(a[1]))
+        elif a[0] == "r":
+            out.append(root_html(atoms_html(a[1]),
+                                 tall=any(x[0] == "f" for x in a[1])))
+        else:
+            out.append(frac_span(a[1], a[2]))
+    return "".join(out)
 
 
 def frac_html(text):
@@ -161,18 +236,53 @@ def frac_html(text):
     Lieto piesardzīgo atpazīšanu: mērvienības (m/s, kg/m³) un vārdu pāri
     (garums/augstums) paliek rindā, bet 1/16, F/S, 1/r² kļūst vertikāli.
     """
-    parts = []
-    for a in MP.parse_prose(text):
-        if a[0] == "t":
-            parts.append(_sp(a[1]))
-        elif a[0] == "r":
-            parts.append(root_html(a[1]))
-        else:
-            parts.append(
-                '<span class="f"><span class="n">%s</span>'
-                '<span class="d">%s</span></span>'
-                % (esc(a[1]), esc(a[2])))
-    return "".join(parts)
+    return atoms_html(MP.parse_prose(text))
+
+
+# ---------------------------------------------------------------- zīmējumi
+# Bultas un palīglīnijas .pptx failā ir formas, kuru nosaukumā ierakstīta
+# ģeometrija ("FIG7|ARR:x1,y1,x2,y2,lw,head"). Tāpēc HTML var uzzīmēt tieši
+# to pašu, nevis minēt pēc formas rāmja.
+
+def fig_part(s):
+    """Formas nosaukumu pārvērš zīmējuma daļā vai atgriež None."""
+    nm = s["name"]
+    if "|" not in nm:
+        return None
+    fid, tail = nm.split("|", 1)
+    if tail.startswith(("ARR:", "SEG:")):
+        try:
+            x1, y1, x2, y2, lw, head = (float(v)
+                                        for v in tail[4:].split(","))
+        except ValueError:
+            return None
+        return {"fid": fid, "kind": "line", "x1": x1, "y1": y1,
+                "x2": x2, "y2": y2, "lw": lw, "head": bool(head),
+                "color": s["fill"] or s["line"] or palette.TEXT_DEFAULT}
+    if tail == "LBL":
+        return {"fid": fid, "kind": "label", "shape": s}
+    return None
+
+
+def _arrow_path(p, k=1.0):
+    """Bultas kontūra SVG ceļš; k - mērogs no collām uz zīmējuma vienībām."""
+    dx, dy = p["x2"] - p["x1"], p["y2"] - p["y1"]
+    ln = math.hypot(dx, dy) or 1e-6
+    ux, uy = dx / ln, dy / ln
+    px, py = -uy, ux
+    hl = min(0.20, ln * 0.34) if p["head"] else 0.0
+    hw, sw = p["lw"] * 2.2, p["lw"] / 2.0
+
+    def pt(u, v):
+        return ((p["x1"] + ux * u + px * v) * k,
+                (p["y1"] + uy * u + py * v) * k)
+
+    if not p["head"]:
+        pts = [pt(0, -sw), pt(ln, -sw), pt(ln, sw), pt(0, sw)]
+    else:
+        pts = [pt(0, -sw), pt(ln - hl, -sw), pt(ln - hl, -hw), pt(ln, 0),
+               pt(ln - hl, hw), pt(ln - hl, sw), pt(0, sw)]
+    return "M%s Z" % " L".join("%.3f %.3f" % q for q in pts)
 
 
 def pt2cqw(pt):
@@ -180,16 +290,29 @@ def pt2cqw(pt):
     return pt / PT_PER_IN / SW_IN * 100.0
 
 
-def _style_box(s):
+def _style_box(s, fill=True):
     st = ["left:%.4f%%" % (s["x"] / SW_IN * 100),
           "top:%.4f%%" % (s["y"] / SH_IN * 100),
           "width:%.4f%%" % (s["w"] / SW_IN * 100),
           "height:%.4f%%" % (s["h"] / SH_IN * 100)]
-    if s["fill"]:
+    if fill and s["fill"]:
         st.append("background:%s" % s["fill"])
     if s["line"]:
         st.append("border:%.3fcqw solid %s" % (pt2cqw(s["lw"]), s["line"]))
     return ";".join(st)
+
+
+def stage_svg(shapes):
+    """Visas slaida bultas vienā SVG pārklājumā (slaida koordinātēs)."""
+    parts = [p for p in (fig_part(s) for s in shapes)
+             if p and p["kind"] == "line"]
+    if not parts:
+        return ""
+    body = "".join('<path d="%s" fill="%s"/>'
+                   % (_arrow_path(p, 100.0), p["color"]) for p in parts)
+    return ('<svg class="fg" viewBox="0 0 %.1f %.1f" '
+            'preserveAspectRatio="none">%s</svg>'
+            % (SW_IN * 100, SH_IN * 100, body))
 
 
 def stage_html(shapes):
@@ -201,7 +324,15 @@ def stage_html(shapes):
             extra = ";border-radius:%.3fcqw" % (min(s["w"], s["h"]) * 0.05
                                                 / SW_IN * 100)
         if s["text"] is None:
-            out.append('<i style="%s%s"></i>' % (_style_box(s), extra))
+            if "|ARR:" in s["name"] or "|SEG:" in s["name"]:
+                continue                         # bultas zīmē stage_svg()
+            role = s["name"].rsplit(":", 1)[-1]
+            if role.startswith("rg"):            # saknes zīme
+                out.append(root_svg(
+                    ROOT_EM_TALL if role.endswith("T") else ROOT_EM, "rg",
+                    "%s;fill:%s" % (_style_box(s, fill=False), s["fill"])))
+            else:
+                out.append('<i style="%s%s"></i>' % (_style_box(s), extra))
             continue
         css = ";justify-content:%s" % (s["anchor"] or "flex-start")
         if s["wrap"] is False:
@@ -218,6 +349,7 @@ def stage_html(shapes):
                    ";font-style:italic" if p["italic"] else "",
                    _sp(p["t"])))
         out.append("</div>")
+    out.append(stage_svg(shapes))
     return "\n".join(out)
 
 
@@ -255,23 +387,28 @@ def _math_runs(shapes):
     built = {}
     for mid in order:
         r = runs[mid]
-        pieces, num = [], None
+        # Lomu priedēklis "r" nozīmē "zem saknes vinkula": rt, rn, rd, rb.
+        # Zīme (rg) atver sakni, vinkuls (rv) to aizver - tā saknes saturs
+        # telefona skatā saliekas atpakaļ tieši tāds pats kā slaidā.
+        pieces, num, root, root_tall = [], None, None, False
         for role, txt, s in r["parts"]:
-            if role == "t":
+            here = pieces if root is None else root
+            if role.startswith("rg"):
+                root, root_tall = [], role.endswith("T")
+            elif role == "rv":
+                pieces.append(root_html("".join(root or []), root_tall))
+                root = None
+            elif role in ("b", "rb"):
+                continue                      # daļas svītru uzzīmē CSS
+            elif role in ("t", "rt"):
                 # 2+ atstarpes atdala patstāvīgas formulas vienā rindā -
                 # telefonā tās drīkst pārlēkt uz nākamo rindu veselas
-                pieces.append(GAP.join(esc(x) for x in
-                                       re.split(r"\s{2,}", txt)))
-            elif role == "r":
-                pieces.append(root_html(txt))
-            elif role in ("rg", "rb"):
-                continue                      # zīmi un vinkulu uzzīmē CSS
-            elif role == "n":
+                here.append(GAP.join(txt_html(x) for x in
+                                     re.split(r"\s{2,}", txt)))
+            elif role in ("n", "rn"):
                 num = txt
-            elif role == "d":
-                pieces.append('<span class="f"><span class="n">%s</span>'
-                              '<span class="d">%s</span></span>'
-                              % (esc(num or ""), esc(txt)))
+            elif role in ("d", "rd"):
+                here.append(frac_span(num or "", txt))
         first = next((s for _, _, s in r["parts"] if s["text"]), None)
         p0 = first["text"][0] if first else {}
         chunks = [c for c in "".join(pieces).split(GAP) if c.strip()]
@@ -329,9 +466,63 @@ def is_dark(hexcolor):
     return (0.299 * r + 0.587 * g + 0.114 * b) < 140
 
 
+def collect_figs(shapes):
+    """Zīmējuma daļas sagrupē pa zīmējumiem (fid)."""
+    figs = {}
+    for s in shapes:
+        p = fig_part(s)
+        if not p:
+            continue
+        f = figs.setdefault(p["fid"], {"lines": [], "labels": [], "y": s["y"],
+                                       "x": s["x"]})
+        f["y"] = min(f["y"], s["y"])
+        f["x"] = min(f["x"], s["x"])
+        f["lines" if p["kind"] == "line" else "labels"].append(
+            p if p["kind"] == "line" else s)
+    return figs
+
+
+def fig_html(f):
+    """Zīmējums telefona skatā: tas pats attēls, tikai lapas platumā."""
+    xs, ys = [], []
+    for p in f["lines"]:
+        for a, b, r in ((p["x1"], p["y1"], p["lw"] * 2.4),
+                        (p["x2"], p["y2"], p["lw"] * 2.4)):
+            xs += [a - r, a + r]
+            ys += [b - r, b + r]
+    for s in f["labels"]:
+        xs += [s["x"], s["x"] + s["w"]]
+        ys += [s["y"], s["y"] + s["h"]]
+    if not xs:
+        return ""
+    pad = 0.06
+    x0, x1 = min(xs) - pad, max(xs) + pad
+    y0, y1 = min(ys) - pad, max(ys) + pad
+    w, h = max(x1 - x0, 0.01), max(y1 - y0, 0.01)
+
+    body = "".join('<path d="%s" fill="%s"/>'
+                   % (_arrow_path(dict(p, x1=p["x1"] - x0, y1=p["y1"] - y0,
+                                       x2=p["x2"] - x0, y2=p["y2"] - y0),
+                                  100.0), p["color"])
+                   for p in f["lines"])
+    out = ['<div class="fig" style="aspect-ratio:%.3f/%.3f">' % (w, h),
+           '<svg viewBox="0 0 %.1f %.1f" preserveAspectRatio="none">%s</svg>'
+           % (w * 100, h * 100, body)]
+    for s in f["labels"]:
+        pr = s["text"][0]
+        out.append('<b style="left:%.3f%%;top:%.3f%%;width:%.3f%%;'
+                   'font-size:%.3fcqw;color:%s">%s</b>'
+                   % ((s["x"] - x0) / w * 100, (s["y"] - y0) / h * 100,
+                      s["w"] / w * 100, pr["size"] / PT_PER_IN / w * 100,
+                      pr["color"], txt_html(pr["t"])))
+    out.append("</div>")
+    return "".join(out)
+
+
 def flow_html(shapes):
     """Telefona skats: tas pats saturs vienā plūstošā kolonnā."""
     math = _math_runs(shapes)
+    figs = collect_figs(shapes)
 
     boxes = {}                       # 'BOX:PANEL7' -> rāmja forma
     for s in shapes:
@@ -350,7 +541,8 @@ def flow_html(shapes):
         if s["text"] is None:
             continue
         if kind == "TBLHT":
-            t["hdr"][int(rest.split(":")[1])] = esc(s["text"][0]["t"])
+            t["hdr"][int(rest.split(":")[1])] = txt_html(
+                s["text"][0]["t"])
         elif kind == "TBLCT":
             _, i, j = rest.split(":")
             t["rows"].setdefault(int(i), {})[int(j)] =                 frac_html(s["text"][0]["t"])
@@ -374,6 +566,8 @@ def flow_html(shapes):
             continue
         if "MATH:" in s["name"] or s["name"] == "RULE":
             continue
+        if fig_part(s):                      # zīmējuma daļas - kopā, zemāk
+            continue
         if s["text"] is None or s["name"] == "FOOTER":
             continue
         g = gid if kind == "TXT" else None
@@ -384,6 +578,9 @@ def flow_html(shapes):
             continue
         k, g = _group(m["owner"])
         items.append((m["y"], m["x"], g if k == "TXT" else None, "math", m))
+
+    for f in figs.values():
+        items.append((f["y"], f["x"], None, "fig", f))
 
     # Uzdevumu slaidos telefona skatā jāsaglabā risinājuma secība
     # (Dots -> Jāaprēķina -> Formulas -> Aprēķins -> Atbilde), nevis
@@ -433,6 +630,8 @@ def flow_html(shapes):
                                % (t["hdr"].get(j, ""), row[j]))
                 out.append("</div>")
             out.append("</div>")
+        elif kind == "fig":
+            out.append(fig_html(obj))
         elif kind == "math":
             out.append('<p class="mf" style="color:%s">%s</p>'
                        % (obj["color"], obj["html"]))
@@ -481,7 +680,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -493,10 +700,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){

@@ -241,7 +241,7 @@ dict(
              aprekins=["1)  F: 5,0 : 10 = 0,50 N/cm → ņem 0,50 N/cm",
                        "2)  x: 0,13 : 12 ≈ 0,011 m/cm → ņem 0,02 m/cm",
                        "3)  Tad x ass aizņems 6,5 cm - pieņemami"],
-             atbilde="F ass: 1 cm ↔ 0,50 N;  x ass: 1 cm ↔ 0,02 m.",
+             atbilde="F ass: 1 cm atbilst 0,50 N;  x ass: 1 cm atbilst 0,02 m.",
              piezime="Mērogam vienmēr izvēlas 1, 2 vai 5 vienības uz "
                      "iedaļu."),
         dict(nr=3, virsraksts="Kļūdas novērtējums",

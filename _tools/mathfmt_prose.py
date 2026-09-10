@@ -211,7 +211,31 @@ def _balanced(s):
 
 
 def parse_prose(text):
-    """Atgriež tādus pašus atomus kā mathfmt.parse_math()."""
+    """Atgriež tādus pašus atomus kā mathfmt.parse_math().
+
+    Vispirms atdala saknes: zem vinkula esošu slīpsvītru ("√(l/g)") lasa
+    saknes atomu būvētājs, nevis šī piesardzīgā daļu meklēšana - citādi
+    daļa tiktu izrauta ārā no saknes.
+    """
+    out = []
+    for a in split_roots([("t", text)]):
+        if a[0] == "t":
+            out.extend(_prose_fractions(a[1]))
+        else:
+            out.append(a)
+    merged = []
+    for a in out:
+        if a[0] == "t" and merged and merged[-1][0] == "t":
+            merged[-1] = ("t", merged[-1][1] + a[1])
+        else:
+            merged.append(a)
+    if not any(a[0] in ("f", "r") for a in merged):
+        return [("t", text)]
+    return merged
+
+
+def _prose_fractions(text):
+    """Daļu meklēšana tekstā bez saknēm; ja nav, atgriež vienu ("t", ...)."""
     out, pos, i, n = [], 0, 0, len(text)
     # "[p] = Pa = N/m²" - mērvienību pieraksts; tur nekas nav jāpārveido
     bracket = "[" in text and "]" in text
@@ -258,10 +282,7 @@ def parse_prose(text):
         pos = i = R[1]
     if pos < n:
         out.append(("t", text[pos:]))
-    out = split_roots(out) if out else split_roots([("t", text)])
-    if not any(a[0] in ("f", "r") for a in out):
-        return [("t", text)]
-    return out
+    return out or [("t", text)]
 
 
 def has_prose_fraction(text):

@@ -123,12 +123,12 @@ dict(
                     "vₓ = −4,0 m/s no 10 līdz 20 s. Aprēķini ceļu un "
                     "pārvietojumu!",
              dots=["v₁ = 6,0 m/s, t₁ = 10 s", "v₂ = −4,0 m/s, t₂ = 10 s"],
-             jaaprekina=["s = ?", "dₓ = ?"],
-             formulas=["s = |v₁|t₁ + |v₂|t₂", "dₓ = v₁t₁ + v₂t₂"],
+             jaaprekina=["s = ?", "sₓ = ?"],
+             formulas=["s = |v₁|t₁ + |v₂|t₂", "sₓ = v₁t₁ + v₂t₂"],
              aprekins=["1)  s₁ = 6,0 · 10 = 60 m ;  s₂ = 4,0 · 10 = 40 m",
                        "2)  s = 60 + 40 = 100 m",
-                       "3)  dₓ = 60 − 40 = 20 m"],
-             atbilde="s = 100 m ;   dₓ = 20 m",
+                       "3)  sₓ = 60 − 40 = 20 m"],
+             atbilde="s = 100 m ;   sₓ = 20 m",
              piezime="Laukums zem ass ir negatīvs pārvietojumam, bet "
                      "ceļam to skaita pēc moduļa."),
     ],
@@ -389,11 +389,11 @@ dict(
              teksts="Skrējējs noskrien 400 m apli 80 s laikā un "
                     "atgriežas\nstartā. Aprēķini vidējo ātruma moduli un "
                     "vidējo ātrumu pēc pārvietojuma!",
-             dots=["s = 400 m", "t = 80 s", "|d⃗| = 0"],
-             jaaprekina=["v(vid) pēc ceļa = ?", "v(vid) pēc d⃗ = ?"],
-             formulas=["v = s/t", "v⃗(vid) = d⃗/t"],
+             dots=["s = 400 m", "t = 80 s", "|s⃗| = 0"],
+             jaaprekina=["v(vid) pēc ceļa = ?", "v(vid) pēc s⃗ = ?"],
+             formulas=["v = s/t", "v⃗(vid) = s⃗/t"],
              aprekins=["1)  v = 400 : 80 = 5,0 m/s",
-                       "2)  |d⃗| = 0",
+                       "2)  |s⃗| = 0",
                        "3)  |v⃗(vid)| = 0 : 80 = 0 m/s"],
              atbilde="Pēc ceļa 5,0 m/s ;   pēc pārvietojuma 0 m/s.",
              piezime="Eksāmenā vienmēr precizē, kurš vidējais ātrums "
@@ -842,8 +842,8 @@ dict(
              formulas=["Mērogs = diapazons / ass garums"],
              aprekins=["1)  Diapazons: 25 − 0 = 25 cm (sākot no nulles)",
                        "2)  25 : 10 = 2,5 cm(h) uz 1 cm(ass)",
-                       "3)  Ērtāk: 1 cm(ass) ↔ 2,5 cm vai 5 cm"],
-             atbilde="Mērogs 1 cm ↔ 2,5 cm (vai 5 cm ērtākai lasīšanai).",
+                       "3)  Ērtāk: 1 cm(ass) atbilst 2,5 cm vai 5 cm"],
+             atbilde="Mērogs 1 cm atbilst 2,5 cm (vai 5 cm ērtākai lasīšanai).",
              piezime="Mērogam jābūt ērtam - 1, 2, 5 vai 10 vienības uz "
                      "iedaļu."),
         dict(nr=3, virsraksts="Tendences apraksts",

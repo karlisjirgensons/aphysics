@@ -41,7 +41,15 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i{position:absolute;display:block}
+.stage i,.stage .rg{position:absolute;display:block}
+/* vektoru zīmējums: bultas vienā SVG pāri slaidam */
+.stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
+           overflow:visible;pointer-events:none}
+.fig{position:relative;container-type:inline-size;width:100%;
+     margin:.6rem 0}
+.fig svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.fig b{position:absolute;text-align:center;font-weight:600;
+       line-height:1.1;transform:translateY(-.1em)}
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
@@ -53,10 +61,27 @@ body{background:var(--bg);color:var(--fg);
 .f .n{display:block;padding:0 .2em}
 .f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
 
-/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ---------- */
-.rt{white-space:nowrap}
-.rt::before{content:"√"}
-.rt .rv{border-top:.075em solid currentColor;padding:.08em .14em 0 .06em}
+/* ---------- kvadrātsakne: vinkuls pāri visai izteiksmei ----------
+   Saknes zīme ir zīmēta (SVG), tāpēc tā izstiepjas līdz izteiksmes
+   augstumam un vinkuls turpinās tieši no tās augšējā stūra. */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+/* ---------- vektors: bultiņa virs simbola ----------
+   Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
+   nostājas blakus burtam, tāpēc bultiņu zīmē CSS: kāts pāri simbolam un
+   trīsstūra uzgalis labajā galā. */
+.vv{position:relative;display:inline-block;line-height:1}
+.vv::before{content:"";position:absolute;left:-.03em;right:.13em;top:-.05em;
+            border-top:.07em solid currentColor}
+.vv::after{content:"";position:absolute;right:-.04em;top:-.105em;
+           width:0;height:0;border-left:.2em solid currentColor;
+           border-top:.1em solid transparent;
+           border-bottom:.1em solid transparent}
 
 /* ---------- TELEFONA SKATS ---------- */
 @media (max-width:768px){
@@ -176,6 +201,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:7.8752%;top:86.6667%;width:82.5021%;height:7.3333%;justify-content:flex-start">
 <p style="font-size:1.5625cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Nostiprināšana · Jauktie uzdevumi · Gatavošanās PD3</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -248,6 +274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.8. Materiāla izvēle ar aprēķinu</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -289,7 +316,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">ATKĀRTOJUMS</p>
-<p class="p2">Šī ir pēdējā stunda pirms PD3. Atkārtojam: ρ = <span class="f"><span class="n">m</span><span class="d">V</span></span> σ = <span class="f"><span class="n">F</span><span class="d">S</span></span> Fe = kΔx, siltuma zudumi un R = <span class="f"><span class="n">ρl</span><span class="d">S</span></span></p>
+<p class="p2">Šī ir pēdējā stunda pirms PD3. Atkārtojam: ρ =&nbsp;<span class="f"><span class="n">m</span><span class="d">V</span></span>&nbsp;σ =&nbsp;<span class="f"><span class="n">F</span><span class="d">S</span></span>&nbsp;Fe = kΔx, siltuma zudumi un R =&nbsp;<span class="f"><span class="n">ρl</span><span class="d">S</span></span></p>
 </div>
 </div>
 </section>
@@ -303,140 +330,141 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Temata formulas vienuviet</p>
 </div>
 <i style="left:4.1251%;top:13.3333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
-<i style="left:4.1251%;top:15.7333%;width:27.2257%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:5.0251%;top:17.0667%;width:25.4256%;height:3.7333%;justify-content:flex-start">
+<i style="left:4.1251%;top:15.7333%;width:27.2324%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:5.0251%;top:17.0667%;width:25.4323%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Kas jāatrod</p>
 </div>
-<i style="left:31.3508%;top:15.7333%;width:34.5009%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:32.2508%;top:17.0667%;width:32.7008%;height:3.7333%;justify-content:flex-start">
+<i style="left:31.3575%;top:15.7333%;width:34.5093%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:32.2575%;top:17.0667%;width:32.7093%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Formula</p>
 </div>
-<i style="left:65.8516%;top:15.7333%;width:30.0008%;height:6.1333%;background:#3730A3"></i>
-<div class="tb" style="left:66.7517%;top:17.0667%;width:28.2007%;height:3.7333%;justify-content:flex-start">
+<i style="left:65.8668%;top:15.7333%;width:30.0081%;height:6.1333%;background:#3730A3"></i>
+<div class="tb" style="left:66.7668%;top:17.0667%;width:28.2081%;height:3.7333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#FFFFFF;text-align:left;padding-top:0.0000cqw;font-weight:700">Kur lieto</p>
 </div>
-<i style="left:4.1251%;top:22.4000%;width:27.2257%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:23.6000%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:22.4000%;width:27.2324%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:23.6000%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Blīvums, masa, tilpums</p>
 </div>
-<i style="left:31.3508%;top:22.4000%;width:34.5009%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:25.7114%;width:2.4876%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ = </p>
+<i style="left:31.3575%;top:22.4000%;width:34.5093%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:25.7114%;width:2.4876%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ =&nbsp;</p>
 </div>
-<div class="tb" style="left:35.0687%;top:23.5482%;width:1.2809%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:35.0754%;top:23.5482%;width:1.2809%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">m</p>
 </div>
-<i style="left:35.0687%;top:27.3409%;width:1.2809%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:35.0687%;top:27.8746%;width:1.2809%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:35.0754%;top:27.3409%;width:1.2809%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:35.0754%;top:27.8746%;width:1.2809%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">V</p>
 </div>
-<i style="left:65.8516%;top:22.4000%;width:30.0008%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:23.6000%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:22.4000%;width:30.0081%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:23.6000%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">materiāla atpazīšana</p>
 </div>
-<i style="left:4.1251%;top:32.4952%;width:27.2257%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:33.6952%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:32.4952%;width:27.2324%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:33.6952%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Slodzes spēks</p>
 </div>
-<i style="left:31.3508%;top:32.4952%;width:34.5009%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:33.6952%;width:32.7008%;height:7.6952%;justify-content:flex-start">
+<i style="left:31.3575%;top:32.4952%;width:34.5093%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:33.6952%;width:32.7093%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = m · g</p>
 </div>
-<i style="left:65.8516%;top:32.4952%;width:30.0008%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:33.6952%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:32.4952%;width:30.0081%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:33.6952%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">konstrukcijas</p>
 </div>
-<i style="left:4.1251%;top:42.5905%;width:27.2257%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:43.7905%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:42.5905%;width:27.2324%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:43.7905%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Mehāniskais spriegums</p>
 </div>
-<i style="left:31.3508%;top:42.5905%;width:34.5009%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:45.9019%;width:2.5196%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<i style="left:31.3575%;top:42.5905%;width:34.5093%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:45.9019%;width:2.5196%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
-<div class="tb" style="left:35.1007%;top:43.7387%;width:0.7365%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:35.1074%;top:43.7387%;width:0.7365%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
 </div>
-<i style="left:35.1007%;top:47.5314%;width:0.7365%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:35.1007%;top:48.0650%;width:0.7365%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:35.1074%;top:47.5314%;width:0.7365%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:35.1074%;top:48.0650%;width:0.7365%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
-<i style="left:65.8516%;top:42.5905%;width:30.0008%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:43.7905%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:42.5905%;width:30.0081%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:43.7905%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">izturība</p>
 </div>
-<i style="left:4.1251%;top:52.6857%;width:27.2257%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:53.8857%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:52.6857%;width:27.2324%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:53.8857%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Drošības koeficients</p>
 </div>
-<i style="left:31.3508%;top:52.6857%;width:34.5009%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:55.9971%;width:2.3995%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<i style="left:31.3575%;top:52.6857%;width:34.5093%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:55.9971%;width:2.3995%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
-<div class="tb" style="left:34.9806%;top:53.8339%;width:4.5711%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:34.9873%;top:53.8339%;width:4.5711%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
 </div>
-<i style="left:34.9806%;top:57.6267%;width:4.5711%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:34.9806%;top:58.1603%;width:4.5711%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:34.9873%;top:57.6267%;width:4.5711%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:34.9873%;top:58.1603%;width:4.5711%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ</p>
 </div>
-<i style="left:65.8516%;top:52.6857%;width:30.0008%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:53.8857%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:52.6857%;width:30.0081%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:53.8857%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">projektēšana</p>
 </div>
-<i style="left:4.1251%;top:62.7809%;width:27.2257%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:63.9809%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:62.7809%;width:27.2324%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:63.9809%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Elastības spēks</p>
 </div>
-<i style="left:31.3508%;top:62.7809%;width:34.5009%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:63.9809%;width:32.7008%;height:7.6952%;justify-content:flex-start">
+<i style="left:31.3575%;top:62.7809%;width:34.5093%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:63.9809%;width:32.7093%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Fe = k · Δx</p>
 </div>
-<i style="left:65.8516%;top:62.7809%;width:30.0008%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:63.9809%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:62.7809%;width:30.0081%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:63.9809%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">atsperes</p>
 </div>
-<i style="left:4.1251%;top:72.8762%;width:27.2257%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:74.0762%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:72.8762%;width:27.2324%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:74.0762%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Siltuma zudumi</p>
 </div>
-<i style="left:31.3508%;top:72.8762%;width:34.5009%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:76.1876%;width:2.4956%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<i style="left:31.3575%;top:72.8762%;width:34.5093%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:76.1876%;width:2.4956%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
-<div class="tb" style="left:35.0767%;top:74.0244%;width:3.7225%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:35.0834%;top:74.0244%;width:3.7225%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ·S·Δt</p>
 </div>
-<i style="left:35.0767%;top:77.8171%;width:3.7225%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:35.0767%;top:78.3507%;width:3.7225%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:35.0834%;top:77.8171%;width:3.7225%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:35.0834%;top:78.3507%;width:3.7225%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">d</p>
 </div>
-<i style="left:65.8516%;top:72.8762%;width:30.0008%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:74.0762%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:72.8762%;width:30.0081%;height:10.0952%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:74.0762%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">izolācija</p>
 </div>
-<i style="left:4.1251%;top:82.9714%;width:27.2257%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:5.0251%;top:84.1714%;width:25.4256%;height:7.6952%;justify-content:flex-start">
+<i style="left:4.1251%;top:82.9714%;width:27.2324%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:5.0251%;top:84.1714%;width:25.4323%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Vadītāja pretestība</p>
 </div>
-<i style="left:31.3508%;top:82.9714%;width:34.5009%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:32.2508%;top:86.2828%;width:2.5436%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<i style="left:31.3575%;top:82.9714%;width:34.5093%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:32.2575%;top:86.2828%;width:2.5436%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
-<div class="tb" style="left:35.1247%;top:84.1196%;width:2.3055%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<div class="tb" style="left:35.1314%;top:84.1196%;width:2.3055%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ · l</p>
 </div>
-<i style="left:35.1247%;top:87.9124%;width:2.3055%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:35.1247%;top:88.4460%;width:2.3055%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
+<i style="left:35.1314%;top:87.9124%;width:2.3055%;height:0.2133%;background:#312E81"></i>
+<div class="tb" style="left:35.1314%;top:88.4460%;width:2.3055%;height:3.4725%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.6000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
-<i style="left:65.8516%;top:82.9714%;width:30.0008%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:66.7517%;top:84.1714%;width:28.2007%;height:7.6952%;justify-content:flex-start">
+<i style="left:65.8668%;top:82.9714%;width:30.0081%;height:10.0952%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
+<div class="tb" style="left:66.7668%;top:84.1714%;width:28.2081%;height:7.6952%;justify-content:flex-start">
 <p style="font-size:1.6000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">elektrotehnika</p>
 </div>
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.8. Materiāla izvēle ar aprēķinu</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -525,6 +553,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.8. Materiāla izvēle ar aprēķinu</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">
@@ -569,6 +598,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.5001cqw;color:#C7D2FE;text-align:left;padding-top:0.0000cqw">Jauktie temata uzdevumi — gatavošanās PD3</p>
 <p style="font-size:1.7709cqw;color:#A5B4FC;text-align:left;padding-top:1.6667cqw">Katrs jaunais solis vispirms parādās liels — pēc tam nostājas savā vietā risinājumā.</p>
 </div>
+
 </div>
 <div class="flow dark" style="background:#3730A3">
 <div class="blk">
@@ -604,6 +634,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -656,6 +687,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -726,6 +758,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -808,7 +841,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">m = ρ · V</p>
 </div>
 <div class="tb" style="left:59.5544%;top:63.3370%;width:5.1335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">σ = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.5379%;top:58.8333%;width:1.5834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -825,6 +858,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -912,7 +946,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0093%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3613%;top:67.9212%;width:0.5779%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -935,6 +969,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1026,7 +1061,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0093%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3613%;top:67.9212%;width:0.5779%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1036,9 +1071,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1053,6 +1090,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1148,7 +1186,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0093%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3613%;top:67.9212%;width:0.5779%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1158,10 +1196,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -1176,6 +1218,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1272,7 +1315,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0093%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3613%;top:67.9212%;width:0.5779%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1282,11 +1325,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F = 1,5·10³ · 9,81 = 1,47·10⁴ N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F = 1,5·10³ · 9,81 = 1,47·10⁴ N</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -1301,6 +1350,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1398,7 +1448,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.6185%;width:2.0093%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.3613%;top:67.9212%;width:0.5779%;height:2.7247%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1408,14 +1458,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2552cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;F = 1,5·10³ · 9,81 = 1,47·10⁴ N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">4)&nbsp;&nbsp;σ = 1,47·10⁴ : 4,0·10⁻⁴ = 3,7·10⁷ Pa</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;V = 4,0·10⁻⁴ · 2,0 = 8,0·10⁻⁴ m³</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;m = 7800 · 8,0·10⁻⁴ = 6,24 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;F = 1,5·10³ · 9,81 = 1,47·10⁴ N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;σ = 1,47·10⁴ : 4,0·10⁻⁴ = 3,7·10⁷ Pa</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">m ≈ 6,2 kg ;&nbsp;&nbsp; σ ≈ 37 MPa</p>
@@ -1429,6 +1487,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Mājas siena 40 m², λ = 0,50 W/(m·K), d = 0,25 m. Iekšā 22 °C, ārā −8 °C. Aprēķini zudumu jaudu un enerģiju, kas aizplūst diennaktī (kWh)!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1503,6 +1562,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1555,6 +1615,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1625,6 +1686,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1701,7 +1763,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1907cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:60.0684%;top:42.0127%;width:4.5354%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">σ = </p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:65.3339%;top:38.0495%;width:1.3934%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -1711,7 +1773,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">S</p>
 </div>
 <div class="tb" style="left:56.5557%;top:58.4524%;width:4.3448%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k = </p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:61.6305%;top:54.4892%;width:8.6095%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">σ(max)</p>
@@ -1731,6 +1793,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1812,7 +1875,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8428%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1610%;top:59.4854%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1822,7 +1885,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.1443%;width:1.7570%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0752%;top:65.5990%;width:3.2655%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
@@ -1848,6 +1911,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -1933,7 +1997,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8428%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1610%;top:59.4854%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -1943,7 +2007,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.1443%;width:1.7570%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0752%;top:65.5990%;width:3.2655%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
@@ -1956,9 +2020,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -1973,6 +2039,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2062,7 +2129,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8428%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1610%;top:59.4854%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -2072,7 +2139,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.1443%;width:1.7570%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0752%;top:65.5990%;width:3.2655%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
@@ -2085,10 +2152,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2103,6 +2174,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2193,7 +2265,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8428%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1610%;top:59.4854%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -2203,7 +2275,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.1443%;width:1.7570%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0752%;top:65.5990%;width:3.2655%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
@@ -2216,11 +2288,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;m(Al) = 2700 · 1,0·10⁻³ = 2,7 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;m(Al) = 2700 · 1,0·10⁻³ = 2,7 kg</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -2235,6 +2313,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2326,7 +2405,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8428%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1610%;top:59.4854%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -2336,7 +2415,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
 </div>
 <div class="tb" style="left:4.1251%;top:67.1443%;width:1.7570%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.0752%;top:65.5990%;width:3.2655%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">σ(max)</p>
@@ -2349,14 +2428,22 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">m = ρ · V</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:23.9629%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;m(Al) = 2700 · 1,0·10⁻³ = 2,7 kg</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">4)&nbsp;&nbsp;m(Fe) = 7800 · 1,0·10⁻³ = 7,8 kg</p>
 </div>
-<i style="left:31.8008%;top:58.3629%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;σ = 1,2·10⁴ : 2,0·10⁻⁴ = 6,0·10⁷ Pa = 60 MPa</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;k(Al) = 200 : 60 = 3,3&nbsp;&nbsp;→&nbsp;&nbsp;iztur</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;m(Al) = 2700 · 1,0·10⁻³ = 2,7 kg</p>
+</div>
+<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;m(Fe) = 7800 · 1,0·10⁻³ = 7,8 kg</p>
+</div>
+<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
 <div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
 <p style="font-size:1.0282cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:2.5324cqw;color:#4F46E5;text-align:center;padding-top:0.7906cqw;font-weight:700">Alumīnijs: iztur (k = 3,3) un ir 2,9× vieglāks</p>
@@ -2370,6 +2457,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2440,6 +2528,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2485,6 +2574,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2548,6 +2638,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2621,7 +2712,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:56.3293%;top:49.5370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P = </p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:62.2628%;top:45.0333%;width:8.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">λ·S·Δt</p>
@@ -2637,6 +2728,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2714,7 +2806,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1553%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5410%;top:63.7908%;width:3.1824%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ·S·Δt</p>
@@ -2736,6 +2828,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2817,7 +2910,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1553%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5410%;top:63.7908%;width:3.1824%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ·S·Δt</p>
@@ -2830,9 +2923,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = P · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -2843,6 +2938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -2928,7 +3024,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1553%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5410%;top:63.7908%;width:3.1824%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ·S·Δt</p>
@@ -2941,10 +3037,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = P · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;P = 2,4 kW</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 2,4 kW</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -2955,6 +3055,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3041,7 +3142,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:65.6401%;width:2.1553%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P = </p>
+<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.5410%;top:63.7908%;width:3.1824%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">λ·S·Δt</p>
@@ -3054,11 +3155,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">A = P · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;P = 2,4 kW</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;A = 2,4 kW · 24 h = 58 kWh</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;P = 0,50 · 40 · 30 : 0,25 = 2400 W</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 2,4 kW</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;A = 2,4 kW · 24 h = 58 kWh</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3070,6 +3177,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;a) Vara vads (ρ = 1,7·10⁻⁸ Ω·m), l = 25 m, S = 1,0 mm². b) Atspere ar k = 500 N/m, kurai pakar 4,0 kg. Aprēķini vada pretestību un atsperes pagarinājumu!</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3134,6 +3242,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3178,6 +3287,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3240,6 +3350,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3313,7 +3424,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1907cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:59.2031%;top:42.0127%;width:4.5941%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R = </p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:64.5272%;top:38.0495%;width:3.0654%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ρ·l</p>
@@ -3326,7 +3437,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = mg</p>
 </div>
 <div class="tb" style="left:59.3351%;top:66.5484%;width:5.9875%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx = </p>
+<p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:66.0526%;top:62.5852%;width:1.4080%;height:6.3621%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
@@ -3338,6 +3449,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3416,7 +3528,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8599%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1782%;top:59.4854%;width:1.1323%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ·l</p>
@@ -3429,7 +3541,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:70.0045%;width:2.3804%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6986%;top:68.4592%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3447,6 +3559,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3529,7 +3642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8599%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1782%;top:59.4854%;width:1.1323%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ·l</p>
@@ -3542,7 +3655,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:70.0045%;width:2.3804%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6986%;top:68.4592%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3552,9 +3665,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:8.9185%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
@@ -3564,6 +3679,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3650,7 +3766,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8599%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1782%;top:59.4854%;width:1.1323%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ·l</p>
@@ -3663,7 +3779,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:70.0045%;width:2.3804%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6986%;top:68.4592%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3673,10 +3789,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:13.9333%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 4,0 · 9,81 = 39,2 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 4,0 · 9,81 = 39,2 N</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
@@ -3686,6 +3806,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3773,7 +3894,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.0792cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:61.0308%;width:1.8599%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.1782%;top:59.4854%;width:1.1323%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ρ·l</p>
@@ -3786,7 +3907,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = mg</p>
 </div>
 <div class="tb" style="left:4.1251%;top:70.0045%;width:2.3804%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx = </p>
+<p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
 </div>
 <div class="tb" style="left:6.6986%;top:68.4592%;width:0.5261%;height:2.4807%;justify-content:center;white-space:nowrap;align-items:center">
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
@@ -3796,11 +3917,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.1427cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
-<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:18.9481%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">2)&nbsp;&nbsp;F = 4,0 · 9,81 = 39,2 N</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.6250cqw">3)&nbsp;&nbsp;Δx = 39,2 : 500 = 0,0785 m = 7,9 cm</p>
+</div>
+<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;R = 1,7·10⁻⁸ · 25 : 1,0·10⁻⁶ = 0,43 Ω</p>
+</div>
+<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;F = 4,0 · 9,81 = 39,2 N</p>
+</div>
+<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Δx = 39,2 : 500 = 0,0785 m = 7,9 cm</p>
 </div>
 <i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
 <div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
@@ -3811,6 +3938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="blk">
@@ -3888,6 +4016,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu izvēlēties formulu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu apvienot vairākas sakarības&nbsp;&nbsp; ·&nbsp;&nbsp; Protu pamatot izvēli ar skaitļiem&nbsp;&nbsp; ·&nbsp;&nbsp; Esmu gatavs pārbaudes darbam</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: PD3 — Materiālu veidi un fizikālās īpašības.</p>
 </div>
+
 </div>
 <div class="flow">
 <div class="kicker">

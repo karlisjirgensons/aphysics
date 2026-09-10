@@ -399,12 +399,12 @@ dict(
              teksts="Izmantojot 3. uzdevuma grafiku, aprēķini kopējo "
                     "ceļu\nun pārvietojumu 12 sekundēs!",
              dots=["s₁ = 24 m", "s₂ = 0", "s₃ = 24 m"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = Σ|Δx|", "dₓ = x(beigu) − x(sākuma)"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = Σ|Δx|", "sₓ = x(beigu) − x(sākuma)"],
              aprekins=["1)  s = 24 + 0 + 24 = 48 m",
                        "2)  x(0) = 0 ;  x(12) = 0",
-                       "3)  dₓ = 0 − 0 = 0"],
-             atbilde="s = 48 m ;   |d⃗| = 0 m",
+                       "3)  sₓ = 0 − 0 = 0"],
+             atbilde="s = 48 m ;   |s⃗| = 0 m",
              piezime="Ķermenis atgriezās sākumā - tāda pati situācija kā "
                      "1.6. stundā."),
         dict(nr=5, virsraksts="Satikšanās no vienādojumiem",
@@ -639,7 +639,7 @@ dict(
         ("Temata atgādne", [
             ("formula", "GALVENĀS SAKARĪBAS",
              "v = s/t   ·   x = x₀ + vₓt   ·   v(vid) = s(kop)/t(kop)   ·   "
-             "|d⃗| = √(dₓ² + d_y²)   ·   δ = Δx/x · 100 %",
+             "|s⃗| = √(sₓ² + s_y²)   ·   δ = Δx/x · 100 %",
              "Katrai sakarībai jāzina, KAD to lieto: v = s/t tikai "
              "vienmērīgā kustībā, v(vid) - jebkurā.", GOLD),
             ("tabula",
@@ -700,13 +700,13 @@ dict(
                     "austrumiem\n5,0 h laikā. Aprēķini ceļu, pārvietojumu "
                     "un\nvidējo ātrumu pēc pārvietojuma!",
              dots=["s₁ = 60 km", "s₂ = 80 km", "t = 5,0 h"],
-             jaaprekina=["s = ?", "|d⃗| = ?", "v = ?"],
-             formulas=["s = s₁ + s₂", "|d⃗| = √(s₁² + s₂²)",
-                       "v = |d⃗|/t"],
+             jaaprekina=["s = ?", "|s⃗| = ?", "v = ?"],
+             formulas=["s = s₁ + s₂", "|s⃗| = √(s₁² + s₂²)",
+                       "v = |s⃗|/t"],
              aprekins=["1)  s = 60 + 80 = 140 km",
-                       "2)  |d⃗| = √(3600 + 6400) = √10 000 = 100 km",
+                       "2)  |s⃗| = √(3600 + 6400) = √10 000 = 100 km",
                        "3)  v = 100 : 5,0 = 20 km/h ≈ 5,6 m/s"],
-             atbilde="s = 140 km ;  |d⃗| = 100 km ;  v ≈ 5,6 m/s",
+             atbilde="s = 140 km ;  |s⃗| = 100 km ;  v ≈ 5,6 m/s",
              piezime="Vidējais ātrums pēc ceļa būtu 28 km/h - atšķirība "
                      "ir būtiska."),
         dict(nr=4, virsraksts="Mērījums ar kļūdu",
@@ -791,8 +791,8 @@ dict(
                "90 km/h = 25 m/s"],
               ["Vidējais aritmētiskais", "(40+60)/2 = 50 km/h",
                "s(kop)/t(kop) = 48 km/h"],
-              ["Sajaukts s un |d⃗|", "Aplim |d⃗| = 2πR",
-               "Aplim |d⃗| = 0"],
+              ["Sajaukts s un |s⃗|", "Aplim |s⃗| = 2πR",
+               "Aplim |s⃗| = 0"],
               ["Trūkst mērvienības", "Atbilde: 25",
                "Atbilde: v = 25 m/s"]],
              [4.60, 4.60, 4.13]),
@@ -850,12 +850,12 @@ dict(
              teksts="«Skrējējs noskrien apli 400 m un atgriežas startā.\n"
                     "Pārvietojums ir 400 m.»\nIzlabo un pamato!",
              dots=["s = 400 m", "starts = finišs"],
-             jaaprekina=["|d⃗| = ?"],
-             formulas=["d⃗ - vektors no sākuma uz beigām"],
+             jaaprekina=["|s⃗| = ?"],
+             formulas=["s⃗ - vektors no sākuma uz beigām"],
              aprekins=["1)  Sākuma un beigu punkts sakrīt",
                        "2)  Vektora garums starp sakrītošiem punktiem = 0",
-                       "3)  |d⃗| = 0 m, bet s = 400 m"],
-             atbilde="|d⃗| = 0 m; sajaukts ceļš ar pārvietojumu.",
+                       "3)  |s⃗| = 0 m, bet s = 400 m"],
+             atbilde="|s⃗| = 0 m; sajaukts ceļš ar pārvietojumu.",
              piezime="Ceļš ir skalārs un aug vienmēr; pārvietojums ir "
                      "vektors."),
         dict(nr=4, virsraksts="Atrodi kļūdu IV",
@@ -887,13 +887,13 @@ dict(
         dict(nr=6, virsraksts="Atrodi kļūdu VI",
              teksts="«Tūrists nostaigāja 300 m, un viņa pārvietojums "
                     "ir\n500 m.» Vai tas ir iespējams? Pamato!",
-             dots=["s = 300 m", "|d⃗| = 500 m (apgalvots)"],
+             dots=["s = 300 m", "|s⃗| = 500 m (apgalvots)"],
              jaaprekina=["Vai iespējams?"],
-             formulas=["|d⃗| ≤ s vienmēr"],
+             formulas=["|s⃗| ≤ s vienmēr"],
              aprekins=["1)  Pārvietojums ir taisnākais ceļš",
                        "2)  Garāks par noieto ceļu tas būt nevar",
                        "3)  Tātad apgalvojums ir kļūdains"],
-             atbilde="Nav iespējams: |d⃗| ≤ s, tātad pārvietojums nevar "
+             atbilde="Nav iespējams: |s⃗| ≤ s, tātad pārvietojums nevar "
                      "pārsniegt 300 m.",
              piezime="Šī nevienādība ir ātrs veids, kā pārbaudīt savu "
                      "atbildi."),

@@ -423,12 +423,12 @@ dict(
                     "līniju\nar rādiusu 2,0 m. Aprēķini ceļu un "
                     "pārvietojumu! (π ≈ 3,14)",
              dots=["R = 2,0 m", "N = 15"],
-             jaaprekina=["s = ?", "|d⃗| = ?"],
-             formulas=["s = N · 2πR", "d⃗ - no sākuma uz beigām"],
+             jaaprekina=["s = ?", "|s⃗| = ?"],
+             formulas=["s = N · 2πR", "s⃗ - no sākuma uz beigām"],
              aprekins=["1)  2πR = 6,28 · 2,0 = 12,6 m",
                        "2)  s = 15 · 12,6 = 188 m",
-                       "3)  Sākums un beigas sakrīt → |d⃗| = 0"],
-             atbilde="s ≈ 1,9·10² m ;   |d⃗| = 0 m",
+                       "3)  Sākums un beigas sakrīt → |s⃗| = 0"],
+             atbilde="s ≈ 1,9·10² m ;   |s⃗| = 0 m",
              piezime="Riņķa kustībā pēc pilna apgrieziena pārvietojums "
                      "vienmēr ir nulle."),
     ],
