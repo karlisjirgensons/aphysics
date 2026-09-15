@@ -50,7 +50,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -62,6 +62,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -79,6 +86,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -290,6 +303,24 @@ JS = """
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

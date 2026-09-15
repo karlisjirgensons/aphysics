@@ -33,7 +33,7 @@ T1 = [
      "Nosauc fizikas pētīšanas metodes; lieto fizikālo lielumu apzīmējumus, "
      "SI pamatvienības, priedēkļus un standartformu; pārbauda rezultāta "
      "ticamību pēc mērvienībām."),
-    ("st", "Skalāri un vektori",
+    ("st", "Skalāri lielumi un vektori",
      "Ar ko ātrums atšķiras no ceļa?",
      "Nošķir skalārus lielumus no vektoriālajiem; attēlo vektoru ar vērstu "
      "nogriezni un nosaka tā moduli izvēlētā mērogā."),

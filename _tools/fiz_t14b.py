@@ -95,7 +95,7 @@ dict(
                     "Cik masas tā zaudē sekundē? (c = 3,0·10⁸ m/s)",
              dots=["E = 3,8·10²⁶ J", "c = 3,0·10⁸ m/s"],
              jaaprekina=["m = ?"],
-             formulas=["m = E/c²"],
+             formulas=["E = mc²", "m = E/c²"],
              aprekins=["1)  c² = 9,0·10¹⁶",
                        "2)  m = 3,8·10²⁶ : 9,0·10¹⁶",
                        "3)  m ≈ 4,2·10⁹ kg"],

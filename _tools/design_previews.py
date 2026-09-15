@@ -561,7 +561,7 @@ def render_subject(theme, course):
     body = "\n".join(
         [head(course["title"], LESSONS_LEAD), bar]
         + [render_theme(t, ls, prefix)
-           for t, ls in scan_course(course["root"])]
+           for t, ls, _ in scan_course(course["root"])]
         + [foot(theme, "../index.html")])
     return page(theme, "%s · %s" % (course["title"], theme["name"]), body)
 

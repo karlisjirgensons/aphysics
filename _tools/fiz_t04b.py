@@ -22,7 +22,7 @@ dict(
     teorija=[
         ("Formulu kopa", [
             ("formula", "ORBITĀLĀS KUSTĪBAS SAKARĪBAS",
-             "v = √(G M / r)   ·   T = 2π r / v   ·   "
+             "v = 2π r / T   ·   v = √(G M / r)   ·   "
              "T = 2π √(r³ / (G M))   ·   a = v²/r = G M / r²",
              "Visas izriet no viena nosacījuma: gravitācija ir "
              "centrtieces spēks. Satelīta masa nekur neparādās.", GOLD),
@@ -61,11 +61,11 @@ dict(
              dots=["h = 1,6·10⁶ m", "R = 6,4·10⁶ m",
                    "GM = 4,0·10¹⁴ m³/s²"],
              jaaprekina=["v = ?", "T = ?"],
-             formulas=["r = R + h", "v = √(GM/r)", "T = 2πr/v"],
+             formulas=["r = R + h", "v = √(GM/r)", "v = 2πr/T", "T = 2πr/v"],
              aprekins=["1)  r = 8,0·10⁶ m",
                        "2)  v = √(4,0·10¹⁴ : 8,0·10⁶) = √(5,0·10⁷) = "
                        "7,07·10³ m/s",
-                       "3)  T = 2·3,14·8,0·10⁶ : 7,07·10³ = 7,10·10³ s "
+                       "3)  T = 2·3,14·8,0·10⁶ : 7,07·10³ ≈ 7,10·10³ s "
                        "≈ 118 min"],
              atbilde="v ≈ 7,1 km/s ;   T ≈ 2,0 h",
              piezime="Augstāka orbīta nekā KKS - tāpēc lēnāk un ilgāk."),
@@ -77,7 +77,7 @@ dict(
              jaaprekina=["M = ?"],
              formulas=["T² = 4π²r³/(GM)", "M = 4π²r³/(GT²)"],
              aprekins=["1)  r³ = 5,49·10²⁵ m³",
-                       "2)  4π²r³ = 39,5 · 5,49·10²⁵ = 2,17·10²⁷",
+                       "2)  4π²r³ = 39,5 · 5,49·10²⁵ ≈ 2,17·10²⁷",
                        "3)  M = 2,17·10²⁷ : (6,67·10⁻¹¹ · 5,57·10¹²) ≈ "
                        "5,8·10²⁴ kg"],
              atbilde="M ≈ 5,8·10²⁴ kg (tabulas vērtība 5,97·10²⁴ kg)",
@@ -104,7 +104,7 @@ dict(
              formulas=["a = v²/r"],
              aprekins=["1)  v² = 5,93·10⁷ m²/s²",
                        "2)  a = 5,93·10⁷ : 6,8·10⁶",
-                       "3)  a = 8,7 m/s²"],
+                       "3)  a ≈ 8,7 m/s²"],
              atbilde="a ≈ 8,7 m/s² - tieši tik, cik g šajā augstumā.",
              piezime="Tas pierāda, ka orbītā gravitācija pilnībā "
                      "izlietojas centrtiecei."),
@@ -126,7 +126,7 @@ dict(
                     "Cik apļus tas veic diennaktī?",
              dots=["T = 118 min", "t = 24 h = 1440 min"],
              jaaprekina=["N = ?"],
-             formulas=["N = t/T"],
+             formulas=["T = t/N", "N = t/T"],
              aprekins=["1)  t = 24 · 60 = 1440 min",
                        "2)  N = 1440 : 118",
                        "3)  N ≈ 12,2 apļi"],
@@ -214,7 +214,7 @@ dict(
              aprekins=["1)  g + a = 39,2 m/s²",
                        "2)  P = 75 · 39,2 = 2940 N",
                        "3)  n = 39,2 : 9,8 = 4,0"],
-             atbilde="P = 2,9·10³ N ;   n = 4,0",
+             atbilde="P ≈ 2,9·10³ N ;   n = 4,0",
              piezime="Kosmonauts jūtas 4 reizes smagāks - tāpēc startā "
                      "guļ uz muguras."),
         dict(nr=2, virsraksts="Paātrinājums no pārslodzes",
@@ -250,7 +250,7 @@ dict(
              formulas=["a = v²/R", "n = (g + a)/g"],
              aprekins=["1)  v² = 3,24·10⁴ m²/s²",
                        "2)  a = 32 400 : 500 = 64,8 m/s²",
-                       "3)  n = (9,8 + 64,8) : 9,8 = 7,6"],
+                       "3)  n = (9,8 + 64,8) : 9,8 ≈ 7,6"],
              atbilde="n ≈ 7,6 - uz cilvēka robežas.",
              piezime="Tāpēc akrobātikas cilpas rādiusu izvēlas pēc "
                      "pieļaujamās pārslodzes."),
@@ -386,7 +386,7 @@ dict(
              formulas=["Ep = −GMm/r"],
              aprekins=["1)  GMm = 4,0·10¹⁴ · 1000 = 4,0·10¹⁷",
                        "2)  Ep = −4,0·10¹⁷ : 7,0·10⁶",
-                       "3)  Ep = −5,71·10¹⁰ J"],
+                       "3)  Ep ≈ −5,71·10¹⁰ J"],
              atbilde="Ep ≈ −5,7·10¹⁰ J",
              piezime="Mīnusa zīme nozīmē saistītu stāvokli, nevis kļūdu."),
         dict(nr=3, virsraksts="Enerģija aizlidošanai",
@@ -412,7 +412,7 @@ dict(
              aprekins=["1)  Ep = 2,0 · 9,8 · 45 = 882 J",
                        "2)  Ek = 882 J (bez gaisa pretestības)",
                        "3)  v = √(2 · 9,8 · 45) = √882 ≈ 29,7 m/s"],
-             atbilde="Ek = 8,8·10² J ;   v ≈ 30 m/s",
+             atbilde="Ek ≈ 8,8·10² J ;   v ≈ 30 m/s",
              piezime="Potenciālā enerģija pilnībā pārvēršas kinētiskajā - "
                      "to sīkāk pētīsim 5. tematā."),
         dict(nr=5, virsraksts="Enerģija pacelšanai orbītā",
@@ -534,7 +534,7 @@ dict(
              formulas=["Ek = mv²/2"],
              aprekins=["1)  v² = 5,78·10⁷ m²/s²",
                        "2)  Ek = 1200 · 5,78·10⁷ : 2",
-                       "3)  Ek = 3,47·10¹⁰ J"],
+                       "3)  Ek ≈ 3,47·10¹⁰ J"],
              atbilde="Ek ≈ 3,5·10¹⁰ J = 35 GJ",
              piezime="Tas atbilst aptuveni 1000 litriem benzīna."),
         dict(nr=2, virsraksts="Pilnā enerģija orbītā",
@@ -555,10 +555,10 @@ dict(
              dots=["m = 800 kg", "r₁ = 7,0·10⁶ m", "r₂ = 4,2·10⁷ m"],
              jaaprekina=["ΔE = ?"],
              formulas=["E = −GMm/(2r)", "ΔE = E₂ − E₁"],
-             aprekins=["1)  E₁ = −4,0·10¹⁴·800 : (1,4·10⁷) = "
+             aprekins=["1)  E₁ = −4,0·10¹⁴·800 : (1,4·10⁷) ≈ "
                        "−2,29·10¹⁰ J",
                        "2)  E₂ = −3,2·10¹⁷ : (8,4·10⁷) = −3,81·10⁹ J",
-                       "3)  ΔE = −3,81·10⁹ − (−2,29·10¹⁰) = 1,91·10¹⁰ J"],
+                       "3)  ΔE = −3,81·10⁹ − (−2,29·10¹⁰) ≈ 1,91·10¹⁰ J"],
              atbilde="ΔE ≈ 1,9·10¹⁰ J jāpievada.",
              piezime="Pārvietošana uz augstāku orbītu vienmēr prasa "
                      "enerģiju."),
@@ -568,10 +568,10 @@ dict(
                     "(g = 9,8 m/s²; pieņem g = const - novērtējums)",
              dots=["v₀ = 5,0·10³ m/s", "g = 9,8 m/s²"],
              jaaprekina=["h = ?"],
-             formulas=["mv₀²/2 = mgh", "h = v₀²/(2g)"],
+             formulas=["mv₀²/2 = mgh", "v² − v₀² = 2as", "h = v₀²/(2g)"],
              aprekins=["1)  v₀² = 2,5·10⁷ m²/s²",
                        "2)  h = 2,5·10⁷ : 19,6",
-                       "3)  h = 1,28·10⁶ m ≈ 1300 km"],
+                       "3)  h ≈ 1,28·10⁶ m ≈ 1300 km"],
              atbilde="h ≈ 1,3·10³ km (vienkāršots novērtējums)",
              piezime="Precīzā aprēķinā ar mainīgu g iznāktu ~1600 km - "
                      "g ar augstumu samazinās."),
@@ -586,7 +586,7 @@ dict(
              aprekins=["1)  Enerģijas starpība: GMm/(2R)",
                        "2)  v₀² = GM/R = 4,0·10¹⁴ : 6,4·10⁶ = 6,25·10⁷",
                        "3)  v₀ = 7,9·10³ m/s"],
-             atbilde="v₀ ≈ 7,9 km/s",
+             atbilde="v₀ = 7,9 km/s",
              piezime="Skaitliski tas sakrīt ar pirmo kosmisko ātrumu, "
                      "kaut fizikāli tā ir cita situācija."),
         dict(nr=6, virsraksts="Ek un Ep attiecība orbītā",
@@ -703,14 +703,14 @@ dict(
                     "blīvumu! (G = 6,67·10⁻¹¹; V = 4πR³/3; π ≈ 3,14)",
              dots=["R = 2,4·10⁶ m", "g = 3,7 m/s²"],
              jaaprekina=["M = ?", "v₁ = ?", "ρ = ?"],
-             formulas=["M = gR²/G", "v₁ = √(gR)", "ρ = M/V"],
-             aprekins=["1)  M = 3,7 · 5,76·10¹² : 6,67·10⁻¹¹ = "
+             formulas=["g = GM/R²", "M = gR²/G", "v₁ = √(gR)", "ρ = M/V"],
+             aprekins=["1)  M = 3,7 · 5,76·10¹² : 6,67·10⁻¹¹ ≈ "
                        "3,20·10²³ kg",
                        "2)  v₁ = √(3,7 · 2,4·10⁶) = 2,98·10³ ≈ 3,0 km/s",
-                       "3)  V = 4·3,14·1,38·10¹⁹:3 = 5,79·10¹⁹ m³;  "
+                       "3)  V = 4·3,14·1,38·10¹⁹ : 3 ≈ 5,79·10¹⁹ m³;  "
                        "ρ = 5,5·10³ kg/m³"],
              atbilde="M ≈ 3,2·10²³ kg ;  v₁ ≈ 3,0 km/s ;  "
-                     "ρ ≈ 5,5·10³ kg/m³",
+                     "ρ = 5,5·10³ kg/m³",
              piezime="Blīvums tuvu Merkura blīvumam - akmens planēta ar "
                      "metāla kodolu."),
         dict(nr=4, virsraksts="Secinājums no datiem",
@@ -721,7 +721,7 @@ dict(
                    "Kallisto: r₂ = 1,88·10⁶ km"],
              jaaprekina=["T₂ = ?"],
              formulas=["T₂²/T₁² = (r₂/r₁)³"],
-             aprekins=["1)  r₂/r₁ = 1,88·10⁶ : 4,2·10⁵ = 4,48",
+             aprekins=["1)  r₂/r₁ = 1,88·10⁶ : 4,2·10⁵ ≈ 4,48",
                        "2)  (r₂/r₁)³ = 89,8",
                        "3)  T₂ = T₁ · √89,8 = 1,77 · 9,48 ≈ 16,8 d"],
              atbilde="T₂ ≈ 16,8 dienas (patiesā vērtība 16,7 d)",
@@ -748,10 +748,10 @@ dict(
                     "(G = 6,67·10⁻¹¹; V = 4πR³/3; π ≈ 3,14)",
              dots=["g = 9,8 m/s²", "R = 6,4·10⁶ m"],
              jaaprekina=["M = ?", "ρ = ?"],
-             formulas=["M = gR²/G", "V = 4πR³/3", "ρ = M/V"],
-             aprekins=["1)  M = 9,8 · 4,10·10¹³ : 6,67·10⁻¹¹ = "
+             formulas=["g = GM/R²", "M = gR²/G", "V = 4πR³/3", "ρ = M/V"],
+             aprekins=["1)  M = 9,8 · 4,10·10¹³ : 6,67·10⁻¹¹ ≈ "
                        "6,02·10²⁴ kg",
-                       "2)  V = 4 · 3,14 · 2,62·10²⁰ : 3 = 1,10·10²¹ m³",
+                       "2)  V = 4 · 3,14 · 2,62·10²⁰ : 3 ≈ 1,10·10²¹ m³",
                        "3)  ρ = 6,02·10²⁴ : 1,10·10²¹ ≈ 5,5·10³ kg/m³"],
              atbilde="M ≈ 6,0·10²⁴ kg ;   ρ ≈ 5,5·10³ kg/m³",
              piezime="Zemes vidējais blīvums ir divreiz lielāks par "
@@ -840,7 +840,7 @@ dict(
                     "GM = 4,0·10¹⁴ m³/s²; π ≈ 3,14)",
              dots=["h = 1,0·10⁶ m", "R = 6,4·10⁶ m"],
              jaaprekina=["v = ?", "T = ?"],
-             formulas=["r = R+h", "v = √(GM/r)", "T = 2πr/v"],
+             formulas=["r = R+h", "v = √(GM/r)", "v = 2πr/T", "T = 2πr/v"],
              aprekins=["1)  r = 7,4·10⁶ m",
                        "2)  v = √(4,0·10¹⁴ : 7,4·10⁶) = 7,35·10³ m/s",
                        "3)  T = 2·3,14·7,4·10⁶ : 7,35·10³ ≈ 6,32·10³ s "
@@ -880,7 +880,7 @@ dict(
              aprekins=["1)  r³ = 3,43·10²⁰ m³ ;  4π²r³ = 1,35·10²²",
                        "2)  T² = 3,39·10⁷ s² → GM = 4,0·10¹⁴ m³/s²",
                        "3)  g = 4,0·10¹⁴ : 4,10·10¹³ ≈ 9,8 m/s²"],
-             atbilde="GM ≈ 4,0·10¹⁴ m³/s² ;   g ≈ 9,8 m/s²",
+             atbilde="GM = 4,0·10¹⁴ m³/s² ;   g ≈ 9,8 m/s²",
              piezime="No viena satelīta novērojuma var noteikt visu "
                      "planētas gravitācijas lauku."),
         dict(nr=6, virsraksts="Starts no citas planētas",

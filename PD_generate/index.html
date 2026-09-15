@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PD ģenerēšana · Matemātika 1.-9. klasei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
+      font-size:clamp(.85rem,3.4vw,1rem)}
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>Matemātika 1.-9. klasei</h1>
+<p class="lead">Izvēlies klasi un tematu. Katram tematam ir divi darbi: īss formatīvais darbs vienā lapā un summatīvais pārbaudes darbs divās lapās.</p>
+</header>
+<div class="bar">
+<a class="back" href="../index.html">&#8592; Sākums</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Izvērst visu</button>
+</div>
+<details class="theme">
+<summary><span class="n">1.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">1.1.</span><span class="t">Kā izstāsta un parāda: cik, kur, kāds?</span><span class="pogas"><a class="poga" href="1.%20klase/1.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.2.</span><span class="t">Cik kopā, cik palika?</span><span class="pogas"><a class="poga" href="1.%20klase/1.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.3.</span><span class="t">Kā mēra garumus un kā iegūst simetrisku figūru?</span><span class="pogas"><a class="poga" href="1.%20klase/1.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.4.</span><span class="t">Kā pieraksta un salīdzina skaitļus, kuri ir lielāki nekā 10?</span><span class="pogas"><a class="poga" href="1.%20klase/1.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.5.</span><span class="t">Kā saskaita un atņem skaitļus, kuri lielāki nekā 10?</span><span class="pogas"><a class="poga" href="1.%20klase/1.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.6.</span><span class="t">Ko nozīmē «par tik vairāk», «par tik mazāk»?</span><span class="pogas"><a class="poga" href="1.%20klase/1.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.7.</span><span class="t">Kur sastopamies ar lieliem skaitļiem?</span><span class="pogas"><a class="poga" href="1.%20klase/1.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">1.8.</span><span class="t">Kā apraksta un veido figūras?</span><span class="pogas"><a class="poga" href="1.%20klase/1.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="1.%20klase/1.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">2.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">2.1.</span><span class="t">Kā grupē objektus?</span><span class="pogas"><a class="poga" href="2.%20klase/2.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.2.</span><span class="t">Kā nosaka dažādus garumus?</span><span class="pogas"><a class="poga" href="2.%20klase/2.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.3.</span><span class="t">Kā saskaita un atņem divciparu skaitļus?</span><span class="pogas"><a class="poga" href="2.%20klase/2.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.4.</span><span class="t">Kā laika rēķini palīdz plānot?</span><span class="pogas"><a class="poga" href="2.%20klase/2.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.5.</span><span class="t">Kā rodas izteiksme?</span><span class="pogas"><a class="poga" href="2.%20klase/2.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.6.</span><span class="t">Kā veido un raksturo figūras?</span><span class="pogas"><a class="poga" href="2.%20klase/2.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.7.</span><span class="t">Ko nozīmē reizināt un dalīt ar 2?</span><span class="pogas"><a class="poga" href="2.%20klase/2.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">2.8.</span><span class="t">Kā reizina un dala ar 3, 4 un 5?</span><span class="pogas"><a class="poga" href="2.%20klase/2.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="2.%20klase/2.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.</span><span class="t">klase</span><span class="c">7/7</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">3.1.</span><span class="t">Kā reizina un dala ar 6, 7, 8, 9 un 10?</span><span class="pogas"><a class="poga" href="3.%20klase/3.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.2.</span><span class="t">Kā izmanto visas darbības?</span><span class="pogas"><a class="poga" href="3.%20klase/3.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.3.</span><span class="t">Kā veido vietas plānu?</span><span class="pogas"><a class="poga" href="3.%20klase/3.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.4.</span><span class="t">Ko nozīmē daļa no veselā?</span><span class="pogas"><a class="poga" href="3.%20klase/3.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.5.</span><span class="t">Kādi lielumi raksturo figūru?</span><span class="pogas"><a class="poga" href="3.%20klase/3.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.6.</span><span class="t">Kā saskaita un atņem trīsciparu skaitļus?</span><span class="pogas"><a class="poga" href="3.%20klase/3.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">3.7.</span><span class="t">Kā veido telpiskus modeļus?</span><span class="pogas"><a class="poga" href="3.%20klase/3.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="3.%20klase/3.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">4.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">4.1.</span><span class="t">Kā saskaita un atņem daudzciparu skaitļus?</span><span class="pogas"><a class="poga" href="4.%20klase/4.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.2.</span><span class="t">Kā daudzciparu skaitļus reizina un dala ar viencipara skaitli?</span><span class="pogas"><a class="poga" href="4.%20klase/4.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.3.</span><span class="t">Kā mēra leņķi?</span><span class="pogas"><a class="poga" href="4.%20klase/4.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.4.</span><span class="t">Kā daudzciparu skaitļus reizina un dala ar divciparu skaitli?</span><span class="pogas"><a class="poga" href="4.%20klase/4.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.5.</span><span class="t">Kā salīdzina, saskaita un atņem daļskaitļus?</span><span class="pogas"><a class="poga" href="4.%20klase/4.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.6.</span><span class="t">Ko nozīmē daļa no veselā?</span><span class="pogas"><a class="poga" href="4.%20klase/4.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.7.</span><span class="t">Kā nosaka dažādu figūru laukumu?</span><span class="pogas"><a class="poga" href="4.%20klase/4.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">4.8.</span><span class="t">Kas kopīgs iepirkšanās un kustības matemātiskajā aprakstā?</span><span class="pogas"><a class="poga" href="4.%20klase/4.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="4.%20klase/4.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">5.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">5.1.</span><span class="t">Kā dažādi pieraksta naturālos skaitļus?</span><span class="pogas"><a class="poga" href="5.%20klase/5.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.2.</span><span class="t">Kā lieto skaitļa sadalīšanu reizinātājos?</span><span class="pogas"><a class="poga" href="5.%20klase/5.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.3.</span><span class="t">Kā skaidro un lieto daļas pamatīpašību?</span><span class="pogas"><a class="poga" href="5.%20klase/5.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.4.</span><span class="t">Kā vienu skaitli izsaka kā otra skaitļa daļu?</span><span class="pogas"><a class="poga" href="5.%20klase/5.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.5.</span><span class="t">Kā saskaita un atņem jauktus skaitļus?</span><span class="pogas"><a class="poga" href="5.%20klase/5.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.6.</span><span class="t">Kā nosaka figūru nezināmos lielumus?</span><span class="pogas"><a class="poga" href="5.%20klase/5.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.7.</span><span class="t">Kā lieto decimāldaļas un procentus?</span><span class="pogas"><a class="poga" href="5.%20klase/5.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">5.8.</span><span class="t">Kā vizuāli attēlo sakarību starp lielumiem?</span><span class="pogas"><a class="poga" href="5.%20klase/5.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="5.%20klase/5.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">6.1.</span><span class="t">Kā kopumu sadala noteiktā attiecībā?</span><span class="pogas"><a class="poga" href="6.%20klase/6.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.2.</span><span class="t">Kā reizina un dala parastās daļas?</span><span class="pogas"><a class="poga" href="6.%20klase/6.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.3.</span><span class="t">Kā izpratne par komata lietojumu palīdz, ja reizina un dala decimāldaļas?</span><span class="pogas"><a class="poga" href="6.%20klase/6.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.4.</span><span class="t">Kā attēlo un raksturo telpiskus ķermeņus?</span><span class="pogas"><a class="poga" href="6.%20klase/6.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.5.</span><span class="t">Kā sadzīves situācijās izmanto procentus?</span><span class="pogas"><a class="poga" href="6.%20klase/6.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.6.</span><span class="t">Kāpēc nepieciešami skaitļi, kuri ir mazāki nekā nulle?</span><span class="pogas"><a class="poga" href="6.%20klase/6.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.7.</span><span class="t">Ko nozīmē skaitlim pieskaitīt negatīvu skaitli, no skaitļa atņemt negatīvu skaitli?</span><span class="pogas"><a class="poga" href="6.%20klase/6.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">6.8.</span><span class="t">Kā plāno darbību izpildi ar visu veidu skaitļiem?</span><span class="pogas"><a class="poga" href="6.%20klase/6.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="6.%20klase/6.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">7.</span><span class="t">klase</span><span class="c">9/9</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">7.1.</span><span class="t">Kā nosaka kopas visus elementus, aprēķina notikuma varbūtību?</span><span class="pogas"><a class="poga" href="7.%20klase/7.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.2.</span><span class="t">Kā definē ģeometriskas figūras?</span><span class="pogas"><a class="poga" href="7.%20klase/7.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.3.</span><span class="t">Kā raksturo sakarību starp mainīgiem lielumiem?</span><span class="pogas"><a class="poga" href="7.%20klase/7.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.4.</span><span class="t">Kā pieraksta un pēta funkcijas, kuru grafiks ir taisne?</span><span class="pogas"><a class="poga" href="7.%20klase/7.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.5.</span><span class="t">Kā raksturo trijstūri, izmantojot tā elementus?</span><span class="pogas"><a class="poga" href="7.%20klase/7.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.6.</span><span class="t">Kādas ir sakarības starp lielumiem trijstūrī?</span><span class="pogas"><a class="poga" href="7.%20klase/7.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.7.</span><span class="t">Ko nozīmē pārveidot izteiksmi ar mainīgo lielumu?</span><span class="pogas"><a class="poga" href="7.%20klase/7.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.8.</span><span class="t">Kādi ir paņēmieni nezināmā noteikšanai?</span><span class="pogas"><a class="poga" href="7.%20klase/7.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">7.9.</span><span class="t">Kā salīdzina izteiksmes, kurās ir mainīgais lielums?</span><span class="pogas"><a class="poga" href="7.%20klase/7.9.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="7.%20klase/7.9.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">8.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">8.1.</span><span class="t">Kā matemātiski raksturo un analizē datus?</span><span class="pogas"><a class="poga" href="8.%20klase/8.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.2.</span><span class="t">Kā skaidro un lieto pakāpi ar veselu kāpinātāju?</span><span class="pogas"><a class="poga" href="8.%20klase/8.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.3.</span><span class="t">Kā rīkojas, ja skaitli nevar pierakstīt kā daļu?</span><span class="pogas"><a class="poga" href="8.%20klase/8.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.4.</span><span class="t">Kā aprēķina laukumu jebkuram trijstūrim, riņķim?</span><span class="pogas"><a class="poga" href="8.%20klase/8.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.5.</span><span class="t">Kas kopīgs četrstūriem, kuru pretējās malas ir pa pāriem paralēlas?</span><span class="pogas"><a class="poga" href="8.%20klase/8.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.6.</span><span class="t">Kā skaidro un izpilda darbības ar izteiksmēm?</span><span class="pogas"><a class="poga" href="8.%20klase/8.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.7.</span><span class="t">Kā dažādas funkcijas izmanto matemātiskai modelēšanai?</span><span class="pogas"><a class="poga" href="8.%20klase/8.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">8.8.</span><span class="t">Kā nosaka taisnleņķa trijstūra nezināmās malas garumu?</span><span class="pogas"><a class="poga" href="8.%20klase/8.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="8.%20klase/8.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.</span><span class="t">klase</span><span class="c">8/8</span></summary>
+<ul class="temati">
+  <li class="tema"><span class="n">9.1.</span><span class="t">Kā definē un raksturo līdzīgus trijstūrus?</span><span class="pogas"><a class="poga" href="9.%20klase/9.1.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.1.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.2.</span><span class="t">Kas kopīgs četrstūriem, kuriem tieši divas malas ir paralēlas?</span><span class="pogas"><a class="poga" href="9.%20klase/9.2.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.2.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.3.</span><span class="t">Kā aprēķinos izmanto taisnleņķa trijstūra divu malu attiecību?</span><span class="pogas"><a class="poga" href="9.%20klase/9.3.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.3.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.4.</span><span class="t">Kā izmanto izteiksmju sadalīšanu reizinātājos?</span><span class="pogas"><a class="poga" href="9.%20klase/9.4.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.4.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.5.</span><span class="t">Kā skaidro un izmanto formulas darbā ar kvadrātvienādojumu, kvadrātfunkciju?</span><span class="pogas"><a class="poga" href="9.%20klase/9.5.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.5.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.6.</span><span class="t">Kā apraksta situācijas ar diviem nezināmiem lielumiem?</span><span class="pogas"><a class="poga" href="9.%20klase/9.6.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.6.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.7.</span><span class="t">Kā skaitļu virkni pieraksta ar formulu?</span><span class="pogas"><a class="poga" href="9.%20klase/9.7.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.7.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+  <li class="tema"><span class="n">9.8.</span><span class="t">Kā raksturo riņķa līnijas un daudzstūra savstarpējo novietojumu?</span><span class="pogas"><a class="poga" href="9.%20klase/9.8.%20Format%C4%ABvais%20darbs.html">Formatīvais darbs</a><a class="poga" href="9.%20klase/9.8.%20Summat%C4%ABvais%20PD.html">Summatīvais PD</a></span></li>
+</ul>
+</details>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+  });
+})();
+</script>
+</body>
+</html>

@@ -26,7 +26,7 @@ dict(
     teorija=[
         ("Mērījumu shēma", [
             ("formula", "NO ATTĀLUMIEM UZ VIĻŅA GARUMU",
-             "sin α = x/√(x² + L²)        λ = d·sin α/k",
+             "d sin α = kλ        sin α = x/√(x² + L²)",
              "L ir attālums no režģa līdz ekrānam, x - attālums no "
              "centrālā maksimuma līdz k-tās kārtas maksimumam. Ja x ir "
              "daudz mazāks par L, var lietot arī tan α = x/L.", GOLD),
@@ -76,7 +76,7 @@ dict(
                     "Aprēķini viļņa garumu!",
              dots=["d = 2·10⁻⁶ m", "k = 1", "sin α = 0,258"],
              jaaprekina=["λ = ?"],
-             formulas=["λ = d·sin α/k"],
+             formulas=["d sin α = kλ", "λ = d·sin α/k"],
              aprekins=["1)  d·sin α = 2·10⁻⁶ · 0,258",
                        "2)  = 5,16·10⁻⁷",
                        "3)  λ ≈ 5,2·10⁻⁷ m = 520 nm"],
@@ -261,7 +261,7 @@ dict(
 dict(
     nr="12.7", virsraksts="Datu analīze un nostiprināšana",
     jautajums="Vai izmērītais viļņa garums ir ticams?",
-    apaksraksts="Mērvienību pārbaude · Novirzes · c = λf un d·sin α = kλ",
+    apaksraksts="Mērvienību pārbaude · Novirzes · c = λ · f un d·sin α = kλ",
     merkis="Pārbaudīt mērvienības, skaidrot novirzes un risināt temata "
            "uzdevumus, pārbaudot kārtas skaitļa vērtības.",
     protu=["pārbaudīt mērvienības aprēķinā;",
@@ -293,11 +293,11 @@ dict(
              ("KAS BŪS PD7", BLUE,
               ["Spektra daļu sakārtošana.",
                "Difrakcijas skaidrojums.",
-               "Aprēķins ar c = λf.",
+               "Aprēķins ar c = λ · f.",
                "Aprēķins ar režģa formulu.",
                "Datu ticamības vērtējums."]),
              ("FORMULAS", GREEN,
-              ["c = λf;  λ = c/f",
+              ["c = λ · f;  λ = c/f",
                "d = 1/N",
                "d·sin α = kλ",
                "sin α = x/√(x² + L²)",
@@ -332,7 +332,7 @@ dict(
              dots=["f₁ = 1,0·10⁸ Hz", "λ₂ = 5·10⁻⁷ m",
                    "c = 3·10⁸ m/s"],
              jaaprekina=["λ₁ = ?", "Attiecība = ?"],
-             formulas=["λ = c/f"],
+             formulas=["c = λ · f", "λ = c/f"],
              aprekins=["1)  λ₁ = 3·10⁸ : 1,0·10⁸ = 3,0 m",
                        "2)  3,0 : 5·10⁻⁷ = 6·10⁶",
                        "3)  Atšķiras 6 miljonus reižu"],
@@ -344,7 +344,7 @@ dict(
                     "Vai var novērot trešās kārtas maksimumu?",
              dots=["d = 1,5·10⁻⁶ m", "λ = 6·10⁻⁷ m", "k = 3"],
              jaaprekina=["sin α = ?"],
-             formulas=["sin α = kλ/d", "sin α ≤ 1"],
+             formulas=["d sin α = kλ", "sin α = kλ/d", "sin α ≤ 1"],
              aprekins=["1)  kλ = 3 · 6·10⁻⁷ = 1,8·10⁻⁶",
                        "2)  sin α = 1,8·10⁻⁶ : 1,5·10⁻⁶ = 1,2",
                        "3)  1,2 > 1 - tāda maksimuma nav"],
@@ -356,7 +356,7 @@ dict(
                     "L = 1,50 m. Aprēķini viļņa garumu!",
              dots=["d = 2·10⁻⁶ m", "k = 2", "x = 0,90 m", "L = 1,50 m"],
              jaaprekina=["λ = ?"],
-             formulas=["sin α = x/√(x² + L²)", "λ = d·sin α/k"],
+             formulas=["sin α = x/√(x² + L²)", "d sin α = kλ", "λ = d·sin α/k"],
              aprekins=["1)  x² + L² = 0,81 + 2,25 = 3,06;  √3,06 ≈ 1,75",
                        "2)  sin α = 0,90 : 1,75 ≈ 0,514",
                        "3)  λ = 2·10⁻⁶ · 0,514 : 2 ≈ 5,1·10⁻⁷ m"],

@@ -13,13 +13,13 @@ STUNDAS = [
 dict(
     nr="12.1", virsraksts="EM viļņi un svārstību kontūrs",
     jautajums="Kā signāls pārvietojas bez vada?",
-    apaksraksts="Mainīgi lauki · Svārstību kontūrs · c = λf",
+    apaksraksts="Mainīgi lauki · Svārstību kontūrs · c = λ · f",
     merkis="Skaidrot mainīga elektriskā un magnētiskā lauka saistību, "
-           "atpazīt enerģijas maiņu svārstību kontūrā un lietot c = λf.",
+           "atpazīt enerģijas maiņu svārstību kontūrā un lietot c = λ · f.",
     protu=["izskaidrot, kā rodas elektromagnētiskais vilnis;",
            "nosaukt EM viļņa īpašības;",
            "izskaidrot enerģijas maiņu svārstību kontūrā;",
-           "lietot c = λf."],
+           "lietot c = λ · f."],
     atkartojums="11. tematā mainīgs magnētiskais lauks radīja elektrisko "
                 "spriegumu. Izrādās, ka arī mainīgs elektriskais lauks "
                 "rada magnētisko - un tā rodas vilnis.",
@@ -27,7 +27,7 @@ dict(
     teorija=[
         ("Elektromagnētiskais vilnis", [
             ("formula", "EM VIĻŅA PAMATSAKARĪBA",
-             "c = λf        λ = c/f        c = 3·10⁸ m/s",
+             "c = λ · f        λ = c/f        c = 3·10⁸ m/s",
              "Mainīgs elektriskais lauks rada magnētisko, tas savukārt "
              "elektrisko - un šis process izplatās telpā kā vilnis. "
              "Vakuumā visi EM viļņi izplatās ar gaismas ātrumu.", GOLD),
@@ -72,7 +72,7 @@ dict(
                     "Aprēķini viļņa garumu! (c = 3·10⁸ m/s)",
              dots=["f = 100 MHz = 1,0·10⁸ Hz", "c = 3·10⁸ m/s"],
              jaaprekina=["λ = ?"],
-             formulas=["c = λf", "λ = c/f"],
+             formulas=["c = λ · f", "λ = c/f"],
              aprekins=["1)  λ = 3·10⁸ : 1,0·10⁸",
                        "2)  λ = 3,0 m"],
              atbilde="λ = 3,0 m",
@@ -83,7 +83,7 @@ dict(
                     "Aprēķini frekvenci! (c = 3·10⁸ m/s)",
              dots=["λ = 12,2 cm = 0,122 m", "c = 3·10⁸ m/s"],
              jaaprekina=["f = ?"],
-             formulas=["c = λf", "f = c/λ"],
+             formulas=["c = λ · f", "f = c/λ"],
              aprekins=["1)  f = 3·10⁸ : 0,122",
                        "2)  f ≈ 2,46·10⁹ Hz",
                        "3)  f ≈ 2,45 GHz"],
@@ -95,7 +95,7 @@ dict(
                     "Aprēķini frekvenci! (1 nm = 10⁻⁹ m)",
              dots=["λ = 700 nm = 7,0·10⁻⁷ m", "c = 3·10⁸ m/s"],
              jaaprekina=["f = ?"],
-             formulas=["f = c/λ"],
+             formulas=["c = λ · f", "f = c/λ"],
              aprekins=["1)  λ = 700 · 10⁻⁹ = 7,0·10⁻⁷ m",
                        "2)  f = 3·10⁸ : 7,0·10⁻⁷",
                        "3)  f ≈ 4,3·10¹⁴ Hz"],
@@ -120,7 +120,7 @@ dict(
         iemacijamies=[
             "Mainīgi elektriskie un magnētiskie lauki rada EM vilni.",
             "EM viļņiem vide nav vajadzīga; vakuumā ātrums ir 3·10⁸ m/s.",
-            "c = λf - tā pati sakarība, ko lietojām 6. tematā.",
+            "c = λ · f - tā pati sakarība, ko lietojām 6. tematā.",
             "Svārstību kontūrā enerģija mainās starp kondensatoru un "
             "spoli.",
         ],
@@ -132,7 +132,7 @@ dict(
         pasvertejums=["Zinu, kā rodas EM vilnis",
                       "Zinu EM viļņa īpašības",
                       "Saprotu svārstību kontūru",
-                      "Protu lietot c = λf"],
+                      "Protu lietot c = λ · f"],
         nakama="Nākamā stunda: elektromagnētiskais spektrs."),
 ),
 
@@ -214,7 +214,7 @@ dict(
                     "Aprēķini viļņa garumu un nosaki spektra daļu!",
              dots=["f = 5,0 GHz = 5,0·10⁹ Hz", "c = 3·10⁸ m/s"],
              jaaprekina=["λ = ?"],
-             formulas=["λ = c/f"],
+             formulas=["c = λ · f", "λ = c/f"],
              aprekins=["1)  λ = 3·10⁸ : 5,0·10⁹",
                        "2)  λ = 0,06 m = 6,0 cm",
                        "3)  Tas ir mikroviļņu diapazons"],
@@ -227,7 +227,7 @@ dict(
                     "(500 nm)!",
              dots=["λ₁ = 300 nm", "λ₂ = 500 nm", "c = 3·10⁸ m/s"],
              jaaprekina=["f₁ = ?", "Kurš enerģiskāks?"],
-             formulas=["f = c/λ"],
+             formulas=["c = λ · f", "f = c/λ"],
              aprekins=["1)  f₁ = 3·10⁸ : 3,0·10⁻⁷ = 1,0·10¹⁵ Hz",
                        "2)  f₂ = 3·10⁸ : 5,0·10⁻⁷ = 6,0·10¹⁴ Hz",
                        "3)  UV frekvence lielāka - enerģija lielāka"],
@@ -495,7 +495,7 @@ dict(
                     "(sin α nevar būt lielāks par 1)",
              dots=["d = 2·10⁻⁶ m", "λ = 5·10⁻⁷ m", "sin α ≤ 1"],
              jaaprekina=["k(max) = ?"],
-             formulas=["sin α = kλ/d", "sin α ≤ 1", "k ≤ d/λ"],
+             formulas=["d sin α = kλ", "sin α = kλ/d", "sin α ≤ 1", "k ≤ d/λ"],
              aprekins=["1)  k ≤ 2·10⁻⁶ : 5·10⁻⁷",
                        "2)  k ≤ 4",
                        "3)  Redzamas kārtas 0, 1, 2, 3 un 4"],

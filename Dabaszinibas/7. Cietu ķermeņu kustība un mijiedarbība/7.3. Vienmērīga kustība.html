@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -351,26 +364,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.4667%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">PAMATSAKARĪBA</p>
 </div>
-<div class="tb" style="left:36.8111%;top:24.4778%;width:3.5876%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:40.9362%;top:21.3815%;width:0.9167%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
-</div>
-<i style="left:40.9362%;top:26.8563%;width:0.9167%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:40.9362%;top:27.5741%;width:0.9167%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
-</div>
-<div class="tb" style="left:42.5404%;top:24.4778%;width:18.1630%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s = υ · t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t =&nbsp;</p>
-</div>
-<div class="tb" style="left:61.2409%;top:21.3815%;width:1.2604%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
-</div>
-<i style="left:61.2409%;top:26.8563%;width:1.2604%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:61.2409%;top:27.5741%;width:1.2604%;height:4.9704%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:2.2917cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ</p>
-</div>
 <div class="tb" style="left:5.9251%;top:33.0086%;width:88.1497%;height:3.6741%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Vienmērīgā kustībā ātrums nemainās: vienādos laika sprīžos ķermenis veic vienādus ceļus.</p>
 </div>
@@ -393,6 +386,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">7.3. Vienmērīga kustība</p>
 </div>
+<div class="ml" style="left:5.9251%;top:21.0667%;width:88.1497%;height:11.7920%;justify-content:center;font-size:2.2917cqw;color:#4F46E5;font-weight:700"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s = υ · t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -506,8 +500,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -528,8 +521,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="h1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="h1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="h1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
@@ -552,8 +544,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -580,8 +571,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -609,8 +599,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -646,8 +635,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -679,8 +667,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -703,16 +690,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:39.9000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:59.6711%;top:49.5370%;width:5.1501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.6712%;top:45.0333%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
-</div>
-<i style="left:65.6712%;top:53.0452%;width:1.3334%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.6712%;top:54.0407%;width:1.3334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
-</div>
 <div class="tb" style="left:33.7508%;top:63.4185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = υ · t</p>
 </div>
@@ -724,6 +701,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:44.7373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -735,8 +713,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -773,8 +750,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -796,16 +772,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.6086%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0787%;top:60.9200%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:7.0787%;top:64.8320%;width:0.6435%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0787%;top:65.3787%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t</p>
 </div>
@@ -813,19 +779,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-</div>
-<div class="tb" style="left:42.6706%;top:54.1370%;width:21.2839%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;t = 40 min =&nbsp;</p>
-</div>
-<div class="tb" style="left:64.8045%;top:49.6333%;width:3.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">40</p>
-</div>
-<i style="left:64.8045%;top:57.6452%;width:3.3668%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.8045%;top:58.6407%;width:3.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">60</p>
-</div>
-<div class="tb" style="left:69.1713%;top:54.1370%;width:15.9837%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;h = 0,667 h</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -835,6 +788,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;t = 40 min =&nbsp;<span class="f"><span class="n">40</span><span class="d">60</span></span>&nbsp;h = 0,667 h</span></div>
 
 </div>
 <div class="flow">
@@ -846,8 +801,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -888,8 +842,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -911,35 +864,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.6086%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0787%;top:60.9200%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:7.0787%;top:64.8320%;width:0.6435%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0787%;top:65.3787%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-</div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:11.2800%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = 40 min =&nbsp;</p>
-</div>
-<div class="tb" style="left:43.4620%;top:36.6389%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">40</p>
-</div>
-<i style="left:43.4620%;top:40.8452%;width:1.7886%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:43.4620%;top:41.4241%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">60</p>
-</div>
-<div class="tb" style="left:45.7819%;top:39.0315%;width:8.5085%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;h = 0,667 h</p>
 </div>
 <i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
@@ -954,6 +884,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;t = 40 min =&nbsp;<span class="f"><span class="n">40</span><span class="d">60</span></span>&nbsp;h = 0,667 h</span></div>
 
 </div>
 <div class="flow">
@@ -965,8 +897,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1011,8 +942,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1034,35 +964,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.6086%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0787%;top:60.9200%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:7.0787%;top:64.8320%;width:0.6435%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0787%;top:65.3787%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-</div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:11.2800%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = 40 min =&nbsp;</p>
-</div>
-<div class="tb" style="left:43.4620%;top:36.6389%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">40</p>
-</div>
-<i style="left:43.4620%;top:40.8452%;width:1.7886%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:43.4620%;top:41.4241%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">60</p>
-</div>
-<div class="tb" style="left:45.7819%;top:39.0315%;width:8.5085%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;h = 0,667 h</p>
 </div>
 <div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 90 km/h · 0,667 h</p>
@@ -1080,6 +987,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;t = 40 min =&nbsp;<span class="f"><span class="n">40</span><span class="d">60</span></span>&nbsp;h = 0,667 h</span></div>
 
 </div>
 <div class="flow">
@@ -1091,8 +1000,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1138,8 +1046,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1161,35 +1068,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.6086%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0787%;top:60.9200%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:7.0787%;top:64.8320%;width:0.6435%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0787%;top:65.3787%;width:0.6435%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = υ · t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
-</div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:11.2800%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = 40 min =&nbsp;</p>
-</div>
-<div class="tb" style="left:43.4620%;top:36.6389%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">40</p>
-</div>
-<i style="left:43.4620%;top:40.8452%;width:1.7886%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:43.4620%;top:41.4241%;width:1.7886%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">60</p>
-</div>
-<div class="tb" style="left:45.7819%;top:39.0315%;width:8.5085%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;h = 0,667 h</p>
 </div>
 <div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;s = 90 km/h · 0,667 h</p>
@@ -1211,6 +1095,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>υ =&nbsp;<span class="f"><span class="n">s</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;t = 40 min =&nbsp;<span class="f"><span class="n">40</span><span class="d">60</span></span>&nbsp;h = 0,667 h</span></div>
 
 </div>
 <div class="flow">
@@ -1222,8 +1108,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vilciena ceļš</p>
-<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h.</p>
-<p class="p1">Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
+<p class="p1">Vilciens brauc ar nemainīgu ātrumu 90 km/h. Cik lielu ceļu tas veiks 40 minūtēs? Izsaki kilometros!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1271,8 +1156,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1293,8 +1177,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="h1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="h1">Cik tālu atrodas zibens?</p>
+<p class="h1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
@@ -1316,9 +1199,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1345,8 +1227,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1373,9 +1254,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1411,8 +1291,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1443,9 +1322,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1488,8 +1366,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1524,9 +1401,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1576,8 +1452,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1616,9 +1491,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1674,8 +1548,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1718,9 +1591,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1779,8 +1651,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1824,9 +1695,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik tālu atrodas zibens?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Skaņas ātrums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1889,8 +1759,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Skaņas ātrums</p>
-<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s.</p>
-<p class="p1">Cik tālu atrodas zibens?</p>
+<p class="p1">Zibens spēriens ieraudzīts, un pērkons dzirdams pēc 6,0 s. Skaņas ātrums gaisā 340 m/s. Cik tālu atrodas zibens?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1937,8 +1806,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1955,8 +1823,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="h1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="h1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="h1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
@@ -1976,8 +1843,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2000,8 +1866,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2026,8 +1891,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2061,8 +1925,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2093,8 +1956,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2139,8 +2001,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2175,8 +2036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2228,8 +2088,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2268,8 +2127,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2327,8 +2185,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2371,8 +2228,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2433,8 +2289,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2478,8 +2333,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2544,8 +2398,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kustības vienādojums</p>
-<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs).</p>
-<p class="p1">Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
+<p class="p1">Ķermeņa kustību apraksta vienādojums x = 20 + 15t (metros un sekundēs). Nosaki sākuma koordinātu, ātrumu un koordinātu pēc 8,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2591,8 +2444,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2608,8 +2460,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="h1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="h1">Pēc cik ilga laika tās satiksies?</p>
+<p class="h1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2628,9 +2479,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2653,8 +2503,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2679,9 +2528,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2715,8 +2563,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2745,9 +2592,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2774,21 +2620,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
 <div class="tb" style="left:33.7508%;top:44.7370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ(tuvošanās) = υ₁ + υ₂</p>
-</div>
-<div class="tb" style="left:59.7627%;top:58.7370%;width:4.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.0795%;top:54.2333%;width:1.8334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s</p>
-</div>
-<i style="left:65.0795%;top:62.2452%;width:1.8334%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.0795%;top:63.2407%;width:1.8334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:33.7508%;top:53.9373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2800,8 +2637,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2815,7 +2651,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">υ(tuvošanās) = υ₁ + υ₂</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 <p class="mf" style="color:#4F46E5"><span class="mc">t = <span class="f"><span class="n">s</span><span class="d">υ</span></span></span></p>
 </div>
 <div class="blk">
@@ -2835,9 +2671,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2863,17 +2698,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ(tuvošanās) = υ₁ + υ₂</p>
-</div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:2.0535%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4729%;top:65.9434%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:6.4729%;top:69.4444%;width:0.7999%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4729%;top:69.9461%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2884,6 +2709,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2895,8 +2721,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2910,7 +2735,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">υ(tuvošanās) = υ₁ + υ₂</p>
+<p class="p2">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 <p class="mf" style="color:#374151"><span class="mc">t = <span class="f"><span class="n">s</span><span class="d">υ</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
@@ -2934,9 +2759,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2962,17 +2786,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ(tuvošanās) = υ₁ + υ₂</p>
-</div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:2.0535%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4729%;top:65.9434%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:6.4729%;top:69.4444%;width:0.7999%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4729%;top:69.9461%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2989,6 +2803,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3000,8 +2815,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3015,7 +2829,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">υ(tuvošanās) = υ₁ + υ₂</p>
+<p class="p2">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 <p class="mf" style="color:#374151"><span class="mc">t = <span class="f"><span class="n">s</span><span class="d">υ</span></span></span></p>
 </div>
 <div class="blk">
@@ -3043,9 +2857,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3071,17 +2884,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ(tuvošanās) = υ₁ + υ₂</p>
-</div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:2.0535%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4729%;top:65.9434%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:6.4729%;top:69.4444%;width:0.7999%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4729%;top:69.9461%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -3101,6 +2904,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3112,8 +2916,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3127,7 +2930,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">υ(tuvošanās) = υ₁ + υ₂</p>
+<p class="p2">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 <p class="mf" style="color:#374151"><span class="mc">t = <span class="f"><span class="n">s</span><span class="d">υ</span></span></span></p>
 </div>
 <div class="blk">
@@ -3156,9 +2959,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1511cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.6188cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p style="font-size:1.7698cqw;color:#374151;text-align:left;padding-top:0.2646cqw">Pēc cik ilga laika tās satiksies?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3184,17 +2986,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ(tuvošanās) = υ₁ + υ₂</p>
-</div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:2.0535%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4729%;top:65.9434%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">s</p>
-</div>
-<i style="left:6.4729%;top:69.4444%;width:0.7999%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4729%;top:69.9461%;width:0.7999%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">υ</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -3218,6 +3010,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>t =&nbsp;<span class="f"><span class="n">s</span><span class="d">υ</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3229,8 +3022,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divu automašīnu satikšanās</p>
-<p class="p2">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h.</p>
-<p class="p2">Pēc cik ilga laika tās satiksies?</p>
+<p class="p1">Divas automašīnas brauc viena otrai pretī no punktiem, kas atrodas 300 km attālumā. Ātrumi 80 km/h un 70 km/h. Pēc cik ilga laika tās satiksies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3244,7 +3036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">υ(tuvošanās) = υ₁ + υ₂</p>
+<p class="p2">υ<sub>tuvošanās</sub> = υ₁ + υ₂</p>
 <p class="mf" style="color:#374151"><span class="mc">t = <span class="f"><span class="n">s</span><span class="d">υ</span></span></span></p>
 </div>
 <div class="blk">
@@ -3422,6 +3214,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

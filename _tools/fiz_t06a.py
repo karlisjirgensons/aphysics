@@ -89,8 +89,8 @@ dict(
              dots=["t = 60 s", "N = 30"],
              jaaprekina=["T = ?", "f = ?"],
              formulas=["T = t/N", "f = 1/T"],
-             aprekins=["1)  T = 60 : 30 = 2,0 s",
-                       "2)  f = 1 : 2,0 = 0,50 Hz"],
+             aprekins=["1)  T = t/N = 60 : 30 = 2,0 s",
+                       "2)  f = 1/T = 1 : 2,0 = 0,50 Hz"],
              atbilde="T = 2,0 s;  f = 0,50 Hz",
              piezime="Pārbaudi: 0,50 svārstības sekundē · 60 s = 30 "
                      "svārstības."),
@@ -100,7 +100,7 @@ dict(
              dots=["f = 50 Hz"],
              jaaprekina=["T = ?"],
              formulas=["f = 1/T", "T = 1/f"],
-             aprekins=["1)  T = 1 : 50",
+             aprekins=["1)  T = 1/f = 1 : 50",
                        "2)  T = 0,02 s = 20 ms"],
              atbilde="T = 0,02 s",
              piezime="20 milisekundes - tik ātri acs izmaiņas vairs "
@@ -111,10 +111,10 @@ dict(
                     "amplitūdu, frekvenci un svārstību skaitu 1 min!",
              dots=["A = 4,0 cm = 0,04 m", "T = 0,8 s", "t = 1 min = 60 s"],
              jaaprekina=["f = ?", "N = ?"],
-             formulas=["f = 1/T", "N = t/T"],
+             formulas=["f = 1/T", "T = t/N", "N = t/T"],
              aprekins=["1)  A = 0,04 m (lielākā novirze)",
-                       "2)  f = 1 : 0,8 = 1,25 Hz",
-                       "3)  N = 60 : 0,8 = 75 svārstības"],
+                       "2)  f = 1/T = 1 : 0,8 = 1,25 Hz",
+                       "3)  N = t/T = 60 : 0,8 = 75 svārstības"],
              atbilde="A = 0,04 m;  f = 1,25 Hz;  N = 75",
              piezime="Amplitūdu nolasa no grafika augstuma, periodu - no "
                      "attāluma starp diviem vienādiem punktiem."),
@@ -124,9 +124,9 @@ dict(
                     "rezonansi?",
              dots=["f₀ = 1,5 Hz", "Rezonanse: f = f₀"],
              jaaprekina=["T = ?"],
-             formulas=["Rezonansē: f = f₀", "T = 1/f"],
+             formulas=["Rezonansē: f = f₀", "f = 1/T", "T = 1/f"],
              aprekins=["1)  Rezonansē soļu frekvence f = 1,5 Hz",
-                       "2)  T = 1 : 1,5 ≈ 0,67 s",
+                       "2)  T = 1/f = 1 : 1,5 ≈ 0,67 s",
                        "3)  Solis ik pēc 0,67 s tiltu iešūpotu"],
              atbilde="T ≈ 0,67 s",
              piezime="Tieši tāpēc pa tiltu kareivji iet bez soļa - lai "
@@ -141,7 +141,7 @@ dict(
              aprekins=["1)  T = 2π√(l/g)",
                        "2)  T = 2 · 3,14 · √(0,25 / 9,8)",
                        "3)  T ≈ 1,0 s",
-                       "4)  f = 1 : 1,0 ≈ 1,0 Hz"],
+                       "4)  f = 1/T = 1 : 1,0 ≈ 1,0 Hz"],
              atbilde="T ≈ 1,0 s;  f ≈ 1,0 Hz",
              piezime="Periodu nosaka tikai garums un g - svārsta masa "
                      "to neietekmē."),
@@ -167,7 +167,7 @@ dict(
              aprekins=["1)  T = 2π√(m/k)",
                        "2)  T = 2 · 3,14 · √(0,20 / 80)",
                        "3)  T ≈ 0,31 s",
-                       "4)  f = 1 : 0,31 ≈ 3,2 Hz"],
+                       "4)  f = 1/T = 1 : 0,31 ≈ 3,2 Hz"],
              atbilde="T ≈ 0,31 s;  f ≈ 3,2 Hz",
              piezime="Atsperes svārstam masa ir svarīga - atšķirībā no "
                      "matemātiskā svārsta."),
@@ -278,23 +278,24 @@ dict(
              teksts="Zibens tiek ieraudzīts, un pēc 6,0 s atskan pērkons.\n"
                     "Cik tālu ir negaiss? (v = 340 m/s)",
              dots=["t = 6,0 s", "v = 340 m/s"],
-             jaaprekina=["s = ?"],
-             formulas=["s = vt"],
-             aprekins=["1)  s = 340 · 6,0",
-                       "2)  s = 2040 m ≈ 2,0 km"],
-             atbilde="s ≈ 2,0 km",
+             jaaprekina=["L = ?"],
+             formulas=["v = L/t", "L = v · t"],
+             aprekins=["1)  L = 340 · 6,0",
+                       "2)  L = 2040 m ≈ 2,0 km"],
+             atbilde="L ≈ 2,0 km",
              piezime="Gaismas ceļa laiku neņem vērā - gaisma šo attālumu "
                      "veic gandrīz acumirklī."),
         dict(nr=2, virsraksts="Atbalss",
              teksts="Kliedziens atstarojas no klints, un atbalsi dzird\n"
                     "pēc 1,2 s. Cik tālu ir klints? (v = 340 m/s)",
              dots=["t = 1,2 s", "v = 340 m/s"],
-             jaaprekina=["s = ?"],
-             formulas=["Skaņa iet turp un atpakaļ", "s = vt/2"],
-             aprekins=["1)  Viss ceļš: 340 · 1,2 = 408 m",
-                       "2)  Līdz klintij: 408 : 2",
-                       "3)  s = 204 m"],
-             atbilde="s = 204 m",
+             jaaprekina=["L = ?"],
+             formulas=["Skaņa iet turp un atpakaļ", "v = S/t", "S = v · t",
+                       "L = S/2"],
+             aprekins=["1)  S = 340 · 1,2 = 408 m",
+                       "2)  L = 408 : 2",
+                       "3)  L = 204 m"],
+             atbilde="L = 204 m",
              piezime="Tipiskā kļūda - aizmirst dalīt ar 2. Skaņa šo "
                      "attālumu noiet divreiz."),
         dict(nr=3, virsraksts="Sonārs",
@@ -302,9 +303,9 @@ dict(
                     "0,80 s. Cik dziļa ir jūra? (v = 1500 m/s)",
              dots=["t = 0,80 s", "v = 1500 m/s"],
              jaaprekina=["h = ?"],
-             formulas=["h = vt/2"],
-             aprekins=["1)  Viss ceļš: 1500 · 0,80 = 1200 m",
-                       "2)  Dziļums: 1200 : 2",
+             formulas=["v = S/t", "S = v · t", "h = S/2"],
+             aprekins=["1)  S = 1500 · 0,80 = 1200 m",
+                       "2)  h = 1200 : 2",
                        "3)  h = 600 m"],
              atbilde="h = 600 m",
              piezime="Ūdenī skaņa iet gandrīz 4,5 reizes ātrāk nekā "
@@ -326,9 +327,9 @@ dict(
         dict(nr=5, virsraksts="Skaņas ātruma noteikšana",
              teksts="Skaņa 680 m attālumu veic 2,0 s laikā.\n"
                     "Aprēķini skaņas ātrumu!",
-             dots=["s = 680 m", "t = 2,0 s"],
+             dots=["S = 680 m", "t = 2,0 s"],
              jaaprekina=["v = ?"],
-             formulas=["v = s/t"],
+             formulas=["v = S/t"],
              aprekins=["1)  v = 680 : 2,0",
                        "2)  v = 340 m/s",
                        "3)  Tas atbilst tabulas vērtībai gaisā"],
@@ -339,9 +340,9 @@ dict(
              teksts="Pa sliedēm (v = 5000 m/s) un pa gaisu "
                     "(v = 340 m/s)\nskaņa veic 850 m. Aprēķini abus "
                     "laikus un to starpību!",
-             dots=["s = 850 m", "v₁ = 5000 m/s", "v₂ = 340 m/s"],
+             dots=["S = 850 m", "v₁ = 5000 m/s", "v₂ = 340 m/s"],
              jaaprekina=["t₁ = ?", "t₂ = ?", "Δt = ?"],
-             formulas=["t = s/v"],
+             formulas=["v = S/t", "t = S/v"],
              aprekins=["1)  t₁ = 850 : 5000 = 0,17 s",
                        "2)  t₂ = 850 : 340 = 2,5 s",
                        "3)  Δt = 2,5 − 0,17 ≈ 2,3 s"],
@@ -354,9 +355,9 @@ dict(
                     "Cik dziļi ir plaisa?",
              dots=["t = 2,0·10⁻⁵ s", "v = 5000 m/s"],
              jaaprekina=["h = ?"],
-             formulas=["h = vt/2"],
-             aprekins=["1)  Viss ceļš: 5000 · 2,0·10⁻⁵ = 0,10 m",
-                       "2)  Līdz plaisai: 0,10 : 2",
+             formulas=["v = S/t", "S = v · t", "h = S/2"],
+             aprekins=["1)  S = 5000 · 2,0·10⁻⁵ = 0,10 m",
+                       "2)  h = 0,10 : 2",
                        "3)  h = 0,05 m = 5,0 cm"],
              atbilde="h = 5,0 cm",
              piezime="Tā pati atbalss ideja, tikai metālā un ar "
@@ -379,18 +380,18 @@ dict(
                       "Protu atšķirt viļņu veidus",
                       "Protu rēķināt skaņas ceļu",
                       "Zinu dzirdes robežas"],
-        nakama="Nākamā stunda: viļņu raksturlielumi un sakarība v = λf."),
+        nakama="Nākamā stunda: viļņu raksturlielumi un sakarība λ = v · T."),
 ),
 
 dict(
     nr="6.3", virsraksts="Viļņu raksturlielumi",
     jautajums="Kā saistīti viļņa garums, frekvence un ātrums?",
-    apaksraksts="v = λf · λ = v/f · λ = vT",
-    merkis="Iemācīties lietot sakarību v = λf viena un divu soļu "
-           "uzdevumos.",
+    apaksraksts="λ = v · T   ·   f = 1/T   ·   λ = v/f",
+    merkis="Iemācīties lietot formulu lapas sakarību λ = v · T un no "
+           "tās izteikt viļņa garumu, frekvenci un periodu.",
     protu=["nosaukt viļņa garumu un tā mērvienību;",
-           "lietot v = λf un λ = v/f;",
-           "saistīt viļņa garumu ar periodu: λ = vT;",
+           "lietot formulu lapas sakarību λ = v · T;",
+           "no tās izteikt v, f un T;",
            "izskaidrot, kas mainās, vilnim pārejot citā vidē."],
     atkartojums="Iepriekš mācījāmies periodu un frekvenci. Tagad "
                 "pievienojam viļņa garumu - attālumu, ko vilnis noiet "
@@ -399,10 +400,10 @@ dict(
     teorija=[
         ("Viļņa pamatsakarība", [
             ("formula", "VIĻŅA GARUMS",
-             "v = λ · f        λ = v/f        λ = vT        [λ] = m",
-             "Viļņa garums λ ir attālums starp diviem tuvākajiem vienādi "
-             "svārstošiem punktiem - to vilnis noiet viena perioda "
-             "laikā.", GOLD),
+             "λ = v · T        f = 1/T        λ = v/f        [λ] = m",
+             "Formulu lapā ir λ = v · T: viļņa garums ir attālums, ko "
+             "vilnis noiet viena perioda laikā. Tā kā f = 1/T, no tās "
+             "seko arī λ = v/f.", GOLD),
             ("kartitas", [
                 ("λ - VIĻŅA GARUMS", BLUE,
                  ["Attālums starp diviem",
@@ -457,8 +458,8 @@ dict(
                     "Aprēķini viļņa garumu!",
              dots=["f = 500 Hz", "v = 340 m/s"],
              jaaprekina=["λ = ?"],
-             formulas=["v = λf", "λ = v/f"],
-             aprekins=["1)  λ = 340 : 500",
+             formulas=["λ = v · T", "λ = v/f"],
+             aprekins=["1)  λ = v/f = 340 : 500",
                        "2)  λ = 0,68 m"],
              atbilde="λ = 0,68 m",
              piezime="Jo augstāka skaņa, jo īsāks vilnis - ātrums taču "
@@ -467,32 +468,32 @@ dict(
              teksts="Ūdens virsmas viļņa garums ir 2,5 m, ātrums 2,0 m/s.\n"
                     "Aprēķini frekvenci un periodu!",
              dots=["λ = 2,5 m", "v = 2,0 m/s"],
-             jaaprekina=["f = ?", "T = ?"],
-             formulas=["v = λf", "f = v/λ", "T = 1/f"],
-             aprekins=["1)  f = 2,0 : 2,5 = 0,80 Hz",
-                       "2)  T = 1 : 0,80 = 1,25 s"],
-             atbilde="f = 0,80 Hz;  T = 1,25 s",
-             piezime="Divi soļi: vispirms frekvence, tad periods kā tās "
-                     "apgrieztais lielums."),
+             jaaprekina=["T = ?", "f = ?"],
+             formulas=["λ = v · T", "T = λ/v", "f = 1/T"],
+             aprekins=["1)  T = λ/v = 2,5 : 2,0 = 1,25 s",
+                       "2)  f = 1/T = 1 : 1,25 = 0,80 Hz"],
+             atbilde="T = 1,25 s;  f = 0,80 Hz",
+             piezime="Formulu lapā ir λ = v · T, tāpēc vispirms izsaka "
+                     "periodu un tikai tad frekvenci."),
         dict(nr=3, virsraksts="Ātrums no perioda",
              teksts="Viļņa garums ir 6,0 m, periods 1,5 s.\n"
                     "Aprēķini viļņa izplatīšanās ātrumu!",
              dots=["λ = 6,0 m", "T = 1,5 s"],
              jaaprekina=["v = ?"],
-             formulas=["λ = vT", "v = λ/T"],
-             aprekins=["1)  v = 6,0 : 1,5",
+             formulas=["λ = v · T", "v = λ/T"],
+             aprekins=["1)  v = λ/T = 6,0 : 1,5",
                        "2)  v = 4,0 m/s"],
              atbilde="v = 4,0 m/s",
              piezime="Var arī vispirms atrast f = 1 : 1,5 ≈ 0,67 Hz un "
-                     "tad v = λf - rezultāts ir tas pats."),
+                     "tad v = λ · f - rezultāts ir tas pats."),
         dict(nr=4, virsraksts="Skaņa pāriet ūdenī",
              teksts="Skaņa ar frekvenci 340 Hz no gaisa (340 m/s) pāriet\n"
                     "ūdenī (1500 m/s). Aprēķini viļņa garumu abās vidēs!",
              dots=["f = 340 Hz", "v₁ = 340 m/s", "v₂ = 1500 m/s"],
              jaaprekina=["λ₁ = ?", "λ₂ = ?"],
-             formulas=["λ = v/f", "Frekvence nemainās"],
-             aprekins=["1)  λ₁ = 340 : 340 = 1,0 m",
-                       "2)  λ₂ = 1500 : 340 ≈ 4,4 m",
+             formulas=["λ = v · T", "λ = v/f", "Frekvence nemainās"],
+             aprekins=["1)  λ₁ = v₁/f = 340 : 340 = 1,0 m",
+                       "2)  λ₂ = v₂/f = 1500 : 340 ≈ 4,4 m",
                        "3)  Frekvence abās vidēs ir 340 Hz"],
              atbilde="λ₁ = 1,0 m;  λ₂ ≈ 4,4 m",
              piezime="Vidē mainās ātrums un viļņa garums, bet frekvenci "
@@ -502,9 +503,9 @@ dict(
                     "Aprēķini viļņa garumu! (c = 3,0·10⁸ m/s)",
              dots=["f = 100 MHz = 1,0·10⁸ Hz", "c = 3,0·10⁸ m/s"],
              jaaprekina=["λ = ?"],
-             formulas=["λ = c/f"],
+             formulas=["c = λ · f", "λ = c/f"],
              aprekins=["1)  f = 1,0·10⁸ Hz",
-                       "2)  λ = 3,0·10⁸ : 1,0·10⁸",
+                       "2)  λ = c/f = 3,0·10⁸ : 1,0·10⁸",
                        "3)  λ = 3,0 m"],
              atbilde="λ = 3,0 m",
              piezime="Tāpēc FM antenas garums ir ap 0,75 m - ceturtdaļa "
@@ -514,9 +515,9 @@ dict(
                     "Aprēķini frekvenci un periodu! (v = 340 m/s)",
              dots=["λ = 0,50 m", "v = 340 m/s"],
              jaaprekina=["f = ?", "T = ?"],
-             formulas=["f = v/λ", "T = 1/f"],
-             aprekins=["1)  f = 340 : 0,50 = 680 Hz",
-                       "2)  T = 1 : 680",
+             formulas=["λ = v · T", "f = v/λ", "f = 1/T", "T = 1/f"],
+             aprekins=["1)  f = v/λ = 340 : 0,50 = 680 Hz",
+                       "2)  T = 1/f = 1 : 680",
                        "3)  T ≈ 1,5·10⁻³ s = 1,5 ms"],
              atbilde="f = 680 Hz;  T ≈ 1,5 ms",
              piezime="680 Hz ir cilvēka balsij tuva frekvence - to auss "
@@ -526,7 +527,7 @@ dict(
                     "4 reizes, bet vide paliek tā pati?",
              dots=["f₂ = 4f₁", "v nemainās"],
              jaaprekina=["λ₂/λ₁ = ?"],
-             formulas=["λ = v/f", "λ ~ 1/f"],
+             formulas=["λ = v · T", "λ = v/f", "λ ~ 1/f"],
              aprekins=["1)  λ₁ = v/f₁",
                        "2)  λ₂ = v/(4f₁) = λ₁/4",
                        "3)  λ₂/λ₁ = 1/4"],
@@ -538,7 +539,7 @@ dict(
         iemacijamies=[
             "Viļņa garums ir attālums, ko vilnis noiet viena perioda "
             "laikā.",
-            "v = λf;  λ = v/f;  λ = vT.",
+            "λ = v · T;  f = 1/T;  no tām λ = v/f.",
             "Frekvenci nosaka avots, ātrumu - vide.",
             "Pārejot citā vidē, frekvence nemainās, bet λ un v mainās.",
         ],
@@ -548,7 +549,7 @@ dict(
             "λ = 3,0 m, T = 0,50 s. Aprēķini v.",
         ],
         pasvertejums=["Zinu, kas ir viļņa garums",
-                      "Protu lietot v = λf",
+                      "Protu lietot λ = v · T",
                       "Protu izteikt λ un f",
                       "Zinu, kas mainās citā vidē"],
         nakama="Nākamā stunda: uzdevumi par viļņiem un gatavošanās PD1."),
@@ -557,12 +558,12 @@ dict(
 dict(
     nr="6.4", virsraksts="Uzdevumi par viļņiem",
     jautajums="Kā no grafika nolasīt periodu un amplitūdu?",
-    apaksraksts="Grafiks → T un A · f = 1/T · v = λf · Gatavošanās PD1",
+    apaksraksts="Grafiks → T un A · f = 1/T · λ = v · T · Gatavošanās PD1",
     merkis="Nolasīt svārstību un viļņa grafiku, aprēķināt periodu, "
            "frekvenci un viļņa garumu un pārbaudīt mērvienības.",
     protu=["atšķirt svārstību grafiku no viļņa grafika;",
            "nolasīt amplitūdu, periodu un viļņa garumu;",
-           "risināt divu un triju soļu uzdevumus ar v = λf;",
+           "risināt divu un triju soļu uzdevumus ar λ = v · T;",
            "pārbaudīt atbildes mērvienības."],
     atkartojums="Šī ir temata pēdējā mācību stunda. Nākamajā stundā ir "
                 "PD1 - tāpēc šodien atkārtojam visu, kas tajā būs.",
@@ -581,7 +582,7 @@ dict(
                "Rāda vilni vienā mirklī.",
                "Nolasa amplitūdu A.",
                "Nolasa viļņa garumu λ metros.",
-               "Tad v = λf."])),
+               "Tad λ = v · T."])),
             ("panelis", "BIEŽĀKĀS KĻŪDAS",
              ["Amplitūda ir novirze no līdzsvara stāvokļa, nevis "
               "attālums no kalna līdz ielejai - tas ir divas amplitūdas.",
@@ -596,7 +597,7 @@ dict(
              [["Jēdzieni", "A, T, f un λ nozīme", "6.1. un 6.3. stunda"],
               ["Skaidrojums", "Rezonanse ar piemēru", "6.1. stunda"],
               ["Viļņu veidi", "Šķērs- un garenviļņi", "6.2. stunda"],
-              ["Aprēķins", "T = t/N, f = 1/T, v = λf", "Visas stundas"]],
+              ["Aprēķins", "T = t/N, f = 1/T, λ = v · T", "Visas stundas"]],
              [2.90, 4.10, 3.23]),
             ("panelis", "KĀ NOFORMĒT PD1 UZDEVUMU",
              ["Dots → Jāaprēķina → Formulas → Aprēķins → Atbilde. Katrs "
@@ -637,18 +638,18 @@ dict(
                     "0,40 s. Aprēķini frekvenci un svārstību skaitu 10 s!",
              dots=["A = 5,0 cm = 0,05 m", "T = 0,40 s", "t = 10 s"],
              jaaprekina=["f = ?", "N = ?"],
-             formulas=["f = 1/T", "N = t/T"],
+             formulas=["f = 1/T", "T = t/N", "N = t/T"],
              aprekins=["1)  f = 1 : 0,40 = 2,5 Hz",
                        "2)  N = 10 : 0,40 = 25 svārstības"],
              atbilde="f = 2,5 Hz;  N = 25",
              piezime="Amplitūdu uzreiz pārrēķina metros - PD1 to prasa."),
         dict(nr=2, virsraksts="No viļņa grafika",
-             teksts="Attālums starp diviem kalniem ir 3,0 m, un vilnis\n"
-                    "4,0 s laikā veic 8 svārstības.\n"
-                    "Aprēķini viļņa ātrumu!",
+             teksts="Viļņa grafikā attālums starp diviem blakus\n"
+                    "esošiem viļņa kalniem ir 3,0 m. Avots 4,0 s\n"
+                    "laikā veic 8 svārstības. Aprēķini viļņa ātrumu!",
              dots=["λ = 3,0 m", "t = 4,0 s", "N = 8"],
              jaaprekina=["v = ?"],
-             formulas=["T = t/N", "f = 1/T", "v = λf"],
+             formulas=["T = t/N", "f = 1/T", "λ = v · T", "v = λ · f"],
              aprekins=["1)  T = 4,0 : 8 = 0,50 s",
                        "2)  f = 1 : 0,50 = 2,0 Hz",
                        "3)  v = 3,0 · 2,0 = 6,0 m/s"],
@@ -660,33 +661,33 @@ dict(
                     "ūdenī 1500 m/s. Aprēķini viļņa garumu milimetros!",
              dots=["f = 40 kHz = 40 000 Hz", "v = 1500 m/s"],
              jaaprekina=["λ = ?"],
-             formulas=["λ = v/f"],
+             formulas=["λ = v · T", "λ = v/f"],
              aprekins=["1)  λ = 1500 : 40 000",
                        "2)  λ = 0,0375 m",
-                       "3)  λ ≈ 37,5 mm"],
-             atbilde="λ ≈ 37,5 mm",
+                       "3)  λ = 37,5 mm"],
+             atbilde="λ = 37,5 mm",
              piezime="Īss vilnis ļauj ultraskaņai «saskatīt» sīkas "
                      "detaļas medicīnas izmeklējumos."),
         dict(nr=4, virsraksts="Stīga un skaņa",
              teksts="Stīga svārstās ar frekvenci 256 Hz. Skaņas ātrums\n"
-                    "gaisā ir 340 m/s. Aprēķini skaņas viļņa garumu un\n"
-                    "periodu!",
+                    "gaisā ir 340 m/s. Aprēķini skaņas viļņa periodu un\n"
+                    "garumu!",
              dots=["f = 256 Hz", "v = 340 m/s"],
-             jaaprekina=["λ = ?", "T = ?"],
-             formulas=["λ = v/f", "T = 1/f"],
-             aprekins=["1)  λ = 340 : 256 ≈ 1,33 m",
-                       "2)  T = 1 : 256 ≈ 0,0039 s",
-                       "3)  T ≈ 3,9 ms"],
-             atbilde="λ ≈ 1,33 m;  T ≈ 3,9 ms",
-             piezime="256 Hz ir nots «do» - stīga iešūpo gaisu ar to "
-                     "pašu frekvenci."),
+             jaaprekina=["T = ?", "λ = ?"],
+             formulas=["f = 1/T", "T = 1/f", "λ = v · T"],
+             aprekins=["1)  T = 1 : 256 ≈ 0,0039 s",
+                       "2)  T ≈ 3,9 ms",
+                       "3)  λ = 340 · 0,0039 ≈ 1,33 m"],
+             atbilde="T ≈ 3,9 ms;  λ ≈ 1,33 m",
+             piezime="Formulu lapā ir λ = v · T, tāpēc vispirms aprēķina "
+                     "periodu un tikai tad viļņa garumu."),
         dict(nr=5, virsraksts="No svārstībām uz vilni",
              teksts="Avots 20 s laikā veic 40 svārstības; radītā viļņa\n"
                     "garums ir 1,5 m. Aprēķini periodu, frekvenci un "
                     "ātrumu!",
              dots=["t = 20 s", "N = 40", "λ = 1,5 m"],
              jaaprekina=["T = ?", "f = ?", "v = ?"],
-             formulas=["T = t/N", "f = 1/T", "v = λf"],
+             formulas=["T = t/N", "f = 1/T", "λ = v · T", "v = λ · f"],
              aprekins=["1)  T = 20 : 40 = 0,50 s",
                        "2)  f = 1 : 0,50 = 2,0 Hz",
                        "3)  v = 1,5 · 2,0 = 3,0 m/s"],
@@ -698,14 +699,15 @@ dict(
                     "Aprēķini ātrumu un attālumu līdz sienai, ja atbalsi\n"
                     "dzird pēc 0,50 s!",
              dots=["λ = 0,20 m", "f = 1700 Hz", "t = 0,50 s"],
-             jaaprekina=["v = ?", "s = ?"],
-             formulas=["v = λf", "s = vt/2"],
+             jaaprekina=["v = ?", "L = ?"],
+             formulas=["λ = v · T", "v = λ · f", "v = S/t", "S = v · t",
+                       "L = S/2"],
              aprekins=["1)  v = 0,20 · 1700 = 340 m/s",
-                       "2)  Viss ceļš: 340 · 0,50 = 170 m",
-                       "3)  s = 170 : 2 = 85 m"],
-             atbilde="v = 340 m/s;  s = 85 m",
-             piezime="Divi temati vienā uzdevumā: viļņa vienādojums un "
-                     "atbalss - tieši tā mēdz būt pārbaudes darbā."),
+                       "2)  S = 340 · 0,50 = 170 m",
+                       "3)  L = 170 : 2 = 85 m"],
+             atbilde="v = 340 m/s;  L = 85 m",
+             piezime="Skaņas noietais ceļš ir S, bet attālums līdz sienai "
+                     "L ir uz pusi mazāks - skaņa iet turp un atpakaļ."),
     ],
     kopsavilkums=dict(
         iemacijamies=[
@@ -719,7 +721,7 @@ dict(
         majasdarbs=[
             "Atkārto 6.1.-6.3. stundas kopsavilkumus.",
             "λ = 2,0 m; 10 svārstības 5,0 s laikā. Aprēķini v.",
-            "Sagatavo formulu sarakstu PD1: T = t/N, f = 1/T, v = λf.",
+            "Sagatavo formulu sarakstu PD1: T = t/N, f = 1/T, λ = v · T.",
         ],
         pasvertejums=["Protu lasīt abu veidu grafikus",
                       "Protu risināt vairāku soļu uzdevumus",

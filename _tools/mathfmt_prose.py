@@ -20,7 +20,7 @@ Pieņem:
 """
 
 from mathfmt import (_SUB, _SUPER, _strip_outer, split_roots,
-                     _UNITS, _BASES, _PREFIX, _base_unit)
+                     _UNITS, _BASES, _PREFIX, _base_unit, with_ratio)
 
 # mērvienību simboli (bez tiem, ko lieto arī kā lielumu apzīmējumus tekstā)
 _LET = ("abcdefghijklmnopqrstuvwxyzāčēģīķļņšūž"
@@ -32,8 +32,11 @@ _ASCII_DIGITS = "0123456789"
 _TRIM = " \t.,;:!?—–…\"'«»“”„"
 # mērvienību pārbaudē iekavas tomēr jānoņem: W/(m·K)
 _UTRIM = _TRIM + "()[]"
-# zīmes, kas nozīmē, ka skaitītājs ir tikai daļa no lielākas izteiksmes
-_BREAK = "+−-·×*"
+# Zīmes, kas nozīmē, ka skaitītājs ir tikai daļa no lielākas izteiksmes:
+# "24 + 37/60" ir 24 un daļa, nevis (24 + 37) uz 60. Reizināšanas zīme te
+# nav - "2 · 3,14 · 50/4" ir nepārprotami reizinājums ar daļu, un tieši tā
+# to arī jāraksta (rules_lessons.txt: dalījums vienmēr vertikāli).
+_BREAK = "+−-"
 
 
 def _is_unit(tok):
@@ -91,6 +94,13 @@ def _paren_left(part, i):
     return None
 
 
+def _pow_end(part, k):
+    """Kāpinātājs aiz iekavas pieder izteiksmei: "(R + h)²"."""
+    while k < len(part) and part[k] in _SUPER:
+        k += 1
+    return k
+
+
 def _paren_right(part, i):
     j = i + 1
     while j < len(part) and part[j] == " ":
@@ -104,7 +114,7 @@ def _paren_right(part, i):
         elif part[k] == ")":
             depth -= 1
             if depth == 0:
-                return j, k + 1
+                return j, _pow_end(part, k + 1)
     return None
 
 
@@ -143,6 +153,16 @@ def _lhs_token(text, k):
     while j >= 0 and text[j] != " ":
         j -= 1
     return text[j + 1:e]
+
+
+def _unit_side(tok):
+    """Vai pa kreisi no "=" ir mērvienība, nevis lielums?
+
+    Viens burts ir lieluma apzīmējums, arī tad, ja tāda pati zīme ir
+    mērvienībai: "T = t/N" ir periods, nevis teslas. Mērvienību pieraksts
+    ("kg : m³ = kg/m³") vienmēr ir garāks vai ar kāpinātāju.
+    """
+    return _is_unit(tok) and len(tok.strip(_UTRIM)) > 1
 
 
 def _num_extend(text, a, b):
@@ -217,6 +237,10 @@ def parse_prose(text):
     saknes atomu būvētājs, nevis šī piesardzīgā daļu meklēšana - citādi
     daļa tiktu izrauta ārā no saknes.
     """
+    return with_ratio(text, _parse_prose)
+
+
+def _parse_prose(text):
     out = []
     for a in split_roots([("t", text)]):
         if a[0] == "t":
@@ -259,7 +283,7 @@ def _prose_fractions(text):
         prev = _prev_visible(text, L[0])
         # aiz "=" ir formula - ja vien pa kreisi no "=" nav mērvienība
         formula = (prev == "=" and not bracket
-                   and not _is_unit(_lhs_token(text, L[0])))
+                   and not _unit_side(_lhs_token(text, L[0])))
         ok = (num and den
               and len(num) <= 16 and len(den) <= 16
               and any(c.isalnum() or c in _SUB or c in _SUPER for c in num)

@@ -99,7 +99,7 @@ dict(
              formulas=["Q = cmΔT"],
              aprekins=["1)  Q = 4200 · 0,30 · 15",
                        "2)  Q = 18 900 J",
-                       "3)  Q ≈ 18,9 kJ"],
+                       "3)  Q = 18,9 kJ"],
              atbilde="Q ≈ 1,9·10⁴ J",
              piezime="Šī enerģija aizgāja caur sienām, vāku un spraugām - "
                      "tieši to izolācija samazina."),

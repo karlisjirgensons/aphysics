@@ -4,6 +4,7 @@
 A daļa: 1.1.-1.7. stunda (vektori un vienmērīga kustība).
 """
 
+import zimejumi as Z
 from fiz_common import (NAVY, BLUE, GOLD, GREY, RED, GREEN,   # noqa: F401
                         LINEGREY)
 
@@ -17,64 +18,100 @@ MAPE = ("C:/aphysics/Fizika_1/"
 # Vektoru darbības vislabāk saprot no zīmējuma, tāpēc ģeometrija ir šeit,
 # blakus stundas saturam; kā to uzzīmēt, zina zimejumi.py (SRP).
 # Koordinātas: x pa labi, y uz leju.
+#
+# Spēka bulta sākas ķermeņa centrā - to viena pati zina
+# zimejumi.spekukaste(), tāpēc visos gadījumos sākums ir vienāds (DRY) un
+# to nevar nejauši uzzīmēt no kastes malas.
 
-ZIM_SASKAITISANA = dict(w=20, h=6.8, hin=2.55, items=[
-    ("t", 4.6, 0.5, "TRIJSTŪRA LIKUMS", GREY, 13),
-    ("v", 1.0, 5.4, 5.4, 5.4, BLUE),
-    ("t", 3.2, 6.1, "a⃗", BLUE, 16),
-    ("v", 5.4, 5.4, 8.2, 1.8, GREEN),
-    ("t", 8.0, 3.9, "b⃗", GREEN, 16),
-    ("v", 1.0, 5.4, 8.2, 1.8, RED),
-    ("t", 3.4, 3.0, "a⃗ + b⃗", RED, 16),
+# Trīs spēku gadījumi ir viss, kas 1.3. stundā tiešām jāsaprot, tāpēc
+# zīmējums ir tikai kaste un bultas - tāds pats, kādu skolēns pats zīmē
+# uz lapas. Kopvektors ir sarkans, sastāvdaļas - zilas un zaļas.
+#
+# Vienā virzienā un pretēji vērstiem spēkiem kopvektoru zīmē zem kastes
+# (tur to ērti pārmērīt ar lineālu); perpendikulāriem tas ir paralelograma
+# diagonāle, tāpēc iet no tā paša centra.
+ZIM_SPEKI = dict(w=21, h=7.2, hin=2.90, items=(
+    # --- vienā virzienā: moduļus saskaita -----------------------------
+    [("t", 3.9, 0.5, "VIENĀ VIRZIENĀ", GREEN, 13)]
+    + Z.spekukaste(3.4, 3.0, 1.8, 1.6, [
+        Z.bulta(2.4, 0, BLUE, "F⃗₁", puse=-1, nobide=-0.40, vieta=0.80),
+        Z.bulta(1.6, 0, GREEN, "F⃗₂", puse=+1, nobide=+0.40, vieta=0.95),
+    ])
+    + [("v", 2.5, 5.2, 6.5, 5.2, RED),
+       ("t", 4.5, 5.75, "F⃗", RED, 15),
+       ("t", 3.9, 6.8, "F = F₁ + F₂", GREY, 13)]
 
-    ("t", 15.2, 0.5, "PARALELOGRAMA LIKUMS", GREY, 13),
-    ("s", 16.0, 5.4, 18.8, 1.8, GREY),
-    ("s", 14.4, 1.8, 18.8, 1.8, GREY),
-    ("v", 11.6, 5.4, 16.0, 5.4, BLUE),
-    ("t", 13.8, 6.1, "a⃗", BLUE, 16),
-    ("v", 11.6, 5.4, 14.4, 1.8, GREEN),
-    ("t", 12.4, 3.2, "b⃗", GREEN, 16),
-    ("v", 11.6, 5.4, 18.8, 1.8, RED),
-    ("t", 17.4, 4.3, "a⃗ + b⃗", RED, 16),
+    # --- pretēji: moduļus atņem ---------------------------------------
+    + [("t", 11.0, 0.5, "PRETĒJI", RED, 13)]
+    + Z.spekukaste(11.0, 3.0, 1.8, 1.6, [
+        Z.bulta(2.4, 0, BLUE, "F⃗₁", puse=-1, vieta=0.82),
+        Z.bulta(-1.4, 0, GREEN, "F⃗₂", puse=+1, vieta=1.08),
+    ])
+    + [("v", 10.1, 5.2, 11.1, 5.2, RED),
+       ("t", 10.6, 5.75, "F⃗", RED, 15),
+       ("t", 11.0, 6.8, "F = |F₁ − F₂|", GREY, 13)]
+
+    # --- perpendikulāri: Pitagora teorēma ------------------------------
+    + [("t", 18.0, 0.5, "PERPENDIKULĀRI", BLUE, 13)]
+    + Z.spekukaste(17.2, 4.3, 1.8, 1.6, [
+        Z.bulta(2.4, 0, BLUE, "F⃗₁", puse=+1, vieta=0.80),
+        Z.bulta(0, -1.8, GREEN, "F⃗₂", puse=-1, vieta=0.75,
+                atstatums=0.85),
+        Z.bulta(2.4, -1.8, RED, "F⃗", puse=-1, vieta=0.60),
+    ])
+    + [("s", 19.6, 4.3, 19.6, 2.5, LINEGREY),
+       ("s", 19.25, 4.3, 19.25, 3.95, LINEGREY),
+       ("s", 19.25, 3.95, 19.6, 3.95, LINEGREY),
+       ("t", 18.0, 6.8, "F² = F₁² + F₂²", GREY, 13)]
+))
+
+# Atņemšanu vieglāk saprast ar īstu gadījumu: bumbiņa atsitas pret sienu.
+# Kreisajā pusē - kas notiek, labajā - kā to pašu saskaita ar pretējo
+# vektoru (tas ir 7. uzdevums, tikai zīmējumā).
+ZIM_PRETEJAIS = dict(w=21, h=6.6, hin=3.10, items=[
+    ("t", 4.4, 0.5, "BUMBIŅA ATSITAS PRET SIENU", GREY, 13),
+    ("b", 7.0, 1.2, 7.6, 5.6, GREY),
+    ("v", 1.4, 2.6, 6.8, 2.6, BLUE),
+    ("t", 4.1, 2.05, "v⃗₁", BLUE, 15),
+    ("v", 6.8, 4.4, 1.4, 4.4, GREEN),
+    ("t", 4.1, 4.95, "v⃗₂", GREEN, 15),
+    ("t", 4.4, 6.3, "modulis nemainās, virziens mainās", GREY, 12),
+
+    ("t", 15.6, 0.5, "IZMAIŅA Δv⃗ = v⃗₂ + (−v⃗₁)", GREY, 13),
+    ("v", 18.8, 2.1, 15.2, 2.1, GREEN),
+    ("t", 17.0, 1.55, "v⃗₂", GREEN, 15),
+    ("v", 15.2, 3.6, 11.6, 3.6, GREEN),
+    ("t", 13.4, 3.05, "−v⃗₁", GREEN, 15),
+    ("v", 18.8, 5.2, 11.6, 5.2, RED),
+    ("t", 15.2, 5.75, "Δv⃗", RED, 15),
+    ("t", 15.6, 6.3, "moduļi saskaitās: 8,0 + 8,0 = 16 m/s", GREY, 12),
 ])
 
-ZIM_ATNEMSANA = dict(w=20, h=6.8, hin=3.90, items=[
-    ("t", 4.6, 0.5, "STARPĪBA a⃗ − b⃗", GREY, 13),
-    ("v", 1.2, 5.4, 6.4, 5.4, BLUE),
-    ("t", 3.8, 6.1, "a⃗", BLUE, 16),
-    ("v", 1.2, 5.4, 3.6, 1.8, GREEN),
-    ("t", 1.8, 3.2, "b⃗", GREEN, 16),
-    ("v", 3.6, 1.8, 6.4, 5.4, RED),
-    ("t", 6.0, 3.0, "a⃗ − b⃗", RED, 16),
+# Skaitliskais piemērs pie tabulas: tas pats 3-4-5 trijstūris, ko dara
+# uzdevumos. Garumi zīmējumā ir mērogā (40 : 30 : 50 un 300 : 400 : 500),
+# tāpēc skolēns 3-4-5 trijstūri var pārmērīt ar lineālu.
+ZIM_KOPVEKTORS = dict(w=21, h=6.4, hin=2.70, items=(
+    [("t", 5.6, 0.6, "PERPENDIKULĀRI SPĒKI UZ KASTES", GREY, 13)]
+    + Z.spekukaste(4.6, 4.4, 1.8, 1.5, [
+        Z.bulta(2.8, 0, BLUE, "F⃗₁ = 40 N", puse=+1, vieta=0.78, izmers=14),
+        Z.bulta(0, -2.1, GREEN, "F⃗₂ = 30 N", puse=-1, vieta=0.85,
+                izmers=14, atstatums=1.35),
+        Z.bulta(2.8, -2.1, RED, "F = 50 N", puse=-1, vieta=0.85,
+                izmers=14, atstatums=0.85),
+    ])
+    + [("s", 7.4, 4.4, 7.4, 2.3, LINEGREY),
+       ("s", 7.0, 4.4, 7.0, 4.0, LINEGREY),
+       ("s", 7.0, 4.0, 7.4, 4.0, LINEGREY)]
 
-    ("t", 15.3, 0.5, "PRETĒJAIS VEKTORS", GREY, 13),
-    ("v", 12.0, 5.4, 14.8, 1.8, GREEN),
-    ("t", 12.4, 3.2, "b⃗", GREEN, 16),
-    ("v", 18.6, 1.8, 15.8, 5.4, GREEN),
-    ("t", 18.4, 3.6, "−b⃗", GREEN, 16),
-    ("t", 15.3, 6.3, "vienāds garums, pretējs virziens", GREY, 12),
-])
-
-ZIM_KOPVEKTORS = dict(w=20, h=6.8, hin=2.75, items=[
-    ("t", 3.8, 0.5, "PERPENDIKULĀRI SPĒKI", GREY, 13),
-    ("s", 5.75, 5.4, 5.75, 4.85, GREY),
-    ("s", 5.75, 4.85, 6.2, 4.85, GREY),
-    ("v", 1.4, 5.4, 6.2, 5.4, BLUE),
-    ("t", 3.8, 6.2, "F⃗₁ = 40 N", BLUE, 14),
-    ("v", 6.2, 5.4, 6.2, 1.8, GREEN),
-    ("t", 7.9, 3.6, "F⃗₂ = 30 N", GREEN, 14),
-    ("v", 1.4, 5.4, 6.2, 1.8, RED),
-    ("t", 2.6, 3.0, "F = 50 N", RED, 14),
-
-    ("t", 14.8, 0.5, "CEĻŠ UN PĀRVIETOJUMS", GREY, 13),
-    ("v", 12.4, 5.6, 12.4, 2.0, BLUE),
-    ("t", 10.1, 3.8, "300 m (Z)", BLUE, 14),
-    ("v", 12.4, 2.0, 17.2, 2.0, GREEN),
-    ("t", 14.8, 1.3, "400 m (A)", GREEN, 14),
-    ("v", 12.4, 5.6, 17.2, 2.0, RED),
-    ("t", 15.8, 4.5, "500 m", RED, 14),
-    ("t", 14.8, 6.4, "ceļš 700 m, pārvietojums 500 m", GREY, 12),
-])
+    + [("t", 15.6, 0.6, "CEĻŠ UN PĀRVIETOJUMS", GREY, 13),
+       ("v", 13.8, 5.4, 13.8, 2.7, BLUE),
+       ("t", 12.0, 4.05, "300 m (Z)", BLUE, 14),
+       ("v", 13.8, 2.7, 17.4, 2.7, GREEN),
+       ("t", 15.6, 2.15, "400 m (A)", GREEN, 14),
+       ("v", 13.8, 5.4, 17.4, 2.7, RED),
+       ("t", 16.5, 4.4, "500 m", RED, 14),
+       ("t", 15.6, 6.1, "ceļš 700 m, pārvietojums 500 m", GREY, 12)]
+))
 
 
 STUNDAS = [
@@ -232,7 +269,7 @@ dict(
 ),
 
 dict(
-    nr="1.2", virsraksts="Skalāri un vektori",
+    nr="1.2", virsraksts="Skalāri lielumi un vektori",
     jautajums="Ar ko ātrums atšķiras no ceļa?",
     apaksraksts="Skalārs · Vektors · Modulis · Virziens",
     merkis="Iemācīties atšķirt skalāru lielumu no vektora un pareizi "
@@ -423,14 +460,14 @@ dict(
                   "F = √(F₁² + F₂²)",
                   "tg α = F₂ / F₁"]),
             ]),
-            ("zimejums", ZIM_SASKAITISANA),
+            ("zimejums", ZIM_SPEKI),
             ("panelis", "TRIJSTŪRA LIKUMS",
              ["Otrā vektora sākumu pieliek pirmā vektora galam. Kopvektors "
               "iet no pirmā sākuma līdz otrā galam. Rezultāts nav atkarīgs "
               "no saskaitīšanas secības: a⃗ + b⃗ = b⃗ + a⃗."], NAVY),
         ]),
         ("Vektoru atņemšana", [
-            ("zimejums", ZIM_ATNEMSANA),
+            ("zimejums", ZIM_PRETEJAIS),
             ("formula", "VEKTORU ATŅEMŠANA",
              "a⃗ − b⃗ = a⃗ + (−b⃗)",
              "Vektoru −b⃗ iegūst, pagriežot b⃗ par 180°. Tāpēc atņemšana "
@@ -612,7 +649,7 @@ dict(
              dots=["F = 100 N", "α = 30°"],
              jaaprekina=["Fₓ = ?", "F_y = ?"],
              formulas=["Fₓ = F · cos α", "F_y = F · sin α"],
-             aprekins=["1)  Fₓ = 100 · cos 30° = 100 · 0,87",
+             aprekins=["1)  Fₓ = 100 · cos 30° ≈ 100 · 0,87",
                        "2)  Fₓ = 87 N",
                        "3)  F_y = 100 · sin 30° = 100 · 0,50 = 50 N"],
              atbilde="Fₓ = 87 N ;   F_y = 50 N",
@@ -650,7 +687,7 @@ dict(
                        "F = √(Rₓ² + R_y²)", "tg α = R_y / Rₓ"],
              aprekins=["1)  F² = 900 + 1600 = 2500 N²",
                        "2)  F = 50 N",
-                       "3)  tg α = 40 : 30 = 1,33 → α ≈ 53°"],
+                       "3)  tg α = 40 : 30 ≈ 1,33 → α ≈ 53°"],
              atbilde="F = 50 N ;   α ≈ 53° no x ass",
              piezime="Šo metodi izmantosim visos spēku uzdevumos."),
         dict(nr=5, virsraksts="Projekcijas 60° leņķī",
@@ -661,7 +698,7 @@ dict(
              formulas=["Fₓ = F · cos α", "F_y = F · sin α"],
              aprekins=["1)  Fₓ = 200 · cos 60° = 200 · 0,50",
                        "2)  Fₓ = 100 N",
-                       "3)  F_y = 200 · sin 60° = 200 · 0,87 = 173 N"],
+                       "3)  F_y = 200 · sin 60° ≈ 200 · 0,87 ≈ 173 N"],
              atbilde="Fₓ = 100 N ;   F_y ≈ 1,7·10² N",
              piezime="Jo stāvāks leņķis, jo mazāka horizontālā "
                      "projekcija - vilkt kļūst neizdevīgi."),
@@ -673,7 +710,7 @@ dict(
              formulas=["s = √(sₓ² + s_y²)", "tg α = s_y / sₓ"],
              aprekins=["1)  s² = 81 + 144 = 225 m²",
                        "2)  s = 15 m",
-                       "3)  tg α = 12 : 9,0 = 1,33 → α ≈ 53°"],
+                       "3)  tg α = 12 : 9,0 ≈ 1,33 → α ≈ 53°"],
              atbilde="s = 15 m ;   α ≈ 53° pret x asi",
              piezime="Atkal 3-4-5 trijstūris, reizināts ar 3."),
         dict(nr=7, virsraksts="Trīs spēki projekcijās",
@@ -980,7 +1017,7 @@ dict(
              aprekins=["1)  s = 2 · 3,14 · 50 : 4 = 78,5 m",
                        "2)  |s⃗| = 50 · 1,41",
                        "3)  |s⃗| ≈ 71 m"],
-             atbilde="s ≈ 78,5 m ;   |s⃗| ≈ 71 m",
+             atbilde="s = 78,5 m ;   |s⃗| ≈ 71 m",
              piezime="Gala punktus savieno horda - tā ir kvadrāta "
                      "diagonāle ar malu R."),
         dict(nr=6, virsraksts="Lifts augšup un lejup",
@@ -1098,7 +1135,7 @@ dict(
                     "Cik lielu ceļu viņš veic?",
              dots=["v = 18 km/h = 5,0 m/s", "t = 45 min = 2700 s"],
              jaaprekina=["s = ?"],
-             formulas=["s = v · t"],
+             formulas=["v = s/t", "s = v · t"],
              aprekins=["1)  v = 18 : 3,6 = 5,0 m/s",
                        "2)  t = 45 · 60 = 2700 s",
                        "3)  s = 5,0 · 2700 = 13 500 m = 13,5 km"],
@@ -1109,7 +1146,7 @@ dict(
                     "atskan pērkons, ja zibens uzsper 1,7 km attālumā?",
              dots=["v = 340 m/s", "s = 1,7 km = 1700 m"],
              jaaprekina=["t = ?"],
-             formulas=["t = s / v"],
+             formulas=["v = s/t", "t = s / v"],
              aprekins=["1)  s = 1,7 · 1000 = 1700 m",
                        "2)  t = 1700 : 340",
                        "3)  t = 5,0 s"],
@@ -1132,7 +1169,7 @@ dict(
                     "veic\nvadītāja reakcijas laikā 0,80 s?",
              dots=["v = 108 km/h", "t = 0,80 s"],
              jaaprekina=["v (m/s) = ?", "s = ?"],
-             formulas=["v(m/s) = v(km/h) : 3,6", "s = v · t"],
+             formulas=["v(m/s) = v(km/h) : 3,6", "v = s/t", "s = v · t"],
              aprekins=["1)  v = 108 : 3,6 = 30 m/s",
                        "2)  s = 30 · 0,80",
                        "3)  s = 24 m"],
@@ -1157,7 +1194,7 @@ dict(
                     "liels attālums starp tiem ir pēc 10 min?",
              dots=["v₁ = 5,0 m/s", "v₂ = 7,0 m/s", "t = 10 min = 600 s"],
              jaaprekina=["Δs = ?"],
-             formulas=["s = v · t", "Δs = s₂ − s₁"],
+             formulas=["v = s/t", "s = v · t", "Δs = s₂ − s₁"],
              aprekins=["1)  s₁ = 5,0 · 600 = 3000 m",
                        "2)  s₂ = 7,0 · 600 = 4200 m",
                        "3)  Δs = 4200 − 3000 = 1200 m"],

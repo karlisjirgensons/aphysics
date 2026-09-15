@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Sākumlapa un kursu stundu saraksti.
+"""Sākumlapa, kursu stundu saraksti un PD ģeneratora saraksts.
 
 Viena atbildība vienai funkcijai (SRP):
 
@@ -9,10 +9,12 @@ Viena atbildība vienai funkcijai (SRP):
     build_*       - HTML -> fails
 
 Stils, lapas karkass un ceļu kodēšana ir pa vienam eksemplāram un tos lieto
-visas lapas (DRY), tāpēc sākumlapa un abi kursu saraksti izskatās vienādi.
+visas lapas (DRY), tāpēc sākumlapa, kursu saraksti un matemātikas tematu
+saraksts izskatās vienādi. Ko rādīt, zina reģistri: kursus - courses.py,
+matemātikas klases un tematus - mat_temati.py.
 
 Lietošana:
-    python site_index.py            # sākumlapa + visi kursu saraksti
+    python site_index.py            # sākumlapa + visi saraksti
 """
 
 import glob
@@ -22,9 +24,10 @@ import re
 import sys
 from urllib.parse import quote
 
+import mat_temati
 import palette
-from courses import (COURSES, LESSONS_LEAD, SITE_LEAD, SITE_ROOT, SITE_TITLE,
-                     ordered)
+from courses import (COURSES, LESSONS_LEAD, RIKI, SITE_LEAD, SITE_ROOT,
+                     SITE_TITLE, ordered)
 
 
 # -------------------------------------------------------------------- palīgi
@@ -123,7 +126,32 @@ li a:hover{background:var(--surface2);border-color:var(--violet);
            transform:translateY(-1px)}
 li a .n{flex:none;color:var(--primary);font-weight:500}
 
-@media (max-width:768px){ul{grid-template-columns:1fr}}
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
 """
 
 JS = """
@@ -172,9 +200,11 @@ def lesson_label(stem):
 
 
 def scan_course(root):
-    """Mape -> [(temats, [(saite, stunda), ...]), ...].
+    """Mape -> [(temats, [(saite, stunda), ...], [(saite, rīks), ...]), ...].
 
-    Apakšmapes bez .html neparādās - tur ir tikai skolas materiāli.
+    Apakšmapes bez .html neparādās - tur ir tikai skolas materiāli. Rīku
+    lapas (sk. courses.RIKI) nav stundas, tāpēc tās iet savā sarakstā un
+    stundu skaitītājā neparādās.
     """
     themes = []
     for d in sorted(os.listdir(root), key=natural_key):
@@ -185,19 +215,22 @@ def scan_course(root):
                  if os.path.basename(f).lower() != "index.html"]
         if not files:
             continue
-        lessons = []
+        lessons, riki = [], []
         for f in sorted(files, key=lambda p: natural_key(os.path.basename(p))):
             name = os.path.basename(f)
-            stem = os.path.splitext(name)[0]
-            lessons.append((href(d, name), lesson_label(stem)))
-        themes.append((d, lessons))
+            label = lesson_label(os.path.splitext(name)[0])
+            if label in RIKI:
+                riki.append((href(d, name), RIKI[label]))
+            else:
+                lessons.append((href(d, name), label))
+        themes.append((d, lessons, riki))
     return themes
 
 
 def course_stats(root):
     """(tematu skaits, stundu skaits) - sākumlapas pogām."""
     themes = scan_course(root)
-    return len(themes), sum(len(ls) for _, ls in themes)
+    return len(themes), sum(len(ls) for _, ls, _ in themes)
 
 
 # ---------------------------------------------------------------- attēlošana
@@ -206,8 +239,11 @@ def render_number(text):
 
 
 def render_header(title, lead):
-    return ('<header>\n<h1>%s</h1>\n<p class="lead">%s</p>\n</header>'
-            % (esc(title), esc(lead)))
+    """Lapas galva; tukšs «lead» nozīmē, ka paskaidrojuma rindas nav."""
+    rindas = ["<h1>%s</h1>" % esc(title)]
+    if lead:
+        rindas.append('<p class="lead">%s</p>' % esc(lead))
+    return "<header>\n%s\n</header>" % "\n".join(rindas)
 
 
 def render_lesson(link, label):
@@ -216,9 +252,16 @@ def render_lesson(link, label):
             % (link, render_number(num), esc(name)))
 
 
-def render_theme(title, lessons):
+def render_rik(link, label):
+    """Rīka poga temata beigās - izskatās citādi, lai nejauktu ar stundu."""
+    return ('  <li class="rik"><a href="%s"><span class="ico">&#9851;</span>'
+            '<span>%s</span></a></li>' % (link, esc(label)))
+
+
+def render_theme(title, lessons, riki=()):
     num, name = split_number(title)
-    items = "\n".join(render_lesson(link, t) for link, t in lessons)
+    items = "\n".join([render_lesson(link, t) for link, t in lessons]
+                      + [render_rik(link, t) for link, t in riki])
     return ('<details class="theme">\n'
             '<summary>%s<span class="t">%s</span>'
             '<span class="c">%d</span></summary>\n'
@@ -235,7 +278,69 @@ def render_course(course, themes):
            'Izvērst visu</button>\n</div>')
     return page("%s · %s" % (course["title"], course["kicker"]),
                 "\n".join([render_header(course["title"], LESSONS_LEAD), bar]
-                          + [render_theme(t, ls) for t, ls in themes]))
+                          + [render_theme(t, ls, rk)
+                             for t, ls, rk in themes]))
+
+
+# ------------------------------------------------- PD ģeneratora saraksts
+def render_tema(mape, kods, nosaukums):
+    """Viena temata rinda: nosaukums un divas pogas.
+
+    Ja tematam vēl nav uzrakstīts saturs (mat_temati.SATURS), pogas vietā ir
+    pelēks uzraksts - saraksts rāda visu programmu, ne tikai gatavo.
+    """
+    gatavs = mat_temati.gatavs(kods)
+    pogas = []
+    # Abi darba veidi ir vienlīdz svarīgi, tāpēc abām pogām ir viens izskats.
+    for veids, uzraksts in mat_temati.VEIDI:
+        if gatavs:
+            saite = href(mape, "%s.html" % mat_temati.fails(kods, veids))
+            pogas.append('<a class="poga" href="%s">%s</a>'
+                         % (saite, esc(uzraksts)))
+        else:
+            pogas.append("<span>%s</span>" % esc(uzraksts))
+    return ('  <li class="tema"><span class="n">%s</span>'
+            '<span class="t">%s</span>'
+            '<span class="pogas">%s</span></li>'
+            % (esc(kods), esc(nosaukums), "".join(pogas)))
+
+
+def render_klase(nr, mape, temati):
+    """Viena klase: uz pieskāriena atveras tās tematu saraksts."""
+    rindas = "\n".join(render_tema(mape, k, n) for k, n in temati)
+    gatavi = sum(1 for k, _ in temati if mat_temati.gatavs(k))
+    return ('<details class="theme">\n'
+            '<summary><span class="n">%d.</span><span class="t">klase</span>'
+            '<span class="c">%d/%d</span></summary>\n'
+            '<ul class="temati">\n%s\n</ul>\n</details>'
+            % (nr, gatavi, len(temati), rindas))
+
+
+def render_pd_index():
+    """PD ģeneratora saraksts: klases, to temati un abu darbu pogas."""
+    bar = ('<div class="bar">\n'
+           '<a class="back" href="../index.html">&#8592; Sākums</a>\n'
+           '<span class="spacer"></span>\n'
+           '<button class="toggle" id="all" data-open="0" type="button">'
+           'Izvērst visu</button>\n</div>')
+    klases = [render_klase(nr, mape, temati)
+              for nr, mape, temati in mat_temati.klases()]
+    return page("%s · %s" % (mat_temati.POGA, mat_temati.NOSAUKUMS),
+                "\n".join([render_header(mat_temati.NOSAUKUMS,
+                                         mat_temati.LEAD), bar] + klases))
+
+
+def render_pd_card():
+    """PD ģeneratora poga sākumlapā - blakus kursu pogām."""
+    temati = sum(len(t) for _, _, t in mat_temati.klases())
+    return ('<a class="card" href="%s">\n'
+            '<span class="card-t">%s</span>\n'
+            '<span class="card-s">%s</span>\n'
+            '<span class="card-m">%s · %s</span>\n</a>'
+            % (href(mat_temati.MAPE, "index.html"), esc(mat_temati.POGA),
+               esc(mat_temati.KICKER),
+               plural(len(mat_temati.klases()), "klase", "klases", "klašu"),
+               plural(temati, "temats", "temati", "tematu")))
 
 
 def render_card(course, n_themes, n_lessons):
@@ -270,15 +375,23 @@ def build_course_index(slug):
                  render_course(course, scan_course(course["root"])))
 
 
+def build_pd_index():
+    """Uzbūvē PD ģeneratora sarakstu ar visām klasēm un tematiem."""
+    return write(os.path.join(SITE_ROOT, mat_temati.MAPE, "index.html"),
+                 render_pd_index())
+
+
 def build_home():
-    """Uzbūvē sākumlapu ar pogu uz katru kursu."""
+    """Uzbūvē sākumlapu ar pogu uz katru kursu un uz PD ģeneratoru."""
     cards = [render_card(c, *course_stats(c["root"])) for _, c in ordered()]
-    return write(os.path.join(SITE_ROOT, "index.html"), render_home(cards))
+    return write(os.path.join(SITE_ROOT, "index.html"),
+                 render_home(cards + [render_pd_card()]))
 
 
 def build_site():
-    """Visa vietne: katra kursa saraksts un sākumlapa."""
-    return [build_course_index(slug) for slug, _ in ordered()] + [build_home()]
+    """Visa vietne: kursu saraksti, PD ģeneratora saraksts un sākumlapa."""
+    return ([build_course_index(slug) for slug, _ in ordered()]
+            + [build_pd_index(), build_home()])
 
 
 def slug_for_root(root):

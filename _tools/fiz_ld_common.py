@@ -106,18 +106,12 @@ def kaste(doc, virsraksts, rindas, fons="EEF2F8", size=9.5):
     c.text = ""
     p0 = c.paragraphs[0]
     p0.paragraph_format.space_after = Pt(0)
-    r = p0.add_run(virsraksts)
-    r.font.size = Pt(9)
-    r.font.bold = True
-    r.font.name = "Calibri"
-    r.font.color.rgb = NAVY
+    C.write_runs(p0, virsraksts, 9, bold=True, color=NAVY)
     for rinda in rindas:
         p = c.add_paragraph()
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
-        rr = p.add_run(rinda)
-        rr.font.size = Pt(size)
-        rr.font.name = "Calibri"
+        C.write_runs(p, rinda, size)
     para(doc, after=2)
 
 
@@ -132,11 +126,7 @@ def sadalas_virsraksts(doc, nr, teksts, punkti=None, before=8):
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(before)
     p.paragraph_format.space_after = Pt(2)
-    r = p.add_run("%s  %s " % (nr, teksts))
-    r.font.size = Pt(12)
-    r.font.bold = True
-    r.font.name = "Calibri"
-    r.font.color.rgb = NAVY
+    C.write_runs(p, "%s  %s " % (nr, teksts), 12, bold=True, color=NAVY)
     if punkti:
         r2 = p.add_run("(%d p.)" % punkti)
         r2.font.size = Pt(11)
@@ -223,13 +213,8 @@ def build_protokols(ld, path):
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(2)
         p.paragraph_format.left_indent = Cm(0.4)
-        r = p.add_run("%d) %s  " % (i, solis))
-        r.font.size = Pt(10.5)
-        r.font.bold = True
-        r.font.name = "Calibri"
-        r2 = p.add_run(apr)
-        r2.font.size = Pt(10.5)
-        r2.font.name = "Calibri"
+        C.write_runs(p, "%d) %s  " % (i, solis), 10.5, bold=True)
+        C.write_runs(p, apr, 10.5)
 
     # 4. mērījumu tabula
     L.vieta(h_para("x", 12, before=8, after=2) + h_para("x", 10, after=2)
@@ -256,10 +241,7 @@ def build_protokols(ld, path):
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(4)
         p.paragraph_format.space_after = Pt(2)
-        r = p.add_run("%s.%d.  %s" % (5, j + 1, virs))
-        r.font.size = Pt(11)
-        r.font.bold = True
-        r.font.name = "Calibri"
+        C.write_runs(p, "%s.%d.  %s" % (5, j + 1, virs), 11, bold=True)
         para(doc, norade, size=10.5, after=2)
         darba_vieta(doc, vieta)
 

@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -582,8 +595,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -604,8 +616,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="h1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="h1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="h1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
@@ -627,9 +638,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -656,8 +666,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -684,9 +693,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -722,8 +730,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -754,9 +761,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -782,26 +788,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.7370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E = h·f</p>
 </div>
-<div class="tb" style="left:55.3043%;top:58.7370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:61.2544%;top:54.2333%;width:2.7667%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E₂</p>
-</div>
-<i style="left:61.2544%;top:62.2452%;width:2.7667%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:61.2544%;top:63.2407%;width:2.7667%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E₁</p>
-</div>
-<div class="tb" style="left:65.0212%;top:58.7370%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:69.1880%;top:54.2333%;width:2.1834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f₂</p>
-</div>
-<i style="left:69.1880%;top:62.2452%;width:2.1834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:69.1880%;top:63.2407%;width:2.1834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">f₁</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
@@ -810,6 +796,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:53.9373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">E₂</span><span class="d">E₁</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">f₂</span><span class="d">f₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -821,8 +808,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -858,9 +844,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -885,26 +870,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = h·f</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0539%;top:65.0462%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₂</p>
-</div>
-<i style="left:7.0539%;top:68.9582%;width:1.3613%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0539%;top:69.5049%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₁</p>
-</div>
-<div class="tb" style="left:8.9102%;top:67.2755%;width:1.7175%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:10.9728%;top:65.0462%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₂</p>
-</div>
-<i style="left:10.9728%;top:68.9582%;width:1.0560%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:10.9728%;top:69.5049%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -919,6 +884,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">E₂</span><span class="d">E₁</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">f₂</span><span class="d">f₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -930,8 +896,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -971,9 +936,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -998,26 +962,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = h·f</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0539%;top:65.0462%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₂</p>
-</div>
-<i style="left:7.0539%;top:68.9582%;width:1.3613%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0539%;top:69.5049%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₁</p>
-</div>
-<div class="tb" style="left:8.9102%;top:67.2755%;width:1.7175%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:10.9728%;top:65.0462%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₂</p>
-</div>
-<i style="left:10.9728%;top:68.9582%;width:1.0560%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:10.9728%;top:69.5049%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1038,6 +982,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">E₂</span><span class="d">E₁</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">f₂</span><span class="d">f₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1049,8 +994,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1094,9 +1038,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1121,26 +1064,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = h·f</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0539%;top:65.0462%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₂</p>
-</div>
-<i style="left:7.0539%;top:68.9582%;width:1.3613%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0539%;top:69.5049%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₁</p>
-</div>
-<div class="tb" style="left:8.9102%;top:67.2755%;width:1.7175%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:10.9728%;top:65.0462%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₂</p>
-</div>
-<i style="left:10.9728%;top:68.9582%;width:1.0560%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:10.9728%;top:69.5049%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1152,9 +1075,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;E₂ = 6,63·10⁻³⁴ · 1,0·10¹⁸ = 6,6·10⁻¹⁶ J</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;n = 10¹⁸ : 10⁹ = 10⁹</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1164,6 +1086,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">E₂</span><span class="d">E₁</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">f₂</span><span class="d">f₁</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:57.7707%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>3)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">10¹⁸</span><span class="d">10⁹</span></span>&nbsp;= 10⁹</span></div>
 
 </div>
 <div class="flow">
@@ -1175,8 +1099,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1199,7 +1122,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;n = 10¹⁸ : 10⁹ = 10⁹</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">3)</span><span class="mc">n = <span class="f"><span class="n">10¹⁸</span><span class="d">10⁹</span></span> = 10⁹</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
@@ -1221,9 +1144,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.2729cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.6854cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p style="font-size:1.9573cqw;color:#374151;text-align:left;padding-top:0.2938cqw">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1248,26 +1170,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = h·f</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.5838%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.0539%;top:65.0462%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₂</p>
-</div>
-<i style="left:7.0539%;top:68.9582%;width:1.3613%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.0539%;top:69.5049%;width:1.3613%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E₁</p>
-</div>
-<div class="tb" style="left:8.9102%;top:67.2755%;width:1.7175%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:10.9728%;top:65.0462%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₂</p>
-</div>
-<i style="left:10.9728%;top:68.9582%;width:1.0560%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:10.9728%;top:69.5049%;width:1.0560%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">f₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1278,14 +1180,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;E₂ = 6,63·10⁻³⁴ · 1,0·10¹⁸ = 6,6·10⁻¹⁶ J</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;n = 10¹⁸ : 10⁹ = 10⁹</p>
-</div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n = 10⁹ — miljardu reižu lielāka</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Tieši tāpēc rentgens jonizē atomus, bet radioviļņi — nespēj.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2519%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">n = 10⁹ — miljardu reižu lielāka</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">Tieši tāpēc rentgens jonizē atomus, bet radioviļņi — nespēj.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1295,6 +1194,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">E₂</span><span class="d">E₁</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">f₂</span><span class="d">f₁</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:46.5107%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>3)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">10¹⁸</span><span class="d">10⁹</span></span>&nbsp;= 10⁹</span></div>
 
 </div>
 <div class="flow">
@@ -1306,8 +1207,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Fotona enerģijas salīdzinājums</p>
-<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s.</p>
-<p class="p1">Cik reižu rentgena fotona enerģija ir lielāka?</p>
+<p class="p1">Radioviļņa frekvence ir 1,0·10⁹ Hz, rentgenstarojuma — 1,0·10¹⁸ Hz. h = 6,63·10⁻³⁴ J·s. Cik reižu rentgena fotona enerģija ir lielāka?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1327,7 +1227,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;E₁ = 6,63·10⁻³⁴ · 1,0·10⁹ = 6,6·10⁻²⁵ J</p>
 <p class="p2">2)&nbsp;&nbsp;E₂ = 6,63·10⁻³⁴ · 1,0·10¹⁸ = 6,6·10⁻¹⁶ J</p>
-<p class="p2">3)&nbsp;&nbsp;n = 10¹⁸ : 10⁹ = 10⁹</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc">n = <span class="f"><span class="n">10¹⁸</span><span class="d">10⁹</span></span> = 10⁹</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1355,8 +1255,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1377,8 +1276,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="h1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="h1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="h1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
@@ -1401,8 +1299,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1429,8 +1326,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1458,8 +1354,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1495,8 +1390,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1528,8 +1422,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1572,8 +1465,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1609,8 +1501,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1660,8 +1551,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1701,8 +1591,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1735,9 +1624,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = 15 min · 30 = 450 min</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;t = 450 : 60 = 7,5 h</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1747,6 +1635,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:33.7508%;top:55.2627%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>2)&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">450</span><span class="d">60</span></span>&nbsp;= 7,5 h</span></div>
 
 </div>
 <div class="flow">
@@ -1758,8 +1647,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1780,7 +1668,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;t = 450 : 60 = 7,5 h</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">t = <span class="f"><span class="n">450</span><span class="d">60</span></span> = 7,5 h</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
@@ -1803,8 +1691,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1836,11 +1723,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;t = 15 min · 30 = 450 min</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;t = 450 : 60 = 7,5 h</p>
-</div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">t = 7,5 h</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Praksē krēms jāatjauno ik pēc 2 h, jo tas nodilst un noskalojas.</p>
@@ -1853,6 +1737,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;t =&nbsp;<span class="f"><span class="n">450</span><span class="d">60</span></span>&nbsp;= 7,5 h</span></div>
 
 </div>
 <div class="flow">
@@ -1864,8 +1749,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Saules aizsargkrēms</p>
-<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu.</p>
-<p class="p1">Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
+<p class="p1">Bez aizsardzības āda apdeg 15 minūtēs. Krēms ar SPF 30 pagarina šo laiku 30 reižu. Cik ilgi var uzturēties saulē ar krēmu? Izsaki stundās.</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1883,7 +1767,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;t = 15 min · 30 = 450 min</p>
-<p class="p2">2)&nbsp;&nbsp;t = 450 : 60 = 7,5 h</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">t = <span class="f"><span class="n">450</span><span class="d">60</span></span> = 7,5 h</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1911,8 +1795,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1929,8 +1812,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="h1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="h1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="h1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
@@ -1950,8 +1832,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1974,8 +1855,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2000,8 +1880,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2033,8 +1912,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2063,8 +1941,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2103,8 +1980,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2137,8 +2013,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2168,23 +2043,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
 </div>
-<div class="tb" style="left:54.9376%;top:54.1370%;width:4.3668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1)&nbsp;&nbsp;</p>
-</div>
-<div class="tb" style="left:60.1544%;top:49.6333%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">h</p>
-</div>
-<i style="left:60.1544%;top:57.6452%;width:6.7335%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:60.1544%;top:58.6407%;width:6.7335%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">1000</p>
-</div>
-<div class="tb" style="left:67.8879%;top:54.1370%;width:5.0001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;= 3</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;<span class="f"><span class="n">h</span><span class="d">1000</span></span>&nbsp;= 3</span></div>
 
 </div>
 <div class="flow">
@@ -2196,8 +2059,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2234,8 +2096,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2264,19 +2125,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;</p>
-</div>
-<div class="tb" style="left:34.5634%;top:36.6389%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">h</p>
-</div>
-<i style="left:34.5634%;top:40.8452%;width:3.5772%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:34.5634%;top:41.4241%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1000</p>
-</div>
-<div class="tb" style="left:38.6718%;top:39.0315%;width:2.7266%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 3</p>
-</div>
 <i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
 <div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -2286,6 +2134,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;<span class="f"><span class="n">h</span><span class="d">1000</span></span>&nbsp;= 3</span></div>
 
 </div>
 <div class="flow">
@@ -2297,8 +2146,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2339,8 +2187,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2369,19 +2216,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;</p>
-</div>
-<div class="tb" style="left:34.5634%;top:36.6389%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">h</p>
-</div>
-<i style="left:34.5634%;top:40.8452%;width:3.5772%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:34.5634%;top:41.4241%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1000</p>
-</div>
-<div class="tb" style="left:38.6718%;top:39.0315%;width:2.7266%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 3</p>
-</div>
 <div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = 1,10³</p>
 </div>
@@ -2394,6 +2228,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;<span class="f"><span class="n">h</span><span class="d">1000</span></span>&nbsp;= 3</span></div>
 
 </div>
 <div class="flow">
@@ -2405,8 +2240,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2448,8 +2282,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2478,19 +2311,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:39.0315%;width:2.3813%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1)&nbsp;&nbsp;</p>
-</div>
-<div class="tb" style="left:34.5634%;top:36.6389%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">h</p>
-</div>
-<i style="left:34.5634%;top:40.8452%;width:3.5772%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:34.5634%;top:41.4241%;width:3.5772%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">1000</p>
-</div>
-<div class="tb" style="left:38.6718%;top:39.0315%;width:2.7266%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;= 3</p>
-</div>
 <div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n = 1,10³</p>
 </div>
@@ -2507,6 +2327,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;<span class="f"><span class="n">h</span><span class="d">1000</span></span>&nbsp;= 3</span></div>
 
 </div>
 <div class="flow">
@@ -2518,8 +2339,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · UV intensitāte kalnos</p>
-<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %.</p>
-<p class="p1">Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
+<p class="p1">Katri 1000 m augstuma palielina UV intensitāti par 10 %. Cik reižu tā ir lielāka 3000 m augstumā salīdzinājumā ar jūras līmeni?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2563,8 +2383,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2580,8 +2399,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="h1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="h1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="h1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2601,8 +2419,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2625,8 +2442,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2652,8 +2468,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2687,8 +2502,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2718,8 +2532,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2748,19 +2561,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.7370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">S = 4·π·r²</p>
 </div>
-<div class="tb" style="left:59.9294%;top:58.7370%;width:4.2001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">I =&nbsp;</p>
-</div>
-<div class="tb" style="left:64.9795%;top:54.2333%;width:1.7667%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P</p>
-</div>
-<i style="left:64.9795%;top:62.2452%;width:1.7667%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.9795%;top:63.2407%;width:1.7667%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">S</p>
-</div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:33.7508%;top:53.9373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>I =&nbsp;<span class="f"><span class="n">P</span><span class="d">S</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2772,8 +2576,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2808,8 +2611,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2837,16 +2639,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">S = 4·π·r²</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:1.9275%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">I =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.3470%;top:65.9434%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P</p>
-</div>
-<i style="left:6.3470%;top:69.4444%;width:0.7629%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.3470%;top:69.9461%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -2856,6 +2648,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>I =&nbsp;<span class="f"><span class="n">P</span><span class="d">S</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2867,8 +2660,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2907,8 +2699,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2936,16 +2727,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">S = 4·π·r²</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:1.9275%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">I =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.3470%;top:65.9434%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P</p>
-</div>
-<i style="left:6.3470%;top:69.4444%;width:0.7629%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.3470%;top:69.9461%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -2954,13 +2735,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;S = 4 · 3,14 · 2,0² = 50,2 m²</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;I = 20 : 50,2</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>I =&nbsp;<span class="f"><span class="n">P</span><span class="d">S</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:55.2627%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>2)&nbsp;&nbsp;I =&nbsp;<span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2972,8 +2754,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2996,7 +2777,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;I = 20 : 50,2</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">I = <span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -3016,8 +2797,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3045,16 +2825,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">S = 4·π·r²</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:1.9275%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">I =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.3470%;top:65.9434%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P</p>
-</div>
-<i style="left:6.3470%;top:69.4444%;width:0.7629%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.3470%;top:69.9461%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -3062,17 +2832,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;S = 4 · 3,14 · 2,0² = 50,2 m²</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;I = 20 : 50,2</p>
-</div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;I = 0,40 W/m²</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>I =&nbsp;<span class="f"><span class="n">P</span><span class="d">S</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;I =&nbsp;<span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3084,8 +2853,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3105,7 +2873,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;S = 4 · 3,14 · 2,0² = 50,2 m²</p>
-<p class="p2">2)&nbsp;&nbsp;I = 20 : 50,2</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">I = <span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -3129,8 +2897,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3158,16 +2925,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">S = 4·π·r²</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:1.9275%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">I =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.3470%;top:65.9434%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P</p>
-</div>
-<i style="left:6.3470%;top:69.4444%;width:0.7629%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.3470%;top:69.9461%;width:0.7629%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">S</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -3175,21 +2932,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;S = 4 · 3,14 · 2,0² = 50,2 m²</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;I = 20 : 50,2</p>
-</div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;I = 0,40 W/m²</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">I ≈ 0,40 W/m² — 25 reizes zem normas</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Šāds aprēķins ļauj pārbaudīt apgalvojumus par raidītāju bīstamību.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">I ≈ 0,40 W/m² — 25 reizes zem normas</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">Šāds aprēķins ļauj pārbaudīt apgalvojumus par raidītāju bīstamību.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>I =&nbsp;<span class="f"><span class="n">P</span><span class="d">S</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;I =&nbsp;<span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3201,8 +2957,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Mikroviļņu jaudas blīvums</p>
-<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m².</p>
-<p class="p1">Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
+<p class="p1">Raidītāja jauda ir 20 W, tā izstaro vienmērīgi uz visām pusēm. Norma ir 10 W/m². Aprēķini jaudas blīvumu 2,0 m attālumā! (S = 4πr²; vai norma pārsniegta?)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3222,8 +2977,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;S = 4 · 3,14 · 2,0² = 50,2 m²</p>
-<p class="p2">2)&nbsp;&nbsp;I = 20 : 50,2</p>
 <p class="p2">3)&nbsp;&nbsp;I = 0,40 W/m²</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">I = <span class="f"><span class="n">20</span><span class="d">50,2</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -3394,6 +3149,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -351,26 +364,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.4667%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">LAUŠANAS LIKUMS UN LAUŠANAS KOEFICIENTS</p>
 </div>
-<div class="tb" style="left:43.4061%;top:23.4315%;width:2.4704%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:46.1952%;top:21.3204%;width:3.1173%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α</p>
-</div>
-<i style="left:46.1952%;top:25.0192%;width:3.1173%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:46.1952%;top:25.5426%;width:3.1173%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin β</p>
-</div>
-<div class="tb" style="left:49.7812%;top:23.4315%;width:5.2829%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n =&nbsp;</p>
-</div>
-<div class="tb" style="left:55.3829%;top:21.3204%;width:0.7422%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
-</div>
-<i style="left:55.3829%;top:25.0192%;width:0.7422%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:55.3829%;top:25.5426%;width:0.7422%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v</p>
-</div>
 <div class="tb" style="left:5.9251%;top:29.3345%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">α ir krišanas leņķis, β - laušanas leņķis, abi mērīti no normāles. Laušanas koeficients n rāda, cik reižu gaismas ātrums vidē ir mazāks nekā vakuumā.</p>
 </div>
@@ -437,6 +430,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">13.4. Gaismas laušana</p>
 </div>
+<div class="ml" style="left:5.9251%;top:21.0667%;width:88.1497%;height:8.1187%;justify-content:center;font-size:1.5625cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -581,9 +575,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -604,9 +596,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="h1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="h1">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="h1">Aprēķini laušanas koeficientu!</p>
+<p class="h1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
@@ -628,10 +618,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -658,9 +646,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -687,10 +673,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -726,9 +710,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -759,10 +741,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -785,16 +765,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:57.0377%;top:54.1370%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:62.9878%;top:49.6333%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α</p>
-</div>
-<i style="left:62.9878%;top:57.6452%;width:6.6502%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:62.9878%;top:58.6407%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin β</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
@@ -803,6 +773,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -814,9 +785,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -851,10 +820,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -876,21 +843,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3535%;top:63.3050%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:7.3535%;top:67.6280%;width:3.5194%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3535%;top:68.2197%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -900,6 +856,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -911,9 +869,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -930,7 +886,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">n = <span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
@@ -952,10 +908,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -977,25 +931,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3535%;top:63.3050%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:7.3535%;top:67.6280%;width:3.5194%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3535%;top:68.2197%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;n ≈ 1,33</p>
 </div>
@@ -1007,6 +948,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1018,9 +961,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1037,7 +978,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">n = <span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -1063,10 +1004,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,80, laušanas leņķa sinuss 0,60.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Aprēķini laušanas koeficientu!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Laušanas koeficients</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1088,28 +1027,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8327%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3535%;top:63.3050%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:7.3535%;top:67.6280%;width:3.5194%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3535%;top:68.2197%;width:3.5194%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;n ≈ 1,33</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n ≈ 1,33</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">1,33 ir tieši ūdens laušanas koeficients - rezultāts ticams.</p>
@@ -1122,6 +1048,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1133,9 +1061,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Laušanas koeficients</p>
-<p class="p2">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir</p>
-<p class="p2">0,80, laušanas leņķa sinuss 0,60.</p>
-<p class="p2">Aprēķini laušanas koeficientu!</p>
+<p class="p1">Stars no gaisa ieiet ūdenī. Krišanas leņķa sinuss ir 0,80, laušanas leņķa sinuss 0,60. Aprēķini laušanas koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1152,8 +1078,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;n = 0,80 : 0,60</p>
 <p class="p2">2)&nbsp;&nbsp;n ≈ 1,33</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">n = <span class="f"><span class="n">0,80</span><span class="d">0,60</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1181,8 +1107,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1203,8 +1128,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="h1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="h1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="h1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
@@ -1227,8 +1151,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1255,8 +1178,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1284,8 +1206,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1321,8 +1242,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1354,8 +1274,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1378,26 +1297,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:35.1593%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:59.5711%;top:44.7963%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.5212%;top:40.2926%;width:1.5834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
-</div>
-<i style="left:65.5212%;top:48.3044%;width:1.5834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.5212%;top:49.3000%;width:1.5834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v</p>
-</div>
-<div class="tb" style="left:59.5711%;top:63.4778%;width:4.9001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.3212%;top:58.9741%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">c</p>
-</div>
-<i style="left:65.3212%;top:66.9859%;width:1.7834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.3212%;top:67.9815%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
@@ -1406,6 +1305,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:39.9960%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:58.6773%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>v =&nbsp;<span class="f"><span class="n">c</span><span class="d">n</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1417,8 +1318,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1455,8 +1355,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1478,31 +1377,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:0.6666%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.2238%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6433%;top:66.4526%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.6433%;top:69.9535%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6433%;top:70.4552%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1512,6 +1390,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>v =&nbsp;<span class="f"><span class="n">c</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;v =&nbsp;<span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1523,8 +1404,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1542,7 +1422,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">v = <span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
@@ -1565,8 +1445,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1588,35 +1467,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:0.6666%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.2238%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6433%;top:66.4526%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.6433%;top:69.9535%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6433%;top:70.4552%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;v ≈ 2,26·10⁸ m/s</p>
 </div>
@@ -1628,6 +1484,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>v =&nbsp;<span class="f"><span class="n">c</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;v =&nbsp;<span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1639,8 +1498,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1658,7 +1516,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">v = <span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -1685,8 +1543,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1708,38 +1565,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:0.6666%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.2238%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6433%;top:66.4526%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.6433%;top:69.9535%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6433%;top:70.4552%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v ≈ 2,26·10⁸ m/s</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;v ≈ 2,3·10⁸ m/s</p>
 </div>
@@ -1751,6 +1585,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>v =&nbsp;<span class="f"><span class="n">c</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;v =&nbsp;<span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1762,8 +1599,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1781,8 +1617,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
 <p class="p2">2)&nbsp;&nbsp;v ≈ 2,26·10⁸ m/s</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">v = <span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -1809,8 +1645,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī!</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1832,44 +1667,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:0.6666%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:0.6666%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.2238%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6433%;top:66.4526%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:6.6433%;top:69.9535%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6433%;top:70.4552%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;v ≈ 2,26·10⁸ m/s</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v ≈ 2,3·10⁸ m/s</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">v ≈ 2,3·10⁸ m/s</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Ūdenī gaisma iet apmēram par ceturtdaļu lēnāk nekā vakuumā.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">v ≈ 2,3·10⁸ m/s</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">Ūdenī gaisma iet apmēram par ceturtdaļu lēnāk nekā vakuumā.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1879,6 +1691,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>v =&nbsp;<span class="f"><span class="n">c</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;v =&nbsp;<span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1890,8 +1705,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Gaismas ātrums ūdenī</p>
-<p class="p1">Aprēķini gaismas ātrumu ūdenī!</p>
-<p class="p1">(n = 1,33; c = 3,0·10⁸ m/s)</p>
+<p class="p1">Aprēķini gaismas ātrumu ūdenī! (n = 1,33; c = 3,0·10⁸ m/s)</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1909,9 +1723,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;v = 3,0·10⁸ : 1,33</p>
 <p class="p2">2)&nbsp;&nbsp;v ≈ 2,26·10⁸ m/s</p>
 <p class="p2">3)&nbsp;&nbsp;v ≈ 2,3·10⁸ m/s</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">v = <span class="f"><span class="n">3,0·10⁸</span><span class="d">1,33</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1939,8 +1753,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1957,8 +1770,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="h1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="h1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="h1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
@@ -1978,8 +1790,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2002,8 +1813,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2028,8 +1838,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2061,8 +1870,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2091,8 +1899,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2115,30 +1922,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:35.1593%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:57.0377%;top:44.7963%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:62.9878%;top:40.2926%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α</p>
-</div>
-<i style="left:62.9878%;top:48.3044%;width:6.6502%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:62.9878%;top:49.3000%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin β</p>
-</div>
-<div class="tb" style="left:54.6793%;top:63.4778%;width:9.8169%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin β =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.3462%;top:58.9741%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">sin α</p>
-</div>
-<i style="left:65.3462%;top:66.9859%;width:6.6502%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.3462%;top:67.9815%;width:6.6502%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:39.9960%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:58.6773%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>sin β =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">n</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2150,8 +1939,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2185,8 +1973,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2208,36 +1995,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:4.3717%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β =&nbsp;</p>
-</div>
-<div class="tb" style="left:8.7912%;top:66.4526%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:8.7912%;top:69.9535%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.7912%;top:70.4552%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>sin β =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;sin β =&nbsp;<span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2249,8 +2018,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2268,7 +2036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">sin β = <span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
@@ -2288,8 +2056,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2311,35 +2078,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:4.3717%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β =&nbsp;</p>
-</div>
-<div class="tb" style="left:8.7912%;top:66.4526%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:8.7912%;top:69.9535%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.7912%;top:70.4552%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;sin β = 0,60</p>
 </div>
@@ -2347,6 +2091,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>sin β =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;sin β =&nbsp;<span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2358,8 +2105,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2377,7 +2123,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">sin β = <span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -2401,8 +2147,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2424,38 +2169,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:4.3717%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β =&nbsp;</p>
-</div>
-<div class="tb" style="left:8.7912%;top:66.4526%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:8.7912%;top:69.9535%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.7912%;top:70.4552%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;sin β = 0,60</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;β ≈ 37°</p>
 </div>
@@ -2463,6 +2185,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>sin β =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;sin β =&nbsp;<span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2474,8 +2199,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2493,8 +2217,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
 <p class="p2">2)&nbsp;&nbsp;sin β = 0,60</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">sin β = <span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -2518,8 +2242,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2541,49 +2264,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:58.5350%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:6.7544%;top:62.0360%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:62.5377%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:4.3717%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin β =&nbsp;</p>
-</div>
-<div class="tb" style="left:8.7912%;top:66.4526%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin α</p>
-</div>
-<i style="left:8.7912%;top:69.9535%;width:2.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.7912%;top:70.4552%;width:2.8663%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;sin β = 0,60</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;β ≈ 37°</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">sin β = 0,60</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Laušanas leņķis mazāks par krišanas - stars tuvojas normālei, kā jābūt blīvākā vidē.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2313cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.0324cqw;color:#4F46E5;text-align:center;padding-top:0.9479cqw;font-weight:700">sin β = 0,60</p>
+<p style="font-size:1.4209cqw;color:#4B5563;text-align:center;padding-top:1.1365cqw;font-style:italic">Laušanas leņķis mazāks par krišanas - stars tuvojas normālei, kā jābūt blīvākā vidē.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">sin β</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>sin β =&nbsp;<span class="f"><span class="n">sin α</span><span class="d">n</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;sin β =&nbsp;<span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2595,8 +2298,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Laušanas leņķis</p>
-<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa</p>
-<p class="p1">sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
+<p class="p1">Stars krīt uz stiklu (n = 1,50), krišanas leņķa sinuss ir 0,90. Aprēķini laušanas leņķa sinusu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2614,14 +2316,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;sin β = 0,90 : 1,50</p>
 <p class="p2">2)&nbsp;&nbsp;sin β = 0,60</p>
 <p class="p2">3)&nbsp;&nbsp;β ≈ 37°</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">sin β = <span class="f"><span class="n">0,90</span><span class="d">1,50</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">sin β = 0,60</p>
-<p class="p2" style="color:#4B5563;font-style:italic">Laušanas leņķis mazāks par krišanas - stars tuvojas normālei, kā jābūt blīvākā vidē.</p>
+<p class="h2" style="color:#4F46E5;font-weight:700">sin β = 0,60</p>
+<p class="p3" style="color:#4B5563;font-style:italic">Laušanas leņķis mazāks par krišanas - stars tuvojas normālei, kā jābūt blīvākā vidē.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
@@ -2641,9 +2343,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">c) no stikla dimantā!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2659,9 +2359,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="h1">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="h1">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="h1">c) no stikla dimantā!</p>
+<p class="h1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2680,18 +2378,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">DOTS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n(gaiss) = 1,00</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n(ūdens) = 1,33</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n(stikls) = 1,50</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n(dimants) = 2,42</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n<sub>gaiss</sub> = 1,00</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n<sub>ūdens</sub> = 1,33</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n<sub>stikls</sub> = 1,50</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2707,16 +2403,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">n(gaiss) = 1,00</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">n(ūdens) = 1,33</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">n(stikls) = 1,50</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">n(dimants) = 2,42</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">n<sub>gaiss</sub> = 1,00</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">n<sub>ūdens</sub> = 1,33</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">n<sub>stikls</sub> = 1,50</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2735,25 +2429,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2775,16 +2467,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -2807,25 +2497,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:4.1251%;top:50.9675%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:52.5675%;width:24.0006%;height:3.0839%;justify-content:flex-start">
@@ -2855,16 +2543,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -2892,25 +2578,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:4.1251%;top:50.9675%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:52.5675%;width:24.0006%;height:3.0839%;justify-content:flex-start">
@@ -2949,16 +2633,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -2990,25 +2672,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:4.1251%;top:50.9675%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:52.5675%;width:24.0006%;height:3.0839%;justify-content:flex-start">
@@ -3053,16 +2733,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -3098,25 +2776,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:4.1251%;top:50.9675%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:52.5675%;width:24.0006%;height:3.0839%;justify-content:flex-start">
@@ -3164,16 +2840,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -3210,25 +2884,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) no stikla dimantā!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Uz kuru pusi</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
 <div class="tb" style="left:4.1251%;top:35.2561%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(gaiss) = 1,00</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>gaiss</sub> = 1,00</p>
 </div>
 <div class="tb" style="left:4.1251%;top:38.9604%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(ūdens) = 1,33</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>ūdens</sub> = 1,33</p>
 </div>
 <div class="tb" style="left:4.1251%;top:42.6646%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(stikls) = 1,50</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>stikls</sub> = 1,50</p>
 </div>
 <div class="tb" style="left:4.1251%;top:46.3688%;width:24.0006%;height:3.2653%;justify-content:flex-start">
-<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n(dimants) = 2,42</p>
+<p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">n<sub>dimants</sub> = 2,42</p>
 </div>
 <i style="left:4.1251%;top:50.9675%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:52.5675%;width:24.0006%;height:3.0839%;justify-content:flex-start">
@@ -3280,16 +2952,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Uz kuru pusi</p>
-<p class="p2">Nosaki, vai stars tuvojas normālei vai attālinās:</p>
-<p class="p2">a) no gaisa stiklā; b) no ūdens gaisā;</p>
-<p class="p2">c) no stikla dimantā!</p>
+<p class="p1">Nosaki, vai stars tuvojas normālei vai attālinās: a) no gaisa stiklā; b) no ūdens gaisā; c) no stikla dimantā!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">n(gaiss) = 1,00</p>
-<p class="p2">n(ūdens) = 1,33</p>
-<p class="p2">n(stikls) = 1,50</p>
-<p class="p2">n(dimants) = 2,42</p>
+<p class="p2">n<sub>gaiss</sub> = 1,00</p>
+<p class="p2">n<sub>ūdens</sub> = 1,33</p>
+<p class="p2">n<sub>stikls</sub> = 1,50</p>
+<p class="p2">n<sub>dimants</sub> = 2,42</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
@@ -3333,26 +3003,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:22.9618%;width:40.8498%;height:7.8074%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Gaisma lūst, jo dažādās vidēs tai ir dažāds ātrums.</p>
 </div>
-<div class="tb" style="left:5.9251%;top:34.9858%;width:6.8705%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">•&nbsp;&nbsp;n = sin&nbsp;</p>
-</div>
-<div class="tb" style="left:13.1769%;top:32.5932%;width:2.0277%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">α</p>
-</div>
-<i style="left:13.1769%;top:36.7995%;width:2.0277%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:13.1769%;top:37.3784%;width:2.0277%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">sin</p>
-</div>
-<div class="tb" style="left:15.7358%;top:34.9858%;width:6.7554%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;β un n =&nbsp;</p>
-</div>
-<div class="tb" style="left:22.8724%;top:32.5932%;width:0.7969%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">c</p>
-</div>
-<i style="left:22.8724%;top:36.7995%;width:0.7969%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:22.8724%;top:37.3784%;width:0.7969%;height:3.8407%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7709cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v</p>
-</div>
 <div class="tb" style="left:5.9251%;top:43.0432%;width:40.8498%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">•&nbsp;&nbsp;Blīvākā vidē stars tuvojas normālei.</p>
 </div>
@@ -3372,6 +3022,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Zinu, kāpēc gaisma lūst&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot laušanas likumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu noteikt novirzes virzienu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu rēķināt ātrumu vidē</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: pilnīga iekšējā atstarošanās.</p>
 </div>
+<div class="ml" style="left:5.9251%;top:32.4360%;width:40.8498%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>•&nbsp;&nbsp;n = sin&nbsp;<span class="f"><span class="n">α</span><span class="d">sin</span></span>&nbsp;β un n =&nbsp;<span class="f"><span class="n">c</span><span class="d">v</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3502,6 +3153,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

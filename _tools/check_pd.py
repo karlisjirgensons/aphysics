@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Parbauda, vai izveidoto PD .docx lapas ietilpst A4 lapa.
+"""Parbauda, vai izveidoto PD un AT .docx lapas ietilpst A4 lapa.
 
 Palaiz:  .venv/Scripts/python.exe _tools/check_pd.py [Dabaszinibas|Fizika_1]
 
@@ -74,7 +74,9 @@ def parbaudi(cels):
 def main():
     kludas = 0
     kurss = sys.argv[1] if len(sys.argv) > 1 else "Dabaszinibas"
-    faili = sorted(glob.glob(os.path.join(SAKNE, kurss, "*", "PD*.docx")))
+    faili = sorted(f for sablons in ("PD*.docx", "ĀT*.docx")
+                   for f in glob.glob(os.path.join(SAKNE, kurss, "*",
+                                                   sablons)))
     for f in faili:
         lapas = parbaudi(f)
         slikti = [(i + 1, h) for i, h in enumerate(lapas) if h > LAPA]

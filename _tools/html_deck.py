@@ -81,6 +81,21 @@ _ALIGN = {PP_ALIGN.CENTER: "center", PP_ALIGN.RIGHT: "right",
           PP_ALIGN.JUSTIFY: "justify"}
 
 
+def _run_text(r):
+    """Gabala teksts ar atpakaļ ieliktu indeksa zīmi.
+
+    Slaidā indekss ir atsevišķs gabals ar pazeminātu pamatlīniju, avotā -
+    pasvītrojums (F_y). Zīmi ieliek atpakaļ, lai lapas zīmētājs redzētu
+    to pašu tekstu, ko redzēja slaida būvētājs (DRY).
+    """
+    rPr = r.font._rPr
+    base = rPr.get("baseline") if rPr is not None else None
+    if not (base and base.startswith("-")):
+        return r.text
+    # Figūriekavas iztur arī vairākzīmju indeksu: "v_{vid}".
+    return MF.SUB_MARK + MF.SUB_OPEN + r.text + MF.SUB_CLOSE
+
+
 def read_slide(slide):
     """Slaidu pārvērš vienkāršā formu sarakstā."""
     out = []
@@ -98,7 +113,7 @@ def read_slide(slide):
         if shp.has_text_frame and shp.text_frame.text.strip():
             paras = []
             for p in shp.text_frame.paragraphs:
-                t = "".join(r.text for r in p.runs)
+                t = "".join(_run_text(r) for r in p.runs)
                 if not t.strip():
                     continue
                 r0 = p.runs[0]
@@ -150,21 +165,21 @@ def esc(s):
     return html.escape(s, quote=False)
 
 
+_RUN_HTML = {"v": '<span class="vv">%s</span>',   # bultiņu zīmē CSS
+             "s": "<sub>%s</sub>"}                # F_y -> indekss
+
+
 def txt_html(s):
-    """Teksts HTML: aizsegts un ar uzzīmētām vektoru bultiņām.
+    """Teksts HTML: aizsegts, ar uzzīmētām bultiņām un īstiem indeksiem.
 
-    Viss slaida teksts iet caur šo funkciju (DRY) - tāpēc vektora
-    pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un formulās.
+    Viss slaida teksts iet caur šo funkciju (DRY) - tāpēc vektora un
+    indeksa pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un
+    formulās.
     """
-    if not MF.has_vector(s):
+    if not MF.has_markup(s):
         return esc(s)
-    return "".join(esc(v) if k == "t" else vec_html(v)
-                   for k, v in MF.split_vectors(s))
-
-
-def vec_html(base):
-    """Vektora simbols: bultiņu zīmē CSS, nevis fonta kombinējošā zīme."""
-    return '<span class="vv">%s</span>' % esc(base)
+    return "".join(_RUN_HTML.get(k, "%s") % esc(v)
+                   for k, v in MF.split_runs(s))
 
 
 def _sp(s):
@@ -186,14 +201,9 @@ ROOT_EM = MF.root_em([("t", "")])
 ROOT_EM_TALL = MF.root_em([("f", "", "")])
 
 
-def root_svg(h=ROOT_EM, cls="rk", style=""):
-    """Saknes zīme kā SVG - viena forma abiem skatiem (MF.root_pts)."""
-    w, _ = MF.root_pts(h)
-    return ('<svg class="%s"%s viewBox="0 0 %.4f %.4f" '
-            'preserveAspectRatio="none" aria-hidden="true">'
-            '<path d="%s"/></svg>'
-            % (cls, (' style="%s"' % style) if style else "",
-               w, h, MF.root_path_d(h)))
+def root_svg(h=ROOT_EM):
+    """Saknes zīme kā SVG - tā pati forma, ko zīmē slaidā (MF.root_pts)."""
+    return MF.root_svg(h)
 
 
 def root_html(inner, tall=False):
@@ -291,12 +301,12 @@ def pt2cqw(pt):
     return pt / PT_PER_IN / SW_IN * 100.0
 
 
-def _style_box(s, fill=True):
+def _style_box(s):
     st = ["left:%.4f%%" % (s["x"] / SW_IN * 100),
           "top:%.4f%%" % (s["y"] / SH_IN * 100),
           "width:%.4f%%" % (s["w"] / SW_IN * 100),
           "height:%.4f%%" % (s["h"] / SH_IN * 100)]
-    if fill and s["fill"]:
+    if s["fill"]:
         st.append("background:%s" % s["fill"])
     if s["line"]:
         st.append("border:%.3fcqw solid %s" % (pt2cqw(s["lw"]), s["line"]))
@@ -316,24 +326,43 @@ def stage_svg(shapes):
             % (SW_IN * 100, SH_IN * 100, body))
 
 
+_JUSTIFY = {"c": "center", "r": "flex-end", "l": "flex-start"}
+
+
+def math_stage_html(m):
+    """Formulas rinda datora skatā: viena plūstoša rinda savā rāmī.
+
+    Atomus (teksts, daļa, sakne) izvieto pārlūks, nevis mēs - tāpēc
+    formula izskatās pareizi arī tad, ja lapas fonts nav Calibri.
+    """
+    x, y, w, h, al = m["box"]
+    st = ["left:%.4f%%" % (x / SW_IN * 100), "top:%.4f%%" % (y / SH_IN * 100),
+          "width:%.4f%%" % (w / SW_IN * 100),
+          "height:%.4f%%" % (h / SH_IN * 100),
+          "justify-content:%s" % _JUSTIFY.get(al, "center"),
+          "font-size:%.4fcqw" % pt2cqw(m["size"]),
+          "color:%s" % m["color"]]
+    if m["bold"]:
+        st.append("font-weight:700")
+    return '<div class="ml" style="%s"><span>%s</span></div>' % (
+        ";".join(st), m["line"])
+
+
 def stage_html(shapes):
     """Datora skats: precīzs slaida atveids (mērogojas pats, bez JS)."""
     out = []
+    math = _math_runs(shapes)
     for s in shapes:
         extra = ""
         if s["round"] and min(s["w"], s["h"]) > 0.08:
             extra = ";border-radius:%.3fcqw" % (min(s["w"], s["h"]) * 0.05
                                                 / SW_IN * 100)
+        if "MATH:" in s["name"]:
+            continue                     # formulu rindas saliek zemāk
         if s["text"] is None:
             if "|ARR:" in s["name"] or "|SEG:" in s["name"]:
                 continue                         # bultas zīmē stage_svg()
-            role = s["name"].rsplit(":", 1)[-1]
-            if role.startswith("rg"):            # saknes zīme
-                out.append(root_svg(
-                    ROOT_EM_TALL if role.endswith("T") else ROOT_EM, "rg",
-                    "%s;fill:%s" % (_style_box(s, fill=False), s["fill"])))
-            else:
-                out.append('<i style="%s%s"></i>' % (_style_box(s), extra))
+            out.append('<i style="%s%s"></i>' % (_style_box(s), extra))
             continue
         css = ";justify-content:%s" % (s["anchor"] or "flex-start")
         if s["wrap"] is False:
@@ -350,6 +379,9 @@ def stage_html(shapes):
                    ";font-style:italic" if p["italic"] else "",
                    _sp(p["t"])))
         out.append("</div>")
+    for m in math.values():
+        if m["box"]:
+            out.append(math_stage_html(m))
     out.append(stage_svg(shapes))
     return "\n".join(out)
 
@@ -369,8 +401,67 @@ def _group(name):
 GAP = ""
 
 
+def _math_box(mid):
+    """Rindas rāmis no formas nosaukuma: "M7@x,y,w,h,c" -> (x, y, w, h, c).
+
+    Rāmi ieraksta put_math() - tas zina, kur formula slaidā stāv un kā tā
+    līdzināta. Bez tā HTML skatam nāktos atomus likt pa vienam pēc Calibri
+    mēriem, bet lapas fonts ir cits, tāpēc tie pārklātos.
+    """
+    if "@" not in mid:
+        return None
+    try:
+        x, y, w, h, al = mid.split("@", 1)[1].split(",")
+        return float(x), float(y), float(w), float(h), al
+    except ValueError:
+        return None
+
+
+def _parts_box(parts):
+    """Rezerves rāmis no gabalu novietojuma.
+
+    Vajadzīgs tikai vecām .pptx, kur put_math() rāmi vēl neierakstīja
+    nosaukumā; pēc pārbūves to vairs nelieto.
+    """
+    xs = [p[2]["x"] for p in parts] + [p[2]["x"] + p[2]["w"] for p in parts]
+    ys = [p[2]["y"] for p in parts] + [p[2]["y"] + p[2]["h"] for p in parts]
+    return (min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys), "l")
+
+
+def _math_pieces(parts, gaps):
+    """Atomu gabalus saliek atpakaļ vienā rindā ar daļām un saknēm.
+
+    Lomu priedēklis "r" nozīmē "zem saknes vinkula": rt, rn, rd, rb.
+    Zīme (rg) atver sakni, vinkuls (rv) to aizver - tā saknes saturs
+    saliekas atpakaļ tieši tāds pats kā slaidā.
+
+    gaps=True  - atstarpes starp formulām paliek (datora skats);
+    gaps=False - tur ieliek dalītāju, pēc kura telefona skats formulas
+                 sadala atsevišķos gabalos.
+    """
+    pieces, num, root, root_tall = [], None, None, False
+    for role, txt, s in parts:
+        here = pieces if root is None else root
+        if role.startswith("rg"):
+            root, root_tall = [], role.endswith("T")
+        elif role == "rv":
+            pieces.append(root_html("".join(root or []), root_tall))
+            root = None
+        elif role in ("b", "rb"):
+            continue                      # daļas svītru uzzīmē CSS
+        elif role in ("t", "rt"):
+            here.append(_sp(txt) if gaps else
+                        GAP.join(txt_html(x) for x in
+                                 re.split(r"\s{2,}", txt)))
+        elif role in ("n", "rn"):
+            num = txt
+        elif role in ("d", "rd"):
+            here.append(frac_span(num or "", txt))
+    return "".join(pieces)
+
+
 def _math_runs(shapes):
-    """Formulu gabalus (MATH:...) saliek atpakaļ vienā rindā ar daļām."""
+    """Formulu gabalus (MATH:...) sagrupē pa rindām un saliek kopā."""
     runs, order = {}, []
     for s in shapes:
         nm = s["name"]
@@ -388,33 +479,14 @@ def _math_runs(shapes):
     built = {}
     for mid in order:
         r = runs[mid]
-        # Lomu priedēklis "r" nozīmē "zem saknes vinkula": rt, rn, rd, rb.
-        # Zīme (rg) atver sakni, vinkuls (rv) to aizver - tā saknes saturs
-        # telefona skatā saliekas atpakaļ tieši tāds pats kā slaidā.
-        pieces, num, root, root_tall = [], None, None, False
-        for role, txt, s in r["parts"]:
-            here = pieces if root is None else root
-            if role.startswith("rg"):
-                root, root_tall = [], role.endswith("T")
-            elif role == "rv":
-                pieces.append(root_html("".join(root or []), root_tall))
-                root = None
-            elif role in ("b", "rb"):
-                continue                      # daļas svītru uzzīmē CSS
-            elif role in ("t", "rt"):
-                # 2+ atstarpes atdala patstāvīgas formulas vienā rindā -
-                # telefonā tās drīkst pārlēkt uz nākamo rindu veselas
-                here.append(GAP.join(txt_html(x) for x in
-                                     re.split(r"\s{2,}", txt)))
-            elif role in ("n", "rn"):
-                num = txt
-            elif role in ("d", "rd"):
-                here.append(frac_span(num or "", txt))
         first = next((s for _, _, s in r["parts"] if s["text"]), None)
         p0 = first["text"][0] if first else {}
-        chunks = [c for c in "".join(pieces).split(GAP) if c.strip()]
+        chunks = [c for c in _math_pieces(r["parts"], False).split(GAP)
+                  if c.strip()]
         built[mid] = {
             "html": "".join('<span class="mc">%s</span>' % c for c in chunks),
+            "line": _math_pieces(r["parts"], True),
+            "box": _math_box(mid) or _parts_box(r["parts"]),
             "owner": r["owner"],
             "y": min(p[2]["y"] for p in r["parts"]),
             "x": min(p[2]["x"] for p in r["parts"]),

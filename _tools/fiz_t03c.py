@@ -84,7 +84,7 @@ dict(
                     "kopējam laukumam? (g = 9,8 m/s²)",
              dots=["m = 6000 kg", "p = 40 kPa = 4,0·10⁴ Pa"],
              jaaprekina=["S = ?"],
-             formulas=["F = mg", "S = F/p"],
+             formulas=["F = mg", "p = F/S", "S = F/p"],
              aprekins=["1)  F = 6000 · 9,8 = 58 800 N",
                        "2)  S = 58 800 : 4,0·10⁴",
                        "3)  S = 1,47 ≈ 1,5 m²"],
@@ -303,7 +303,7 @@ dict(
              formulas=["p = ρgh"],
              aprekins=["1)  ρg = 9800 N/m³",
                        "2)  p = 9800 · 30",
-                       "3)  p = 2,94·10⁵ Pa ≈ 294 kPa"],
+                       "3)  p = 2,94·10⁵ Pa = 294 kPa"],
              atbilde="p ≈ 2,9·10⁵ Pa ≈ 3 atmosfēras",
              piezime="Spiedienu nosaka tikai augstums - torņa platums "
                      "nozīmes nav."),
@@ -583,7 +583,7 @@ dict(
                     "(ρ = 1000 kg/m³; g = 9,8 m/s²)",
              dots=["h = 2,5 m", "S = 40 m²", "ρ = 1000 kg/m³"],
              jaaprekina=["p = ?", "F = ?"],
-             formulas=["p = ρgh", "F = pS"],
+             formulas=["p = ρgh", "p = F/S", "F = pS"],
              aprekins=["1)  p = 1000 · 9,8 · 2,5 = 24 500 Pa",
                        "2)  F = 24 500 · 40",
                        "3)  F = 9,8·10⁵ N"],
@@ -610,7 +610,7 @@ dict(
                     "(ρ = 1030 kg/m³; g = 9,8 m/s²)",
              dots=["h = 200 m", "S = 0,50 m²", "ρ = 1030 kg/m³"],
              jaaprekina=["p = ?", "F = ?"],
-             formulas=["p = ρgh", "F = pS"],
+             formulas=["p = ρgh", "p = F/S", "F = pS"],
              aprekins=["1)  ρg = 1030 · 9,8 = 10 094 N/m³",
                        "2)  p = 10 094 · 200 ≈ 2,02·10⁶ Pa",
                        "3)  F = 2,02·10⁶ · 0,50 ≈ 1,0·10⁶ N"],
@@ -696,7 +696,7 @@ dict(
              formulas=["F = mg", "σ = F/S"],
              aprekins=["1)  F = 1200 · 9,8 = 11 760 N",
                        "2)  S = 50 · 10⁻⁶ = 5,0·10⁻⁵ m²",
-                       "3)  σ = 11 760 : 5,0·10⁻⁵ = 2,35·10⁸ Pa = "
+                       "3)  σ = 11 760 : 5,0·10⁻⁵ ≈ 2,35·10⁸ Pa = "
                        "235 MPa"],
              atbilde="σ ≈ 2,4·10² MPa",
              piezime="Ja izturība ir 500 MPa, drošības koeficients ir "
@@ -707,7 +707,7 @@ dict(
                     "celt? (g = 9,8 m/s²)",
              dots=["σ(izt) = 480 MPa", "S = 80 mm²", "n = 6"],
              jaaprekina=["m = ?"],
-             formulas=["σ(piel) = σ(izt)/n", "F = σ(piel)·S",
+             formulas=["σ(piel) = σ(izt)/n", "F = σ(piel)·S", "F = mg",
                        "m = F/g"],
              aprekins=["1)  σ(piel) = 480 : 6 = 80 MPa = 8,0·10⁷ Pa",
                        "2)  F = 8,0·10⁷ · 8,0·10⁻⁵ = 6400 N",
@@ -723,7 +723,7 @@ dict(
              formulas=["F = mg", "S = F/σ"],
              aprekins=["1)  F = 5000 · 9,8 = 49 000 N",
                        "2)  S = 49 000 : 1,2·10⁸",
-                       "3)  S = 4,08·10⁻⁴ m² ≈ 4,1 cm²"],
+                       "3)  S ≈ 4,08·10⁻⁴ m² ≈ 4,1 cm²"],
              atbilde="S ≈ 4,1 cm² (diametrs aptuveni 23 mm)",
              piezime="Reālā trose sastāv no daudzām plānām stieplēm - "
                      "tā ir elastīgāka."),
@@ -736,7 +736,7 @@ dict(
              formulas=["F(katrai) = mg/2", "σ = F/S"],
              aprekins=["1)  mg = 800 · 9,8 = 7840 N",
                        "2)  F(katrai) = 3920 N",
-                       "3)  σ = 3920 : 3,0·10⁻⁵ = 1,31·10⁸ Pa ≈ "
+                       "3)  σ = 3920 : 3,0·10⁻⁵ ≈ 1,31·10⁸ Pa ≈ "
                        "1,3·10² MPa"],
              atbilde="σ ≈ 1,3·10² MPa katrā trosē",
              piezime="Divas troses uz pusi samazina spriegumu - tāpēc "
@@ -1003,7 +1003,7 @@ dict(
              jaaprekina=["a = ?", "v = ?"],
              formulas=["N = mg", "F(b) = µN", "a = (F − F(b))/m",
                        "v = at"],
-             aprekins=["1)  N = 392 N ;  F(b) = 0,30 · 392 = 118 N",
+             aprekins=["1)  N = 392 N ;  F(b) = 0,30 · 392 ≈ 118 N",
                        "2)  a = (200 − 118) : 40 = 2,05 m/s²",
                        "3)  v = 2,05 · 5,0 ≈ 10 m/s"],
              atbilde="a ≈ 2,1 m/s² ;   v ≈ 10 m/s",
@@ -1016,9 +1016,9 @@ dict(
              dots=["s = 6,0 m", "α = 30°", "µ = 0,25"],
              jaaprekina=["a = ?", "v = ?"],
              formulas=["a = g(sin α − µ cos α)", "v = √(2as)"],
-             aprekins=["1)  µ cos α = 0,25 · 0,87 = 0,218",
+             aprekins=["1)  µ cos α = 0,25 · 0,87 ≈ 0,218",
                        "2)  a = 9,8(0,50 − 0,218) = 2,76 m/s²",
-                       "3)  v = √(2 · 2,76 · 6,0) = √33,2 ≈ 5,8 m/s"],
+                       "3)  v = √(2 · 2,76 · 6,0) ≈ √33,2 ≈ 5,8 m/s"],
              atbilde="v ≈ 5,8 m/s",
              piezime="Bez berzes būtu 7,7 m/s."),
         dict(nr=3, virsraksts="Hidrostatika",
@@ -1043,7 +1043,7 @@ dict(
              formulas=["m₁gd₁ = m₂gd₂", "m₂ = m₁d₁/d₂"],
              aprekins=["1)  Masas g saīsinās",
                        "2)  m₂ = 80 · 0,50 : 1,5",
-                       "3)  m₂ = 26,7 ≈ 27 kg"],
+                       "3)  m₂ ≈ 26,7 ≈ 27 kg"],
              atbilde="m₂ ≈ 27 kg",
              piezime="Trīs reizes lielāks plecs - trīs reizes mazāka "
                      "masa."),
@@ -1056,7 +1056,7 @@ dict(
              formulas=["F(b) = µm₁g", "a = (m₂g − F(b))/(m₁+m₂)"],
              aprekins=["1)  m₂g = 2,0 · 9,8 = 19,6 N",
                        "2)  F(b) = 0,25 · 4,0 · 9,8 = 9,8 N",
-                       "3)  a = (19,6 − 9,8) : 6,0 = 1,63 ≈ 1,6 m/s²"],
+                       "3)  a = (19,6 − 9,8) : 6,0 ≈ 1,63 ≈ 1,6 m/s²"],
              atbilde="a ≈ 1,6 m/s²",
              piezime="Bez berzes paātrinājums būtu 3,3 m/s² - berze to "
                      "samazina uz pusi."),
@@ -1151,8 +1151,8 @@ dict(
              jaaprekina=["F(b) = ?"],
              formulas=["N = mg cos α", "F(b) = µN"],
              aprekins=["1)  Kļūda: N slīpā plaknē nav mg",
-                       "2)  N = 196 · 0,87 = 171 N",
-                       "3)  F(b) = 0,20 · 171 = 34,1 N"],
+                       "2)  N = 196 · 0,87 ≈ 171 N",
+                       "3)  F(b) = 0,20 · 171 ≈ 34,1 N"],
              atbilde="F(b) ≈ 34 N, nevis 39,2 N.",
              piezime="Slīpā plaknē berze VIENMĒR mazāka nekā uz "
                      "horizontālas virsmas."),

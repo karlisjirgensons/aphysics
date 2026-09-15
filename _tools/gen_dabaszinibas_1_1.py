@@ -189,20 +189,24 @@ VEC_FONT = "Segoe UI Symbol"
 
 
 def _write_runs(p, text, size, bold, italic, color):
-    """Teksta gabalus ieraksta rindkopā; vektoram - vektora fontu.
+    """Teksta gabalus ieraksta rindkopā; vektoram - vektora fontu,
+    indeksam - mazāku fontu zem pamatlīnijas.
 
     Viss teksts .pptx failos iet caur šo funkciju (DRY), tāpēc bultiņas
-    labojums der visām prezentācijām uzreiz.
+    un indeksa labojums der visām prezentācijām uzreiz.
     """
-    for kind, chunk in MF.split_vectors(text) or [("t", "")]:
+    for kind, chunk in MF.split_runs(text) or [("t", "")]:
         r = p.add_run()
         r.text = chunk + (MF.VEC_MARK if kind == "v" else "")
         f = r.font
         f.name = VEC_FONT if kind == "v" else FONT
-        f.size = Pt(size)
+        f.size = Pt(size * (MF.SUB_SIZE if kind == "s" else 1.0))
         f.bold = bold
         f.italic = italic
         f.color.rgb = color
+        if kind == "s":
+            # python-pptx apakšindeksu neprot - to uzliek pašā XML.
+            r.font._rPr.set("baseline", "-25000")
 
 
 def put(slide, x, y, w, h, lines, anchor=MSO_ANCHOR.TOP, autofit=True,
@@ -433,6 +437,11 @@ def _draw_atoms(slide, atoms, cx, ym, ctx, sub=""):
     return cx
 
 
+# Rindas līdzinājums formas nosaukumā - tikai viens burts, lai vārdā
+# nerastos koli, pēc kuriem html_deck.py sadala nosaukumu.
+ALIGN_CODE = {PP_ALIGN.CENTER: "c", PP_ALIGN.RIGHT: "r", PP_ALIGN.LEFT: "l"}
+
+
 def put_math(slide, x, y, w, h, text, size, color=DARK, bold=False,
              italic=False, align=PP_ALIGN.CENTER, min_size=9.0, name=None,
              atoms=None):
@@ -449,7 +458,11 @@ def put_math(slide, x, y, w, h, text, size, color=DARK, bold=False,
                                  "align": align}],
             anchor=MSO_ANCHOR.MIDDLE, name=name)
         return size
-    mid = uid("M")
+    # Rindas rāmi ieraksta formas nosaukumā, lai HTML zīmētājs to pašu
+    # formulu varētu salikt vienā plūstošā rindā (lapas fonts nav Calibri,
+    # tāpēc atomus pa vienam tur novietot nedrīkst).
+    mid = "%s@%.4f,%.4f,%.4f,%.4f,%s" % (uid("M"), x, y, w, h,
+                                         ALIGN_CODE.get(align, "l"))
     pfx = (name + "|") if name else ""
 
     # samazina, līdz ietilpst platumā un augstumā
@@ -1049,20 +1062,28 @@ def _put_lines(slide, x, y, w, lines, color=DARK, name=None):
     return y
 
 
+def task_text(u):
+    """Uzdevuma teksts vienā rindkopā.
+
+    Avotā tekstu lauž pa koda rindām, bet slaidā un lapā tas jālauž pēc
+    rāmja platuma - citādi rinda pārtrūkst nejaušā vietā un telefonā
+    izskatās vēl sliktāk. Aplaušana ir zīmētāja, nevis satura ziņa (SRP),
+    tāpēc avota rindu pārdalījumu te izlīdzina.
+    """
+    return " ".join(u["teksts"].split())
+
+
 def draw_top_task(slide, u, big=False):
     """big=True - uzdevumu tikko parāda: teksts aizņem visu brīvo laukumu."""
     h = (GAP_Y + GAP_H - TOP_Y) if big else TOP_H
     box(slide, MX, TOP_Y, CW, h, fill=LIGHTGOLD, line=GOLD, lw=2.0,
         name="BOX:TASK")
-    lines = [{"t": "%d. uzdevums · %s" % (u["nr"], u["virsraksts"]),
-              "size": 17 if big else 13, "bold": True, "color": GOLD}]
-    for i, part in enumerate(u["teksts"].split("\n")):
-        lines.append({"t": part, "size": 34 if big else 20,
-                      "space": (16 if i == 0 else 10) if big
-                      else (7 if i == 0 else 3)})
-    put(slide, MX + 0.30, TOP_Y + 0.14, CW - 0.60, h - 0.28, lines,
-        anchor=MSO_ANCHOR.MIDDLE if big else MSO_ANCHOR.TOP,
-        name="TXT:TASK")
+    put(slide, MX + 0.30, TOP_Y + 0.14, CW - 0.60, h - 0.28, [
+        {"t": "%d. uzdevums · %s" % (u["nr"], u["virsraksts"]),
+         "size": 17 if big else 13, "bold": True, "color": GOLD},
+        {"t": task_text(u), "size": 34 if big else 20,
+         "space": 16 if big else 7},
+    ], anchor=MSO_ANCHOR.MIDDLE if big else MSO_ANCHOR.TOP, name="TXT:TASK")
 
 
 def draw_bottom_task(slide, u, y):
@@ -1070,8 +1091,7 @@ def draw_bottom_task(slide, u, y):
     box(slide, MX, y, CW, BOT_H, fill=LIGHTGREY, line=LINEGREY, lw=0.75,
         name="BOX:" + n)
     put(slide, MX + 0.24, y + 0.09, CW - 0.48, BOT_H - 0.18,
-        [{"t": "%d. uzdevums.  %s" % (u["nr"],
-                                      u["teksts"].replace("\n", " ")),
+        [{"t": "%d. uzdevums.  %s" % (u["nr"], task_text(u)),
           "size": 13, "color": GREY}], name="TXT:" + n)
 
 

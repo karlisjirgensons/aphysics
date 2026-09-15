@@ -85,20 +85,7 @@ dict(
                        "2)  t = 5,0 h"],
              atbilde="t = 5,0 h",
              piezime="Šo metodi senatnē izmantoja laika noteikšanai naktī."),
-        dict(nr=3, virsraksts="Spožuma salīdzinājums",
-             teksts="Divu zvaigžņu zvaigžņlielumi ir m₁ = 1,0 un m₂ = 6,0. "
-                    "Katra zvaigžņlieluma vienība nozīmē 2,5 reižu spožuma "
-                    "starpību.\nCik reižu pirmā ir spožāka?",
-             dots=["m₁ = 1,0", "m₂ = 6,0"],
-             jaaprekina=["n = ?"],
-             formulas=["Δm = m₂ − m₁", "n = 2,5^Δm"],
-             aprekins=["1)  Δm = 6,0 − 1,0 = 5,0",
-                       "2)  n = 2,5⁵",
-                       "3)  n ≈ 100"],
-             atbilde="n ≈ 100 reižu spožāka",
-             piezime="Tieši tāpēc skalu izvēlējās tā: 5 zvaigžņlielumi = "
-                     "100 reizes."),
-        dict(nr=4, virsraksts="Gada kustība",
+        dict(nr=3, virsraksts="Gada kustība",
              teksts="Saule pa ekliptiku gada laikā (365 dienās) pārvietojas "
                     "par 360°.\nPar cik grādiem tā pārvietojas vienā "
                     "mēnesī (30 dienās)?",
@@ -117,11 +104,10 @@ dict(
             "Zvaigznes kustas, jo Zeme rotē: 15° stundā.",
             "Zvaigznājs — debess apgabals; ekliptika — Saules gada ceļš.",
             "Jo mazāks zvaigžņlielums m, jo spožāks objekts.",
-            "5 zvaigžņlielumu starpība nozīmē 100 reižu spožuma atšķirību.",
         ],
         majasdarbs=[
             "Cik grādos zvaigzne pārvietosies 8 stundās?",
-            "m₁ = 2, m₂ = 7. Cik reižu atšķiras spožums?",
+            "Par cik grādiem Saule pa ekliptiku pārvietojas 10 dienās?",
             "Nosauc trīs zvaigznājus, kas Latvijā redzami ziemā.",
         ],
         pasvertejums=["Protu skaidrot zvaigžņu kustību",
@@ -286,6 +272,11 @@ dict(
             ]),
         ]),
         ("Fizikālie apstākļi", [
+            ("formula", "ASTRONOMISKĀ VIENĪBA  au",
+             "1 au = 1,50 · 10¹¹ m",
+             "Viena astronomiskā vienība (au) ir vidējais attālums no Zemes "
+             "līdz Saulei. Saules sistēmā attālumus mēra tajā, jo metros "
+             "skaitļi kļūtu neērti gari.", GOLD),
             ("tabula",
              ["Planēta", "Attālums, au", "g, m/s²", "Vidējā t°, °C",
               "Atmosfēra"],

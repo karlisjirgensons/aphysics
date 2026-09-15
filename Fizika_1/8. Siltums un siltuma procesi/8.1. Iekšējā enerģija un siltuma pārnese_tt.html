@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -598,9 +611,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -621,9 +632,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="h1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="h1">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="h1">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="h1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
@@ -645,10 +654,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -676,9 +683,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -706,10 +711,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -749,9 +752,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -784,10 +785,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -836,9 +835,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -875,10 +872,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -934,9 +929,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -977,10 +970,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1042,9 +1033,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1089,10 +1078,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1157,9 +1144,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1205,10 +1190,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Adata un vanna</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1277,9 +1260,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Adata un vanna</p>
-<p class="p2">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg</p>
-<p class="p2">ūdens 40 °C temperatūrā. Kuram siltuma daudzums,</p>
-<p class="p2">atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
+<p class="p1">Salīdzini 0,20 kg ūdens 80 °C temperatūrā un 1,0 kg ūdens 40 °C temperatūrā. Kuram siltuma daudzums, atdziestot līdz 0 °C, ir lielāks? (c = 4200 J/(kg·K))</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1328,8 +1309,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1350,8 +1330,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="h1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="h1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="h1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
@@ -1374,8 +1353,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1403,8 +1381,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1433,20 +1410,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1473,14 +1449,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -1507,34 +1482,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:35.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Q = Pt</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">ΔQ = (P₁ − P₂)·t</p>
+</div>
+<div class="tb" style="left:33.7508%;top:58.8185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Q = Pt</p>
+</div>
+<div class="tb" style="left:33.7508%;top:68.0185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔQ = (P₁ − P₂)·t</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1544,6 +1522,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:40.1373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1555,23 +1534,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">ΔQ = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">ΔQ = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">Q = Pt</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">ΔQ = (P₁ − P₂)·t</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
@@ -1594,37 +1573,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1640,6 +1618,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1651,23 +1630,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">ΔQ = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">ΔQ = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Q = Pt</p>
-<p class="p2">ΔQ = (P₁ − P₂)·t</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Q = Pt</p>
+<p class="p3">ΔQ = (P₁ − P₂)·t</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -1694,37 +1673,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -1746,6 +1724,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1757,23 +1736,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">ΔQ = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">ΔQ = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Q = Pt</p>
-<p class="p2">ΔQ = (P₁ − P₂)·t</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Q = Pt</p>
+<p class="p3">ΔQ = (P₁ − P₂)·t</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -1804,37 +1783,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -1859,6 +1837,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1870,23 +1849,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">ΔQ = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">ΔQ = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Q = Pt</p>
-<p class="p2">ΔQ = (P₁ − P₂)·t</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Q = Pt</p>
+<p class="p3">ΔQ = (P₁ − P₂)·t</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -1918,37 +1897,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₁ = 1200 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 400 W</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 8 h = 28 800 s</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Q = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">ΔQ = (P₁ − P₂)·t</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -1977,6 +1955,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1988,23 +1967,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Siltināšanas ieguvums</p>
-<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās -</p>
-<p class="p1">400 W. Cik enerģijas ietaupa 8 stundās?</p>
+<p class="p1">Pirms siltināšanas siena zaudē 1200 W, pēc tās - 400 W. Cik enerģijas ietaupa 8 stundās?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P₁ = 1200 W</p>
-<p class="p2">P₂ = 400 W</p>
-<p class="p2">t = 8 h = 28 800 s</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P₁ = 1200 W</p>
+<p class="p3">P₂ = 400 W</p>
+<p class="p3">t = 8 h = 28 800 s</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">ΔQ = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">ΔQ = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Q = Pt</p>
-<p class="p2">ΔQ = (P₁ − P₂)·t</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Q = Pt</p>
+<p class="p3">ΔQ = (P₁ − P₂)·t</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2038,9 +2017,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2057,9 +2034,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="h1">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="h1">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="h1">c) sejai silti pie ugunskura.</p>
+<p class="h1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
@@ -2078,10 +2053,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2105,9 +2078,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2132,10 +2103,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2170,9 +2139,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2201,10 +2168,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2248,9 +2213,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2285,10 +2248,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2343,9 +2304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2384,10 +2343,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2448,9 +2405,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2493,10 +2448,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2560,9 +2513,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2606,10 +2557,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Nosaki galveno siltuma pārneses veidu:</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">c) sejai silti pie ugunskura.</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2677,9 +2626,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Kurš pārneses veids</p>
-<p class="p2">Nosaki galveno siltuma pārneses veidu:</p>
-<p class="p2">a) karota tējas glāzē; b) radiators sasilda istabu;</p>
-<p class="p2">c) sejai silti pie ugunskura.</p>
+<p class="p1">Nosaki galveno siltuma pārneses veidu: a) karota tējas glāzē; b) radiators sasilda istabu; c) sejai silti pie ugunskura.</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2726,9 +2673,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2744,9 +2689,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="h1">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="h1">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="h1">pārneses veidu katra daļa aptur!</p>
+<p class="h1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2765,10 +2708,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2791,9 +2732,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2818,10 +2757,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2855,9 +2792,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2886,10 +2821,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2931,9 +2864,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2967,10 +2898,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3021,9 +2950,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3061,10 +2988,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3121,9 +3046,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3165,10 +3088,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3228,9 +3149,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3273,10 +3192,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">pārneses veidu katra daļa aptur!</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Termosa uzbūve</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3340,9 +3257,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Termosa uzbūve</p>
-<p class="p2">Termosam ir spoguļots iekšējais trauks, vakuuma</p>
-<p class="p2">starpslānis un plastmasas korķis. Paskaidro, kuru</p>
-<p class="p2">pārneses veidu katra daļa aptur!</p>
+<p class="p1">Termosam ir spoguļots iekšējais trauks, vakuuma starpslānis un plastmasas korķis. Paskaidro, kuru pārneses veidu katra daļa aptur!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3534,6 +3449,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

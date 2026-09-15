@@ -15,12 +15,12 @@ Lauki:
 """
 
 SITE_ROOT = "C:/aphysics"
-SITE_TITLE = "Fizika un dabaszinības"
-SITE_LEAD = ("Stundu prezentācijas telefonam un datoram. "
-             "Izvēlies mācību priekšmetu.")
-LESSONS_LEAD = ("Prezentācijas telefonam un datoram. Uz telefona slaidus "
-                "šķir ar pirkstu un saturs sakārtojas vienā slejā; uz "
-                "datora rādās parastais platais slaida skats.")
+SITE_TITLE = "PD un nodarbības"
+SITE_LEAD = ("Pārbaudes darbu ģenerators un stundu prezentācijas telefonam "
+             "un datoram. Izvēlies, ko vajag.")
+# Kursa stundu sarakstam paskaidrojums nav vajadzīgs - virsraksts un
+# tematu saraksts pasaka visu. Tukša rinda nozīmē "bez paskaidrojuma".
+LESSONS_LEAD = ""
 
 COURSES = {
     "dabaszinibas": {
@@ -42,6 +42,14 @@ COURSES = {
 }
 
 DEFAULT_COURSE = "dabaszinibas"
+
+# Lapas, kas mapē stāv blakus stundām, bet nav prezentācijas: rīki, ko atver
+# temata beigās. Atslēga ir faila nosaukums bez "_tt", vērtība - uzraksts
+# sarakstā. Šo lasa gan site_index.py (kur rīku likt), gan fd_common.py (ar
+# kādu vārdu failu saukt), tāpēc nosaukums ir vienā vietā (DRY).
+RIKI = {
+    "Formatīvais darbs": "Ģenerēt formatīvo darbu",
+}
 
 
 def ordered():

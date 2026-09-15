@@ -27,6 +27,7 @@ Uzdevumu tipi
 """
 
 import os
+import sys
 
 from docx import Document
 from docx.enum.table import WD_ROW_HEIGHT_RULE, WD_TABLE_ALIGNMENT
@@ -34,6 +35,10 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import mathfmt as MF                                     # noqa: E402
 
 SKOLA = "Ādažu vidusskola"
 GADS = "2026./2027. m. g."
@@ -83,6 +88,30 @@ def ietilpst(teksts, izmers_pt, platums_cm):
 
 
 # ----------------------------------------------------------------- pamatelementi
+# Vektora bultiņas (U+20D7) Calibri fontā nav, tāpēc vektora simbolu raksta
+# ar simbolu fontu - tāpat kā slaidos.
+VEC_FONT = "Segoe UI Symbol"
+
+
+def write_runs(p, text, size=11, bold=False, italic=False, color=None):
+    """Tekstu ieraksta rindkopā; indeksu - kā īstu apakšindeksu.
+
+    Ko uzskata par indeksu ("F(A)", "v(vid)", "F_y"), zina mathfmt (SRP) -
+    tas pats noteikums, pēc kura indeksu raksta prezentācijās un HTML lapās
+    (DRY). Tāpēc darba lapā, slaidā un telefonā pieraksts izskatās vienādi.
+    """
+    for kind, chunk in MF.split_runs(text) or [("t", "")]:
+        r = p.add_run(chunk + (MF.VEC_MARK if kind == "v" else ""))
+        f = r.font
+        f.size = Pt(size)
+        f.bold = bold
+        f.italic = italic
+        f.name = VEC_FONT if kind == "v" else "Calibri"
+        f.color.rgb = color if color is not None else BLACK
+        f.subscript = kind == "s"
+    return p
+
+
 def para(doc, text="", size=11, bold=False, italic=False, color=None,
          before=0, after=3, left=0, align=None):
     p = doc.add_paragraph()
@@ -93,12 +122,7 @@ def para(doc, text="", size=11, bold=False, italic=False, color=None,
     if align is not None:
         p.alignment = align
     if text:
-        r = p.add_run(text)
-        r.font.size = Pt(size)
-        r.font.bold = bold
-        r.font.italic = italic
-        r.font.name = "Calibri"
-        r.font.color.rgb = color or BLACK
+        write_runs(p, text, size, bold, italic, color)
     return p
 
 
@@ -117,12 +141,7 @@ def cell_text(cell, text, size=10.5, bold=False, italic=False, color=None,
     p.paragraph_format.space_after = Pt(1)
     if align is not None:
         p.alignment = align
-    r = p.add_run(text)
-    r.font.size = Pt(size)
-    r.font.bold = bold
-    r.font.italic = italic
-    r.font.name = "Calibri"
-    r.font.color.rgb = color or BLACK
+    write_runs(p, text, size, bold, italic, color)
     return p
 
 
@@ -140,11 +159,7 @@ def darba_vieta(doc, augstums, teksts=None):
     p = c.paragraphs[0]
     p.paragraph_format.space_after = Pt(0)
     if teksts:
-        r = p.add_run(teksts)
-        r.font.size = Pt(9)
-        r.font.italic = True
-        r.font.name = "Calibri"
-        r.font.color.rgb = GREY
+        write_runs(p, teksts, 9, italic=True, color=GREY)
     return t
 
 
@@ -210,9 +225,7 @@ def atgadnes_kaste(doc, rindas):
         p = c.add_paragraph()
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(0)
-        rr = p.add_run(rinda)
-        rr.font.size = Pt(9)
-        rr.font.name = "Calibri"
+        write_runs(p, rinda, 9)
     para(doc, after=2)
 
 
@@ -220,11 +233,8 @@ def uzdevuma_virsraksts(doc, nr, teksts, punkti, before=8):
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(before)
     p.paragraph_format.space_after = Pt(2)
-    r = p.add_run("%d. uzdevums. %s " % (nr, teksts))
-    r.font.size = Pt(12)
-    r.font.bold = True
-    r.font.name = "Calibri"
-    r.font.color.rgb = NAVY
+    write_runs(p, "%d. uzdevums. %s " % (nr, teksts), 12, bold=True,
+               color=NAVY)
     r2 = p.add_run("(%d p.)" % punkti)
     r2.font.size = Pt(11)
     r2.font.bold = True
@@ -402,10 +412,7 @@ def zimet_testa_atbildes(doc, tests):
         r1.font.size = Pt(10.5)
         r1.font.bold = True
         r1.font.name = "Calibri"
-        r2 = p.add_run(varianti[pareizais])
-        r2.font.size = Pt(10)
-        r2.font.name = "Calibri"
-        r2.font.color.rgb = GREY
+        write_runs(p, varianti[pareizais], 10, color=GREY)
 
 
 def h_testa_atbildes(tests):

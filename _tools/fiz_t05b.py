@@ -405,7 +405,7 @@ dict(
              formulas=["mv = (m+M)u", "Ek = mv²/2"],
              aprekins=["1)  u = 0,020·400 : 2,02 = 3,96 ≈ 4,0 m/s",
                        "2)  Ek(pirms) = 0,020 · 160 000 : 2 = 1600 J",
-                       "3)  Ek(pēc) = 2,02 · 15,7 : 2 = 15,9 J;  "
+                       "3)  Ek(pēc) = 2,02 · 15,7 : 2 ≈ 15,9 J;  "
                        "ΔEk ≈ 1584 J"],
              atbilde="u ≈ 4,0 m/s ;   ΔEk ≈ 1,6·10³ J (99 % zudumi)",
              piezime="Gandrīz visa enerģija pārvērtās siltumā - "
@@ -713,7 +713,7 @@ dict(
              formulas=["Ep = mgh", "Ek = mv²/2", "daļa = (Ep−Ek)/Ep"],
              aprekins=["1)  Ep = m · 9,8 · 8,0 = 78,4m",
                        "2)  Ek = m · 100 : 2 = 50m",
-                       "3)  (78,4 − 50) : 78,4 = 0,362 = 36 %"],
+                       "3)  (78,4 − 50) : 78,4 ≈ 0,362 = 36 %"],
              atbilde="Berzē zaudēti ≈ 36 % enerģijas.",
              piezime="Masa saīsinās - atbilde nav atkarīga no masas."),
         dict(nr=3, virsraksts="Trieciens",
@@ -735,10 +735,10 @@ dict(
                     "(g = 9,8 m/s²)",
              dots=["m = 70 kg", "h = 1,25 m", "t = 0,20 s"],
              jaaprekina=["v = ?", "F = ?"],
-             formulas=["v = √(2gh)", "F = mv/t"],
+             formulas=["v = √(2gh)", "F = Δp/Δt", "F = mv/t"],
              aprekins=["1)  v = √(2 · 9,8 · 1,25) = √24,5 = 4,95 m/s",
-                       "2)  Δp = 70 · 4,95 = 347 kg·m/s",
-                       "3)  F = 347 : 0,20 = 1733 ≈ 1,7·10³ N"],
+                       "2)  Δp = 70 · 4,95 ≈ 347 kg·m/s",
+                       "3)  F = 347 : 0,20 ≈ 1733 ≈ 1,7·10³ N"],
              atbilde="F ≈ 1,7·10³ N (2,5 reizes lielāks par svaru)",
              piezime="Locot kājas, laiks pagarinās un spēks samazinās - "
                      "tāpēc tā jādara."),
@@ -752,8 +752,8 @@ dict(
              formulas=["F = mg sin α", "P = Fv"],
              aprekins=["1)  mg = 1000 · 9,8 = 9800 N",
                        "2)  F = 9800 · 0,05 = 490 N",
-                       "3)  P = 490 · 20 = 9800 W ≈ 9,8 kW"],
-             atbilde="P ≈ 9,8 kW tikai kāpuma pārvarēšanai",
+                       "3)  P = 490 · 20 = 9800 W = 9,8 kW"],
+             atbilde="P = 9,8 kW tikai kāpuma pārvarēšanai",
              piezime="Šim vēl jāpieskaita jauda berzes un gaisa "
                      "pretestības pārvarēšanai."),
         dict(nr=6, virsraksts="Sadursme ar sienu",
@@ -762,7 +762,7 @@ dict(
                     "izkliedēto enerģiju!",
              dots=["m = 1200 kg", "v = 15 m/s", "t = 0,15 s"],
              jaaprekina=["F = ?", "Ek = ?"],
-             formulas=["F = mv/t", "Ek = mv²/2"],
+             formulas=["F = Δp/Δt", "F = mv/t", "Ek = mv²/2"],
              aprekins=["1)  Δp = 1200 · 15 = 1,8·10⁴ kg·m/s",
                        "2)  F = 1,8·10⁴ : 0,15 = 1,2·10⁵ N",
                        "3)  Ek = 1200 · 225 : 2 = 1,35·10⁵ J"],
@@ -999,7 +999,7 @@ dict(
              jaaprekina=["s₁ = ?", "s₂ = ?"],
              formulas=["s = v·t(r) + v²/(2µg)"],
              aprekins=["1)  s₁ = 13,9 + 193 : 13,7 = 13,9 + 14,1 = 28 m",
-                       "2)  s₂ = 19,4 + 376 : 13,7 = 19,4 + 27,4 = 47 m",
+                       "2)  s₂ = 19,4 + 376 : 13,7 ≈ 19,4 + 27,4 ≈ 47 m",
                        "3)  Starpība 19 m"],
              atbilde="Pie 70 km/h apstāšanās ceļš ir 47 m pret 28 m - "
                      "par 19 m garāks.",
@@ -1014,7 +1014,7 @@ dict(
              formulas=["L = v₀² sin(2α) / g"],
              aprekins=["1)  sin(2 · 45°) = sin 90° = 1",
                        "2)  v₀² = 81 m²/s²",
-                       "3)  L = 81 : 9,8 = 8,27 ≈ 8,3 m"],
+                       "3)  L = 81 : 9,8 ≈ 8,27 ≈ 8,3 m"],
              atbilde="L ≈ 8,3 m",
              piezime="Pasaules rekords ir 8,95 m - modelis ir tuvu "
                      "realitātei."),
@@ -1038,7 +1038,7 @@ dict(
              jaaprekina=["s = ?"],
              formulas=["n = z₁/z₂", "s = n · 2πR"],
              aprekins=["1)  n = 48 : 16 = 3 riteņa apgriezieni",
-                       "2)  2πR = 2 · 3,14 · 0,35 = 2,20 m",
+                       "2)  2πR = 2 · 3,14 · 0,35 ≈ 2,20 m",
                        "3)  s = 3 · 2,20 = 6,6 m"],
              atbilde="s ≈ 6,6 m",
              piezime="Tas pats pārnesumu princips, ko mācījāmies "
@@ -1050,9 +1050,9 @@ dict(
              dots=["m = 60 kg", "h = 0,80 m", "t₁ = 0,10 s",
                    "t₂ = 0,40 s"],
              jaaprekina=["v = ?", "F₁ = ?", "F₂ = ?"],
-             formulas=["v = √(2gh)", "F = mv/t"],
-             aprekins=["1)  v = √(2 · 9,8 · 0,80) = √15,7 = 3,96 m/s",
-                       "2)  Δp = 60 · 3,96 = 238 kg·m/s",
+             formulas=["v = √(2gh)", "F = Δp/Δt", "F = mv/t"],
+             aprekins=["1)  v = √(2 · 9,8 · 0,80) ≈ √15,7 ≈ 3,96 m/s",
+                       "2)  Δp = 60 · 3,96 ≈ 238 kg·m/s",
                        "3)  F₁ = 2380 N ;  F₂ = 594 N"],
              atbilde="F₁ ≈ 2,4·10³ N ;   F₂ ≈ 5,9·10² N - 4 reizes "
                      "mazāks.",
@@ -1153,7 +1153,8 @@ dict(
                     "vidējo\njaudu!",
              dots=["m = 1200 kg", "v = 25 m/s", "t = 10 s", "v₀ = 0"],
              jaaprekina=["a, F, s, P = ?"],
-             formulas=["a = v/t", "F = ma", "s = at²/2", "P = A/t"],
+             formulas=["a = (v − v₀)/t", "a = v/t", "F = ma", "s = at²/2",
+                       "P = A/t"],
              aprekins=["1)  a = 25 : 10 = 2,5 m/s²;  "
                        "F = 1200 · 2,5 = 3000 N",
                        "2)  s = 2,5 · 100 : 2 = 125 m",
@@ -1171,8 +1172,8 @@ dict(
              jaaprekina=["v = ?", "u = ?"],
              formulas=["v = √(2gh)", "m₁v = (m₁+m₂)u"],
              aprekins=["1)  v = √(2 · 9,8 · 3,0) = √58,8 = 7,67 m/s",
-                       "2)  m₁v = 0,50 · 7,67 = 3,83 kg·m/s",
-                       "3)  u = 3,83 : 1,5 = 2,56 ≈ 2,6 m/s"],
+                       "2)  m₁v = 0,50 · 7,67 ≈ 3,83 kg·m/s",
+                       "3)  u = 3,83 : 1,5 ≈ 2,56 ≈ 2,6 m/s"],
              atbilde="v ≈ 7,7 m/s ;   u ≈ 2,6 m/s",
              piezime="Divas metodes: enerģija slīdēšanai, impulss "
                      "triecienam."),
@@ -1182,7 +1183,7 @@ dict(
                     "(R = 6,4·10⁶ m; GM = 4,0·10¹⁴ m³/s²; π ≈ 3,14)",
              dots=["h = 4,0·10⁵ m", "R = 6,4·10⁶ m"],
              jaaprekina=["v, T, a = ?"],
-             formulas=["v = √(GM/r)", "T = 2πr/v", "a = v²/r"],
+             formulas=["v = √(GM/r)", "v = 2πr/T", "T = 2πr/v", "a = v²/r"],
              aprekins=["1)  r = 6,8·10⁶ m;  "
                        "v = √(4,0·10¹⁴:6,8·10⁶) = 7,67·10³ m/s",
                        "2)  T = 2·3,14·6,8·10⁶ : 7,67·10³ = 5570 s ≈ "
@@ -1202,7 +1203,7 @@ dict(
                        "F(b) = Q/s"],
              aprekins=["1)  Ep = 3,0 · 9,8 · 6,0 = 176,4 J",
                        "2)  Ek = 3,0 · 81 : 2 = 121,5 J",
-                       "3)  Q = 54,9 J ;  F(b) = 54,9 : 12 = 4,6 N"],
+                       "3)  Q = 54,9 J ;  F(b) = 54,9 : 12 ≈ 4,6 N"],
              atbilde="Q ≈ 55 J (31 %) ;   F(b) ≈ 4,6 N",
              piezime="Enerģijas metode ļauj atrast berzes spēku, pat "
                      "nezinot plaknes leņķi."),
@@ -1213,7 +1214,8 @@ dict(
                     "augšpunktā!",
              dots=["g = 8,0 m/s²", "m = 2,0 kg", "v₀ = 20 m/s"],
              jaaprekina=["h = ?", "t = ?", "Ep = ?"],
-             formulas=["h = v₀²/(2g)", "t = v₀/g", "Ep = mgh"],
+             formulas=["v² − v₀² = 2as", "h = v₀²/(2g)", "t = v₀/g",
+                       "Ep = mgh"],
              aprekins=["1)  h = 400 : 16 = 25 m",
                        "2)  t = 20 : 8,0 = 2,5 s",
                        "3)  Ep = 2,0 · 8,0 · 25 = 400 J"],

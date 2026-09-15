@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -351,19 +364,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.4667%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">LAUKA INTENSITĀTE</p>
 </div>
-<div class="tb" style="left:40.3748%;top:23.4315%;width:2.4001%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:43.0936%;top:21.3204%;width:0.8360%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:43.0936%;top:25.0192%;width:0.8360%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:43.0936%;top:25.5426%;width:0.8360%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q</p>
-</div>
-<div class="tb" style="left:44.3983%;top:23.4315%;width:15.3769%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F = qE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[E] = N/C</p>
-</div>
 <div class="tb" style="left:5.9251%;top:29.3345%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Lauka intensitāte rāda, cik liels spēks darbojas uz vienu kulonu lādiņa. Tā ir vektors: virziens sakrīt ar spēku, kas darbotos uz POZITĪVU lādiņu.</p>
 </div>
@@ -386,6 +386,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">9.3. Elektriskā lauka modelis</p>
 </div>
+<div class="ml" style="left:5.9251%;top:21.0667%;width:88.1497%;height:8.1187%;justify-content:center;font-size:1.5625cqw;color:#4F46E5;font-weight:700"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F = qE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[E] = N/C</span></div>
 
 </div>
 <div class="flow">
@@ -447,13 +448,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Stari uz āru</p>
 </div>
 <i style="left:63.3185%;top:22.4000%;width:32.5564%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:64.7185%;top:23.6148%;width:6.9914%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Krītas kā 1</p>
-</div>
-<i style="left:64.7185%;top:27.5674%;width:6.9914%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:64.7185%;top:28.1185%;width:6.9914%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r²</p>
-</div>
 <i style="left:4.1251%;top:32.9481%;width:28.6998%;height:10.5481%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:5.0251%;top:34.1481%;width:26.8998%;height:8.1481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Punktveida −</p>
@@ -463,13 +457,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.6667cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Stari uz iekšu</p>
 </div>
 <i style="left:63.3185%;top:32.9481%;width:32.5564%;height:10.5481%;background:#F5F3FF;border:0.078cqw solid #E5E7EB"></i>
-<div class="tb" style="left:64.7185%;top:34.1630%;width:6.9914%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Krītas kā 1</p>
-</div>
-<i style="left:64.7185%;top:38.1155%;width:6.9914%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:64.7185%;top:38.6667%;width:6.9914%;height:3.6148%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6667cqw;color:#374151;text-align:center;padding-top:0.0000cqw">r²</p>
-</div>
 <i style="left:4.1251%;top:43.4963%;width:28.6998%;height:10.5481%;background:#FFFFFF;border:0.078cqw solid #E5E7EB"></i>
 <div class="tb" style="left:5.0251%;top:44.6963%;width:26.8998%;height:8.1481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Divas plāksnes</p>
@@ -504,6 +491,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">9.3. Elektriskā lauka modelis</p>
 </div>
+<div class="ml" style="left:64.2189%;top:22.4000%;width:30.7560%;height:10.5480%;justify-content:flex-start;font-size:1.6667cqw;color:#374151"><span><span class="f"><span class="n">Krītas kā 1</span><span class="d">r²</span></span></span></div>
+<div class="ml" style="left:64.2189%;top:32.9480%;width:30.7560%;height:10.5480%;justify-content:flex-start;font-size:1.6667cqw;color:#374151"><span><span class="f"><span class="n">Krītas kā 1</span><span class="d">r²</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -582,8 +571,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -604,8 +592,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="h1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="h1">Aprēķini lauka intensitāti!</p>
+<p class="h1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
@@ -628,8 +615,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -656,8 +642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -685,8 +670,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -722,8 +706,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -755,8 +738,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -779,16 +761,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:59.5461%;top:54.1370%;width:4.9501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.3462%;top:49.6333%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:65.3462%;top:57.6452%;width:1.7834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.3462%;top:58.6407%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
@@ -797,6 +769,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -808,8 +781,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -845,8 +817,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -868,21 +839,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7691%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2898%;top:63.3050%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.2898%;top:67.6280%;width:0.9549%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2898%;top:68.2197%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -892,6 +852,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;E =&nbsp;<span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -903,8 +865,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -921,7 +882,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">E = <span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
@@ -944,8 +905,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -967,25 +927,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7691%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2898%;top:63.3050%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.2898%;top:67.6280%;width:0.9549%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2898%;top:68.2197%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;E = 2,5·10⁵ N/C</p>
 </div>
@@ -997,6 +944,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;E =&nbsp;<span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1008,8 +957,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1026,7 +974,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">E = <span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -1053,8 +1001,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini lauka intensitāti!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1076,28 +1023,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7691%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2898%;top:63.3050%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.2898%;top:67.6280%;width:0.9549%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2898%;top:68.2197%;width:0.9549%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;E = 2,5·10⁵ N/C</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">E = 2,5·10⁵ N/C</p>
 <p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Intensitāte nav atkarīga no ievietotā lādiņa - to nosaka lauka avots.</p>
@@ -1110,6 +1044,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;E =&nbsp;<span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1121,8 +1057,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Lauka intensitāte</p>
-<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N.</p>
-<p class="p1">Aprēķini lauka intensitāti!</p>
+<p class="p1">Uz lādiņu 2·10⁻⁶ C laukā darbojas spēks 0,50 N. Aprēķini lauka intensitāti!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1139,8 +1074,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;E = 0,50 : 2·10⁻⁶</p>
 <p class="p2">2)&nbsp;&nbsp;E = 2,5·10⁵ N/C</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">E = <span class="f"><span class="n">0,50</span><span class="d">2·10⁻⁶</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1168,8 +1103,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1190,8 +1124,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="h1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="h1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="h1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
@@ -1214,8 +1147,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1242,8 +1174,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1271,8 +1202,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1308,8 +1238,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1341,8 +1270,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1365,16 +1293,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:39.9000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:59.5461%;top:49.5370%;width:4.9501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.3462%;top:45.0333%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:65.3462%;top:53.0452%;width:1.7834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.3462%;top:54.0407%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q</p>
-</div>
 <div class="tb" style="left:33.7508%;top:63.4185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = qE</p>
 </div>
@@ -1386,6 +1304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:44.7373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1397,8 +1316,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1435,8 +1353,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1458,16 +1375,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.5261%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9962%;top:60.9200%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9962%;top:64.8320%;width:0.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9962%;top:65.3787%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
 </div>
@@ -1485,6 +1392,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1496,8 +1404,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1538,8 +1445,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1560,16 +1466,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:55.2492%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
-</div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.5261%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9962%;top:60.9200%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9962%;top:64.8320%;width:0.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9962%;top:65.3787%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
@@ -1594,6 +1490,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1605,8 +1502,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1651,8 +1547,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1673,16 +1568,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:55.2492%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
 <div class="tb" style="left:4.1251%;top:56.8492%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
-</div>
-<div class="tb" style="left:4.1251%;top:63.1493%;width:2.5261%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9962%;top:60.9200%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9962%;top:64.8320%;width:0.8663%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9962%;top:65.3787%;width:0.8663%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
 </div>
 <div class="tb" style="left:4.1251%;top:69.5929%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
@@ -1711,6 +1596,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.7733%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1722,8 +1608,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Spēks uz lādiņu</p>
-<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu</p>
-<p class="p1">5·10⁻⁸ C. Aprēķini spēku!</p>
+<p class="p1">Laukā ar intensitāti 400 N/C ievieto lādiņu 5·10⁻⁸ C. Aprēķini spēku!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1770,8 +1655,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1788,8 +1672,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="h1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="h1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="h1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
@@ -1809,8 +1692,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1833,8 +1715,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1859,8 +1740,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1892,8 +1772,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1922,8 +1801,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1946,30 +1824,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:35.1593%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:59.5461%;top:44.7963%;width:4.9501%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.3462%;top:40.2926%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:65.3462%;top:48.3044%;width:1.7834%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.3462%;top:49.3000%;width:1.7834%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q</p>
-</div>
-<div class="tb" style="left:59.5461%;top:63.4778%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">q =&nbsp;</p>
-</div>
-<div class="tb" style="left:65.4962%;top:58.9741%;width:1.6334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:65.4962%;top:66.9859%;width:1.6334%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:65.4962%;top:67.9815%;width:1.6334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:39.9960%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:58.6773%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>q =&nbsp;<span class="f"><span class="n">F</span><span class="d">E</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1981,8 +1841,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2016,8 +1875,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2039,36 +1897,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.2831%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7025%;top:58.5350%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7025%;top:62.0360%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7025%;top:62.5377%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:0.7258%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>q =&nbsp;<span class="f"><span class="n">F</span><span class="d">E</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;q =&nbsp;<span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2080,8 +1920,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2099,7 +1938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">q = <span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
@@ -2119,8 +1958,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2142,35 +1980,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.2831%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7025%;top:58.5350%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7025%;top:62.0360%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7025%;top:62.5377%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:0.7258%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;q = 2·10⁻⁶ C</p>
 </div>
@@ -2178,6 +1993,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>q =&nbsp;<span class="f"><span class="n">F</span><span class="d">E</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;q =&nbsp;<span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2189,8 +2007,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2208,7 +2025,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">q = <span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -2232,8 +2049,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2255,38 +2071,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.2831%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7025%;top:58.5350%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7025%;top:62.0360%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7025%;top:62.5377%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:0.7258%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;q = 2·10⁻⁶ C</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;q = 2 µC</p>
 </div>
@@ -2294,6 +2087,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>q =&nbsp;<span class="f"><span class="n">F</span><span class="d">E</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;q =&nbsp;<span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2305,8 +2101,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2324,8 +2119,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
 <p class="p2">2)&nbsp;&nbsp;q = 2·10⁻⁶ C</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">q = <span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -2349,8 +2144,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2372,49 +2166,29 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:2.2831%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7025%;top:58.5350%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7025%;top:62.0360%;width:0.7777%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7025%;top:62.5377%;width:0.7777%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">q =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:0.7258%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:0.7258%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">E</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;q = 2·10⁻⁶ C</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;q = 2 µC</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">q = 2·10⁻⁶ C</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">No vienas formulas var izteikt visus trīs lielumus.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">q = 2·10⁻⁶ C</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">No vienas formulas var izteikt visus trīs lielumus.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>q =&nbsp;<span class="f"><span class="n">F</span><span class="d">E</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;q =&nbsp;<span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2426,8 +2200,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Meklē lādiņu</p>
-<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas</p>
-<p class="p1">spēks 0,024 N. Aprēķini lādiņu!</p>
+<p class="p1">Laukā ar intensitāti 1,2·10⁴ N/C uz lādiņu darbojas spēks 0,024 N. Aprēķini lādiņu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2445,9 +2218,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;q = 0,024 : 1,2·10⁴</p>
 <p class="p2">2)&nbsp;&nbsp;q = 2·10⁻⁶ C</p>
 <p class="p2">3)&nbsp;&nbsp;q = 2 µC</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">q = <span class="f"><span class="n">0,024</span><span class="d">1,2·10⁴</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2472,9 +2245,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2490,9 +2261,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="h1">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="h1">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="h1">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="h1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2511,10 +2280,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2537,9 +2304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2564,22 +2329,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2601,15 +2364,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -2632,40 +2393,43 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:35.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">F = qE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Zīme nosaka virzienu</p>
+</div>
+<div class="tb" style="left:33.7508%;top:58.8185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = qE</p>
+</div>
+<div class="tb" style="left:33.7508%;top:68.0185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Zīme nosaka virzienu</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:33.7508%;top:40.1373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2677,24 +2441,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Spēka virziens = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Spēka virziens = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">F = qE</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">Zīme nosaka virzienu</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">E = <span class="f"><span class="n">F</span><span class="d">q</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2713,39 +2476,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2756,6 +2517,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2767,24 +2529,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Spēka virziens = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Spēka virziens = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">F = qE</p>
-<p class="p2">Zīme nosaka virzienu</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">F = qE</p>
+<p class="p3">Zīme nosaka virzienu</p>
+<p class="mf" style="color:#374151"><span class="mc">E = <span class="f"><span class="n">F</span><span class="d">q</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2807,39 +2568,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2856,6 +2615,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2867,24 +2627,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Spēka virziens = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Spēka virziens = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">F = qE</p>
-<p class="p2">Zīme nosaka virzienu</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">F = qE</p>
+<p class="p3">Zīme nosaka virzienu</p>
+<p class="mf" style="color:#374151"><span class="mc">E = <span class="f"><span class="n">F</span><span class="d">q</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2911,39 +2670,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2963,6 +2720,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2974,24 +2732,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Spēka virziens = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Spēka virziens = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">F = qE</p>
-<p class="p2">Zīme nosaka virzienu</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">F = qE</p>
+<p class="p3">Zīme nosaka virzienu</p>
+<p class="mf" style="color:#374151"><span class="mc">E = <span class="f"><span class="n">F</span><span class="d">q</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3019,39 +2776,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Virziens laukā</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Lauks vērsts pa labi</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">a) q &gt; 0</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">b) q &lt; 0</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Spēka virziens = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = qE</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Zīme nosaka virzienu</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -3075,6 +2830,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>E =&nbsp;<span class="f"><span class="n">F</span><span class="d">q</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3086,24 +2842,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Virziens laukā</p>
-<p class="p2">Vienmērīgā laukā, kas vērsts pa labi, ievieto</p>
-<p class="p2">a) pozitīvu un b) negatīvu lādiņu.</p>
-<p class="p2">Uz kuru pusi darbojas spēks katrā gadījumā?</p>
+<p class="p1">Vienmērīgā laukā, kas vērsts pa labi, ievieto a) pozitīvu un b) negatīvu lādiņu. Uz kuru pusi darbojas spēks katrā gadījumā?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">Lauks vērsts pa labi</p>
-<p class="p2">a) q &gt; 0</p>
-<p class="p2">b) q &lt; 0</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">Lauks vērsts pa labi</p>
+<p class="p3">a) q &gt; 0</p>
+<p class="p3">b) q &lt; 0</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Spēka virziens = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Spēka virziens = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">F = qE</p>
-<p class="p2">Zīme nosaka virzienu</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">F = qE</p>
+<p class="p3">Zīme nosaka virzienu</p>
+<p class="mf" style="color:#374151"><span class="mc">E = <span class="f"><span class="n">F</span><span class="d">q</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3280,6 +3035,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

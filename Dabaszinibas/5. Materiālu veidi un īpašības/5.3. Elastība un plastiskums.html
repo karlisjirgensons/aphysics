@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -416,19 +429,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.4667%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">HUKA LIKUMS</p>
 </div>
-<div class="tb" style="left:38.0389%;top:23.4315%;width:12.4703%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Fe = −k · Δx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k =&nbsp;</p>
-</div>
-<div class="tb" style="left:50.8280%;top:21.3204%;width:1.6250%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:50.8280%;top:25.0192%;width:1.6250%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:50.8280%;top:25.5426%;width:1.6250%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx</p>
-</div>
-<div class="tb" style="left:52.9218%;top:23.4315%;width:9.1893%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[k] = N/m</p>
-</div>
 <div class="tb" style="left:5.9251%;top:29.3345%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Fe — elastības spēks, Δx — pagarinājums, k — stinguma koeficients. Mīnuss rāda, ka spēks vērsts pretēji deformācijai.</p>
 </div>
@@ -441,7 +441,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:35.4584%;top:40.8000%;width:29.0832%;height:23.2000%;background:#FFFFFF;border:0.130cqw solid #047857;border-radius:0.653cqw"></i>
 <div class="tb" style="left:37.2584%;top:42.7840%;width:25.4831%;height:19.2320%;justify-content:flex-start">
-<p style="font-size:1.6448cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">GRAFIKS&nbsp;&nbsp;F(Δx)</p>
+<p style="font-size:1.6448cqw;color:#047857;text-align:left;padding-top:0.0000cqw;font-weight:700">GRAFIKS&nbsp;&nbsp;F<sub>Δx</sub></p>
 <p style="font-size:1.3980cqw;color:#374151;text-align:left;padding-top:0.8219cqw">Elastīgajā apgabalā — taisne.</p>
 <p style="font-size:1.3980cqw;color:#374151;text-align:left;padding-top:0.4104cqw">Taisnes slīpums ir k.</p>
 <p style="font-size:1.3980cqw;color:#374151;text-align:left;padding-top:0.4104cqw">Aiz elastības robežas līnija liecas.</p>
@@ -456,6 +456,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">5.3. Elastība un plastiskums</p>
 </div>
+<div class="ml" style="left:5.9251%;top:21.0667%;width:88.1497%;height:8.1187%;justify-content:center;font-size:1.5625cqw;color:#4F46E5;font-weight:700"><span>Fe = −k · Δx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[k] = N/m</span></div>
 
 </div>
 <div class="flow">
@@ -477,7 +478,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3">1 cm pagarinājumam vajag 2 N.</p>
 </div>
 <div class="card" style="border-color:#047857">
-<p class="p2" style="color:#047857;font-weight:700">GRAFIKS&nbsp;&nbsp;F(Δx)</p>
+<p class="p2" style="color:#047857;font-weight:700">GRAFIKS&nbsp;&nbsp;F<sub>Δx</sub></p>
 <p class="p3">Elastīgajā apgabalā — taisne.</p>
 <p class="p3">Taisnes slīpums ir k.</p>
 <p class="p3">Aiz elastības robežas līnija liecas.</p>
@@ -527,8 +528,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -536,7 +536,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 
 </div>
@@ -549,14 +549,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="h1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="h1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="h1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -573,8 +572,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -588,7 +586,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 
 </div>
@@ -601,8 +599,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -613,7 +610,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -630,8 +627,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -654,7 +650,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 
 </div>
@@ -667,8 +663,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -683,7 +678,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -700,8 +695,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -727,24 +721,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.7370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Fe = k · Δx</p>
 </div>
-<div class="tb" style="left:58.7210%;top:58.7370%;width:4.9168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:64.4879%;top:54.2333%;width:3.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:64.4879%;top:62.2452%;width:3.4668%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.4879%;top:63.2407%;width:3.4668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:53.9373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -756,8 +741,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -777,7 +761,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -794,8 +778,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -820,16 +803,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Fe = k · Δx</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9384%;top:65.0462%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9384%;top:68.9582%;width:1.6500%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9384%;top:69.5049%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -842,8 +815,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -855,8 +829,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -880,7 +853,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -897,8 +870,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -923,16 +895,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Fe = k · Δx</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9384%;top:65.0462%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9384%;top:68.9582%;width:1.6500%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9384%;top:69.5049%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -951,8 +913,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -964,8 +927,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -993,7 +955,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -1010,8 +972,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1036,16 +997,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Fe = k · Δx</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9384%;top:65.0462%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9384%;top:68.9582%;width:1.6500%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9384%;top:69.5049%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1067,8 +1018,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1080,8 +1032,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1110,7 +1061,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -1127,8 +1078,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini atsperes stinguma koeficientu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1152,16 +1102,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="tb" style="left:4.1251%;top:60.7733%;width:24.0006%;height:3.6373%;justify-content:flex-start">
 <p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Fe = k · Δx</p>
-</div>
-<div class="tb" style="left:4.1251%;top:67.2755%;width:2.4683%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.9384%;top:65.0462%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:6.9384%;top:68.9582%;width:1.6500%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.9384%;top:69.5049%;width:1.6500%;height:3.5787%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.6490cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -1188,8 +1128,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:64.9000%;width:24.0006%;height:8.3307%;justify-content:flex-start;font-size:1.6490cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1201,8 +1142,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Stinguma koeficients</p>
-<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm.</p>
-<p class="p1">Aprēķini atsperes stinguma koeficientu!</p>
+<p class="p1">Atsperi ar 12 N lielu spēku izstiepj par 6,0 cm. Aprēķini atsperes stinguma koeficientu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1233,7 +1173,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 </div>
 </section>
@@ -1250,12 +1190,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1272,11 +1211,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="h1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="h1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="h1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1296,8 +1234,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1308,7 +1245,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1325,8 +1262,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1335,7 +1271,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">g = 9,81 m/s²</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1355,8 +1291,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1378,7 +1313,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1395,8 +1330,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1409,7 +1343,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">Δx = ?&nbsp;&nbsp;(cm)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1429,8 +1363,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1459,24 +1392,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.7370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F = m · g</p>
 </div>
-<div class="tb" style="left:58.7210%;top:58.7370%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:66.3546%;top:54.2333%;width:1.6000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:66.3546%;top:62.2452%;width:1.6000%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:66.3546%;top:63.2407%;width:1.6000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:53.9373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1488,8 +1412,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1507,7 +1430,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="mf" style="color:#4F46E5"><span class="mc">Δx = <span class="f"><span class="n">F</span><span class="d">k</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1527,8 +1450,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1556,16 +1478,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = m · g</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:65.9434%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:69.4444%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:69.9461%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -1574,12 +1486,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1591,8 +1504,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1614,7 +1526,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;F = 2,0 · 9,81 = 19,6 N</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1634,8 +1546,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1663,16 +1574,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = m · g</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:65.9434%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:69.4444%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:69.9461%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1687,12 +1588,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1704,8 +1606,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1731,7 +1632,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Δx = 19,6 N : 250 N/m = 0,0785 m</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1751,8 +1652,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1780,16 +1680,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = m · g</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:65.9434%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:69.4444%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:69.9461%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1807,12 +1697,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1824,8 +1715,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1852,7 +1742,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;Δx = 7,9 cm</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1872,8 +1762,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Par cik centimetriem atspere pagarināsies?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1901,16 +1790,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:62.1076%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">F = m · g</p>
 </div>
-<div class="tb" style="left:4.1251%;top:67.9448%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:65.9434%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:69.4444%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:69.9461%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1932,12 +1811,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:65.8120%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1949,8 +1829,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Pagarinājums zem kravas</p>
-<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s².</p>
-<p class="p1">Par cik centimetriem atspere pagarināsies?</p>
+<p class="p1">Atsperei ar k = 250 N/m pakar 2,0 kg smagu atsvaru. g = 9,81 m/s². Par cik centimetriem atspere pagarināsies?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1979,7 +1858,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2" style="color:#4B5563;font-style:italic">Tieši šo sakarību izmanto atsperu svaros.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -1999,8 +1878,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2017,8 +1895,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="h1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="h1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="h1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -2038,8 +1915,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2062,8 +1938,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2088,8 +1963,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2121,8 +1995,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2151,8 +2024,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2175,20 +2047,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:56.7210%;top:54.1370%;width:4.9168%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:62.4878%;top:49.6333%;width:7.4669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">ΔF</p>
-</div>
-<i style="left:62.4878%;top:57.6452%;width:7.4669%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:62.4878%;top:58.6407%;width:7.4669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δ(Δx)</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>k =&nbsp;<span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2200,8 +2063,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2214,7 +2076,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ(Δx)</span></span></span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -2234,8 +2096,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2257,16 +2118,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7054%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2261%;top:63.3050%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF</p>
-</div>
-<i style="left:7.2261%;top:67.6280%;width:3.9559%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2261%;top:68.2197%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δ(Δx)</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -2277,6 +2128,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2288,8 +2140,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2302,7 +2153,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ(Δx)</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2326,8 +2177,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2349,16 +2199,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7054%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2261%;top:63.3050%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF</p>
-</div>
-<i style="left:7.2261%;top:67.6280%;width:3.9559%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2261%;top:68.2197%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δ(Δx)</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -2369,12 +2209,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
 <div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2386,8 +2227,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2400,7 +2240,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ(Δx)</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2408,7 +2248,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -2428,8 +2268,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2451,16 +2290,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7054%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2261%;top:63.3050%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF</p>
-</div>
-<i style="left:7.2261%;top:67.6280%;width:3.9559%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2261%;top:68.2197%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δ(Δx)</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -2469,17 +2298,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ΔF = 30 − 10 = 20 N</p>
 </div>
 <div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
 </div>
 <i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:52.9333%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;k = 20 : 0,080 = 250 N/m</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></div>
+<div class="ml" style="left:33.7508%;top:57.7707%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>3)&nbsp;&nbsp;k =&nbsp;<span class="f"><span class="n">20</span><span class="d">0,080</span></span>&nbsp;= 250 N/m</span></div>
 
 </div>
 <div class="flow">
@@ -2491,8 +2321,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2505,16 +2334,16 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ(Δx)</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;ΔF = 30 − 10 = 20 N</p>
-<p class="p2">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
+<p class="p2">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;k = 20 : 0,080 = 250 N/m</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">3)</span><span class="mc">k = <span class="f"><span class="n">20</span><span class="d">0,080</span></span> = 250 N/m</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
@@ -2534,8 +2363,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2557,16 +2385,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.7054%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.2261%;top:63.3050%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">ΔF</p>
-</div>
-<i style="left:7.2261%;top:67.6280%;width:3.9559%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.2261%;top:68.2197%;width:3.9559%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δ(Δx)</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -2575,21 +2393,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;ΔF = 30 − 10 = 20 N</p>
 </div>
 <div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;k = 20 : 0,080 = 250 N/m</p>
-</div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.1511cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:2.8324cqw;color:#4F46E5;text-align:center;padding-top:0.8844cqw;font-weight:700">k = 250 N/m — attiecība nemainīga, deformācija elastīga</p>
-<p style="font-size:1.3271cqw;color:#4B5563;text-align:center;padding-top:1.0615cqw;font-style:italic">Ja F/Δx abos punktos sakrīt, grafiks ir taisne un Huka likums izpildās.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2519%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:0.9063cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:2.2323cqw;color:#4F46E5;text-align:center;padding-top:0.6969cqw;font-weight:700">k = 250 N/m — attiecība nemainīga, deformācija elastīga</p>
+<p style="font-size:1.0459cqw;color:#4B5563;text-align:center;padding-top:0.8365cqw;font-style:italic">Ja F/Δx abos punktos sakrīt, grafiks ir taisne un Huka likums izpildās.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>k =&nbsp;<span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></div>
+<div class="ml" style="left:31.8008%;top:46.5107%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>3)&nbsp;&nbsp;k =&nbsp;<span class="f"><span class="n">20</span><span class="d">0,080</span></span>&nbsp;= 250 N/m</span></div>
 
 </div>
 <div class="flow">
@@ -2601,8 +2418,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Grafika slīpums</p>
-<p class="p1">F(Δx) grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N.</p>
-<p class="p1">Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
+<p class="p1">F<sub>Δx</sub> grafikā pie Δx = 4,0 cm spēks ir 10 N, bet pie Δx = 12,0 cm spēks ir 30 N. Aprēķini stinguma koeficientu un pārbaudi, vai deformācija ir elastīga!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2615,17 +2431,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ(Δx)</span></span></span></p>
+<p class="mf" style="color:#374151"><span class="mc">k = <span class="f"><span class="n">ΔF</span><span class="d">Δ<sub>Δx</sub></span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;ΔF = 30 − 10 = 20 N</p>
-<p class="p2">2)&nbsp;&nbsp;Δ(Δx) = 0,120 − 0,040 = 0,080 m</p>
-<p class="p2">3)&nbsp;&nbsp;k = 20 : 0,080 = 250 N/m</p>
+<p class="p2">2)&nbsp;&nbsp;Δ<sub>Δx</sub> = 0,120 − 0,040 = 0,080 m</p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc">k = <span class="f"><span class="n">20</span><span class="d">0,080</span></span> = 250 N/m</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
-<p class="h2" style="color:#4F46E5;font-weight:700">k = 250 N/m — attiecība nemainīga, deformācija elastīga</p>
+<p class="p1" style="color:#4F46E5;font-weight:700">k = 250 N/m — attiecība nemainīga, deformācija elastīga</p>
 <p class="p3" style="color:#4B5563;font-style:italic">Ja&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span>&nbsp;abos punktos sakrīt, grafiks ir taisne un Huka likums izpildās.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
@@ -2646,8 +2462,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2663,8 +2478,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="h1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="h1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="h1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2684,8 +2498,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2707,8 +2520,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2733,8 +2545,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2765,8 +2576,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2795,8 +2605,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2819,39 +2628,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:35.1593%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:58.7210%;top:44.7963%;width:6.7835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:66.3546%;top:40.2926%;width:1.6000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">F</p>
-</div>
-<i style="left:66.3546%;top:48.3044%;width:1.6000%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:66.3546%;top:49.3000%;width:1.6000%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k</p>
-</div>
-<div class="tb" style="left:54.1126%;top:63.4778%;width:5.1001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:60.0627%;top:58.9741%;width:4.6001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx₁</p>
-</div>
-<i style="left:60.0627%;top:66.9859%;width:4.6001%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:60.0627%;top:67.9815%;width:4.6001%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δx₂</p>
-</div>
-<div class="tb" style="left:65.6629%;top:63.4778%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:69.8297%;top:58.9741%;width:2.7334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k₂</p>
-</div>
-<i style="left:69.8297%;top:66.9859%;width:2.7334%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:69.8297%;top:67.9815%;width:2.7334%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">k₁</p>
-</div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:33.7508%;top:39.9960%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:58.6773%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2863,8 +2644,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2898,8 +2678,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2921,36 +2700,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:58.5350%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:62.0360%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:62.5377%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₁</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:1.9775%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₂</p>
-</div>
-<div class="tb" style="left:9.1763%;top:68.4539%;width:1.5572%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:11.0279%;top:66.4526%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₂</p>
-</div>
-<i style="left:11.0279%;top:69.9535%;width:1.1702%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:11.0279%;top:70.4552%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -2960,6 +2709,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2971,8 +2722,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3010,8 +2760,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3033,36 +2782,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:58.5350%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:62.0360%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:62.5377%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₁</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:1.9775%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₂</p>
-</div>
-<div class="tb" style="left:9.1763%;top:68.4539%;width:1.5572%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:11.0279%;top:66.4526%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₂</p>
-</div>
-<i style="left:11.0279%;top:69.9535%;width:1.1702%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:11.0279%;top:70.4552%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -3071,13 +2790,15 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:55.2627%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>2)&nbsp;&nbsp;Δx₁ =&nbsp;<span class="f"><span class="n">29,4</span><span class="d">150</span></span>&nbsp;= 0,196 m</span></div>
 
 </div>
 <div class="flow">
@@ -3089,8 +2810,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3112,7 +2832,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">Δx₁ = <span class="f"><span class="n">29,4</span><span class="d">150</span></span> = 0,196 m</span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -3132,8 +2852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3155,36 +2874,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:58.5350%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:62.0360%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:62.5377%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₁</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:1.9775%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₂</p>
-</div>
-<div class="tb" style="left:9.1763%;top:68.4539%;width:1.5572%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:11.0279%;top:66.4526%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₂</p>
-</div>
-<i style="left:11.0279%;top:69.9535%;width:1.1702%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:11.0279%;top:70.4552%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -3192,17 +2881,17 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
-</div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.4518%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;Δx₁ =&nbsp;<span class="f"><span class="n">29,4</span><span class="d">150</span></span>&nbsp;= 0,196 m</span></div>
+<div class="ml" style="left:33.7508%;top:60.2893%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>3)&nbsp;&nbsp;Δx₂ =&nbsp;<span class="f"><span class="n">29,4</span><span class="d">400</span></span>&nbsp;= 0,0736 m</span></div>
 
 </div>
 <div class="flow">
@@ -3214,8 +2903,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3234,11 +2922,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
-<p class="p2">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">Δx₁ = <span class="f"><span class="n">29,4</span><span class="d">150</span></span> = 0,196 m</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">3)</span><span class="mc">Δx₂ = <span class="f"><span class="n">29,4</span><span class="d">400</span></span> = 0,0736 m</span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -3258,8 +2946,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3281,36 +2968,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:58.5350%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:62.0360%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:62.5377%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₁</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:1.9775%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₂</p>
-</div>
-<div class="tb" style="left:9.1763%;top:68.4539%;width:1.5572%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:11.0279%;top:66.4526%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₂</p>
-</div>
-<i style="left:11.0279%;top:69.9535%;width:1.1702%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:11.0279%;top:70.4552%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -3318,20 +2975,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
-</div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
-</div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 4. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">4)&nbsp;&nbsp;n = 0,196 : 0,0736 = 2,7</p>
+<i style="left:31.8008%;top:63.4222%;width:64.0741%;height:15.7778%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.444cqw"></i>
+<div class="tb" style="left:33.7508%;top:65.6778%;width:60.1740%;height:1.5523%;justify-content:flex-start">
+<p style="font-size:0.7031cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 4. SOLIS</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;Δx₁ =&nbsp;<span class="f"><span class="n">29,4</span><span class="d">150</span></span>&nbsp;= 0,196 m</span></div>
+<div class="ml" style="left:31.8008%;top:51.5480%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>3)&nbsp;&nbsp;Δx₂ =&nbsp;<span class="f"><span class="n">29,4</span><span class="d">400</span></span>&nbsp;= 0,0736 m</span></div>
+<div class="ml" style="left:33.7508%;top:68.1933%;width:60.1740%;height:8.7520%;justify-content:center;font-size:1.7323cqw;color:#4F46E5;font-weight:700"><span>4)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">0,196</span><span class="d">0,0736</span></span>&nbsp;= 2,7</span></div>
 
 </div>
 <div class="flow">
@@ -3343,8 +2998,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3363,12 +3017,12 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
-<p class="p2">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
-<p class="p2">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">Δx₁ = <span class="f"><span class="n">29,4</span><span class="d">150</span></span> = 0,196 m</span></p>
+<p class="mf" style="color:#374151"><span class="mc">3)</span><span class="mc">Δx₂ = <span class="f"><span class="n">29,4</span><span class="d">400</span></span> = 0,0736 m</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 4. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">4)&nbsp;&nbsp;n = 0,196 : 0,0736 = 2,7</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">4)</span><span class="mc">n = <span class="f"><span class="n">0,196</span><span class="d">0,0736</span></span> = 2,7</span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -3388,8 +3042,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3411,61 +3064,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:54.8805%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:60.5363%;width:3.0385%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.4580%;top:58.5350%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">F</p>
-</div>
-<i style="left:7.4580%;top:62.0360%;width:0.6814%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.4580%;top:62.5377%;width:0.6814%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k</p>
-</div>
-<div class="tb" style="left:4.1251%;top:68.4539%;width:2.3349%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">n =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.7544%;top:66.4526%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₁</p>
-</div>
-<i style="left:6.7544%;top:69.9535%;width:1.9775%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.7544%;top:70.4552%;width:1.9775%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δx₂</p>
-</div>
-<div class="tb" style="left:9.1763%;top:68.4539%;width:1.5572%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">&nbsp;=&nbsp;</p>
-</div>
-<div class="tb" style="left:11.0279%;top:66.4526%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₂</p>
-</div>
-<i style="left:11.0279%;top:69.9535%;width:1.1702%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:11.0279%;top:70.4552%;width:1.1702%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">k₁</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
+<div class="tb" style="left:31.8008%;top:36.1111%;width:63.3241%;height:3.6741%;justify-content:flex-start">
+<p style="font-size:1.6667cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">…</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
-</div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
-</div>
-<div class="tb" style="left:31.8008%;top:51.5259%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">4)&nbsp;&nbsp;n = 0,196 : 0,0736 = 2,7</p>
-</div>
-<i style="left:31.8008%;top:58.3630%;width:64.0741%;height:20.8370%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.586cqw"></i>
-<div class="tb" style="left:33.7508%;top:60.2296%;width:60.1740%;height:17.1037%;justify-content:center">
-<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">n ≈ 2,7 reizes</p>
-<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">To varēja aprēķināt arī īsāk: n = k₂/k₁ = 400/150 = 2,7.</p>
+<i style="left:31.8008%;top:52.7704%;width:64.0741%;height:26.4296%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.743cqw"></i>
+<div class="tb" style="left:33.7508%;top:54.6370%;width:60.1740%;height:22.6963%;justify-content:center">
+<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">n ≈ 2,7 reizes</p>
+<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">To varēja aprēķināt arī īsāk: n = k₂/k₁ = 400/150 = 2,7.</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:58.4027%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>Δx =&nbsp;<span class="f"><span class="n">F</span><span class="d">k</span></span></span></div>
+<div class="ml" style="left:4.1251%;top:66.3213%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>n =&nbsp;<span class="f"><span class="n">Δx₁</span><span class="d">Δx₂</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">k₂</span><span class="d">k₁</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:40.8960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>4)&nbsp;&nbsp;n =&nbsp;<span class="f"><span class="n">0,196</span><span class="d">0,0736</span></span>&nbsp;= 2,7</span></div>
 
 </div>
 <div class="flow">
@@ -3477,8 +3094,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Divas atsperes</p>
-<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu.</p>
-<p class="p1">Cik reižu vairāk pagarinās pirmā atspere?</p>
+<p class="p1">Pirmās atsperes k₁ = 150 N/m, otrās k₂ = 400 N/m. Abām pakar vienādu 3,0 kg kravu. Cik reižu vairāk pagarinās pirmā atspere?</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3496,10 +3112,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;F = 3,0 · 9,81 = 29,4 N</p>
-<p class="p2">2)&nbsp;&nbsp;Δx₁ = 29,4 : 150 = 0,196 m</p>
-<p class="p2">3)&nbsp;&nbsp;Δx₂ = 29,4 : 400 = 0,0736 m</p>
-<p class="p2">4)&nbsp;&nbsp;n = 0,196 : 0,0736 = 2,7</p>
+<p class="p2" style="color:#4B5563">…</p>
+<p class="mf" style="color:#374151"><span class="mc">4)</span><span class="mc">n = <span class="f"><span class="n">0,196</span><span class="d">0,0736</span></span> = 2,7</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -3527,7 +3141,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:1.2500cqw">•&nbsp;&nbsp;Elastīgā deformācijā forma atjaunojas, plastiskajā — paliek mainīta.</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;Huka likums Fe = −kΔx darbojas tikai līdz elastības robežai.</p>
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;k = F/Δx — stinguma koeficients, mēra N/m.</p>
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;F(Δx) grafika slīpums elastīgajā apgabalā ir k.</p>
+<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.9375cqw">•&nbsp;&nbsp;F<sub>Δx</sub> grafika slīpums elastīgajā apgabalā ir k.</p>
 </div>
 <i style="left:51.4250%;top:16.0000%;width:44.4499%;height:52.5333%;background:#FEF3C7;border:0.130cqw solid #B45309;border-radius:1.478cqw"></i>
 <div class="tb" style="left:53.2251%;top:17.9840%;width:40.8498%;height:48.5653%;justify-content:flex-start">
@@ -3539,7 +3153,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:70.6667%;width:91.7498%;height:21.6000%;background:#FFFFFF;border:0.130cqw solid #4F46E5;border-radius:0.608cqw"></i>
 <div class="tb" style="left:5.9251%;top:72.6507%;width:88.1497%;height:17.6320%;justify-content:flex-start">
 <p style="font-size:1.2125cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">PAŠVĒRTĒJUMS — atzīmē, cik droši jūties</p>
-<p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu atšķirt deformācijas veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot Huka likumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt k un Δx&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nolasīt F(Δx) grafiku</p>
+<p style="font-size:1.7167cqw;color:#374151;text-align:left;padding-top:0.9094cqw">Protu atšķirt deformācijas veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot Huka likumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt k un Δx&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nolasīt F<sub>Δx</sub> grafiku</p>
 <p style="font-size:1.5157cqw;color:#4B5563;text-align:left;padding-top:1.2125cqw;font-style:italic">Nākamā stunda: siltumvadītspēja.</p>
 </div>
 
@@ -3556,7 +3170,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p2">•&nbsp;&nbsp;Elastīgā deformācijā forma atjaunojas, plastiskajā — paliek mainīta.</p>
 <p class="p2">•&nbsp;&nbsp;Huka likums Fe = −kΔx darbojas tikai līdz elastības robežai.</p>
 <p class="p2">•&nbsp;&nbsp;k =&nbsp;<span class="f"><span class="n">F</span><span class="d">Δx</span></span>&nbsp;— stinguma koeficients, mēra N/m.</p>
-<p class="p2">•&nbsp;&nbsp;F(Δx) grafika slīpums elastīgajā apgabalā ir k.</p>
+<p class="p2">•&nbsp;&nbsp;F<sub>Δx</sub> grafika slīpums elastīgajā apgabalā ir k.</p>
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">MĀJASDARBS</p>
@@ -3566,7 +3180,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="border-color:#4F46E5">
 <p class="p3" style="color:#4F46E5;font-weight:700">PAŠVĒRTĒJUMS — atzīmē, cik droši jūties</p>
-<p class="p2">Protu atšķirt deformācijas veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot Huka likumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt k un Δx&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nolasīt F(Δx) grafiku</p>
+<p class="p2">Protu atšķirt deformācijas veidus&nbsp;&nbsp; ·&nbsp;&nbsp; Protu lietot Huka likumu&nbsp;&nbsp; ·&nbsp;&nbsp; Protu aprēķināt k un Δx&nbsp;&nbsp; ·&nbsp;&nbsp; Protu nolasīt F<sub>Δx</sub> grafiku</p>
 <p class="p2" style="color:#4B5563;font-style:italic">Nākamā stunda: siltumvadītspēja.</p>
 </div>
 </div>
@@ -3670,6 +3284,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

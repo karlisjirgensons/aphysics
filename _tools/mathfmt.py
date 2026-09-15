@@ -170,6 +170,33 @@ def _den_end(part, start):
     return len(part)
 
 
+# saskaitīšanas zīmes, kas beidz skaitītāju: "13,9 + 193/13,7" nozīmē
+# 13,9 plus daļa, nevis (13,9 + 193) dalīts ar 13,7
+_ADD = "+−-"
+
+
+def term_start(part, i):
+    """Kur sākas reizinājums, kas beidzas pozīcijā i.
+
+    Dalījums saista ciešāk par saskaitīšanu, tāpēc skaitītājs ir tikai
+    pēdējais loceklis. Zīme izteiksmes sākumā ("−625/(−10)") ir skaitļa
+    zīme, nevis atņemšana, tāpēc pie tās neapstājas.
+    """
+    depth = 0
+    for k in range(i - 1, -1, -1):
+        ch = part[k]
+        if ch in ")]":
+            depth += 1
+        elif ch in "([":
+            depth = max(0, depth - 1)
+        elif depth == 0 and ch in _ADD and part[:k].strip():
+            k += 1
+            while k < i and part[k] == " ":
+                k += 1
+            return k
+    return 0
+
+
 def _strip_outer(s):
     """(v − v₀) -> v − v₀, ja iekavas aptver visu izteiksmi."""
     s = s.strip()
@@ -191,7 +218,8 @@ def _atoms_from_part(part, spaced_units=False):
     if i < 0 or _preceded_by_number(part, i, spaced_units):
         return [("t", part)]
     end = _den_end(part, i + 1)
-    num = part[:i].strip()
+    start = term_start(part, i)
+    num = part[start:i].strip()
     den = part[i + 1:end].strip()
     tail = part[end:]
     trail = ""
@@ -201,8 +229,8 @@ def _atoms_from_part(part, spaced_units=False):
     tail = trail + tail
     if not num or not den:
         return [("t", part)]
-    # saglabā ievadošo atstarpi, lai teksts nesalīp
-    lead = part[:len(part) - len(part.lstrip())]
+    # viss, kas bija pirms skaitītāja ("13,9 + "), paliek tekstā
+    lead = part[:start]
     out = []
     if lead:
         out.append(("t", lead))
@@ -212,6 +240,137 @@ def _atoms_from_part(part, spaced_units=False):
             tail = " " + tail
         out.extend(_atoms_from_part(tail, spaced_units))
     return out
+
+
+# --------------------------------------------------------- dalījums ar kolu
+# Latviešu skolas pierakstā dalījumu bieži raksta ar kolu: "60 : 30 = 2,0".
+# rules_lessons.txt prasa to rādīt kā vertikālu daļu, tāpēc pirms atomu
+# meklēšanas kolu pārraksta par slīpsvītru - bet TIKAI tur, kur tas tiešām
+# ir dalījums. Attiecība ("attiecas kā 1 : 3 : 5", "attiecība 4 : 1") paliek
+# rindā: tur nekas netiek dalīts.
+
+_RATIO_CHARS = set("0123456789 ,.·×" + _SUPER + _SUB)
+_RATIO_REL = "=≈<>≤≥"
+
+
+def _depth_at(text, i):
+    """Iekavu dziļums pozīcijā i.
+
+    Iekavas skaita, nevis salīdzina to skaitu - soļa numurs "1)" ir
+    nepāra iekava, kas citādi visu rindu padarītu par "iekavās esošu".
+    """
+    depth = 0
+    for ch in text[:i]:
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth = max(0, depth - 1)
+    return depth
+
+
+def _group_left(text, j):
+    """Ja pirms j ir aizverošā iekava, atgriež visas grupas sākumu."""
+    depth = 0
+    for k in range(j - 1, -1, -1):
+        if text[k] == ")":
+            depth += 1
+        elif text[k] == "(":
+            depth -= 1
+            if depth == 0:
+                return k
+    return None
+
+
+def _group_right(text, j):
+    """Ja text[j] ir atverošā iekava, atgriež grupas beigas."""
+    depth = 0
+    for k in range(j, len(text)):
+        if text[k] == "(":
+            depth += 1
+        elif text[k] == ")":
+            depth -= 1
+            if depth == 0:
+                return k + 1
+    return None
+
+
+def _ratio_left(text, i):
+    """Skaitītājs pa kreisi no kola; (sākums, beigas) vai None."""
+    j = i
+    while j > 0 and text[j - 1] == " ":
+        j -= 1
+    if j > 0 and text[j - 1] == ")":
+        k = _group_left(text, j)
+        return (k, j) if k is not None else None
+    k = j
+    while k > 0 and text[k - 1] in _RATIO_CHARS:
+        k -= 1
+    while k < j and text[k] == " ":
+        k += 1
+    return (k, j) if k < j and any(c.isdigit() for c in text[k:j]) else None
+
+
+def _ratio_right(text, i):
+    """Saucējs pa labi no kola; (sākums, beigas) vai None."""
+    j = i + 1
+    while j < len(text) and text[j] == " ":
+        j += 1
+    if j < len(text) and text[j] == "(":
+        k = _group_right(text, j)
+        return (j, k) if k is not None else None
+    k = j
+    while k < len(text) and text[k] in _RATIO_CHARS:
+        k += 1
+    while k > j and text[k - 1] == " ":
+        k -= 1
+    return (j, k) if k > j and any(c.isdigit() for c in text[j:k]) else None
+
+
+def _is_division(text, lo, hi, num, den):
+    """Vai "a : b" ir dalījums (nevis attiecība)?
+
+    Dalījumu pazīst pēc tā, ka tas ir vienādojumā: vai nu tūlīt aiz
+    vienādības zīmes ("N = 1440 : 118"), vai aiz kola seko rezultāts
+    ("9 : 24 = 0,375"), vai abi lielumi ir iekavās ("(1,67 kg) : (9,1 kg)")
+    - attiecību tā neraksta.
+    """
+    after = text[hi:]
+    if after.lstrip().startswith(":"):          # ķēde 1 : 3 : 5 - attiecība
+        return False
+    if num.startswith("(") and den.startswith("("):
+        return True
+    return (text[:lo].rstrip().endswith("=")
+            or any(c in _RATIO_REL for c in after))
+
+
+def ratio_slash(text):
+    """Dalījuma kolus pārraksta par slīpsvītrām; attiecības neaiztiek."""
+    if " : " not in text:
+        return text
+    out, pos, i = [], 0, 0
+    while True:
+        i = text.find(" : ", i)
+        if i < 0:
+            break
+        i += 1                                   # kols
+        if i < pos or _depth_at(text, i):
+            i += 1
+            continue
+        left, right = _ratio_left(text, i), _ratio_right(text, i)
+        if not left or not right:
+            i += 1
+            continue
+        num, den = text[left[0]:left[1]], text[right[0]:right[1]]
+        if not _is_division(text, left[0], right[1], num, den):
+            i += 1
+            continue
+        if not den.startswith("(") and any(c in den for c in "·×"):
+            den = "(%s)" % den               # saucējs reizinājums: 6,0·10⁻⁴
+        out.append(text[pos:left[0]])
+        out.append("%s/%s" % (num, den))
+        pos = i = right[1]
+    out.append(text[pos:])
+    return "".join(out)
 
 
 # ---------------------------------------------------------------------- saknes
@@ -285,8 +444,27 @@ def split_roots(atoms):
     return out
 
 
+def with_ratio(text, build):
+    """Nolasa rindu, kolu dalījumu ("60 : 30") pieņemot par daļu.
+
+    Ja pārrakstītā rinda tomēr nedod daļu, atgriež sākotnējo lasījumu -
+    tā kols nekad nepaliek redzams kā slīpsvītra. Šo palīgu lieto abi
+    parsētāji (DRY), tāpēc noteikums ir viens un tas pats.
+    """
+    alt = ratio_slash(text)
+    if alt != text:
+        atoms = build(alt)
+        if any(a[0] == "f" for a in atoms):
+            return atoms
+    return build(text)
+
+
 def parse_math(text):
     """Sadala tekstu atomos; ja daļu nav, atgriež vienu ("t", text)."""
+    return with_ratio(text, _parse_math)
+
+
+def _parse_math(text):
     atoms = []
     for chunk in _CHUNK.split(text):
         if not chunk:
@@ -346,19 +524,28 @@ def _font(bold, italic):
     return f
 
 
-def text_w(s, size_pt, bold=False, italic=False):
-    """Teksta platums punktos pie dotā fonta izmēra.
-
-    Vektora bultiņa ir kombinējošā zīme - tā stāv virs burta un platumu
-    nepievieno; fontā tās parasti nav, tāpēc mērīšanai to izlaiž.
-    """
-    s = s.replace(VEC_MARK, "")
+def _plain_w(s, size_pt, bold=False, italic=False):
+    """Viena parasta teksta gabala platums punktos."""
     if not s:
         return 0.0
     f = _font(bold, italic)
     if f is None:                                  # rezerves novērtējums
         return len(s) * size_pt * 0.50
     return f.getlength(s) * size_pt / _REF
+
+
+def text_w(s, size_pt, bold=False, italic=False):
+    """Teksta platums punktos pie dotā fonta izmēra.
+
+    Mēra pa gabaliem, jo indeksu (F_y) raksta mazākā fontā, bet vektora
+    bultiņa ir kombinējošā zīme - tā stāv virs burta un platumu
+    nepievieno; fontā tās parasti nav, tāpēc mērīšanai to izlaiž.
+    """
+    total = 0.0
+    for kind, chunk in split_runs(s):
+        k = SUB_SIZE if kind == "s" else 1.0
+        total += _plain_w(chunk, size_pt * k, bold, italic)
+    return total
 
 
 
@@ -376,27 +563,152 @@ def has_vector(text):
     return bool(text) and VEC_MARK in text
 
 
-def split_vectors(text):
-    """Tekstu sadala gabalos: ("t", teksts) un ("v", bāzes simbols).
+# --------------------------------------------------------------- indeksi
+# Latviešu standartā indeksu raksta mazāku un zem pamatlīnijas: Rz, vvid,
+# Fb. Unikodā apakšindeksa burtu "y" nav (ir tikai ₓ, ₐ, ₙ ...), tāpēc
+# avotā indeksu raksta vienā no trim veidiem - visi nozīmē vienu un to
+# pašu, un visi te tiek pārvērsti par īstu apakšindeksu:
+#
+#     F_y, N_A          viena zīme aiz pasvītrojuma
+#     F_{max}           vairākas zīmes figūriekavās
+#     R(Z), v(vid)      indekss iekavās aiz viena simbola
+#
+# Šis modulis ir vienīgā vieta, kas izšķir, kas ir indekss (SRP); slaidu,
+# lapas un platuma mērītājs to visi uzzina caur split_runs() (DRY), tāpēc
+# pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un formulās.
+
+SUB_MARK = "_"
+SUB_OPEN, SUB_CLOSE = "{", "}"
+SUB_SIZE = 0.62                 # indeksa fonta izmērs (pamata daļās)
+_ASCII_ALNUM = set("0123456789abcdefghijklmnopqrstuvwxyz"
+                   "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+# Simbols, kam drīkst būt indekss: viens latīņu, grieķu vai latviešu burts.
+_SYMBOL = re.compile(r"[^\W\d_]", re.UNICODE)
+# Zīmes, kas stāv simbola priekšā, bet nav tā daļa: "ΣE(dienā)", "Δt(vid)".
+_PREFIKSI = set("ΣΔ∑∆Π∏")
+# Indeksa saturs: tikai burti un cipari, bez atstarpēm un darbības zīmēm,
+# citādi par indeksu kļūtu arī "(R + h)" un "(3,0 ± 0,2)".
+_SUB_BODY = re.compile(r"[^\W_]{1,12}\Z", re.UNICODE)
+
+# Iekavās ne vienmēr ir indekss - fizikā tāpat pieraksta grafiku un
+# raksturlīkņu funkcijas: "v(t) grafiks", "I(U) raksturlīkne". Tās uzskaita
+# šeit, jo pēc formas tās no indeksa neatšķiras: x(m) ir amplitūda (indekss),
+# x(t) ir koordināta atkarībā no laika (funkcija).
+FUNKCIJAS = frozenset("""
+x(t) v(t) a(t) s(t) T(t) x(l)
+F(x) f(x) y(x) d(x)
+I(U) U(I) m(V) p(V) V(p) p(T) V(T)
+g(h) v(h) v(r) F(r) T(r)
+""".split())
+
+
+def _is_sub(text, i):
+    """Vai text[i] ir indeksa pasvītrojums, nevis faila vārda daļa?
+
+    Indekss ir viena zīme ("F_y", "N_A") vai figūriekavās ("F_{max}");
+    "gen_fiz", "projekcijas_tt" - nav indekss.
+    """
+    if text[i] != SUB_MARK or i == 0 or text[i - 1] in " 	":
+        return False
+    if text[i + 1:i + 2] == SUB_OPEN:
+        return _sub_brace_end(text, i) > 0
+    nxt = text[i + 1] if i + 1 < len(text) else ""
+    nxt2 = text[i + 2] if i + 2 < len(text) else ""
+    return nxt in _ASCII_ALNUM and nxt2 not in _ASCII_ALNUM
+
+
+def _sub_brace_end(text, i):
+    """"F_{max}": aizverošās figūriekavas vieta vai 0, ja indeksa nav."""
+    close = text.find(SUB_CLOSE, i + 2)
+    if close < 0:
+        return 0
+    return close if _SUB_BODY.match(text[i + 2:close]) else 0
+
+
+def _sub_paren_end(text, i):
+    """"R(Z)": aizverošās iekavas vieta vai 0, ja tur nav indeksa.
+
+    Indekss ir tikai aiz VIENA burta ("R(Z)", "v(vid)") - tā "cos(x)",
+    "W/(m·K)" un "(3 · 10⁻⁵ m)" paliek neskarti. Skaitlis iekavās ir
+    funkcijas vērtība ("x(3) = 1,0 m"), nevis indekss; ciparu indeksu
+    raksta ar pasvītrojumu vai Unikodu: "V_1", "V₁".
+    """
+    if text[i] != "(" or i == 0 or not _SYMBOL.match(text[i - 1]):
+        return 0
+    if i > 1 and text[i - 2] not in _PREFIKSI and (
+            _SYMBOL.match(text[i - 2]) or text[i - 2] in _ASCII_ALNUM):
+        return 0
+    close = text.find(")", i + 1)
+    if close < 0:
+        return 0
+    body = text[i + 1:close]
+    if not _SUB_BODY.match(body) or body.isdigit():
+        return 0
+    return 0 if text[i - 1] + "(" + body + ")" in FUNKCIJAS else close
+
+
+def has_index(text):
+    """Vai tekstā ir kāds indeksa pieraksts? (ātrais ceļš zīmētājiem)"""
+    return bool(text) and (SUB_MARK in text or "(" in text)
+
+
+def has_markup(text):
+    """Vai tekstu drīkst rakstīt kā vienu gabalu, bez split_runs()?"""
+    return has_vector(text) or has_index(text)
+
+
+def split_runs(text):
+    """Tekstu sadala gabalos, ko attēlo atšķirīgi.
+
+        ("t", teksts)   - parasts teksts
+        ("v", simbols)  - vektors (bultiņa virs simbola)
+        ("s", zīme)     - apakšindekss
 
         "|Δv⃗| = 16"  ->  [('t','|Δ'), ('v','v'), ('t','| = 16')]
+        "F_y = 12"    ->  [('t','F'), ('s','y'), ('t',' = 12')]
+        "R(Z) = 6,4"  ->  [('t','R'), ('s','Z'), ('t',' = 6,4')]
     """
     out, buf = [], []
+
+    def flush():
+        if buf:
+            out.append(("t", "".join(buf)))
+            del buf[:]
+
     i, n = 0, len(text)
     while i < n:
         if i + 1 < n and text[i + 1] == VEC_MARK:
-            if buf:
-                out.append(("t", "".join(buf)))
-                buf = []
+            flush()
             out.append(("v", text[i]))
             i += 2
+            continue
+        if _is_sub(text, i):
+            flush()
+            if text[i + 1] == SUB_OPEN:
+                close = _sub_brace_end(text, i)
+                out.append(("s", text[i + 2:close]))
+                i = close + 1
+            else:
+                out.append(("s", text[i + 1]))
+                i += 2
+            continue
+        close = _sub_paren_end(text, i)
+        if close:
+            flush()
+            out.append(("s", text[i + 1:close]))
+            i = close + 1
             continue
         if text[i] != VEC_MARK:             # bultiņa bez bāzes - izlaiž
             buf.append(text[i])
         i += 1
-    if buf:
-        out.append(("t", "".join(buf)))
+    flush()
     return out
+
+
+def split_vectors(text):
+    """Novecojis vārds - sk. split_runs()."""
+    return split_runs(text)
 
 
 # ------------------------------------------------------------- saknes zīme
@@ -506,3 +818,16 @@ def root_path_d(h):
     """Saknes zīmes kontūra kā SVG "d" virkne (koordinātas em vienībās)."""
     _, pts = root_pts(h)
     return "M%s Z" % " L".join("%.4f %.4f" % p for p in pts)
+
+
+def root_svg(h=None, cls="rk"):
+    """Saknes zīme kā SVG - to pašu kontūru zīmē arī .pptx (root_pts).
+
+    Zīmi lieto divas vietas: prezentāciju lapa (html_deck.py) un pārbaudes
+    darbu lapa (fd_stils.py), tāpēc markup ir šeit, nevis abās (DRY).
+    """
+    h = root_em([("t", "")]) if h is None else h
+    w, _ = root_pts(h)
+    return ('<svg class="%s" viewBox="0 0 %.4f %.4f" '
+            'preserveAspectRatio="none" aria-hidden="true">'
+            '<path d="%s"/></svg>' % (cls, w, h, root_path_d(h)))

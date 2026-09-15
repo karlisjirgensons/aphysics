@@ -360,7 +360,7 @@ dict(
                     "Uz kuru pusi darbojas spēks katrā gadījumā?",
              dots=["Lauks vērsts pa labi", "a) q > 0", "b) q < 0"],
              jaaprekina=["Spēka virziens = ?"],
-             formulas=["F = qE", "Zīme nosaka virzienu"],
+             formulas=["E = F/q", "F = qE", "Zīme nosaka virzienu"],
              aprekins=["1)  a) q > 0: spēks pa lauka virzienu - pa labi",
                        "2)  b) q < 0: spēks pretēji laukam - pa kreisi",
                        "3)  Lielums abos gadījumos F = qE"],

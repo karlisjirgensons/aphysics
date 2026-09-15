@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Formatīvais darbs Nr. 2. Kā reizina un dala parastās daļas?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);
+     line-height:1.55;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+
+.top{position:sticky;top:0;z-index:20;display:flex;gap:.6rem;
+     align-items:center;flex-wrap:wrap;padding:.6rem .9rem;
+     background:var(--grad);color:#fff;box-shadow:var(--sh-md)}
+.top b{font-size:1rem;font-weight:600;font-family:var(--font-h)}
+.top .sub{font-size:.78rem;color:rgba(255,255,255,.82);flex:1 1 10rem}
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
+.top .back{font-size:.82rem;padding:.35rem .75rem;border-radius:var(--r-pill);
+     background:rgba(255,255,255,.14);transition:background .15s}
+.top .back:hover{background:rgba(255,255,255,.28)}
+
+.tools{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;
+     max-width:52rem;margin:1rem auto 0;padding:0 1rem}
+.tools button{font:inherit;font-size:.88rem;font-weight:500;border:0;
+     cursor:pointer;border-radius:var(--r-pill);padding:.55rem 1.1rem;
+     background:var(--surface);color:var(--primary);box-shadow:var(--sh);
+     transition:transform .15s,box-shadow .15s,background .15s}
+.tools button:hover{transform:translateY(-1px);box-shadow:var(--sh-lg)}
+.tools button.main{background:var(--primary);color:#fff}
+.tools button.main:hover{background:var(--violet)}
+.tools button[aria-pressed="true"]{background:var(--amber-ink);color:#fff}
+.tools .kods{margin-left:auto;font-size:.8rem;color:var(--dim);
+     font-variant-numeric:tabular-nums}
+.tools .kods b{color:var(--primary);font-size:.95rem;letter-spacing:.08em}
+
+/* ---------- lapa ---------- */
+.sheet{max-width:52rem;margin:1rem auto 3rem;background:var(--surface);
+     border-radius:var(--r);box-shadow:var(--sh-md);padding:2rem 2.2rem 2.4rem;
+     color:#1A1A1A}
+/* Gara punktu virkne ("......") ir viens vārds - bez šī tā izstieptu lapu. */
+.sheet p{overflow-wrap:break-word}
+.sheet .meta{margin:0 0 .1rem;font-size:.78rem;color:var(--dim)}
+.sheet .ph1{margin:0 0 .1rem;font-family:var(--font-h);font-weight:600;
+     color:var(--primary);font-size:clamp(1.15rem,4.4vw,1.5rem)}
+.sheet .ph2{margin:0 0 .5rem;font-weight:600;color:var(--primary);
+     font-size:clamp(.92rem,3.6vw,1.05rem)}
+.sheet .pnote{margin:.2rem 0 .6rem;font-size:.82rem;font-style:italic;
+     color:var(--dim)}
+.sheet .psec{margin:1.1rem 0 .3rem;font-weight:600;color:var(--primary);
+     font-size:.95rem}
+.sheet .pfoot{margin:.9rem 0 0;font-size:.85rem;color:var(--dim)}
+
+.form{display:flex;gap:.8rem;flex-wrap:wrap;margin:.6rem 0 .9rem}
+.form>div{flex:1 1 8rem}
+.form .line{display:block;border-bottom:1px dotted #9CA3AF;height:1.25rem}
+.form .lbl{font-size:.72rem;color:var(--dim)}
+
+.box{border:1px solid var(--line);border-left:4px solid var(--violet);
+     border-radius:.6rem;background:var(--surface2);padding:.6rem .8rem;
+     margin:.7rem 0 1rem}
+/* ATGĀDNE nāk no tā paša teksta, ko Word fails, tāpēc platās atstarpes
+   starp formulām jāpatur - citādi tās saplūst vienā rindā. */
+.box p{margin:0;font-size:.85rem;white-space:pre-wrap}
+.box .boxt{font-weight:600;color:var(--primary);font-size:.75rem;
+     letter-spacing:.06em}
+
+/* Vertikāla daļa (a/b) - tā pati, ko lieto prezentācijas (deck_page.py). */
+.f{display:inline-flex;flex-direction:column;align-items:stretch;
+   text-align:center;vertical-align:middle;margin:0 .28em;line-height:1.14}
+.f .n{display:block;padding:0 .2em}
+.f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
+
+/* Kvadrātsakne: vinkuls pāri VISAI izteiksmei (rules_pd.txt). Zīme ir
+   zīmēta (SVG), nevis ņemta no fonta, tāpēc vinkuls turpinās tieši no tās
+   augšējā stūra - tāpat kā prezentācijās (deck_page.py). */
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+
+.q{margin:.7rem 0 .9rem}
+.q .qt{margin:0 0 .25rem;font-size:.95rem}
+.q .opts{display:grid;gap:.25rem .9rem;grid-template-columns:1fr 1fr;
+     padding-left:.9rem}
+.q .opt{font-size:.9rem;padding:.1rem .35rem;border-radius:.4rem}
+.q .opt b{color:var(--dim);font-weight:600}
+.sheet.key .opt.ok{background:#DCFCE7;color:#065F46;font-weight:500}
+.sheet.key .opt.ok b{color:#047857}
+
+.tw{overflow-x:auto;margin:.4rem 0 .2rem}
+table.grid,table.tbl{border-collapse:collapse;width:100%;table-layout:fixed}
+table.tbl{margin:.4rem 0 .2rem}
+table.grid th,table.tbl th,table.grid td,table.tbl td{
+     border:1px solid #A6A6A6;padding:.3rem .4rem;font-size:.85rem;
+     text-align:left;vertical-align:middle}
+table.grid th,table.tbl th{background:#1F3864;color:#fff;font-weight:600;
+     text-align:center;font-size:.8rem}
+table.tbl th{text-align:left}
+table.grid td{height:1.8rem;text-align:center;letter-spacing:.28em}
+table.grid th.tuksa{background:transparent;border:0}
+table.grid .ans{display:none;font-weight:700;letter-spacing:0;
+     color:#047857}
+.sheet.key table.grid .abcd{display:none}
+.sheet.key table.grid .ans{display:inline}
+
+.keys{display:none;margin:.2rem 0}
+.keys p{margin:0;font-size:.88rem}
+.keys span{color:var(--dim)}
+.sheet.key .keys{display:block}
+
+/* ---------- telefons ---------- */
+@media (max-width:768px){
+  .sheet{margin:.7rem .6rem 2rem;padding:1.1rem 1rem 1.4rem;
+         border-radius:.9rem}
+  .tools{padding:0 .6rem}
+  .tools button{flex:1 1 auto;font-size:.82rem;padding:.55rem .8rem}
+  .tools .kods{flex:1 1 100%;margin-left:0;text-align:right}
+  .q .opts{grid-template-columns:1fr;padding-left:.5rem}
+  .top b{flex:1 1 100%;order:2;font-size:.92rem}
+  .top .back{order:1}
+  .top .sub{order:3}
+  table.grid{min-width:19rem}
+  table.grid th,table.grid td{padding:.25rem .2rem;font-size:.78rem}
+  table.grid td{letter-spacing:.12em}
+}
+
+/* ---------- printeris ----------
+   Uz papīra lapa ir tā pati, kas Word failā: A4, Calibri izmēri punktos un
+   viss vienā lapā. Tāpēc drukāt var arī tieši no pārlūka. */
+@page{size:A4;margin:12mm 15mm}
+@media print{
+  .top,.tools{display:none}
+  body{background:#fff;font-family:Calibri,var(--font);line-height:1.22}
+  .sheet{margin:0;padding:0;max-width:none;box-shadow:none;border-radius:0}
+  .sheet .meta{font-size:9pt;margin:0}
+  .sheet .ph1{font-family:inherit;font-size:16pt;margin:0}
+  .sheet .ph2{font-size:13pt;margin:0 0 3pt}
+  .sheet .pnote{font-size:9.5pt;margin:0 0 4pt}
+  .sheet .psec{font-size:10pt;margin:5pt 0 2pt}
+  .sheet .pfoot{font-size:10pt;margin:4pt 0 0;color:#000}
+  .form{margin:2pt 0 4pt;gap:.5rem}
+  .form .line{height:14pt}
+  .form .lbl{font-size:8pt}
+  .box{margin:3pt 0 4pt;padding:4pt 6pt;border-radius:0}
+  .box p{font-size:9pt}
+  .box .boxt{font-size:8pt}
+  .q{margin:0 0 2pt}
+  .q .qt{font-size:10pt;margin:0}
+  .q .opts{grid-template-columns:1fr 1fr;gap:0 .6rem;padding-left:.6rem}
+  .q .opt{font-size:10pt;padding:0}
+  .tw{overflow:visible;margin:2pt 0}
+  table.grid th,table.grid td{font-size:10pt;padding:1pt 2pt}
+  table.grid td{height:15pt;letter-spacing:.3em}
+  .q,.box,.tw{break-inside:avoid}
+}
+
+/* ---------- vairākas lapas vienā skatā ---------- */
+.sheet+.sheet{margin-top:1.4rem}
+.sheet.atbl{display:none;border-top:4px solid var(--amber)}
+.sheet.atbl.key{display:block}
+
+/* ---------- pārbaudes darba uzdevumi ---------- */
+.sheet .puzd{margin:1.1rem 0 .3rem;font-weight:600;color:var(--primary);
+     font-size:1rem}
+.sheet .puzd .pp{color:var(--amber-ink);font-weight:500;font-size:.85rem}
+.sheet .ptext{margin:.2rem 0 .4rem;font-size:.95rem}
+
+.rindas{margin:.3rem 0 .6rem;border:1px solid #A6A6A6;border-radius:.4rem;
+     overflow:hidden}
+.rindas p{margin:0;padding:.45rem .6rem;font-size:1rem;
+     border-top:1px solid #A6A6A6}
+.rindas p:first-child{border-top:0}
+
+.jaut{margin:.2rem 0 .4rem;padding-left:.9rem}
+.jaut p{margin:.1rem 0;font-size:.92rem}
+
+/* Darba vieta ir rūtiņas - pirmklasnieks tajās zīmē figūras ar lineālu. */
+.vieta{position:relative;margin:.3rem 0 .7rem;border:1px solid #A6A6A6;
+     border-radius:.4rem;background-color:#fff;
+     background-image:linear-gradient(#EEF2F8 1px,transparent 1px),
+                      linear-gradient(90deg,#EEF2F8 1px,transparent 1px);
+     background-size:.5cm .5cm;background-position:-1px -1px}
+.vieta .vh{position:absolute;top:.2rem;left:.5rem;font-size:.72rem;
+     color:var(--dim)}
+table.grid td.vertr,table.grid tr.vertr td{height:1.6rem;letter-spacing:0}
+
+.atbsar{margin:.1rem 0 .3rem;padding-left:.9rem}
+.atbsar p{margin:.1rem 0;font-size:.9rem}
+
+@media (max-width:768px){
+  .sheet .puzd{font-size:.95rem}
+  .rindas p{font-size:.95rem;padding:.4rem .5rem}
+}
+
+@media print{
+  /* Katrs variants un katra lapa sākas ar jaunu A4 lapu. */
+  .sheet+.sheet{break-before:page;margin-top:0}
+  .sheet .puzd{font-size:11pt;margin:6pt 0 2pt}
+  .sheet .ptext{font-size:10.5pt;margin:0 0 3pt}
+  .rindas{margin:2pt 0 4pt;border-radius:0}
+  .rindas p{font-size:11pt;padding:3pt 4pt}
+  .jaut p{font-size:10pt;margin:0}
+  .vieta{margin:2pt 0 4pt;border-radius:0}
+  .vieta .vh{font-size:8pt}
+  .atbsar p{font-size:10pt;margin:0}
+  .rindas,.vieta,.jaut{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="back" href="../index.html">&#8592; Uz tematiem</a>
+  <b>Formatīvais darbs Nr. 2. Kā reizina un dala parastās daļas?</b>
+  <span class="sub">2. temats · 12 jautājumi · 15 minūtes</span>
+</div>
+<div class="tools">
+  <button id="jauns" class="main" type="button">&#9851; &#288;ener&#275;t</button>
+  <button id="atb" type="button" aria-pressed="false">R&#257;d&#299;t atbildes</button>
+  <button id="word" type="button">Darba lapa (Word)</button>
+  <button id="wordatb" type="button">Atbildes (Word)</button>
+  <button id="druka" type="button">Drukāt</button>
+  <span class="kods" id="kods"></span>
+</div>
+<div id="darbs"></div>
+<script>window.FD_STILS={"docx": {"font": "Calibri", "size": 11, "page": [21.0, 29.7], "margin": [1.2, 1.5, 1.2, 1.5]}, "krasas": {"navy": "1F3864", "grey": "606060", "white": "FFFFFF", "box": "EEF2F8"}, "izmeri": {"meta": 9.0, "h1": 16.0, "h2": 13.0, "note": 9.5, "jaut": 10.0, "sec": 12.0, "mazs": 9.0, "vid": 10.5}, "platumi": {"veidlapa": [5.5, 5.5, 3.5, 3.5], "struktura": [2.2, 13.2, 2.6]}, "platums": 18.0, "ailes": 6, "sakne": {"w": 0.656, "svg": "<svg class=\"rk\" viewBox=\"0 0 0.6560 1.0800\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M0.0439 0.6470 L0.1397 0.5654 L0.3387 1.0800 L0.6560 0.0207 L0.5903 0.0000 L0.3305 0.8675 L0.1687 0.4491 L0.0000 0.5928 Z\"/></svg>"}, "burti": "ABCD", "skola": "Ādažu vidusskola", "gads": "2026./2027. m. g."};</script>
+<script>window.MAT_DATI={"veids": "fd", "virsraksts": "Formatīvais darbs", "nr": 2, "nosaukums": "Kā reizina un dala parastās daļas?", "prieksmets": "Matemātika  |  6. klase", "skola": "", "kicker": "2. temats · 12 jautājumi · 15 minūtes", "laiks": 15, "apraksts": "Formatīvais darbs 6.2. temata beigās. Pārbauda daļu reizināšanu un dalīšanu, apgriezto skaitli, jauktu skaitļu pārveidošanu, rezultāta saīsināšanu un novērtēšanu, kā arī situāciju uzdevumus ar daļām.", "ievads": "Katram jautājumam ir viena pareizā atbilde. Apvelc pareizās atbildes burtu! Par pareizu atbildi — 1 punkts.", "atgadne": ["Daļas reizina pa skaitītājiem un saucējiem:   {a|b} · {m|n} = {a · m|b · n}      ·      piemēram   {2|3} · {3|5} = {6|15} = {2|5}", "Savstarpēji apgrieztu skaitļu reizinājums ir 1:   {3|4} · {4|3} = 1   ·   dalīšana:   {a|b} : {m|n} = {a|b} · {n|m}", "Jauktu skaitli vispirms pieraksta kā neīstu daļu:   2{1|2} = {5|2}   ·   rezultātu saīsina un, ja iespējams, pieraksta kā jauktu skaitli."], "fails": "Matemātika 6. klase 6.2. Formatīvais darbs", "aile": ["Jaut.", "Pārbaudāmais sasniedzamais rezultāts", "Temats"], "kopa": 12, "skala": [[10, 11, 12], [9, 10, 10], [8, 9, 9], [7, 8, 8], [6, 6, 7], [5, 5, 5], [4, 4, 4], [3, 2, 3], [2, 1, 1], [1, 0, 0]], "grupas": [{"sr": "Zina daļu reizināšanas noteikumu", "stunda": "6.2.", "jautajumi": [["Kā reizina divas daļas?", ["skaitītāju ar skaitītāju", "skaitītāju ar saucēju", "saucēju ar skaitītāju", "tās saskaita"], 0], ["Cik ir {2|3} · {1|5}?", ["{2|15}", "{3|15}", "{2|8}", "{5|6}"], 0], ["Cik ir {3|4} · {2|5}?", ["{3|10}", "{6|9}", "{5|9}", "{3|20}"], 0]]}, {"sr": "Reizina daļu ar veselu skaitli", "stunda": "6.2.", "jautajumi": [["Cik ir {2|7} · 3?", ["{6|7}", "{2|21}", "{5|7}", "{6|21}"], 0], ["Cik ir {3|8} · 4?", ["{3|2}", "{3|32}", "{7|8}", "{12|32}"], 0], ["Kā daļu reizina ar veselu skaitli?", ["skaitītāju reizina ar to", "saucēju reizina ar to", "abus reizina", "abus saskaita"], 0]]}, {"sr": "Modelē daļu reizinājumu", "stunda": "6.2.", "jautajumi": [["Ko rāda reizinātāji 1 × 1 kvadrātā?", ["kādu daļu ņem no katras malas", "kvadrāta laukumu", "kvadrāta perimetru", "malu garumu"], 0], ["Ko rāda rezultāts 1 × 1 kvadrātā?", ["daļu no kvadrāta laukuma", "malas garumu", "perimetru", "virsotņu skaitu"], 0], ["Cik liela ir puse no {1|2}?", ["{1|4}", "{1|2}", "{2|2}", "{1|3}"], 0]]}, {"sr": "Spriež par reizinājuma lielumu", "stunda": "6.2.", "jautajumi": [["Ar ko reizinot, rezultāts ir mazāks nekā skaitlis?", ["ar īstu daļu", "ar veselu skaitli", "ar neīstu daļu", "ar 1"], 0], ["Vai {3|4} · 8 ir lielāks nekā 8?", ["nē", "jā", "vienāds", "nevar noteikt"], 0], ["Kurš reizinājums ir lielāks nekā 10?", ["{5|4} · 10", "{3|4} · 10", "{1|2} · 10", "{2|5} · 10"], 0]]}, {"sr": "Nosaka apgriezto skaitli", "stunda": "6.2.", "jautajumi": [["Kāds ir skaitļa {3|5} apgrieztais skaitlis?", ["{5|3}", "{3|5}", "{1|5}", "{1|3}"], 0], ["Kāds ir skaitļa 4 apgrieztais skaitlis?", ["{1|4}", "4", "{4|1}", "−4"], 0], ["Cik ir savstarpēji apgrieztu skaitļu reizinājums?", ["1", "0", "2", "tas ir dažāds"], 0]]}, {"sr": "Dala ar daļu", "stunda": "6.2.", "jautajumi": [["Kā dala ar daļu?", ["reizina ar apgriezto skaitli", "reizina ar to pašu daļu", "saskaita daļas", "atņem daļas"], 0], ["Cik ir {1|2} : {1|4}?", ["2", "{1|8}", "{1|2}", "8"], 0], ["Cik ir {3|5} : {2|5}?", ["{3|2}", "{2|3}", "{6|25}", "{5|3}"], 0]]}, {"sr": "Dala daļu ar veselu skaitli", "stunda": "6.2.", "jautajumi": [["Cik ir {4|5} : 2?", ["{2|5}", "{8|5}", "{4|10}", "{2|10}"], 0], ["Cik ir {6|7} : 3?", ["{2|7}", "{18|7}", "{6|21}", "{2|21}"], 0], ["Kā daļu dala ar veselu skaitli?", ["saucēju reizina ar to", "skaitītāju reizina ar to", "abus dala", "abus saskaita"], 0]]}, {"sr": "Pārveido jauktu skaitli par neīstu daļu", "stunda": "6.2.", "jautajumi": [["Kā neīstu daļu pieraksta 2{1|2}?", ["{5|2}", "{3|2}", "{2|5}", "{4|2}"], 0], ["Kā neīstu daļu pieraksta 1{2|3}?", ["{5|3}", "{3|5}", "{2|3}", "{6|3}"], 0], ["Kā jauktu skaitli pārveido par neīstu daļu?", ["veselos reizina ar saucēju un pieskaita skaitītāju", "veselos saskaita ar saucēju", "veselos dala ar saucēju", "skaitītāju reizina ar saucēju"], 0]]}, {"sr": "Reizina jauktus skaitļus", "stunda": "6.2.", "jautajumi": [["Cik ir 1{1|2} · 2?", ["3", "2{1|2}", "1{1|4}", "{3|4}"], 0], ["Cik ir 2{1|3} · 3?", ["7", "6{1|3}", "2{1|9}", "{7|9}"], 0], ["Kas jādara vispirms, reizinot jauktus skaitļus?", ["jāpieraksta kā neīstas daļas", "jāsaskaita veselie", "jāsaīsina saucēji", "jādala ar saucēju"], 0]]}, {"sr": "Dala jauktus skaitļus", "stunda": "6.2.", "jautajumi": [["Cik ir 1{1|2} : {1|2}?", ["3", "{3|4}", "{1|3}", "2"], 0], ["Cik ir 2{1|2} : 5?", ["{1|2}", "2", "{5|2}", "{1|5}"], 0], ["Cik ir {3|4} : 1{1|2}?", ["{1|2}", "2", "{9|8}", "{4|3}"], 0]]}, {"sr": "Saīsina un novērtē rezultātu", "stunda": "6.2.", "jautajumi": [["Saīsini {6|15}.", ["{2|5}", "{5|2}", "{3|5}", "{1|5}"], 0], ["Cik aptuveni ir {1|3} · 9?", ["3", "9", "27", "12"], 0], ["Cik aptuveni ir 10 : {1|2}?", ["20", "5", "10", "2"], 0]]}, {"sr": "Risina situāciju uzdevumus ar daļām", "stunda": "6.2.", "jautajumi": [["Cik ir {2|3} no 45 kg?", ["30 kg", "15 kg", "67 kg", "22 kg"], 0], ["Lentu 6 m sagriež {1|2} m gabalos. Cik gabalu sanāk?", ["12", "3", "6", "8"], 0], ["Recepte prasa {3|4} l piena; gatavo pusi devas. Cik piena vajag?", ["{3|8} l", "{3|2} l", "{1|4} l", "{6|4} l"], 0]]}]};</script>
+<script>
+window.FD_MATH=(function(){
+"use strict";
+
+/* Daļas marķējums: {skaitītājs|saucējs}. */
+var DALA=/\{([^{}|]*)\|([^{}|]*)\}/g;
+var ZIME="√";                                   /* √ */
+/* Cik tālu sniedzas sakne, ja aiz zīmes nav iekavas: viens skaitlis vai
+   viens simbols ar kāpinātāju - √2, √25, √a, √x². */
+var LOCEKLIS=/[0-9A-Za-zĀ-ſ,.²³]/;
+
+function gals(s,i){
+  /* Kur beidzas √-izteiksme, ja saknes zīme ir pozīcijā i. */
+  var j=i+1,dz=0;
+  if(s.charAt(j)==="("){
+    for(;j<s.length;j++){
+      if(s.charAt(j)==="(")dz++;
+      else if(s.charAt(j)===")"&&!--dz)return j+1;
+    }
+    return s.length;
+  }
+  while(j<s.length&&LOCEKLIS.test(s.charAt(j)))j++;
+  return j;
+}
+
+function bezIekavam(e){
+  return (e.charAt(0)==="("&&e.charAt(e.length-1)===")")?e.slice(1,-1):e;
+}
+
+function saknes(s){
+  /* Teksts -> atomi {text} un {root}; daļu marķējuma te vairs nav. */
+  var out=[],last=0,i=s.indexOf(ZIME),g;
+  while(i>=0){
+    g=gals(s,i);
+    if(i>last)out.push({text:s.slice(last,i)});
+    out.push({root:bezIekavam(s.slice(i+1,g))});
+    last=g;
+    i=s.indexOf(ZIME,g);
+  }
+  if(last<s.length)out.push({text:s.slice(last)});
+  return out;
+}
+
+function atomi(s){
+  /* Viss marķējums vienā piegājienā: vispirms daļas, tad saknes. */
+  var out=[],last=0,m;
+  s=String(s==null?"":s);
+  DALA.lastIndex=0;
+  while((m=DALA.exec(s))!==null){
+    if(m.index>last)out=out.concat(saknes(s.slice(last,m.index)));
+    out.push({frac:[saknes(m[1]),saknes(m[2])]});
+    last=DALA.lastIndex;
+  }
+  if(last<s.length)out=out.concat(saknes(s.slice(last)));
+  return out;
+}
+
+function vienkarsi(s){
+  /* Teksts bez marķējuma - platuma mērīšanai; daļa aizņem platāko rindu. */
+  return String(s==null?"":s).replace(DALA,function(_,a,b){
+    return a.length>=b.length?a:b;});
+}
+
+/* ------------------------------------------------------------- indeksi */
+/* Kas ir indekss, izlemj mathfmt.py; te ir tikai tas pats noteikums
+   JavaScriptā, ar tur doto izņēmumu sarakstu. */
+var INDEKSI=false;
+var FUNKCIJAS=["F(r)","F(x)","I(U)","T(r)","T(t)","U(I)","V(T)","V(p)","a(t)","d(x)","f(x)","g(h)","m(V)","p(T)","p(V)","s(t)","v(h)","v(r)","v(t)","x(l)","x(t)","y(x)"];         /* v(t), I(U) - grafiks, nevis indekss */
+var PREFIKSI="ΔΠΣ∆∏∑";           /* ΣE(dienā): Σ nav simbola daļa */
+var BURTS=/\p{L}/u;
+var SATURS=/^[\p{L}\p{N}]{1,12}$/u;
+var CIPARI=/^[0-9]+$/;
+var ASCII=/^[0-9A-Za-z]$/;
+
+function iekavuIndekss(s,i){
+  /* "R(Z)": aizverošās iekavas vieta vai 0, ja tur nav indeksa. */
+  var pirms=s.charAt(i-1),priekspirms,aizver,saturs;
+  if(s.charAt(i)!=="("||i===0||!BURTS.test(pirms))return 0;
+  if(i>1){
+    priekspirms=s.charAt(i-2);
+    if(PREFIKSI.indexOf(priekspirms)<0&&
+       (BURTS.test(priekspirms)||ASCII.test(priekspirms)))return 0;
+  }
+  aizver=s.indexOf(")",i+1);
+  if(aizver<0)return 0;
+  saturs=s.slice(i+1,aizver);
+  if(!SATURS.test(saturs)||CIPARI.test(saturs))return 0;
+  return FUNKCIJAS.indexOf(pirms+"("+saturs+")")>=0?0:aizver;
+}
+
+function pasvitrasIndekss(s,i){
+  /* "F_y" un "F_{max}": [indeksa sākums, gabala beigas] vai null. */
+  var nak=s.charAt(i+1),aizver;
+  if(s.charAt(i)!=="_"||i===0||pirmsIrAtstarpe(s,i))return null;
+  if(nak==="{"){
+    aizver=s.indexOf("}",i+2);
+    if(aizver<0||!SATURS.test(s.slice(i+2,aizver)))return null;
+    return [i+2,aizver,aizver+1];
+  }
+  if(!ASCII.test(nak)||ASCII.test(s.charAt(i+2)))return null;
+  return [i+1,i+2,i+2];
+}
+
+function pirmsIrAtstarpe(s,i){var c=s.charAt(i-1);return c===" "||c==="	";}
+
+function indeksi(s){
+  /* Teksts -> atomi {text} un {sub}. Bez indeksiem - viens {text}. */
+  s=String(s==null?"":s);
+  if(!INDEKSI)return [{text:s}];
+  var out=[],buf="",i=0,pas,aizver;
+  function izliet(){if(buf){out.push({text:buf});buf="";}}
+  while(i<s.length){
+    pas=pasvitrasIndekss(s,i);
+    if(pas){izliet();out.push({sub:s.slice(pas[0],pas[1])});i=pas[2];continue;}
+    aizver=iekavuIndekss(s,i);
+    if(aizver){izliet();out.push({sub:s.slice(i+1,aizver)});i=aizver+1;continue;}
+    buf+=s.charAt(i);
+    i++;
+  }
+  izliet();
+  return out.length?out:[{text:""}];
+}
+
+return {atomi:atomi,saknes:saknes,vienkarsi:vienkarsi,indeksi:indeksi};
+})();
+</script>
+<script>
+window.IZLOZE=(function(){
+"use strict";
+/* Kodā nav līdzīgo zīmju (0/O, 1/I), lai to var nolasīt un pateikt balsī. */
+var ZIMES="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+function kods(garums){
+  var n=garums||4,out="",i,a=new Uint32Array(n);
+  if(window.crypto&&window.crypto.getRandomValues)
+    window.crypto.getRandomValues(a);
+  else for(i=0;i<n;i++)a[i]=Math.floor(Math.random()*4294967296);
+  for(i=0;i<n;i++)out+=ZIMES[a[i]%ZIMES.length];
+  return out;
+}
+function seja(s){
+  var h=2166136261,i;
+  for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}
+  return h>>>0;
+}
+function lozes(seed){
+  return function(){
+    seed=seed+0x6D2B79F5|0;
+    var t=Math.imul(seed^seed>>>15,1|seed);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+function jauc(masivs,rnd){
+  var i,j,t;
+  for(i=masivs.length-1;i>0;i--){
+    j=Math.floor(rnd()*(i+1));t=masivs[i];masivs[i]=masivs[j];masivs[j]=t;
+  }
+  return masivs;
+}
+function indeksi(n){
+  var out=[],i;
+  for(i=0;i<n;i++)out.push(i);
+  return out;
+}
+function merki(n,rnd){
+  /* Pareizajām atbildēm jāsadalās pa A-D vienmērīgi, lai atbilžu tabulā
+     nesanāk virkne ar vienu burtu. */
+  var out=[],i;
+  for(i=0;i<n;i++)out.push(i%4);
+  return jauc(out,rnd);
+}
+function sagatavo(jaut,merkis,rnd){
+  var varianti=jaut[1].slice(),pareizais=jaut[2];
+  var pari=varianti.map(function(v,i){return {v:v,ok:i===pareizais};});
+  jauc(pari,rnd);
+  var tag=pari.map(function(p){return p.ok;}).indexOf(true);
+  var t=pari[tag];pari[tag]=pari[merkis];pari[merkis]=t;
+  return {teksts:jaut[0],varianti:pari.map(function(p){return p.v;}),
+          pareizais:merkis};
+}
+
+return {kods:kods,seja:seja,lozes:lozes,jauc:jauc,indeksi:indeksi,
+        merki:merki,sagatavo:sagatavo};
+})();
+</script>
+<script>
+window.DOCX=(function(){
+"use strict";
+
+/* ------------------------------------------------------------ ZIP (stored) */
+var CRC=(function(){var t=new Int32Array(256),c,i,k;
+  for(i=0;i<256;i++){c=i;for(k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);
+    t[i]=c;}
+  return t;})();
+function crc32(b){var c=-1,i;
+  for(i=0;i<b.length;i++)c=CRC[(c^b[i])&255]^(c>>>8);
+  return (c^-1)>>>0;}
+
+var ENC=new TextEncoder();
+function utf8(s){return ENC.encode(s);}
+function dosTime(d){return (d.getHours()<<11)|(d.getMinutes()<<5)|
+                           (d.getSeconds()>>1);}
+function dosDate(d){return ((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|
+                           d.getDate();}
+
+function zip(files){
+  var now=new Date(),tm=dosTime(now),dt=dosDate(now);
+  var chunks=[],dir=[],offset=0,i;
+  for(i=0;i<files.length;i++){
+    var name=utf8(files[i].name),data=files[i].data,sum=crc32(data);
+    var lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);
+    lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);
+    lh.setUint16(10,tm,true);lh.setUint16(12,dt,true);
+    lh.setUint32(14,sum,true);lh.setUint32(18,data.length,true);
+    lh.setUint32(22,data.length,true);
+    lh.setUint16(26,name.length,true);lh.setUint16(28,0,true);
+    chunks.push(new Uint8Array(lh.buffer),name,data);
+    var ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);
+    ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);
+    ch.setUint16(10,0,true);ch.setUint16(12,tm,true);ch.setUint16(14,dt,true);
+    ch.setUint32(16,sum,true);ch.setUint32(20,data.length,true);
+    ch.setUint32(24,data.length,true);
+    ch.setUint16(28,name.length,true);
+    ch.setUint32(42,offset,true);
+    dir.push(new Uint8Array(ch.buffer),name);
+    offset+=30+name.length+data.length;
+  }
+  var dirSize=0;
+  for(i=0;i<dir.length;i++)dirSize+=dir[i].length;
+  var end=new DataView(new ArrayBuffer(22));
+  end.setUint32(0,0x06054b50,true);
+  end.setUint16(8,files.length,true);end.setUint16(10,files.length,true);
+  end.setUint32(12,dirSize,true);end.setUint32(16,offset,true);
+  return new Blob(chunks.concat(dir,[new Uint8Array(end.buffer)]),
+    {type:"application/vnd.openxmlformats-officedocument."+
+          "wordprocessingml.document"});
+}
+
+/* ------------------------------------------------------------------- XML */
+function esc(s){return String(s==null?"":s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function tw(cm){return Math.round(cm*567);}          /* cm -> twips */
+function pt(v){return Math.round(v*20);}             /* pt -> 1/20 pt */
+function half(v){return Math.round(v*2);}            /* pt -> 1/2 pt */
+
+var CFG=window.FD_STILS.docx;
+
+function rPr(o){
+  var x='<w:rFonts w:ascii="'+CFG.font+'" w:hAnsi="'+CFG.font+'"/>';
+  if(o.bold)x+='<w:b/>';
+  if(o.italic)x+='<w:i/>';
+  x+='<w:color w:val="'+(o.color||"000000")+'"/>';
+  x+='<w:sz w:val="'+half(o.size||CFG.size)+'"/>'+
+     '<w:szCs w:val="'+half(o.size||CFG.size)+'"/>';
+  /* Aizpildāmā vieta ir tukšums ar svītru apakšā, nevis punktu virkne -
+     uz punktiem rakstīt nevar, uz tukšuma var. */
+  if(o.underline)x+='<w:u w:val="'+o.underline+'"/>';
+  if(o.sub)x+='<w:vertAlign w:val="subscript"/>';
+  return '<w:rPr>'+x+'</w:rPr>';
+}
+function pPr(o){
+  var x='<w:spacing w:before="'+pt(o.before||0)+'" w:after="'+
+        pt(o.after==null?3:o.after)+'" w:line="240" w:lineRule="auto"/>';
+  if(o.left)x+='<w:ind w:left="'+tw(o.left)+'"/>';
+  if(o.align)x+='<w:jc w:val="'+o.align+'"/>';
+  return '<w:pPr>'+x+'</w:pPr>';
+}
+/* Daļa un sakne Word failā ir Office formula (OMML), tāpēc skaitītājs
+   paliek virs saucēja un vinkuls pāri visai izteiksmei arī tad, ja
+   skolotājs failu pēc tam labo. Atomus sagatavo FD_MATH (sk. fd_math.py). */
+function mrun(t,r){
+  return '<m:r>'+r+'<m:t xml:space="preserve">'+esc(t)+'</m:t></m:r>';
+}
+function mtext(t,r){
+  /* Teksts formulā ar indeksiem: "s(kopā)" -> īsts OMML apakšindekss.
+     Bāze ir iepriekšējā teksta pēdējā zīme, tāpēc to pārceļ zem sSub. */
+  var list=window.FD_MATH.indeksi(t),x="",i,g,baze,gaida=null;
+  function izliet(){if(gaida){x+=mrun(gaida,r);}gaida=null;}
+  for(i=0;i<list.length;i++){
+    g=list[i];
+    if(g.sub==null){izliet();gaida=g.text;continue;}
+    baze="";
+    if(gaida){
+      baze=gaida.charAt(gaida.length-1);
+      if(gaida.length>1)x+=mrun(gaida.slice(0,-1),r);
+      gaida=null;
+    }
+    x+='<m:sSub><m:sSubPr><m:ctrlPr>'+r+'</m:ctrlPr></m:sSubPr><m:e>'+
+       mrun(baze,r)+'</m:e><m:sub>'+mrun(g.sub,r)+'</m:sub></m:sSub>';
+  }
+  izliet();
+  return x;
+}
+function wtext(t,st){
+  /* Word teksts ar indeksiem: indekss ir gabals ar vertAlign="subscript". */
+  return window.FD_MATH.indeksi(t).map(function(g){
+    var ir=g.sub!=null,pr=st,k;
+    if(ir){pr={};for(k in st)if(st.hasOwnProperty(k))pr[k]=st[k];pr.sub=true;}
+    return '<w:r>'+rPr(pr)+'<w:t xml:space="preserve">'+
+           esc(ir?g.sub:g.text)+'</w:t></w:r>';
+  }).join("");
+}
+function mrad(izteiksme,r){
+  return '<m:rad><m:radPr><m:degHide m:val="1"/><m:ctrlPr>'+r+
+         '</m:ctrlPr></m:radPr><m:deg/><m:e>'+mtext(izteiksme,r)+'</m:e>'+
+         '</m:rad>';
+}
+function mf(g,r){
+  return '<m:f><m:fPr><m:ctrlPr>'+r+'</m:ctrlPr></m:fPr>'+
+         '<m:num>'+mbody(g[0],r)+'</m:num>'+
+         '<m:den>'+mbody(g[1],r)+'</m:den></m:f>';
+}
+function mbody(list,r){
+  /* Atomu saraksts -> OMML saturs (teksts, sakne, daļa). */
+  var x="",i,g;
+  for(i=0;i<list.length;i++){
+    g=list[i];
+    x+=g.frac?mf(g.frac,r):(g.root!=null?mrad(g.root,r):mtext(g.text,r));
+  }
+  return x;
+}
+function omath(saturs){return '<m:oMath>'+saturs+'</m:oMath>';}
+
+function runs(o){
+  /* Rindkopa ir vai nu viens teksts, vai vairāki gabali ar savu izskatu. */
+  var list=o.parts||[{text:o.text}],x="",i;
+  for(i=0;i<list.length;i++){
+    var r=list[i];
+    var st={bold:r.bold==null?o.bold:r.bold,
+            italic:r.italic==null?o.italic:r.italic,
+            color:r.color==null?o.color:r.color,
+            size:r.size==null?o.size:r.size,
+            underline:r.underline};
+    if(r.frac){x+=omath(mf(r.frac,rPr(st)));continue;}
+    if(r.root!=null){x+=omath(mrad(r.root,rPr(st)));continue;}
+    if(r.text==null||r.text==="")continue;
+    x+=wtext(r.text,st);
+  }
+  return x;
+}
+function para(o){return '<w:p>'+pPr(o)+runs(o)+'</w:p>';}
+function pageBreak(){return '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';}
+
+var BORDER=["top","left","bottom","right","insideH","insideV"].map(
+  function(s){return '<w:'+s+' w:val="single" w:sz="4" w:color="A6A6A6"/>';}
+).join("");
+
+function cell(c,width){
+  var x='<w:tcPr><w:tcW w:w="'+tw(width)+'" w:type="dxa"/>';
+  if(c.fill)x+='<w:shd w:val="clear" w:color="auto" w:fill="'+c.fill+'"/>';
+  x+='<w:vAlign w:val="center"/></w:tcPr>';
+  /* Šūnā var būt vairākas rindkopas (ATGĀDNE), tāpēc vienmēr saraksts. */
+  var ps=c.paras||[c],body="",i;
+  for(i=0;i<ps.length;i++){
+    var p=ps[i];
+    body+=para({text:p.text,parts:p.parts,size:p.size,bold:p.bold,
+                italic:p.italic,color:p.color,align:p.align,
+                before:i?0:1,after:i<ps.length-1?0:1});
+  }
+  return '<w:tc>'+x+body+'</w:tc>';
+}
+function table(o){
+  var w=o.widths,grid="",i,x="";
+  for(i=0;i<w.length;i++)grid+='<w:gridCol w:w="'+tw(w[i])+'"/>';
+  x+='<w:tbl><w:tblPr><w:tblW w:w="0" w:type="auto"/>';
+  x+=o.plain?"":'<w:tblBorders>'+BORDER+'</w:tblBorders>';
+  x+='<w:tblLayout w:type="fixed"/></w:tblPr><w:tblGrid>'+grid+'</w:tblGrid>';
+  for(i=0;i<o.rows.length;i++){
+    var row=o.rows[i],j,tr='<w:tr>';
+    if(row.height)tr+='<w:trPr><w:trHeight w:hRule="atLeast" w:val="'+
+      tw(row.height)+'"/></w:trPr>';
+    var cells=row.cells||row;
+    for(j=0;j<w.length;j++)tr+=cell(cells[j]||{text:""},w[j]);
+    x+=tr+'</w:tr>';
+  }
+  return x+'</w:tbl>';
+}
+
+function sectPr(){
+  var m=CFG.margin;
+  return '<w:sectPr><w:pgSz w:w="'+tw(CFG.page[0])+'" w:h="'+
+         tw(CFG.page[1])+'"/><w:pgMar w:top="'+tw(m[0])+'" w:right="'+
+         tw(m[1])+'" w:bottom="'+tw(m[2])+'" w:left="'+tw(m[3])+
+         '" w:header="0" w:footer="0" w:gutter="0"/></w:sectPr>';
+}
+
+function body(blocks){
+  var x="",i;
+  for(i=0;i<blocks.length;i++){
+    var b=blocks[i];
+    if(b.t==="tbl"){
+      x+=table(b);
+      /* Aiz tabulas vajag rindkopu, citādi Word salīmē divas tabulas kopā. */
+      x+=para({text:"",size:2,after:2});
+    }
+    else if(b.t==="pb")x+=pageBreak();
+    else x+=para(b);
+  }
+  return x;
+}
+
+var NS='xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/'+
+       'main" xmlns:m="http://schemas.openxmlformats.org/officeDocument/'+
+       '2006/math"';
+var HEAD='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+
+var TYPES=HEAD+'<Types xmlns="http://schemas.openxmlformats.org/package/'+
+  '2006/content-types">'+
+  '<Default Extension="rels" ContentType="application/vnd.openxmlformats-'+
+  'package.relationships+xml"/>'+
+  '<Default Extension="xml" ContentType="application/xml"/>'+
+  '<Override PartName="/word/document.xml" ContentType="application/vnd.'+
+  'openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'+
+  '<Override PartName="/word/styles.xml" ContentType="application/vnd.'+
+  'openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>';
+
+var RELS=HEAD+'<Relationships xmlns="http://schemas.openxmlformats.org/'+
+  'package/2006/relationships"><Relationship Id="rId1" Type="http://'+
+  'schemas.openxmlformats.org/officeDocument/2006/relationships/'+
+  'officeDocument" Target="word/document.xml"/></Relationships>';
+
+var DRELS=HEAD+'<Relationships xmlns="http://schemas.openxmlformats.org/'+
+  'package/2006/relationships"><Relationship Id="rId1" Type="http://'+
+  'schemas.openxmlformats.org/officeDocument/2006/relationships/styles" '+
+  'Target="styles.xml"/></Relationships>';
+
+function styles(){
+  return HEAD+'<w:styles '+NS+'><w:docDefaults><w:rPrDefault><w:rPr>'+
+    '<w:rFonts w:ascii="'+CFG.font+'" w:hAnsi="'+CFG.font+'"/>'+
+    '<w:sz w:val="'+half(CFG.size)+'"/><w:szCs w:val="'+half(CFG.size)+
+    '"/><w:lang w:val="lv-LV"/></w:rPr></w:rPrDefault><w:pPrDefault>'+
+    '<w:pPr><w:spacing w:after="'+pt(3)+'"/></w:pPr></w:pPrDefault>'+
+    '</w:docDefaults></w:styles>';
+}
+
+function build(blocks){
+  var doc=HEAD+'<w:document '+NS+'><w:body>'+body(blocks)+sectPr()+
+          '</w:body></w:document>';
+  return zip([
+    {name:"[Content_Types].xml",data:utf8(TYPES)},
+    {name:"_rels/.rels",data:utf8(RELS)},
+    {name:"word/_rels/document.xml.rels",data:utf8(DRELS)},
+    {name:"word/document.xml",data:utf8(doc)},
+    {name:"word/styles.xml",data:utf8(styles())}
+  ]);
+}
+
+function save(blob,name){
+  var url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},2000);
+}
+
+return {build:build,save:save};
+})();
+</script>
+<script>
+window.PAPER=(function(){
+"use strict";
+var S=window.FD_STILS,K=S.krasas,Z=S.izmeri,B=S.burti;
+
+var TEKSTI={
+  tabula:"ATBILŽU TABULA",
+  atslega:"ATBILŽU ATSLĒGA",
+  pamaciba:"Katram jautājumam apvelc vienu burtu! Labojums der tikai tad, "+
+           "ja nepareizā atbilde ir skaidri nosvītrota.",
+  atgadne:"ATGĀDNE",
+  veidlapa:["Vārds","Uzvārds","Klase","Datums"],
+  pareizas:"Pareizās atbildes",
+  parbauda:"Ko darbs pārbauda",
+  skala:"Vērtēšanas skala (kopā %d punkti)",
+  skalasParaksts:"Augšējā rindā — balle, apakšējā — iegūto punktu skaits.",
+  strukturasGalva:["Jaut.","Pārbaudāmais sasniedzamais rezultāts","Stunda"],
+  skolotajam:"Atbildes un vērtēšanas skala — SKOLOTĀJAM"
+};
+var ATSTARPE="      ";          /* starp atbilžu variantiem vienā rindā */
+
+function punkti(n){return "Punkti:  ............ / "+n+"          Balle:  "+
+  "............          Skolotāja paraksts:  .......................";}
+
+/* ------------------------------------------------------- daļas un saknes */
+/* Marķējumu ({a|b}, √(a+b)) izjauc FD_MATH; te tas tikai top par HTML. */
+var gabali=window.FD_MATH.atomi,vienkarsi=window.FD_MATH.vienkarsi;
+var indeksi=window.FD_MATH.indeksi;
+
+/* ------------------------------------------------------------- modelis */
+function bloki(n){
+  var out=[],i;
+  for(i=0;i<n;i+=S.ailes)out.push({no:i,lidz:Math.min(i+S.ailes,n)});
+  return out;
+}
+
+function metaRinda(dati){
+  /* Galvenes augšrinda. Skolas nosaukumu var noņemt, satura datos ierakstot
+     tukšu «skola» (matemātikas darbi to nelieto). */
+  return [dati.prieksmets,dati.skola==null?S.skola:dati.skola,S.gads]
+    .filter(function(x){return x;}).join("  |  ");
+}
+
+function variants(tests){
+  /* Ja darbs top vairākos variantos (mat_page.py), tiem ir arī numurs. */
+  return tests.nr?tests.nr+". variants  ·  kods "+tests.kods
+                 :"variants "+tests.kods;
+}
+
+function blocks(dati,tests,atslega){
+  var q=tests.jautajumi,n=q.length,out=[];
+  out.push({t:"meta",text:metaRinda(dati)});
+  out.push({t:"h1",text:dati.virsraksts+" Nr. "+dati.nr+".  "+dati.nosaukums});
+  if(atslega){
+    out.push({t:"h2",text:TEKSTI.skolotajam});
+    out.push({t:"note",text:dati.apraksts+"  "+variants(tests)+
+      ".  Izpildes laiks — "+dati.laiks+" minūtes, kopā "+n+
+      " punkti (1 p. par katru pareizu atbildi)."});
+    out.push({t:"grid",n:n,letters:tests.burti,atslega:true});
+    out.push({t:"sec",text:TEKSTI.pareizas});
+    out.push({t:"key",items:q.map(function(x,i){
+      return {nr:i+1,letter:tests.burti[i],text:x.varianti[x.pareizais]};})});
+    out.push({t:"sec",text:TEKSTI.parbauda});
+    out.push({t:"tbl",widths:S.platumi.struktura,
+      head:dati.aile||TEKSTI.strukturasGalva,
+      rows:q.map(function(x,i){return [(i+1)+".",x.sr,x.stunda];})});
+    out.push({t:"sec",text:TEKSTI.skala.replace("%d",n)});
+    out.push({t:"skala",skala:dati.skala});
+    return out;
+  }
+  out.push({t:"h2",text:n+" jautājumi  ·  "+dati.laiks+" minūtes  ·  "+n+
+    " punkti  ·  "+variants(tests)});
+  out.push({t:"note",text:dati.ievads});
+  out.push({t:"form"});
+  out.push({t:"box",title:TEKSTI.atgadne,lines:dati.atgadne});
+  q.forEach(function(x,i){
+    out.push({t:"q",nr:i+1,text:x.teksts,options:x.varianti,
+              correct:x.pareizais});});
+  out.push({t:"grid",n:n,letters:tests.burti,atslega:false});
+  out.push({t:"foot",text:punkti(n)});
+  return out;
+}
+
+/* ---------------------------------------------------------------- HTML */
+function esc(s){return String(s==null?"":s)
+  .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function teksts(s){
+  /* Teksts ar indeksiem: "s(kopā)" -> "s<sub>kopā</sub>". */
+  return indeksi(s).map(function(r){
+    return r.sub!=null?"<sub>"+esc(r.sub)+"</sub>":esc(r.text);}).join("");
+}
+function sakne(izteiksme){
+  /* Zīme ir zīmēta (FD_STILS.sakne), tāpēc vinkuls turpinās no tās stūra
+     un pāri paliek VISA izteiksme, ne tikai iekava. */
+  var r=S.sakne;
+  return '<span class="rt" style="--rw:'+r.w.toFixed(3)+'em">'+r.svg+
+         '<span class="rv">'+teksts(izteiksme)+'</span></span>';
+}
+function atomi(list){
+  return list.map(function(g){
+    if(g.frac)return '<span class="f"><span class="n">'+atomi(g.frac[0])+
+      '</span><span class="d">'+atomi(g.frac[1])+'</span></span>';
+    if(g.root!=null)return sakne(g.root);
+    return teksts(g.text);
+  }).join("");
+}
+function mt(s){
+  /* Teksts ekrānam: marķētās daļas un saknes top par īstām formulām. */
+  return atomi(gabali(s));
+}
+
+var HTML={
+  meta:function(b){return '<p class="meta">'+mt(b.text)+'</p>';},
+  h1:function(b){return '<h2 class="ph1">'+mt(b.text)+'</h2>';},
+  h2:function(b){return '<p class="ph2">'+mt(b.text)+'</p>';},
+  note:function(b){return '<p class="pnote">'+mt(b.text)+'</p>';},
+  sec:function(b){return '<p class="psec">'+mt(b.text)+'</p>';},
+  foot:function(b){return '<p class="pfoot">'+mt(b.text)+'</p>';},
+  form:function(){
+    return '<div class="form">'+TEKSTI.veidlapa.map(function(x){
+      return '<div><span class="line"></span><span class="lbl">'+esc(x)+
+             '</span></div>';}).join("")+'</div>';},
+  box:function(b){
+    return '<div class="box"><p class="boxt">'+esc(b.title)+'</p>'+
+      b.lines.map(function(x){return '<p>'+mt(x)+'</p>';}).join("")+'</div>';},
+  q:function(b){
+    return '<div class="q"><p class="qt"><b>'+b.nr+'.</b> '+mt(b.text)+
+      '</p><div class="opts">'+b.options.map(function(o,i){
+        return '<span class="opt'+(i===b.correct?" ok":"")+'"><b>'+B[i]+
+               ')</b> '+mt(o)+'</span>';}).join("")+'</div></div>';},
+  grid:function(b){
+    var out='<p class="psec">'+esc(TEKSTI.tabula)+'</p>'+
+            '<p class="pnote">'+esc(TEKSTI.pamaciba)+'</p>';
+    bloki(b.n).forEach(function(g){
+      var nr="",ab="",i;
+      for(i=g.no;i<g.lidz;i++){
+        nr+='<th>'+(i+1)+'.</th>';
+        ab+='<td><span class="abcd">'+B.split("").join(" ")+
+            '</span><span class="ans">'+b.letters[i]+'</span></td>';
+      }
+      for(i=g.lidz-g.no;i<S.ailes;i++){nr+='<th class="tuksa"></th>';
+                                       ab+='<td></td>';}
+      /* Tabulai ir sava rāmja josla: uz šaura telefona tā drīkst ritināties
+         sāniski, bet lapa pati - ne. */
+      out+='<div class="tw"><table class="grid"><tr class="nr">'+nr+
+           '</tr><tr class="ab">'+ab+'</tr></table></div>';
+    });
+    return out;},
+  key:function(b){
+    return '<div class="keys">'+b.items.map(function(x){
+      return '<p><b>'+x.nr+'. — '+x.letter+')</b> <span>'+mt(x.text)+
+             '</span></p>';}).join("")+'</div>';},
+  tbl:function(b){
+    return '<table class="tbl"><tr>'+b.head.map(function(h){
+      return '<th>'+esc(h)+'</th>';}).join("")+'</tr>'+
+      b.rows.map(function(r){return '<tr>'+r.map(function(c){
+        return '<td>'+mt(c)+'</td>';}).join("")+'</tr>';}).join("")+
+      '</table>';},
+  skala:function(b){
+    var galva="",rinda="";
+    b.skala.forEach(function(x){
+      galva+='<th>'+x[0]+'</th>';
+      rinda+='<td>'+(x[1]===x[2]?x[1]:x[1]+"–"+x[2])+'</td>';});
+    return '<table class="grid"><tr class="nr">'+galva+'</tr><tr class="ab">'+
+      rinda+'</tr></table><p class="pnote">'+esc(TEKSTI.skalasParaksts)+
+      '</p>';}
+};
+
+function html(blocks){
+  return blocks.map(function(b){
+    return HTML[b.t]?HTML[b.t](b):"";}).join("\n");
+}
+
+/* ---------------------------------------------------------------- DOCX */
+function punktoti(n){var s="",i;for(i=0;i<n;i++)s+=".";return s;}
+
+/* Atbilžu varianti vienā rindā, ja ietilpst; citādi divās (kā at_common.py) */
+function rindas(varianti){
+  var apz=varianti.map(function(o,i){return B[i]+") "+o;});
+  var visi=apz.join(ATSTARPE);
+  return ietilpst(vienkarsi(visi),Z.jaut,S.platums-0.6)
+    ? [visi] : [apz.slice(0,2).join(ATSTARPE),apz.slice(2).join(ATSTARPE)];
+}
+function ietilpst(teksts,izmers,platums){
+  return teksts.length*izmers*0.47/28.35<=platums;
+}
+
+var DOCXR={
+  meta:function(b){return [{parts:gabali(b.text),size:Z.meta,color:K.grey,
+                            after:1}];},
+  h1:function(b){return [{parts:gabali(b.text),size:Z.h1,bold:true,
+                          color:K.navy,after:1}];},
+  h2:function(b){return [{parts:gabali(b.text),size:Z.h2,bold:true,
+                          color:K.navy,after:4}];},
+  note:function(b){return [{parts:gabali(b.text),size:Z.note,italic:true,
+                            color:K.grey,after:4}];},
+  sec:function(b){return [{parts:gabali(b.text),size:Z.sec,bold:true,
+                           color:K.navy,before:8,after:2}];},
+  foot:function(b){return [{text:b.text,size:Z.jaut,before:4,after:0}];},
+  form:function(){
+    return [{t:"tbl",plain:true,widths:S.platumi.veidlapa,rows:[
+      {cells:TEKSTI.veidlapa.map(function(){
+        return {text:punktoti(32),size:11};})},
+      {cells:TEKSTI.veidlapa.map(function(x){
+        return {text:x,size:Z.mazs,color:K.grey};})}]},
+      {text:"",size:2,after:2}];},
+  box:function(b){
+    return [{t:"tbl",widths:[S.platums],rows:[{cells:[{fill:K.box,
+      paras:[{text:b.title,size:Z.mazs,bold:true,color:K.navy}].concat(
+        b.lines.map(function(x){
+          return {parts:gabali(x),size:Z.mazs};}))}]}]}];},
+  q:function(b){
+    var out=[{parts:gabali(b.nr+". "+b.text),size:Z.jaut,after:1}];
+    var r=rindas(b.options);
+    r.forEach(function(rinda,i){
+      out.push({parts:gabali(rinda),size:Z.jaut,left:0.6,
+                after:i===r.length-1?3:0});});
+    return out;},
+  grid:function(b){
+    var out=[{text:b.atslega?TEKSTI.atslega:TEKSTI.tabula,size:Z.jaut,
+              bold:true,color:K.navy,before:4,after:2}];
+    if(!b.atslega)out.push({text:TEKSTI.pamaciba,size:Z.mazs,italic:true,
+                            color:K.grey,after:3});
+    var w=S.platums/S.ailes;
+    bloki(b.n).forEach(function(g){
+      var nr=[],ab=[],i;
+      for(i=g.no;i<g.lidz;i++){
+        nr.push({text:(i+1)+".",size:Z.jaut,bold:true,color:K.white,
+                 fill:K.navy,align:"center"});
+        ab.push({text:b.atslega?b.letters[i]:B.split("").join("     "),
+                 size:12,bold:b.atslega,align:"center"});
+      }
+      out.push({t:"tbl",widths:Array(S.ailes).fill(w),
+                rows:[{cells:nr},{cells:ab,height:0.70}]});
+    });
+    return out;},
+  key:function(b){
+    return b.items.map(function(x){
+      return {left:0.4,after:0,parts:[
+        {text:x.nr+". — "+x.letter+") ",size:Z.vid,bold:true}].concat(
+        gabali(x.text).map(function(g){g.size=Z.jaut;g.color=K.grey;
+                                       return g;}))};});},
+  tbl:function(b){
+    return [{t:"tbl",widths:b.widths,rows:[{cells:b.head.map(function(h){
+      return {text:h,size:Z.note,bold:true,color:K.white,fill:K.navy};})}]
+      .concat(b.rows.map(function(r){
+        return {cells:r.map(function(c,i){
+          return {parts:gabali(c),size:Z.jaut,bold:i===0,
+                  color:i===0?K.navy:(i===2?K.grey:null)};})};}))}];},
+  skala:function(b){
+    var w=S.platums/b.skala.length;
+    return [{t:"tbl",widths:Array(b.skala.length).fill(w),rows:[
+      {cells:b.skala.map(function(x){
+        return {text:String(x[0]),size:Z.jaut,bold:true,color:K.white,
+                fill:K.navy,align:"center"};})},
+      {cells:b.skala.map(function(x){
+        return {text:x[1]===x[2]?String(x[1]):x[1]+"–"+x[2],size:Z.jaut,
+                align:"center"};})}]},
+      {text:TEKSTI.skalasParaksts,size:Z.mazs,italic:true,color:K.grey,
+       before:2,after:0}];}
+};
+
+function docx(blocks){
+  var out=[],i;
+  for(i=0;i<blocks.length;i++){
+    var f=DOCXR[blocks[i].t];
+    if(f)out=out.concat(f(blocks[i]));
+  }
+  return out;
+}
+
+/* Bloku tipu tabulas un palīgi ir ārā, lai citi darbu veidi (piemēram,
+   divu lapu pārbaudes darbs mat_paper.py) varētu likt klāt savus blokus,
+   nepārrakstot jau uzrakstītos (DRY). */
+return {blocks:blocks,html:html,docx:docx,gabali:gabali,
+        vienkarsi:vienkarsi,HTML:HTML,DOCXR:DOCXR,TEKSTI:TEKSTI,
+        bloki:bloki,esc:esc,mt:mt,punkti:punkti,rindas:rindas,
+        metaRinda:metaRinda};
+})();
+</script>
+<script>
+window.PAPER_PD=(function(){
+"use strict";
+var P=window.PAPER,S=window.FD_STILS,K=S.krasas,Z=S.izmeri,B=S.burti;
+var esc=P.esc,mt=P.mt,gabali=P.gabali;
+
+var TEKSTI={
+  uzdevums:"uzdevums",
+  tests:"Tests",
+  testaNorade:"Katram jautājumam ir viena pareizā atbilde. Apvelc pareizās "+
+              "atbildes burtu!",
+  turpinajums:"2. lapa",
+  vertejums:"Vērtējums",
+  vertejumaGalva:["Kopā","Balle"],
+  maks:"Maksimālais punktu skaits par uzdevumu:  ",
+  darbaVieta:"Risinājums un zīmējums",
+  skolotajam:"Atbildes un vērtēšana — SKOLOTĀJAM",
+  pareizas:"1. uzdevums. Tests — pareizās atbildes",
+  parbauda:"Ko darbs pārbauda",
+  skala:"Vērtēšanas skala (kopā %d punkti)",
+  parbaudaGalva:["Uzd.","Pārbaudāmais sasniedzamais rezultāts","P."],
+  punktuZime:" p."
+};
+var INDEKSI="abcdefgh";
+
+function pk(n){return "("+n+TEKSTI.punktuZime+")";}
+
+/* ------------------------------------------------------------- modelis */
+function galvene(dati,darbs,apaks){
+  return [{t:"meta",text:P.metaRinda(dati)},
+          {t:"h1",text:dati.virsraksts+" Nr. "+dati.nr+".  "+dati.nosaukums},
+          {t:"h2",text:apaks}];
+}
+
+/* Viena uzdevuma saturs. Uzbūve ir tā pati, ko lieto Word darba lapas
+   (pd_common.py), tāpēc uzdevumu apraksts satura failā ir vienāds. */
+function uzdevums(out,nr,u,punkti){
+  out.push({t:"uzd",nr:nr,virs:u.virs,punkti:punkti});
+  if(u.tips==="parveide"){
+    if(u.note)out.push({t:"note",text:u.note});
+    out.push({t:"rindas",items:u.rindas.map(function(r,i){
+      return INDEKSI[i]+")   "+r[0];})});
+  }else if(u.tips==="aprekins"){
+    out.push({t:"para",text:u.teksts});
+    out.push({t:"vieta",augstums:u.vieta,hint:u.hint||TEKSTI.darbaVieta});
+  }else{
+    out.push({t:"para",text:u.ievads});
+    out.push({t:"jaut",items:u.jaut.map(function(j,i){
+      return (i+1)+") "+j[0]+"  "+pk(j[1]);})});
+    out.push({t:"vieta",augstums:u.vieta,hint:u.hint||TEKSTI.darbaVieta});
+  }
+}
+
+function lapa(out,dati,darbs,nr){
+  darbs.uzdevumi.forEach(function(x){
+    if(x.lapa===nr)uzdevums(out,x.nr,x.u,x.punkti);
+  });
+}
+
+function blocks(dati,darbs,atslega){
+  var out=[],n=darbs.tests.length;
+  if(atslega)return atbildes(dati,darbs);
+  out=out.concat(galvene(dati,darbs,
+    dati.kopa+" punkti  ·  "+dati.laiks+" minūtes  ·  variants "+
+    darbs.kods));
+  out.push({t:"note",text:dati.ievads});
+  out.push({t:"form"});
+  out.push({t:"box",title:P.TEKSTI.atgadne,lines:dati.atgadne});
+  out.push({t:"uzd",nr:1,virs:TEKSTI.tests,punkti:n});
+  out.push({t:"note",text:TEKSTI.testaNorade});
+  darbs.tests.forEach(function(x,i){
+    out.push({t:"q",nr:i+1,text:x.teksts,options:x.varianti,
+              correct:x.pareizais});});
+  lapa(out,dati,darbs,1);
+  out.push({t:"pb"});
+  out=out.concat(galvene(dati,darbs,
+    TEKSTI.turpinajums+"  ·  variants "+darbs.kods));
+  lapa(out,dati,darbs,2);
+  out.push({t:"vert",punkti:[n].concat(darbs.uzdevumi.map(function(x){
+    return x.punkti;}))});
+  return out;
+}
+
+function atbildes(dati,darbs){
+  var out=galvene(dati,darbs,TEKSTI.skolotajam),n=darbs.tests.length;
+  out.push({t:"note",text:dati.apraksts+"  Variants "+darbs.kods+
+    ".  Izpildes laiks — "+dati.laiks+" minūtes, kopā "+dati.kopa+
+    " punkti."});
+  out.push({t:"sec",text:TEKSTI.pareizas});
+  out.push({t:"key",items:darbs.tests.map(function(x,i){
+    return {nr:i+1,letter:darbs.burti[i],text:x.varianti[x.pareizais]};})});
+  darbs.uzdevumi.forEach(function(x){
+    out.push({t:"sec",text:x.nr+". "+TEKSTI.uzdevums+". "+x.u.virs+"  "+
+      pk(x.punkti)});
+    out.push({t:"saraksts",items:atbilzuRindas(x.u)});
+  });
+  out.push({t:"sec",text:TEKSTI.parbauda});
+  out.push({t:"tbl",widths:S.platumi.struktura,head:TEKSTI.parbaudaGalva,
+    rows:[["1.",darbs.tests.map(function(x){return x.sr;}).join("; "),
+           String(n)]].concat(darbs.uzdevumi.map(function(x){
+      return [x.nr+".",x.sr,String(x.punkti)];}))});
+  out.push({t:"sec",text:TEKSTI.skala.replace("%d",dati.kopa)});
+  out.push({t:"skala",skala:dati.skala});
+  return out;
+}
+
+function atbilzuRindas(u){
+  /* Pārveides uzdevumam atbilde ir katrai rindai, pārējiem - saraksts. */
+  if(u.tips==="parveide")
+    return u.rindas.map(function(r,i){
+      return INDEKSI[i]+")  "+r[0]+"   →   "+r[1];});
+  return u.atbildes||u.kriteriji||[];
+}
+
+/* ---------------------------------------------------------------- HTML */
+function kopija(avots){
+  var out={},k;
+  for(k in avots)if(Object.prototype.hasOwnProperty.call(avots,k))
+    out[k]=avots[k];
+  return out;
+}
+
+var HTML=kopija(P.HTML);
+
+HTML.uzd=function(b){
+  return '<p class="puzd"><b>'+b.nr+'. '+esc(TEKSTI.uzdevums)+'.</b> '+
+    mt(b.virs)+' <span class="pp">'+esc(pk(b.punkti))+'</span></p>';};
+HTML.para=function(b){return '<p class="ptext">'+mt(b.text)+'</p>';};
+HTML.rindas=function(b){
+  return '<div class="rindas">'+b.items.map(function(x){
+    return '<p>'+mt(x)+'</p>';}).join("")+'</div>';};
+HTML.jaut=function(b){
+  return '<div class="jaut">'+b.items.map(function(x){
+    return '<p>'+mt(x)+'</p>';}).join("")+'</div>';};
+HTML.vieta=function(b){
+  return '<div class="vieta" style="min-height:'+b.augstums+'cm">'+
+    '<span class="vh">'+esc(b.hint)+'</span></div>';};
+HTML.vert=function(b){
+  var galva="",rinda="",i;
+  for(i=0;i<b.punkti.length;i++){
+    galva+='<th>'+(i+1)+'. uzd.</th>';rinda+='<td></td>';}
+  TEKSTI.vertejumaGalva.forEach(function(g){
+    galva+='<th>'+esc(g)+'</th>';rinda+='<td></td>';});
+  return '<p class="psec">'+esc(TEKSTI.vertejums)+'</p>'+
+    '<div class="tw"><table class="grid"><tr class="nr">'+galva+
+    '</tr><tr class="ab vertr">'+rinda+'</tr></table></div>'+
+    '<p class="pnote">'+esc(TEKSTI.maks)+b.punkti.map(function(p,i){
+      return (i+1)+". uzd. — "+p+TEKSTI.punktuZime;}).join("  ·  ")+'</p>';};
+HTML.saraksts=function(b){
+  return '<div class="atbsar">'+b.items.map(function(x){
+    return '<p>'+mt(x)+'</p>';}).join("")+'</div>';};
+HTML.pb=function(){return "";};
+
+function html(blocks){
+  return blocks.map(function(b){
+    return HTML[b.t]?HTML[b.t](b):"";}).join("\n");
+}
+
+/* ---------------------------------------------------------------- DOCX */
+var DOCXR=kopija(P.DOCXR);
+
+DOCXR.uzd=function(b){
+  return [{size:Z.sec,bold:true,color:K.navy,before:8,after:2,
+           parts:[{text:b.nr+". "+TEKSTI.uzdevums+". "+b.virs+"   "+
+                        pk(b.punkti)}]}];};
+DOCXR.para=function(b){
+  return [{parts:gabali(b.text),size:11,after:3}];};
+DOCXR.rindas=function(b){
+  return [{t:"tbl",widths:[S.platums],rows:b.items.map(function(x){
+    return {height:0.85,cells:[{parts:gabali(x),size:11}]};})}];};
+DOCXR.jaut=function(b){
+  return b.items.map(function(x,i){
+    return {parts:gabali(x),size:Z.jaut,left:0.4,
+            after:i===b.items.length-1?3:1};});};
+DOCXR.vieta=function(b){
+  return [{t:"tbl",widths:[S.platums],rows:[{height:b.augstums,
+    cells:[{text:b.hint,size:Z.mazs,color:K.grey}]}]}];};
+DOCXR.vert=function(b){
+  var galva=[],rinda=[],i,n=b.punkti.length+TEKSTI.vertejumaGalva.length;
+  var w=S.platums/n;
+  for(i=0;i<b.punkti.length;i++){
+    galva.push({text:(i+1)+". uzd.",size:Z.mazs,bold:true,color:K.white,
+                fill:K.navy,align:"center"});
+    rinda.push({text:"",size:11});}
+  TEKSTI.vertejumaGalva.forEach(function(g){
+    galva.push({text:g,size:Z.mazs,bold:true,color:K.white,fill:K.navy,
+                align:"center"});
+    rinda.push({text:"",size:11});});
+  return [{t:"tbl",widths:Array(n).fill(w),
+           rows:[{cells:galva},{cells:rinda,height:1.0}]},
+          {text:TEKSTI.maks+b.punkti.map(function(p,i){
+             return (i+1)+". uzd. — "+p+TEKSTI.punktuZime;}).join("  ·  "),
+           size:Z.mazs,color:K.grey,before:2,after:0}];};
+DOCXR.saraksts=function(b){
+  return b.items.map(function(x){
+    return {parts:gabali(x),size:Z.jaut,left:0.4,after:1};});};
+DOCXR.pb=function(){return [{t:"pb"}];};
+
+function docx(blocks){
+  var out=[],i;
+  for(i=0;i<blocks.length;i++){
+    var f=DOCXR[blocks[i].t];
+    if(f)out=out.concat(f(blocks[i]));
+  }
+  return out;
+}
+
+return {blocks:blocks,html:html,docx:docx};
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var D=window.MAT_DATI,S=window.FD_STILS,I=window.IZLOZE;
+var MOD=D.veids==="pd"?window.PAPER_PD:window.PAPER;
+var KODA_GARUMS=5;
+
+/* ------------------------------------------------------------- izloze */
+function darbs(kod){
+  /* Viens darbs: no katras jautājumu grupas viens jautājums un katram
+     uzdevumam viens tā variants. Ar to pašu kodu vienmēr sanāk tas pats. */
+  var rnd=I.lozes(I.seja(kod)),grupas=D.veids==="pd"?D.tests:D.grupas;
+  var m=I.merki(grupas.length,rnd);
+  var q=grupas.map(function(g,i){
+    var izvele=g.jautajumi[Math.floor(rnd()*g.jautajumi.length)];
+    var x=I.sagatavo(izvele,m[i],rnd);
+    x.sr=g.sr;x.stunda=g.stunda;
+    return x;});
+  var d={kods:kod,burti:q.map(function(x){return S.burti[x.pareizais];})};
+  if(D.veids==="pd"){
+    d.tests=q;
+    d.uzdevumi=D.uzdevumi.map(function(u,i){
+      return {nr:i+2,sr:u.sr,punkti:u.punkti,lapa:u.lapa,
+              u:u.varianti[Math.floor(rnd()*u.varianti.length)]};});
+  }else{
+    d.jautajumi=q;
+  }
+  return d;
+}
+
+/* --------------------------------------------------------- attēlošana */
+var laukums=document.getElementById("darbs"),
+    kodsEl=document.getElementById("kods"),
+    poga=document.getElementById("atb"),
+    tagad=null;
+
+function lapas(bloki){
+  /* Bloku saraksts -> lapas; {t:"pb"} sāk jaunu lapu. */
+  var out=[[]],i;
+  for(i=0;i<bloki.length;i++){
+    if(bloki[i].t==="pb")out.push([]);
+    else out[out.length-1].push(bloki[i]);
+  }
+  return out;
+}
+function lapa(bloki,klase){
+  return '<div class="sheet'+(klase?" "+klase:"")+'">'+MOD.html(bloki)+
+         '</div>';
+}
+function zime(d){
+  tagad=d;
+  var teksts="";
+  lapas(MOD.blocks(D,d,false)).forEach(function(l){teksts+=lapa(l);});
+  /* Atbildes ir klāt vienmēr, tikai apslēptas - poga tās tikai parāda. */
+  lapas(MOD.blocks(D,d,true)).forEach(function(l){teksts+=lapa(l,"atbl");});
+  laukums.innerHTML=teksts;
+  atslega(false);
+  kodsEl.innerHTML="Variants <b>"+d.kods+"</b>";
+  if(location.hash.slice(1)!==d.kods)
+    history.replaceState(null,"","#"+d.kods);
+}
+function atslega(on){
+  var lapas=laukums.getElementsByClassName("sheet"),i;
+  for(i=0;i<lapas.length;i++)
+    lapas[i].classList[on?"add":"remove"]("key");
+  poga.setAttribute("aria-pressed",on?"true":"false");
+}
+function lejup(atsl){
+  var bloki=MOD.docx(MOD.blocks(D,tagad,atsl));
+  window.DOCX.save(window.DOCX.build(bloki),
+    D.fails+" ("+(atsl?"atbildes, ":"")+"variants "+tagad.kods+").docx");
+}
+
+document.getElementById("jauns").addEventListener("click",function(){
+  zime(darbs(I.kods(KODA_GARUMS)));
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+poga.addEventListener("click",function(){
+  atslega(poga.getAttribute("aria-pressed")!=="true");});
+document.getElementById("word").addEventListener("click",function(){
+  lejup(false);});
+document.getElementById("wordatb").addEventListener("click",function(){
+  lejup(true);});
+document.getElementById("druka").addEventListener("click",function(){
+  window.print();});
+
+var sakums=location.hash.slice(1).toUpperCase();
+zime(darbs(/^[A-Z0-9]{5}$/.test(sakums)?sakums:I.kods(KODA_GARUMS)));
+})();
+</script>
+</body>
+</html>

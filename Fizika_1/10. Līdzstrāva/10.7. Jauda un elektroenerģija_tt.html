@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -351,19 +364,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:17.4667%;width:88.1497%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.2500cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">JAUDA UN ENERĢIJA</p>
 </div>
-<div class="tb" style="left:37.6247%;top:23.4315%;width:15.9785%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P = UI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P = I²R&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P =&nbsp;</p>
-</div>
-<div class="tb" style="left:53.9220%;top:21.3204%;width:1.5547%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">U²</p>
-</div>
-<i style="left:53.9220%;top:25.0192%;width:1.5547%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:53.9220%;top:25.5426%;width:1.5547%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
-</div>
-<div class="tb" style="left:55.9455%;top:23.4315%;width:6.5798%;height:3.3889%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.5625cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E = Pt</p>
-</div>
 <div class="tb" style="left:5.9251%;top:29.3345%;width:88.1497%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:1.6667cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Jauda rāda, cik enerģijas ierīce patērē vienā sekundē. Otro un trešo formu iegūst, ievietojot Oma likumu; izvēlas to, kurai ir dotie lielumi.</p>
 </div>
@@ -430,6 +430,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">10.7. Jauda un elektroenerģija</p>
 </div>
+<div class="ml" style="left:5.9251%;top:21.0667%;width:88.1497%;height:8.1187%;justify-content:center;font-size:1.5625cqw;color:#4F46E5;font-weight:700"><span>P = UI&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P = I²R&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -441,7 +442,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">JAUDA UN ENERĢIJA</p>
-<p class="mf" style="color:#4F46E5"><span class="mc">P = UI</span><span class="mc">P = I²R</span><span class="mc">P = <span class="f"><span class="n">U²</span><span class="d">R</span></span></span><span class="mc">E = Pt</span></p>
+<p class="mf" style="color:#4F46E5"><span class="mc">P = UI</span><span class="mc">P = I²R</span><span class="mc">P = <span class="f"><span class="n">U²</span><span class="d">R</span></span></span><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 <p class="p2" style="color:#4B5563">Jauda rāda, cik enerģijas ierīce patērē vienā sekundē. Otro un trešo formu iegūst, ievietojot Oma likumu; izvēlas to, kurai ir dotie lielumi.</p>
 </div>
 <div class="blk">
@@ -578,8 +579,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini jaudu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -600,8 +600,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="h1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="h1">Aprēķini jaudu!</p>
+<p class="h1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
@@ -624,8 +623,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -652,8 +650,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -681,8 +678,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -718,8 +714,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -751,8 +746,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -795,8 +789,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -832,8 +825,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -883,8 +875,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -924,8 +915,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -981,8 +971,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1026,8 +1015,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1087,8 +1075,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Ierīces jauda</p>
-<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Caur ierīci pie 230 V plūst 2,5 A strāva. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1134,8 +1121,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini jaudu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1156,8 +1142,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="h1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="h1">Aprēķini jaudu!</p>
+<p class="h1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
@@ -1180,8 +1165,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1208,8 +1192,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1237,8 +1220,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1274,8 +1256,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1307,8 +1288,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1331,16 +1311,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:58.7127%;top:54.1370%;width:5.0835%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">P =&nbsp;</p>
-</div>
-<div class="tb" style="left:64.6462%;top:49.6333%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">U²</p>
-</div>
-<i style="left:64.6462%;top:57.6452%;width:3.3167%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.6462%;top:58.6407%;width:3.3167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">R</p>
-</div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
@@ -1349,6 +1319,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1360,8 +1331,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1397,8 +1367,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1420,16 +1389,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8145%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3353%;top:63.3050%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">U²</p>
-</div>
-<i style="left:7.3353%;top:67.6280%;width:1.7733%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3353%;top:68.2197%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
@@ -1444,6 +1403,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1455,8 +1415,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1496,8 +1455,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1519,16 +1477,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8145%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3353%;top:63.3050%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">U²</p>
-</div>
-<i style="left:7.3353%;top:67.6280%;width:1.7733%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3353%;top:68.2197%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1537,9 +1485,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;U² = 230² = 52 900</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;P = 52 900 : 46</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1549,6 +1496,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:55.2627%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>2)&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1560,8 +1509,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1582,7 +1530,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;P = 52 900 : 46</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">P = <span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
@@ -1605,8 +1553,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1628,16 +1575,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8145%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3353%;top:63.3050%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">U²</p>
-</div>
-<i style="left:7.3353%;top:67.6280%;width:1.7733%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3353%;top:68.2197%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1645,11 +1582,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;U² = 230² = 52 900</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 52 900 : 46</p>
-</div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;P = 1150 W</p>
 </div>
@@ -1661,6 +1595,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1672,8 +1608,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1691,7 +1626,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;U² = 230² = 52 900</p>
-<p class="p2">2)&nbsp;&nbsp;P = 52 900 : 46</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">P = <span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -1718,8 +1653,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini jaudu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1741,16 +1675,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.8178%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.7623%;width:2.8145%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">P =&nbsp;</p>
-</div>
-<div class="tb" style="left:7.3353%;top:63.3050%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">U²</p>
-</div>
-<i style="left:7.3353%;top:67.6280%;width:1.7733%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:7.3353%;top:68.2197%;width:1.7733%;height:3.9447%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.8188cqw;color:#374151;text-align:center;padding-top:0.0000cqw">R</p>
-</div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
@@ -1758,17 +1682,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;U² = 230² = 52 900</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;P = 52 900 : 46</p>
-</div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;P = 1150 W</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">P = 1150 W</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Kad zināma pretestība un spriegums, šī forma ir ātrākā.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">P = 1150 W</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">Kad zināma pretestība un spriegums, šī forma ir ātrākā.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1778,6 +1699,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.1440%;width:24.0006%;height:9.1827%;justify-content:flex-start;font-size:1.8188cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">U²</span><span class="d">R</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;P =&nbsp;<span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1789,8 +1712,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Jauda no pretestības</p>
-<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V.</p>
-<p class="p1">Aprēķini jaudu!</p>
+<p class="p1">Sildelementa pretestība ir 46 Ω, spriegums 230 V. Aprēķini jaudu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1808,8 +1730,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;U² = 230² = 52 900</p>
-<p class="p2">2)&nbsp;&nbsp;P = 52 900 : 46</p>
 <p class="p2">3)&nbsp;&nbsp;P = 1150 W</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">P = <span class="f"><span class="n">52 900</span><span class="d">46</span></span></span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -1837,8 +1759,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1855,8 +1776,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="h1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="h1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="h1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
@@ -1876,8 +1796,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1901,8 +1820,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1928,20 +1846,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -1964,14 +1881,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -1995,39 +1911,43 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:35.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">E = Pt</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">E(mēnesī) = E · 30</p>
+</div>
+<div class="tb" style="left:33.7508%;top:58.8185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E = Pt</p>
+</div>
+<div class="tb" style="left:33.7508%;top:68.0185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E<sub>mēnesī</sub> = E · 30</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:33.7508%;top:40.1373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2039,23 +1959,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">E = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">E = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">E = Pt</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">E(mēnesī) = E · 30</p>
+<p class="h1" style="color:#4F46E5;font-weight:700">E<sub>mēnesī</sub> = E · 30</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
@@ -2075,37 +1995,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E(mēnesī) = E · 30</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E<sub>mēnesī</sub> = E · 30</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2117,6 +2036,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2128,23 +2048,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">E = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">E = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">E = Pt</p>
-<p class="p2">E(mēnesī) = E · 30</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">E = Pt</p>
+<p class="p3">E<sub>mēnesī</sub> = E · 30</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2168,37 +2088,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E(mēnesī) = E · 30</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E<sub>mēnesī</sub> = E · 30</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2216,6 +2135,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2227,23 +2147,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">E = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">E = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">E = Pt</p>
-<p class="p2">E(mēnesī) = E · 30</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">E = Pt</p>
+<p class="p3">E<sub>mēnesī</sub> = E · 30</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2271,37 +2191,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E(mēnesī) = E · 30</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E<sub>mēnesī</sub> = E · 30</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2322,6 +2241,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2333,23 +2253,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">E = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">E = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">E = Pt</p>
-<p class="p2">E(mēnesī) = E · 30</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">E = Pt</p>
+<p class="p3">E<sub>mēnesī</sub> = E · 30</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2378,37 +2298,36 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P = 2000 W = 2,0 kW</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">t = 15 min = 0,25 h</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">30 dienas</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:67.5624%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E(mēnesī) = E · 30</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E<sub>mēnesī</sub> = E · 30</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2433,6 +2352,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
+<div class="ml" style="left:4.1251%;top:60.2467%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2444,23 +2364,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Patēriņš kilovatstundās</p>
-<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā.</p>
-<p class="p1">Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
+<p class="p1">Tējkanna ar jaudu 2000 W darbojas 15 minūtes dienā. Cik kilovatstundu tā patērē mēnesī (30 dienās)?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">P = 2000 W = 2,0 kW</p>
-<p class="p2">t = 15 min = 0,25 h</p>
-<p class="p2">30 dienas</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">P = 2000 W = 2,0 kW</p>
+<p class="p3">t = 15 min = 0,25 h</p>
+<p class="p3">30 dienas</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">E = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">E = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">E = Pt</p>
-<p class="p2">E(mēnesī) = E · 30</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">E = Pt</p>
+<p class="p3">E<sub>mēnesī</sub> = E · 30</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2491,9 +2411,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -2509,9 +2427,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="h1">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="h1">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="h1">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="h1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2530,10 +2446,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2556,9 +2470,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2583,22 +2495,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2620,15 +2530,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">JĀAPRĒĶINA</p>
@@ -2651,40 +2559,43 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:35.3000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">Cena = E · tarifs</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">E = Pt</p>
+</div>
+<div class="tb" style="left:33.7508%;top:40.1370%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Cena = E · tarifs</p>
+</div>
+<div class="tb" style="left:33.7508%;top:68.0185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
+<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">E = Pt</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2696,24 +2607,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Izmaksas = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Izmaksas = ?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">FORMULAS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">Cena = E · tarifs</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">E = Pt</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -2732,39 +2642,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
+<div class="tb" style="left:4.1251%;top:60.2462%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
@@ -2775,6 +2683,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2786,24 +2695,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Izmaksas = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Izmaksas = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Cena = E · tarifs</p>
-<p class="p2">E = Pt</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Cena = E · tarifs</p>
+<p class="p3">E = Pt</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
@@ -2826,39 +2734,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
+<div class="tb" style="left:4.1251%;top:60.2462%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2875,6 +2781,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2886,24 +2793,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Izmaksas = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Izmaksas = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Cena = E · tarifs</p>
-<p class="p2">E = Pt</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Cena = E · tarifs</p>
+<p class="p3">E = Pt</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -2930,39 +2836,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
+<div class="tb" style="left:4.1251%;top:60.2462%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -2982,6 +2886,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -2993,24 +2898,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Izmaksas = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Izmaksas = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Cena = E · tarifs</p>
-<p class="p2">E = Pt</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Cena = E · tarifs</p>
+<p class="p3">E = Pt</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3038,39 +2942,37 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:7.7333%;width:91.7498%;height:0.2933%;background:#B45309"></i>
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
-<p style="font-size:1.1094cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.5969cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p style="font-size:1.7073cqw;color:#374151;text-align:left;padding-top:0.2552cqw">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Izmaksas</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
-<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
+<div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:35.6575%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
+<div class="tb" style="left:4.1251%;top:34.9886%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E₁ = 15 kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:39.7837%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
+<div class="tb" style="left:4.1251%;top:38.4115%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Tarifs 0,20 EUR/kWh</p>
 </div>
-<div class="tb" style="left:4.1251%;top:43.9099%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
+<div class="tb" style="left:4.1251%;top:41.8344%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">P₂ = 2,4 kW</p>
 </div>
-<i style="left:4.1251%;top:48.8806%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:50.4806%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
+<i style="left:4.1251%;top:46.1850%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:47.7850%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Jāaprēķina:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:54.4047%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
+<div class="tb" style="left:4.1251%;top:51.0403%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Izmaksas = ?</p>
 </div>
-<i style="left:4.1251%;top:59.3754%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
-<div class="tb" style="left:4.1251%;top:60.9754%;width:24.0006%;height:3.4353%;justify-content:flex-start">
-<p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
+<i style="left:4.1251%;top:55.3910%;width:22.1255%;height:0.2000%;background:#E5E7EB"></i>
+<div class="tb" style="left:4.1251%;top:56.9910%;width:24.0006%;height:2.8497%;justify-content:flex-start">
+<p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.8995%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
+<div class="tb" style="left:4.1251%;top:60.2462%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Cena = E · tarifs</p>
 </div>
-<div class="tb" style="left:4.1251%;top:69.0258%;width:24.0006%;height:3.6373%;justify-content:flex-start">
-<p style="font-size:1.6490cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
+<div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
+<p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">E = Pt</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
@@ -3094,6 +2996,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>P =&nbsp;<span class="f"><span class="n">A</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3105,24 +3008,23 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Izmaksas</p>
-<p class="p2">Cik maksā iepriekšējais patēriņš, ja tarifs ir</p>
-<p class="p2">0,20 eiro par kilovatstundu? Un cik maksātu</p>
-<p class="p2">vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
+<p class="p1">Cik maksā iepriekšējais patēriņš, ja tarifs ir 0,20 eiro par kilovatstundu? Un cik maksātu vecā 2400 W tējkanna ar to pašu lietošanas laiku?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
-<p class="p2">E₁ = 15 kWh</p>
-<p class="p2">Tarifs 0,20 EUR/kWh</p>
-<p class="p2">P₂ = 2,4 kW</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
+<p class="p3">E₁ = 15 kWh</p>
+<p class="p3">Tarifs 0,20 EUR/kWh</p>
+<p class="p3">P₂ = 2,4 kW</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
-<p class="p2">Izmaksas = ?</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Jāaprēķina:</p>
+<p class="p3">Izmaksas = ?</p>
 </div>
 <div class="blk">
-<p class="p2" style="color:#4F46E5;font-weight:700">Formulas:</p>
-<p class="p2">Cena = E · tarifs</p>
-<p class="p2">E = Pt</p>
+<p class="p3" style="color:#4F46E5;font-weight:700">Formulas:</p>
+<p class="p3">Cena = E · tarifs</p>
+<p class="p3">E = Pt</p>
+<p class="mf" style="color:#374151"><span class="mc">P = <span class="f"><span class="n">A</span><span class="d">t</span></span></span></p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
@@ -3299,6 +3201,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();

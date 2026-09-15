@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Dabaszinības (fizikas daļa), 1. temats "Pasaule ap mums un tās pētīšana"
-1.2. stunda: Pasaules organizācijas līmeņi — "Kā saistīts atoms ar Galaktiku?"
+1.2. stunda: "Kā saistīts atoms ar Galaktiku?" — pasaules organizācijas līmeņi
 
 Stunda ņemta no plāna "Dabaszinības ALL klase - 10.-12. klases saturs vienā
 gadā.docx" (10.1. temata 2. stunda).
@@ -24,7 +24,7 @@ from gen_dabaszinibas_1_1 import (            # noqa: E402
 
 S.KICKER = ("DABASZINĪBAS · 10. KLASE · 1. TEMATS: PASAULE AP MUMS UN "
             "TĀS PĒTĪŠANA")
-S.FOOT = "1.2. Pasaules organizācijas līmeņi — no atoma līdz Visumam"
+S.FOOT = "1.2. Kā saistīts atoms ar Galaktiku? — no atoma līdz Visumam"
 
 
 # ============================================================ TEORIJAS SLAIDI
@@ -43,9 +43,9 @@ def slide_title(prs):
 
     put(s, 1.05, 3.45, 11.0, 2.10, [
         {"t": "1.2. stunda", "size": 21, "bold": True, "color": GOLD},
-        {"t": "Pasaules organizācijas līmeņi", "size": 33, "bold": True,
+        {"t": "Kā saistīts atoms ar Galaktiku?", "size": 33, "bold": True,
          "color": WHITE, "space": 12},
-        {"t": "Kā saistīts atoms ar Galaktiku?", "size": 26,
+        {"t": "Pasaules organizācijas līmeņi", "size": 26,
          "color": RGBColor(0xBD, 0xD7, 0xEE), "space": 8},
     ])
     put(s, 1.05, 6.50, 11.0, 0.55,
@@ -155,8 +155,8 @@ def slide_dzivais(prs):
 def slide_mega(prs):
     return _limenu_slaids(
         prs, "Organizācijas līmeņi: no planētas līdz Visumam",
-        "Megapasaulē attālumus vairs nemēra metros — lieto au, gaismas gadu "
-        "un parseku:",
+        "Megapasaulē attālumus vairs nemēra metros — lieto astronomisko "
+        "vienību, gaismas gadu un parseku:",
         [("planēta", "10⁷ m", "Zeme"),
          ("zvaigzne", "10⁹ m", "Saule R = 6,96·10⁸ m"),
          ("planētu sistēma", "10¹³ m", "Saules sistēma"),
@@ -165,9 +165,9 @@ def slide_mega(prs):
          ("galaktiku kopa", "10²³ m", "Vietējā kopa"),
          ("galaktiku superkopa", "10²⁴ m", "Lanjakea"),
          ("Visums", "10²⁶ m", "novērojamā daļa")],
-        [{"t": "1 au = 1,50 · 10¹¹ m      ·      1 ly = 9,46 · 10¹⁵ m"
-               "      ·      1 pc = 3,09 · 10¹⁶ m", "size": 19, "bold": True,
-          "color": NAVY},
+        [{"t": "1 au = 1,50 · 10¹¹ m      ·      1 gaismas gads = "
+               "9,46 · 10¹⁵ m      ·      1 pc = 3,09 · 10¹⁶ m",
+          "size": 19, "bold": True, "color": NAVY},
          {"t": "Vērtības atrodamas datu bukletā — tās nav jāiemācās no "
                "galvas.", "size": 16, "color": GREY, "space": 5}],
         GREEN)
@@ -337,7 +337,7 @@ UZDEVUMI = [
                "6,37 · 10⁶ m.\n"
                "a) Cik reižu Saules rādiuss ir lielāks?  b) Cik reižu "
                "lielāks ir Saules tilpums? (V ~ R³)",
-        dots=["R(Saules) = 6,96 · 10⁸ m", "R(Zemes) = 6,37 · 10⁶ m"],
+        dots=["R(S) = 6,96 · 10⁸ m", "R(Z) = 6,37 · 10⁶ m"],
         jaaprekina=["n = ?", "N = ?"],
         formulas=["n = R(S) / R(Z)", "N = n³"],
         aprekins=[
@@ -355,9 +355,10 @@ UZDEVUMI = [
         teksts="Mūsu galaktikas Piena Ceļš diametrs ir aptuveni "
                "1,0 · 10⁵ gaismas gadu.\n"
                "Izsaki šo diametru metros! Izmanto datu bukletu.",
-        dots=["D = 1,0 · 10⁵ ly", "1 ly = 9,46 · 10¹⁵ m"],
+        dots=["D = 1,0 · 10⁵ gaismas gadi",
+              "1 gaismas gads = 9,46 · 10¹⁵ m"],
         jaaprekina=["D = ?  (m)"],
-        formulas=["D = N · (1 ly)"],
+        formulas=["D = N · (1 gaismas gads)"],
         aprekins=[
             "1)  D = 1,0 · 10⁵ · 9,46 · 10¹⁵ m",
             "2)  D = 9,46 · 10⁵⁺¹⁵ m",
@@ -459,6 +460,6 @@ def build(out_path):
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     out = ("C:/aphysics/Dabaszinibas/1. Pasaule ap mums un tās pētīšana/"
-           "1.2. Pasaules organizācijas līmeņi.pptx")
+           "1.2. Kā saistīts atoms ar Galaktiku.pptx")
     print("Izveidots: %s" % out)
     print("Slaidu skaits: %d" % build(out))

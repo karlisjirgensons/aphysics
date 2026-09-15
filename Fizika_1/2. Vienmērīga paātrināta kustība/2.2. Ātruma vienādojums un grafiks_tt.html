@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);
 /* ---------- DATORA SKATS: precīzs slaids ---------- */
 .stage{position:relative;width:100%;aspect-ratio:13.333/7.5;
        background:var(--surface)}
-.stage i,.stage .rg{position:absolute;display:block}
+.stage i{position:absolute;display:block}
 /* vektoru zīmējums: bultas vienā SVG pāri slaidam */
 .stage .fg{position:absolute;left:0;top:0;width:100%;height:100%;
            overflow:visible;pointer-events:none}
@@ -53,6 +53,13 @@ body{background:var(--bg);color:var(--fg);
 .stage .tb{position:absolute;display:flex;flex-direction:column;
            justify-content:flex-start;overflow:visible}
 .stage .tb p{margin:0;line-height:1.22}
+/* Formulas rinda: vienu reizi novietots rāmis, saturu izkārto pārlūks.
+   Tā daļas un saknes nesabīda viena otru arī tad, ja lapas fonts ir
+   platāks par Calibri, ar kuru slaids mērīts. */
+.stage .ml{position:absolute;display:flex;align-items:center;
+           overflow:visible;line-height:1.22}
+.stage .ml>span{display:inline-block;white-space:nowrap;
+                transform-origin:center center}
 .flow{display:none}
 
 /* ---------- vertikāla daļa (a/b) ---------- */
@@ -70,6 +77,12 @@ body{background:var(--bg);color:var(--fg);
         fill:currentColor}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
+
+/* ---------- indekss (F_y) ----------
+   Unikodā apakšindeksa "y" nav, tāpēc to zīmē pati lapa - izmēru un
+   augstumu pieskaņo Unikoda indeksiem (aₓ, F₁), lai vienā formulā abi
+   izskatītos vienādi. */
+sub{font-size:.62em;vertical-align:-.22em;line-height:0}
 
 /* ---------- vektors: bultiņa virs simbola ----------
    Unikoda kombinējošā bultiņa (U+20D7) lapas fontos vai nu iztrūkst, vai
@@ -503,16 +516,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:71.1766%;width:25.4831%;height:4.4089%;justify-content:flex-start">
 <p style="font-size:2.0001cqw;color:#7C3AED;text-align:left;padding-top:0.0000cqw;font-weight:700">SLĪPUMS</p>
 </div>
-<div class="tb" style="left:5.9251%;top:79.8113%;width:2.5811%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:8.8662%;top:77.5144%;width:4.1311%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v₂ − v₁</p>
-</div>
-<i style="left:8.8662%;top:81.5481%;width:4.1311%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:8.8662%;top:82.1081%;width:4.1311%;height:3.6871%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.7000cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t₂ − t₁</p>
-</div>
 <div class="tb" style="left:5.9251%;top:86.8353%;width:25.4831%;height:3.7476%;justify-content:flex-start">
 <p style="font-size:1.7000cqw;color:#374151;text-align:left;padding-top:0.0000cqw">Stāvāka taisne - lielāks a.</p>
 </div>
@@ -531,6 +534,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:94.6667%;width:91.7498%;height:3.2000%;justify-content:flex-start">
 <p style="font-size:1.0938cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">2.2. Ātruma vienādojums un grafiks</p>
 </div>
+<div class="ml" style="left:5.9251%;top:77.3627%;width:25.4834%;height:8.5827%;justify-content:flex-start;font-size:1.7000cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">v₂ − v₁</span><span class="d">t₂ − t₁</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -600,8 +604,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -609,7 +612,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -622,14 +625,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="h1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="h1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="h1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -646,8 +648,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -660,7 +661,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -673,8 +674,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -684,7 +684,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -701,8 +701,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -724,7 +723,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -737,8 +736,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -754,7 +752,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -771,8 +769,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -805,7 +802,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -818,8 +815,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -839,7 +835,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -856,8 +852,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -897,7 +892,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -910,8 +905,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -935,7 +929,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -952,8 +946,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -999,7 +992,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -1012,8 +1005,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1041,7 +1033,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -1058,8 +1050,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1108,7 +1099,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -1121,8 +1112,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1151,7 +1141,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -1168,8 +1158,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1222,7 +1211,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 
 </div>
@@ -1235,8 +1224,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">1. uzdevums · Vienādojuma lasīšana</p>
-<p class="p1">Dots v = 12 + 3t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
+<p class="p1">Dots v = 12 + 3t (m/s; s). Nosaki v₀, a un ātrumu pēc 6,0 s!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1267,7 +1255,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563">2. uzdevums.&nbsp;&nbsp;v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 </div>
 </section>
@@ -1284,12 +1272,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1306,11 +1293,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="h1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="h1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="h1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1330,8 +1316,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -1341,7 +1326,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1358,8 +1343,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -1367,7 +1351,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">(8,0; 21)</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1387,8 +1371,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1408,7 +1391,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -1425,8 +1408,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1439,7 +1421,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">v(t) = ?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1459,8 +1441,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1486,27 +1467,18 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:39.9000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:58.6710%;top:49.5370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:64.4879%;top:45.0333%;width:3.5167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δv</p>
-</div>
-<i style="left:64.4879%;top:53.0452%;width:3.5167%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:64.4879%;top:54.0407%;width:3.5167%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">Δt</p>
-</div>
 <div class="tb" style="left:33.7508%;top:63.4185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v = v₀ + at</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:44.7373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>a =&nbsp;<span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1518,8 +1490,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1537,7 +1508,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="mf" style="color:#4F46E5"><span class="mc">a = <span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1557,8 +1528,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1583,16 +1553,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.5847%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.2406%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6877%;top:62.2392%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δv</p>
-</div>
-<i style="left:6.6877%;top:65.7402%;width:1.5035%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6877%;top:66.2419%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.0251%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = v₀ + at</p>
 </div>
@@ -1604,12 +1564,13 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:62.1080%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -1621,8 +1582,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1644,7 +1604,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1664,8 +1624,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1690,16 +1649,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.5847%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.2406%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6877%;top:62.2392%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δv</p>
-</div>
-<i style="left:6.6877%;top:65.7402%;width:1.5035%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6877%;top:66.2419%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.0251%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = v₀ + at</p>
 </div>
@@ -1711,18 +1660,19 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
 </div>
 <i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:50.4259%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:62.1080%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:55.2627%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>2)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">16</span><span class="d">8,0</span></span>&nbsp;= 2,0 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -1734,8 +1684,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1758,10 +1707,10 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">2)</span><span class="mc">a = <span class="f"><span class="n">16</span><span class="d">8,0</span></span> = 2,0 m/s²</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1781,8 +1730,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1807,16 +1755,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.5847%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.2406%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6877%;top:62.2392%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δv</p>
-</div>
-<i style="left:6.6877%;top:65.7402%;width:1.5035%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6877%;top:66.2419%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.0251%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = v₀ + at</p>
 </div>
@@ -1827,22 +1765,21 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
-</div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;v = 5,0 + 2,0t</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:62.1080%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">16</span><span class="d">8,0</span></span>&nbsp;= 2,0 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -1854,8 +1791,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -1875,14 +1811,14 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
-<p class="p2">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">a = <span class="f"><span class="n">16</span><span class="d">8,0</span></span> = 2,0 m/s²</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p class="h1" style="color:#4F46E5;font-weight:700">3)&nbsp;&nbsp;v = 5,0 + 2,0t</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -1902,8 +1838,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -1928,16 +1863,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:58.5847%;width:24.0006%;height:3.0839%;justify-content:flex-start">
 <p style="font-size:1.3980cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:64.2406%;width:2.2682%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.6877%;top:62.2392%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δv</p>
-</div>
-<i style="left:6.6877%;top:65.7402%;width:1.5035%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.6877%;top:66.2419%;width:1.5035%;height:3.2127%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.4802cqw;color:#374151;text-align:center;padding-top:0.0000cqw">Δt</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.0251%;width:24.0006%;height:3.2653%;justify-content:flex-start">
 <p style="font-size:1.4802cqw;color:#374151;text-align:left;padding-top:0.0000cqw">v = v₀ + at</p>
 </div>
@@ -1948,26 +1873,25 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
 </div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
-</div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;v = 5,0 + 2,0t</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
 <p style="font-size:1.1907cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
 <p style="font-size:2.9324cqw;color:#4F46E5;text-align:center;padding-top:0.9156cqw;font-weight:700">a = 2,0 m/s² ;&nbsp;&nbsp; v = 5,0 + 2,0t&nbsp;&nbsp;(m/s; s)</p>
 <p style="font-size:1.3750cqw;color:#4B5563;text-align:center;padding-top:1.0990cqw;font-style:italic">Slīpums nolasāms tāpat kā x(t) grafikā - tikai nozīme cita.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
-<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:90.6667%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:91.8667%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:62.1080%;width:24.0006%;height:7.4787%;justify-content:flex-start;font-size:1.4802cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">Δv</span><span class="d">Δt</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:41.4960%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>2)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">16</span><span class="d">8,0</span></span>&nbsp;= 2,0 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -1979,8 +1903,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">2. uzdevums · Paātrinājums no grafika</p>
-<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un</p>
-<p class="p1">(8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
+<p class="p1">v(t) taisne iet caur (0 s; 5,0 m/s) un (8,0 s; 21 m/s). Aprēķini a un uzraksti vienādojumu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2000,8 +1923,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
 <p class="p2">1)&nbsp;&nbsp;Δv = 21 − 5,0 = 16 m/s</p>
-<p class="p2">2)&nbsp;&nbsp;a = 16 : 8,0 = 2,0 m/s²</p>
 <p class="p2">3)&nbsp;&nbsp;v = 5,0 + 2,0t</p>
+<p class="mf" style="color:#374151"><span class="mc">2)</span><span class="mc">a = <span class="f"><span class="n">16</span><span class="d">8,0</span></span> = 2,0 m/s²</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -2009,7 +1932,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <p class="p3" style="color:#4B5563;font-style:italic">Slīpums nolasāms tāpat kā x(t) grafikā - tikai nozīme cita.</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
-<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t&nbsp;&nbsp;(m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p3" style="color:#4B5563">3. uzdevums.&nbsp;&nbsp;v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -2029,8 +1952,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2051,8 +1973,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="h1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="h1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="h1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">4. uzdevums.&nbsp;&nbsp;v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
@@ -2075,8 +1996,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2103,8 +2023,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2132,8 +2051,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2170,8 +2088,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2204,8 +2121,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2252,8 +2168,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2291,8 +2206,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2348,8 +2262,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2391,8 +2304,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2454,8 +2366,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2501,8 +2412,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2567,8 +2477,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2615,8 +2524,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2685,8 +2593,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">3. uzdevums · Bremzēšanas vienādojums</p>
-<p class="p1">v = 24 − 4t&nbsp;&nbsp;(m/s; s).</p>
-<p class="p1">Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
+<p class="p1">v = 24 − 4t (m/s; s). Kad ķermenis apstāsies un kāds būs ātrums pēc 4,0 s?</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2735,8 +2642,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -2757,8 +2663,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="h1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="h1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="h1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">5. uzdevums.&nbsp;&nbsp;v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
@@ -2781,8 +2686,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -2810,8 +2714,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -2840,8 +2743,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2880,8 +2782,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2914,8 +2815,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -2961,8 +2861,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -2999,8 +2898,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3053,8 +2951,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3095,8 +2992,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3155,8 +3051,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3201,8 +3096,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3264,8 +3158,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3311,8 +3204,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.4353%;justify-content:flex-start">
 <p style="font-size:1.5573cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3378,8 +3270,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">4. uzdevums · Ceļš no grafika laukuma</p>
-<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā.</p>
-<p class="p1">Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
+<p class="p1">v(t) taisne no 0 līdz 20 m/s 10 s laikā. Aprēķini ceļu, izmantojot laukumu zem grafika!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3427,8 +3318,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
@@ -3445,8 +3335,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="h1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="h1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="h1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
@@ -3466,8 +3355,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -3491,8 +3379,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -3518,8 +3405,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3555,8 +3441,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3587,8 +3472,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3617,16 +3501,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:33.7508%;top:39.9000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">FORMULAS</p>
 </div>
-<div class="tb" style="left:56.5960%;top:49.5370%;width:4.9668%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:62.4128%;top:45.0333%;width:7.6669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">v − v₀</p>
-</div>
-<i style="left:62.4128%;top:53.0452%;width:7.6669%;height:0.2133%;background:#3730A3"></i>
-<div class="tb" style="left:62.4128%;top:54.0407%;width:7.6669%;height:7.2296%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">t</p>
-</div>
 <div class="tb" style="left:33.7508%;top:63.4185%;width:60.1740%;height:7.3481%;justify-content:flex-start">
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:0.0000cqw;font-weight:700">s = ½ · t · v₀</p>
 </div>
@@ -3634,6 +3508,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
+<div class="ml" style="left:33.7508%;top:44.7373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>a =&nbsp;<span class="f"><span class="n">v − v₀</span><span class="d">t</span></span></span></div>
 
 </div>
 <div class="flow">
@@ -3645,8 +3520,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3682,8 +3556,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3711,29 +3584,20 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.4138%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4931%;top:63.7908%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v − v₀</p>
-</div>
-<i style="left:6.4931%;top:67.0178%;width:3.0661%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4931%;top:67.4894%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ½ · t · v₀</p>
 </div>
 <i style="left:30.1507%;top:30.9333%;width:0.1050%;height:48.5333%;background:#E5E7EB"></i>
 <i style="left:31.8008%;top:31.4667%;width:64.0741%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
-<div class="tb" style="left:33.7508%;top:33.3333%;width:60.1740%;height:44.0000%;justify-content:center">
+<div class="tb" style="left:33.7508%;top:44.5000%;width:60.1740%;height:2.9852%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">v − v₀</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:33.7508%;top:49.3373%;width:60.1740%;height:16.8293%;justify-content:center;font-size:3.3334cqw;color:#4F46E5;font-weight:700"><span>1)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">0 − 30</span><span class="d">12</span></span>&nbsp;= −2,5 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -3745,8 +3609,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3766,7 +3629,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 1. SOLIS</p>
-<p class="h1" style="color:#4F46E5;font-weight:700">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
+<p class="mf" style="color:#4F46E5"><span class="mc">1)</span><span class="mc">a = <span class="f"><span class="n">0 − 30</span><span class="d">12</span></span> = −2,5 m/s²</span></p>
 </div>
 <div class="card" style="background:#F7F8FC;border-color:#E5E7EB">
 <p class="p3" style="color:#4B5563">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
@@ -3786,8 +3649,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3815,16 +3677,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.4138%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4931%;top:63.7908%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v − v₀</p>
-</div>
-<i style="left:6.4931%;top:67.0178%;width:3.0661%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4931%;top:67.4894%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ½ · t · v₀</p>
 </div>
@@ -3832,11 +3684,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
-</div>
-<i style="left:31.8008%;top:43.3185%;width:64.0741%;height:35.8815%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.009cqw"></i>
-<div class="tb" style="left:33.7508%;top:45.1852%;width:60.1740%;height:32.1481%;justify-content:center">
+<i style="left:31.8008%;top:48.3556%;width:64.0741%;height:30.8444%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
+<div class="tb" style="left:33.7508%;top:50.2222%;width:60.1740%;height:27.1111%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 2. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">2)&nbsp;&nbsp;Laukums - taisnleņķa trijstūris</p>
 </div>
@@ -3844,6 +3693,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">v − v₀</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">0 − 30</span><span class="d">12</span></span>&nbsp;= −2,5 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -3855,8 +3706,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3876,7 +3726,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">a = <span class="f"><span class="n">0 − 30</span><span class="d">12</span></span> = −2,5 m/s²</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 2. SOLIS</p>
@@ -3900,8 +3750,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -3929,16 +3778,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.4138%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4931%;top:63.7908%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v − v₀</p>
-</div>
-<i style="left:6.4931%;top:67.0178%;width:3.0661%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4931%;top:67.4894%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ½ · t · v₀</p>
 </div>
@@ -3946,14 +3785,11 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Laukums - taisnleņķa trijstūris</p>
 </div>
-<i style="left:31.8008%;top:48.3333%;width:64.0741%;height:30.8667%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.868cqw"></i>
-<div class="tb" style="left:33.7508%;top:50.2000%;width:60.1740%;height:27.1333%;justify-content:center">
+<i style="left:31.8008%;top:53.3704%;width:64.0741%;height:25.8296%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:0.726cqw"></i>
+<div class="tb" style="left:33.7508%;top:55.2370%;width:60.1740%;height:22.0963%;justify-content:center">
 <p style="font-size:1.3542cqw;color:#7C3AED;text-align:center;padding-top:0.0000cqw;font-weight:700">APRĒĶINS · 3. SOLIS</p>
 <p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">3)&nbsp;&nbsp;s = ½ · 12 · 30 = 180 m</p>
 </div>
@@ -3961,6 +3797,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">v − v₀</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">0 − 30</span><span class="d">12</span></span>&nbsp;= −2,5 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -3972,8 +3810,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -3993,8 +3830,8 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
 <p class="p2">2)&nbsp;&nbsp;Laukums - taisnleņķa trijstūris</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">a = <span class="f"><span class="n">0 − 30</span><span class="d">12</span></span> = −2,5 m/s²</span></p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">APRĒĶINS · 3. SOLIS</p>
@@ -4018,8 +3855,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4047,16 +3883,6 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:4.1251%;top:60.4138%;width:24.0006%;height:2.8497%;justify-content:flex-start">
 <p style="font-size:1.2917cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Formulas:</p>
 </div>
-<div class="tb" style="left:4.1251%;top:65.6401%;width:2.1074%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">a =&nbsp;</p>
-</div>
-<div class="tb" style="left:6.4931%;top:63.7908%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">v − v₀</p>
-</div>
-<i style="left:6.4931%;top:67.0178%;width:3.0661%;height:0.2133%;background:#312E81"></i>
-<div class="tb" style="left:6.4931%;top:67.4894%;width:3.0661%;height:2.9687%;justify-content:center;white-space:nowrap;align-items:center">
-<p style="font-size:1.3677cqw;color:#374151;text-align:center;padding-top:0.0000cqw">t</p>
-</div>
 <div class="tb" style="left:4.1251%;top:70.9853%;width:24.0006%;height:3.0173%;justify-content:flex-start">
 <p style="font-size:1.3677cqw;color:#374151;text-align:left;padding-top:0.0000cqw">s = ½ · t · v₀</p>
 </div>
@@ -4064,25 +3890,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <div class="tb" style="left:31.8008%;top:31.4667%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Aprēķins:</p>
 </div>
-<div class="tb" style="left:31.8008%;top:36.4815%;width:63.3241%;height:3.9037%;justify-content:flex-start">
-<p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
-</div>
-<div class="tb" style="left:31.8008%;top:41.4963%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:46.5333%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">2)&nbsp;&nbsp;Laukums - taisnleņķa trijstūris</p>
 </div>
-<div class="tb" style="left:31.8008%;top:46.5111%;width:63.3241%;height:3.9037%;justify-content:flex-start">
+<div class="tb" style="left:31.8008%;top:51.5481%;width:63.3241%;height:3.9037%;justify-content:flex-start">
 <p style="font-size:1.7709cqw;color:#374151;text-align:left;padding-top:0.0000cqw">3)&nbsp;&nbsp;s = ½ · 12 · 30 = 180 m</p>
 </div>
-<i style="left:31.8008%;top:53.3481%;width:64.0741%;height:25.8518%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.727cqw"></i>
-<div class="tb" style="left:33.7508%;top:55.2148%;width:60.1740%;height:22.1185%;justify-content:center">
-<p style="font-size:1.3542cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
-<p style="font-size:3.3334cqw;color:#4F46E5;text-align:center;padding-top:1.0417cqw;font-weight:700">a = −2,5 m/s² ;&nbsp;&nbsp; s = 180 m</p>
-<p style="font-size:1.5625cqw;color:#4B5563;text-align:center;padding-top:1.2500cqw;font-style:italic">Laukums zem v(t) grafika ir ceļš arī tad, ja ātrums samazinās.</p>
+<i style="left:31.8008%;top:58.3852%;width:64.0741%;height:20.8148%;background:#FEF2F2;border:0.208cqw solid #B91C1C;border-radius:0.585cqw"></i>
+<div class="tb" style="left:33.7508%;top:60.2518%;width:60.1740%;height:17.0815%;justify-content:center">
+<p style="font-size:1.2729cqw;color:#B91C1C;text-align:center;padding-top:0.0000cqw;font-weight:700">ATBILDE</p>
+<p style="font-size:3.1334cqw;color:#4F46E5;text-align:center;padding-top:0.9781cqw;font-weight:700">a = −2,5 m/s² ;&nbsp;&nbsp; s = 180 m</p>
+<p style="font-size:1.4688cqw;color:#4B5563;text-align:center;padding-top:1.1750cqw;font-style:italic">Laukums zem v(t) grafika ir ceļš arī tad, ja ātrums samazinās.</p>
 </div>
 <i style="left:4.1251%;top:81.3333%;width:91.7498%;height:8.5333%;background:#F7F8FC;border:0.078cqw solid #E5E7EB;border-radius:0.240cqw"></i>
 <div class="tb" style="left:5.9251%;top:82.5333%;width:88.1497%;height:6.1333%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#4B5563;text-align:left;padding-top:0.0000cqw">6. uzdevums.&nbsp;&nbsp;v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
+<div class="ml" style="left:4.1251%;top:63.6693%;width:24.0006%;height:6.9107%;justify-content:flex-start;font-size:1.3677cqw;color:#374151"><span>a =&nbsp;<span class="f"><span class="n">v − v₀</span><span class="d">t</span></span></span></div>
+<div class="ml" style="left:31.8008%;top:36.4813%;width:63.3241%;height:8.9413%;justify-content:flex-start;font-size:1.7709cqw;color:#374151"><span>1)&nbsp;&nbsp;a =&nbsp;<span class="f"><span class="n">0 − 30</span><span class="d">12</span></span>&nbsp;= −2,5 m/s²</span></div>
 
 </div>
 <div class="flow">
@@ -4094,8 +3919,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">5. uzdevums · Bremzēšana grafikā</p>
-<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s.</p>
-<p class="p1">Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
+<p class="p1">v(t) taisne krīt no 30 m/s līdz 0 laikā 12 s. Aprēķini paātrinājumu un bremzēšanas ceļu!</p>
 </div>
 <div class="blk">
 <p class="p3" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4115,9 +3939,9 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Aprēķins:</p>
-<p class="p2">1)&nbsp;&nbsp;a = (0 − 30) : 12 = −2,5 m/s²</p>
 <p class="p2">2)&nbsp;&nbsp;Laukums - taisnleņķa trijstūris</p>
 <p class="p2">3)&nbsp;&nbsp;s = ½ · 12 · 30 = 180 m</p>
+<p class="mf" style="color:#374151"><span class="mc">1)</span><span class="mc">a = <span class="f"><span class="n">0 − 30</span><span class="d">12</span></span> = −2,5 m/s²</span></p>
 </div>
 <div class="card" style="background:#FEF2F2;border-color:#B91C1C">
 <p class="p3" style="color:#B91C1C;font-weight:700">ATBILDE</p>
@@ -4142,8 +3966,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:70.9333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:1.995cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:67.2000%;justify-content:center">
 <p style="font-size:1.7709cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.0417cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:3.5418cqw;color:#374151;text-align:left;padding-top:1.6667cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:84.0000%;width:91.7498%;height:4.5333%;justify-content:flex-start">
 <p style="font-size:1.4584cqw;color:#4B5563;text-align:center;padding-top:0.0000cqw">Šis bija pēdējais uzdevums.</p>
@@ -4159,8 +3982,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p2" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="h1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="h1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="h1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4B5563">Šis bija pēdējais uzdevums.</p>
@@ -4180,8 +4002,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <i style="left:4.1251%;top:31.4667%;width:91.7498%;height:47.7333%;background:#F5F3FF;border:0.208cqw solid #7C3AED;border-radius:1.343cqw"></i>
 <div class="tb" style="left:6.0752%;top:33.3333%;width:87.8497%;height:44.0000%;justify-content:center">
@@ -4203,8 +4024,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="card" style="background:#F5F3FF;border-color:#7C3AED">
 <p class="p3" style="color:#7C3AED;font-weight:700">DOTS</p>
@@ -4229,8 +4049,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4261,8 +4080,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4291,8 +4109,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4331,8 +4148,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4366,8 +4182,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4415,8 +4230,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4454,8 +4268,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4509,8 +4322,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4552,8 +4364,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4610,8 +4421,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4654,8 +4464,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 <i style="left:4.1251%;top:9.3333%;width:91.7498%;height:19.7333%;background:#FEF3C7;border:0.208cqw solid #B45309;border-radius:0.555cqw"></i>
 <div class="tb" style="left:6.3752%;top:11.2000%;width:87.2497%;height:16.0000%;justify-content:flex-start">
 <p style="font-size:1.3542cqw;color:#B45309;text-align:left;padding-top:0.0000cqw;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.3125cqw">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p style="font-size:2.0834cqw;color:#374151;text-align:left;padding-top:0.7292cqw">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="tb" style="left:4.1251%;top:31.7333%;width:24.0006%;height:3.7866%;justify-content:flex-start">
 <p style="font-size:1.7167cqw;color:#4F46E5;text-align:left;padding-top:0.0000cqw;font-weight:700">Dots:</p>
@@ -4716,8 +4525,7 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
 </div>
 <div class="card" style="background:#FEF3C7;border-color:#B45309">
 <p class="p3" style="color:#B45309;font-weight:700">6. uzdevums · Divi posmi v(t) grafikā</p>
-<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s,</p>
-<p class="p1">tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
+<p class="p1">v(t) grafikā ātrums aug no 0 līdz 10 m/s laikā 0-5,0 s, tad paliek nemainīgs līdz 15 s. Aprēķini kopējo ceļu!</p>
 </div>
 <div class="blk">
 <p class="p2" style="color:#4F46E5;font-weight:700">Dots:</p>
@@ -4908,6 +4716,24 @@ body.fs .fsui:hover,body.fs .fsui:focus-within{opacity:1}
   function synced(){if(on&&!fsel())close();}
   document.addEventListener('fullscreenchange',synced);
   document.addEventListener('webkitfullscreenchange',synced);
+
+  /* --- formulas ietilpināšana --- */
+  /* Slaids mērīts ar Calibri, lapa zīmē ar Inter - platākā fontā gara
+     formula var iziet ārpus sava rāmja. Mērogs ir attiecība, tāpēc to
+     pietiek izrēķināt vienreiz: slaidam augot, tā nemainās. */
+  function fitmath(){
+    var ml=document.querySelectorAll('.stage .ml');
+    for(var i=0;i<ml.length;i++){
+      var inner=ml[i].firstElementChild;
+      if(!inner)continue;
+      inner.style.transform='';
+      var box=ml[i].clientWidth,txt=inner.scrollWidth;
+      if(txt>box&&box>0)inner.style.transform='scale('+(box/txt)+')';
+    }
+  }
+  if(document.fonts&&document.fonts.ready)
+    document.fonts.ready.then(fitmath);
+  else window.addEventListener('load',fitmath);
 
   watch();
   render();
