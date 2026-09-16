@@ -20,7 +20,7 @@ PD = {
         "A(patēr.) · 100 %",
         "Ek = mv² / 2   ·   Ep = mgh   ·   Ep(atsp.) = kx² / 2",
         "Enerģijas nezūdamība:  Ek₁ + Ep₁ = Ek₂ + Ep₂ (bez berzes)",
-        "p = mv   ·   Ft = Δp   ·   m₁v₁ + m₂v₂ = m₁u₁ + m₂u₂   ·   "
+        "p = mv   ·   Ft = Δp   ·   m₁v₁ + m₂v₂ = m₁v₁′ + m₂v₂′   ·   "
         "g = 10 m/s²",
     ],
     "struktura": [
@@ -155,8 +155,8 @@ PD = {
                  ],
                  "atbildes": [
                      "1) p = m₁v₁ = 3,0 · 4,0 = 12 kg·m/s.   (1 p)",
-                     "2) m₁v₁ = (m₁ + m₂)u.   (1 p)",
-                     "3) u = 12 : 4,0 = 3,0 m/s.   (1 p)",
+                     "2) m₁v₁ = (m₁ + m₂)v′.   (1 p)",
+                     "3) v′ = 12 : 4,0 = 3,0 m/s.   (1 p)",
                      "4) Ek(pirms) = 3,0 · 4,0² : 2 = 24 J;  "
                      "Ek(pēc) = 4,0 · 3,0² : 2 = 18 J.   (1 p)",
                      "5) Sadursme ir neelastīga: daļa kinētiskās enerģijas "

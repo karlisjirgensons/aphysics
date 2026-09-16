@@ -310,6 +310,20 @@ def _ratio_left(text, i):
     return (k, j) if k < j and any(c.isdigit() for c in text[k:j]) else None
 
 
+def _sci_factor(text, i):
+    """Vai reizinājuma zīme pozīcijā i ir daļa no standartformas?
+
+    "6,0 · 10⁻⁴" ir VIENS skaitlis, tāpēc saucējā tas paliek veselums.
+    "25,0 · 100 %" turpretī ir reizinājums AIZ dalījuma - tas saucējā
+    neietilpst, citādi 0,1 : 25,0 · 100 % pārtaptu par 0,1/(25,0 · 100).
+    """
+    k = i + 1
+    while k < len(text) and text[k] == " ":
+        k += 1
+    return (text[k:k + 2] == "10" and k + 2 < len(text)
+            and text[k + 2] in _SUPER)
+
+
 def _ratio_right(text, i):
     """Saucējs pa labi no kola; (sākums, beigas) vai None."""
     j = i + 1
@@ -320,6 +334,8 @@ def _ratio_right(text, i):
         return (j, k) if k is not None else None
     k = j
     while k < len(text) and text[k] in _RATIO_CHARS:
+        if text[k] in "·×" and not _sci_factor(text, k):
+            break
         k += 1
     while k > j and text[k - 1] == " ":
         k -= 1

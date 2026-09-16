@@ -21,7 +21,7 @@ AT = {
         "Priedēkļi:  k = 10³  ·  M = 10⁶  ·  c = 10⁻²  ·  m = 10⁻³  ·  "
         "µ = 10⁻⁶  ·  n = 10⁻⁹   ·   1 t = 10³ kg",
         "Γ = Γ(objektīva) · Γ(okulāra)   ·   patiesais izmērs = attēla "
-        "izmērs / Γ   ·   ε = Δx / x · 100 %",
+        "izmērs / Γ   ·   R = Δx / x · 100 %",
     ],
     "struktura": [
         ("1., 2.", "Skaidro matēriju kā vielu un lauku; atpazīst lauka "

@@ -182,10 +182,11 @@ dict(
     teorija=[
         ("Nezūdamības likums", [
             ("formula", "IMPULSA NEZŪDAMĪBA",
-             "m₁v₁ + m₂v₂ = m₁u₁ + m₂u₂",
+             "m₁v₁ + m₂v₂ = m₁v₁′ + m₂v₂′",
              "Slēgtā sistēmā (bez ārējiem spēkiem) kopējais impulss "
-             "nemainās. Tā kā impulss ir vektors, visus ātrumus pieraksta "
-             "ar ZĪMĒM pēc izvēlētās ass.", GOLD),
+             "nemainās. v ir ātrums PIRMS sadursmes, v′ (lasa «vē "
+             "svītra») - PĒC tās. Tā kā impulss ir vektors, visus "
+             "ātrumus pieraksta ar ZĪMĒM pēc izvēlētās ass.", GOLD),
             ("kartitas", [
                 ("SLĒGTA SISTĒMA", BLUE,
                  ["Ārējo spēku nav",
@@ -203,9 +204,9 @@ dict(
         ("Tipiskās situācijas", [
             ("tabula",
              ["Situācija", "Vienādojums", "Piezīme"],
-             [["Saduras un saķeras", "m₁v₁ + m₂v₂ = (m₁+m₂)u",
+             [["Saduras un saķeras", "m₁v₁ + m₂v₂ = (m₁+m₂)v′",
                "Viens kopīgs ātrums"],
-              ["Atgrūžas no miera", "0 = m₁u₁ + m₂u₂", "Pretēji virzieni"],
+              ["Atgrūžas no miera", "0 = m₁v₁′ + m₂v₂′", "Pretēji virzieni"],
               ["Elastīgs trieciens", "Impulss un Ek saglabājas",
                "Divi vienādojumi"],
               ["Šaušana", "0 = m(lodes)v − M(ieroča)V", "Atsitiens"]],
@@ -223,12 +224,12 @@ dict(
                     "nekustīgu\nvagonu (10 t); tie saķeras.\n"
                     "Aprēķini kopējo ātrumu!",
              dots=["m₁ = 20 t, v₁ = 3,0 m/s", "m₂ = 10 t, v₂ = 0"],
-             jaaprekina=["u = ?"],
-             formulas=["m₁v₁ = (m₁ + m₂)u"],
+             jaaprekina=["v′ = ?"],
+             formulas=["m₁v₁ = (m₁ + m₂)v′"],
              aprekins=["1)  Sākuma impulss: 20 000 · 3,0 = 6,0·10⁴ kg·m/s",
                        "2)  Kopējā masa: 30 000 kg",
-                       "3)  u = 6,0·10⁴ : 3,0·10⁴ = 2,0 m/s"],
-             atbilde="u = 2,0 m/s",
+                       "3)  v′ = 6,0·10⁴ : 3,0·10⁴ = 2,0 m/s"],
+             atbilde="v′ = 2,0 m/s",
              piezime="Ātrums samazinājās, jo masa palielinājās 1,5 reizes."),
         dict(nr=2, virsraksts="Pretimbraucoša sadursme",
              teksts="Ķermenis (3,0 kg, 8,0 m/s) saduras ar pretimnākošu\n"
@@ -236,13 +237,13 @@ dict(
                     "Aprēķini kopējo ātrumu un virzienu!",
              dots=["m₁ = 3,0 kg, v₁ = +8,0 m/s",
                    "m₂ = 5,0 kg, v₂ = −4,0 m/s"],
-             jaaprekina=["u = ?"],
-             formulas=["m₁v₁ + m₂v₂ = (m₁+m₂)u"],
+             jaaprekina=["v′ = ?"],
+             formulas=["m₁v₁ + m₂v₂ = (m₁+m₂)v′"],
              aprekins=["1)  p = 3,0·8,0 + 5,0·(−4,0) = 24 − 20 = "
                        "4,0 kg·m/s",
                        "2)  Σm = 8,0 kg",
-                       "3)  u = 4,0 : 8,0 = 0,50 m/s"],
-             atbilde="u = 0,50 m/s pirmā ķermeņa sākotnējā virzienā.",
+                       "3)  v′ = 4,0 : 8,0 = 0,50 m/s"],
+             atbilde="v′ = 0,50 m/s pirmā ķermeņa sākotnējā virzienā.",
              piezime="Pozitīvā atbilde nozīmē kustību ass virzienā."),
         dict(nr=3, virsraksts="Atsitiens šaujot",
              teksts="No 4,0 kg šautenes izšauj 10 g lodi ar 700 m/s.\n"
@@ -260,27 +261,27 @@ dict(
              teksts="Divi slidotāji (60 kg un 40 kg) atgrūžas viens no "
                     "otra.\nSmagākais sāk kustēties ar 2,0 m/s.\n"
                     "Aprēķini otrā ātrumu!",
-             dots=["m₁ = 60 kg, u₁ = 2,0 m/s", "m₂ = 40 kg",
+             dots=["m₁ = 60 kg, v₁′ = 2,0 m/s", "m₂ = 40 kg",
                    "sākumā mierā"],
-             jaaprekina=["u₂ = ?"],
-             formulas=["0 = m₁u₁ + m₂u₂"],
-             aprekins=["1)  m₁u₁ = 60 · 2,0 = 120 kg·m/s",
-                       "2)  u₂ = −120 : 40",
-                       "3)  u₂ = −3,0 m/s"],
-             atbilde="u₂ = 3,0 m/s pretējā virzienā.",
+             jaaprekina=["v₂′ = ?"],
+             formulas=["0 = m₁v₁′ + m₂v₂′"],
+             aprekins=["1)  m₁v₁′ = 60 · 2,0 = 120 kg·m/s",
+                       "2)  v₂′ = −120 : 40",
+                       "3)  v₂′ = −3,0 m/s"],
+             atbilde="v₂′ = 3,0 m/s pretējā virzienā.",
              piezime="Vieglākais kustas ātrāk - impulsi ir vienādi pēc "
                      "moduļa."),
         dict(nr=5, virsraksts="Izlēciens no laivas",
              teksts="Cilvēks (70 kg) izlec no mierā esošas 210 kg laivas\n"
                     "ar ātrumu 3,0 m/s. Aprēķini laivas ātrumu!",
-             dots=["m = 70 kg, u₁ = 3,0 m/s", "M = 210 kg",
+             dots=["m = 70 kg, v₁′ = 3,0 m/s", "M = 210 kg",
                    "sākumā mierā"],
-             jaaprekina=["u₂ = ?"],
-             formulas=["0 = mu₁ + Mu₂", "u₂ = −mu₁/M"],
+             jaaprekina=["v₂′ = ?"],
+             formulas=["0 = mv₁′ + Mv₂′", "v₂′ = −mv₁′/M"],
              aprekins=["1)  mu₁ = 70 · 3,0 = 210 kg·m/s",
-                       "2)  u₂ = −210 : 210",
-                       "3)  u₂ = −1,0 m/s"],
-             atbilde="u₂ = 1,0 m/s pretējā virzienā.",
+                       "2)  v₂′ = −210 : 210",
+                       "3)  v₂′ = −1,0 m/s"],
+             atbilde="v₂′ = 1,0 m/s pretējā virzienā.",
              piezime="Tāpēc, izkāpjot no laivas, tā aizslīd - un cilvēks "
                      "iekrīt ūdenī."),
         dict(nr=6, virsraksts="Sadursme vienā virzienā",
@@ -289,20 +290,20 @@ dict(
                     "virzienā. Aprēķini kopējo ātrumu!",
              dots=["m₁ = 2,0 kg, v₁ = 5,0 m/s",
                    "m₂ = 3,0 kg, v₂ = 2,0 m/s"],
-             jaaprekina=["u = ?"],
-             formulas=["m₁v₁ + m₂v₂ = (m₁+m₂)u"],
+             jaaprekina=["v′ = ?"],
+             formulas=["m₁v₁ + m₂v₂ = (m₁+m₂)v′"],
              aprekins=["1)  p = 2,0·5,0 + 3,0·2,0 = 10 + 6,0 = "
                        "16 kg·m/s",
                        "2)  Σm = 5,0 kg",
-                       "3)  u = 16 : 5,0 = 3,2 m/s"],
-             atbilde="u = 3,2 m/s tajā pašā virzienā.",
+                       "3)  v′ = 16 : 5,0 = 3,2 m/s"],
+             atbilde="v′ = 3,2 m/s tajā pašā virzienā.",
              piezime="Kopējais ātrums vienmēr ir starp abiem sākuma "
                      "ātrumiem."),
         dict(nr=7, virsraksts="Raķetes princips",
              teksts="Raķete ar kopējo masu 500 kg izgrūž 10 kg gāzu ar\n"
                     "ātrumu 800 m/s. Cik lielu ātrumu iegūst raķete?",
              dots=["M = 490 kg (pēc izgrūšanas)", "m = 10 kg",
-                   "u = 800 m/s"],
+                   "v′ = 800 m/s"],
              jaaprekina=["V = ?"],
              formulas=["0 = mu + MV", "V = −mu/M"],
              aprekins=["1)  mu = 10 · 800 = 8000 kg·m/s",
@@ -321,11 +322,11 @@ dict(
         ],
         majasdarbs=[
             "m₁ = 5,0 kg, v₁ = 6,0 m/s saduras ar mierā esošu 3,0 kg; "
-            "saķeras. Aprēķini u.",
+            "saķeras. Aprēķini v′.",
             "Laiva 200 kg, cilvēks 80 kg izlec ar 3,0 m/s. Aprēķini "
             "laivas ātrumu.",
             "m₁ = 2,0 kg, v₁ = 5,0 m/s pretim 4,0 kg ar 2,0 m/s; "
-            "saķeras. Aprēķini u.",
+            "saķeras. Aprēķini v′.",
         ],
         pasvertejums=["Protu formulēt nezūdamības likumu",
                       "Protu strādāt ar zīmēm",
@@ -388,12 +389,12 @@ dict(
                     "(2,0 kg) un saķeras. Aprēķini kopējo ātrumu un\n"
                     "enerģijas zudumus!",
              dots=["m₁ = 4,0 kg, v₁ = 6,0 m/s", "m₂ = 2,0 kg, v₂ = 0"],
-             jaaprekina=["u = ?", "ΔEk = ?"],
-             formulas=["m₁v₁ = (m₁+m₂)u", "Ek = mv²/2"],
-             aprekins=["1)  u = 4,0 · 6,0 : 6,0 = 4,0 m/s",
+             jaaprekina=["v′ = ?", "ΔEk = ?"],
+             formulas=["m₁v₁ = (m₁+m₂)v′", "Ek = mv²/2"],
+             aprekins=["1)  v′ = 4,0 · 6,0 : 6,0 = 4,0 m/s",
                        "2)  Ek(pirms) = 4,0 · 36 : 2 = 72 J",
                        "3)  Ek(pēc) = 6,0 · 16 : 2 = 48 J;  ΔEk = 24 J"],
-             atbilde="u = 4,0 m/s ;   ΔEk = 24 J (33 % zudumi)",
+             atbilde="v′ = 4,0 m/s ;   ΔEk = 24 J (33 % zudumi)",
              piezime="Zaudētā enerģija pārvērtās siltumā un "
                      "deformācijā."),
         dict(nr=2, virsraksts="Pilnīgi neelastīgs trieciens",
@@ -401,13 +402,13 @@ dict(
                     "kas karājas uz virves. Aprēķini kluča ātrumu un\n"
                     "enerģijas zudumus!",
              dots=["m = 0,020 kg, v = 400 m/s", "M = 2,0 kg"],
-             jaaprekina=["u = ?", "ΔEk = ?"],
-             formulas=["mv = (m+M)u", "Ek = mv²/2"],
-             aprekins=["1)  u = 0,020·400 : 2,02 = 3,96 ≈ 4,0 m/s",
+             jaaprekina=["v′ = ?", "ΔEk = ?"],
+             formulas=["mv = (m+M)v′", "Ek = mv²/2"],
+             aprekins=["1)  v′ = 0,020·400 : 2,02 = 3,96 ≈ 4,0 m/s",
                        "2)  Ek(pirms) = 0,020 · 160 000 : 2 = 1600 J",
                        "3)  Ek(pēc) = 2,02 · 15,7 : 2 ≈ 15,9 J;  "
                        "ΔEk ≈ 1584 J"],
-             atbilde="u ≈ 4,0 m/s ;   ΔEk ≈ 1,6·10³ J (99 % zudumi)",
+             atbilde="v′ ≈ 4,0 m/s ;   ΔEk ≈ 1,6·10³ J (99 % zudumi)",
              piezime="Gandrīz visa enerģija pārvērtās siltumā - "
                      "tāpēc lode un koks uzsilst."),
         dict(nr=3, virsraksts="Elastīgs trieciens",
@@ -415,12 +416,12 @@ dict(
                     "trāpa\nmierā esošu; trieciens elastīgs.\n"
                     "Kādi būs ātrumi pēc trieciena?",
              dots=["m₁ = m₂ = m", "v₁ = 5,0 m/s", "v₂ = 0"],
-             jaaprekina=["u₁ = ?", "u₂ = ?"],
+             jaaprekina=["v₁′ = ?", "v₂′ = ?"],
              formulas=["Impulss: mv₁ = mu₁ + mu₂",
-                       "Enerģija: v₁² = u₁² + u₂²"],
-             aprekins=["1)  5,0 = u₁ + u₂",
-                       "2)  25 = u₁² + u₂²",
-                       "3)  Risinājums: u₁ = 0;  u₂ = 5,0 m/s"],
+                       "Enerģija: v₁² = v₁′² + v₂′²"],
+             aprekins=["1)  5,0 = v₁′ + v₂′",
+                       "2)  25 = v₁′² + v₂′²",
+                       "3)  Risinājums: v₁′ = 0;  v₂′ = 5,0 m/s"],
              atbilde="Pirmā apstājas, otrā aizkustas ar 5,0 m/s.",
              piezime="Klasisks biljarda gadījums - ātrums «pāriet» "
                      "pilnībā."),
@@ -430,9 +431,9 @@ dict(
                     "Cik liela Ek daļa pazūd?",
              dots=["m₁ = m₂ = m", "v₁ = +v", "v₂ = −v"],
              jaaprekina=["ΔEk/Ek = ?"],
-             formulas=["Σp = 0 → u = 0", "Ek(pirms) = 2·mv²/2 = mv²"],
+             formulas=["Σp = 0 → v′ = 0", "Ek(pirms) = 2·mv²/2 = mv²"],
              aprekins=["1)  Kopējais impulss: mv − mv = 0",
-                       "2)  Tātad u = 0 - abi apstājas",
+                       "2)  Tātad v′ = 0 - abi apstājas",
                        "3)  Ek(pēc) = 0 → zaudēti 100 %"],
              atbilde="Pazūd visa kinētiskā enerģija (100 %).",
              piezime="Impulss saglabājas (bija nulle, palika nulle), bet "
@@ -442,13 +443,13 @@ dict(
                     "mierā\nesošu 4,0 kg ķermeni. Aprēķini abu ātrumus "
                     "pēc trieciena!",
              dots=["m₁ = 2,0 kg, v₁ = 6,0 m/s", "m₂ = 4,0 kg, v₂ = 0"],
-             jaaprekina=["u₁ = ?", "u₂ = ?"],
-             formulas=["u₁ = (m₁−m₂)v₁/(m₁+m₂)",
-                       "u₂ = 2m₁v₁/(m₁+m₂)"],
+             jaaprekina=["v₁′ = ?", "v₂′ = ?"],
+             formulas=["v₁′ = (m₁−m₂)v₁/(m₁+m₂)",
+                       "v₂′ = 2m₁v₁/(m₁+m₂)"],
              aprekins=["1)  m₁ + m₂ = 6,0 kg",
-                       "2)  u₁ = (2,0 − 4,0)·6,0 : 6,0 = −2,0 m/s",
-                       "3)  u₂ = 2·2,0·6,0 : 6,0 = 4,0 m/s"],
-             atbilde="u₁ = 2,0 m/s atpakaļ ;   u₂ = 4,0 m/s uz priekšu",
+                       "2)  v₁′ = (2,0 − 4,0)·6,0 : 6,0 = −2,0 m/s",
+                       "3)  v₂′ = 2·2,0·6,0 : 6,0 = 4,0 m/s"],
+             atbilde="v₁′ = 2,0 m/s atpakaļ ;   v₂′ = 4,0 m/s uz priekšu",
              piezime="Vieglākais ķermenis atlec atpakaļ, ja triecas pret "
                      "smagāku - kā bumba pret sienu."),
         dict(nr=6, virsraksts="Elastīgs atsitiens pret sienu",
@@ -475,8 +476,8 @@ dict(
         ],
         majasdarbs=[
             "m₁ = 3,0 kg, v₁ = 8,0 m/s trāpa mierā esošu 5,0 kg; "
-            "saķeras. Aprēķini u un ΔEk.",
-            "Lode 15 g, 500 m/s iestrēgst 3,0 kg klucī. Aprēķini u.",
+            "saķeras. Aprēķini v′ un ΔEk.",
+            "Lode 15 g, 500 m/s iestrēgst 3,0 kg klucī. Aprēķini v′.",
             "Paskaidro, kāpēc auto priekšgals ir projektēts deformēties.",
         ],
         pasvertejums=["Protu atšķirt trieciena veidus",
@@ -521,8 +522,8 @@ dict(
         ]),
         ("Ballistiskais svārsts", [
             ("formula", "DIVAS FĀZES",
-             "1. fāze (trieciens):  m v = (m + M) u        "
-             "2. fāze (pacelšanās):  (m+M)u²/2 = (m+M)g h",
+             "1. fāze (trieciens):  m v = (m + M) v′        "
+             "2. fāze (pacelšanās):  (m+M)v′²/2 = (m+M)g h",
              "Klasisks uzdevums, kurā jālieto abi likumi. No pacelšanās "
              "augstuma var atrast lodes ātrumu: v = (m+M)/m · √(2gh).",
              GOLD),
@@ -548,9 +549,9 @@ dict(
                     "(g = 9,8 m/s²)",
              dots=["m = 0,010 kg", "M = 0,990 kg", "h = 0,20 m"],
              jaaprekina=["v = ?"],
-             formulas=["u = √(2gh)", "mv = (m+M)u"],
-             aprekins=["1)  u = √(2 · 9,8 · 0,20) = √3,92 = 1,98 m/s",
-                       "2)  (m+M)u = 1,00 · 1,98 = 1,98 kg·m/s",
+             formulas=["v′ = √(2gh)", "mv = (m+M)v′"],
+             aprekins=["1)  v′ = √(2 · 9,8 · 0,20) = √3,92 = 1,98 m/s",
+                       "2)  (m+M)v′ = 1,00 · 1,98 = 1,98 kg·m/s",
                        "3)  v = 1,98 : 0,010 = 198 ≈ 2,0·10² m/s"],
              atbilde="v ≈ 2,0·10² m/s",
              piezime="Vispirms enerģija (2. fāzei), tad impulss "
@@ -561,12 +562,12 @@ dict(
                     "Aprēķini noslīdēto ceļu! (g = 9,8 m/s²)",
              dots=["m₁ = 2,0 kg, v₁ = 6,0 m/s", "m₂ = 1,0 kg",
                    "µ = 0,20"],
-             jaaprekina=["u = ?", "s = ?"],
-             formulas=["m₁v₁ = (m₁+m₂)u", "u²/2 = µgs"],
-             aprekins=["1)  u = 2,0 · 6,0 : 3,0 = 4,0 m/s",
-                       "2)  s = u² : (2µg) = 16 : (2 · 0,20 · 9,8)",
+             jaaprekina=["v′ = ?", "s = ?"],
+             formulas=["m₁v₁ = (m₁+m₂)v′", "v′²/2 = µgs"],
+             aprekins=["1)  v′ = 2,0 · 6,0 : 3,0 = 4,0 m/s",
+                       "2)  s = v′² : (2µg) = 16 : (2 · 0,20 · 9,8)",
                        "3)  s = 16 : 3,92 = 4,08 ≈ 4,1 m"],
-             atbilde="u = 4,0 m/s ;   s ≈ 4,1 m",
+             atbilde="v′ = 4,0 m/s ;   s ≈ 4,1 m",
              piezime="Divas fāzes: impulss triecienam, enerģija "
                      "slīdēšanai."),
         dict(nr=3, virsraksts="Metodes izvēle",
@@ -586,14 +587,14 @@ dict(
              teksts="Mierā esošs 5,0 kg ķermenis sprāgst divās daļās:\n"
                     "2,0 kg aizlido ar 30 m/s. Aprēķini otrās daļas\n"
                     "ātrumu un atbrīvoto enerģiju!",
-             dots=["M = 5,0 kg", "m₁ = 2,0 kg, u₁ = 30 m/s",
+             dots=["M = 5,0 kg", "m₁ = 2,0 kg, v₁′ = 30 m/s",
                    "m₂ = 3,0 kg"],
-             jaaprekina=["u₂ = ?", "E = ?"],
-             formulas=["0 = m₁u₁ + m₂u₂", "E = Ek₁ + Ek₂"],
-             aprekins=["1)  u₂ = −2,0 · 30 : 3,0 = −20 m/s",
+             jaaprekina=["v₂′ = ?", "E = ?"],
+             formulas=["0 = m₁v₁′ + m₂v₂′", "E = Ek₁ + Ek₂"],
+             aprekins=["1)  v₂′ = −2,0 · 30 : 3,0 = −20 m/s",
                        "2)  Ek₁ = 2,0 · 900 : 2 = 900 J",
                        "3)  Ek₂ = 3,0 · 400 : 2 = 600 J;  E = 1500 J"],
-             atbilde="u₂ = 20 m/s pretējā virzienā;  E = 1,5·10³ J",
+             atbilde="v₂′ = 20 m/s pretējā virzienā;  E = 1,5·10³ J",
              piezime="Enerģija radās no sprāgstvielas - tā nav "
                      "mehāniskās enerģijas nezūdamības pārkāpums."),
         dict(nr=5, virsraksts="Lode izlido cauri",
@@ -602,25 +603,25 @@ dict(
                     "Aprēķini kluča ātrumu!",
              dots=["m = 0,020 kg", "v₁ = 500 m/s", "v₂ = 200 m/s",
                    "M = 1,0 kg"],
-             jaaprekina=["u = ?"],
-             formulas=["mv₁ = mv₂ + Mu", "u = m(v₁ − v₂)/M"],
+             jaaprekina=["v′ = ?"],
+             formulas=["mv₁ = mv₂ + Mv′", "v′ = m(v₁ − v₂)/M"],
              aprekins=["1)  v₁ − v₂ = 300 m/s",
                        "2)  m(v₁ − v₂) = 0,020 · 300 = 6,0 kg·m/s",
-                       "3)  u = 6,0 : 1,0 = 6,0 m/s"],
-             atbilde="u = 6,0 m/s",
+                       "3)  v′ = 6,0 : 1,0 = 6,0 m/s"],
+             atbilde="v′ = 6,0 m/s",
              piezime="Klucis iegūst tieši to impulsu, ko lode zaudēja."),
         dict(nr=6, virsraksts="Sprādziens divās daļās",
              teksts="Mierā esošs 8,0 kg ķermenis sprāgst: 3,0 kg daļa\n"
                     "aizlido ar 40 m/s. Aprēķini otrās daļas ātrumu un\n"
                     "atbrīvoto enerģiju!",
-             dots=["M = 8,0 kg", "m₁ = 3,0 kg, u₁ = 40 m/s",
+             dots=["M = 8,0 kg", "m₁ = 3,0 kg, v₁′ = 40 m/s",
                    "m₂ = 5,0 kg"],
-             jaaprekina=["u₂ = ?", "E = ?"],
-             formulas=["0 = m₁u₁ + m₂u₂", "E = Ek₁ + Ek₂"],
-             aprekins=["1)  u₂ = −3,0 · 40 : 5,0 = −24 m/s",
+             jaaprekina=["v₂′ = ?", "E = ?"],
+             formulas=["0 = m₁v₁′ + m₂v₂′", "E = Ek₁ + Ek₂"],
+             aprekins=["1)  v₂′ = −3,0 · 40 : 5,0 = −24 m/s",
                        "2)  Ek₁ = 3,0 · 1600 : 2 = 2400 J",
                        "3)  Ek₂ = 5,0 · 576 : 2 = 1440 J;  E = 3840 J"],
-             atbilde="u₂ = 24 m/s pretējā virzienā ;   E ≈ 3,8·10³ J",
+             atbilde="v₂′ = 24 m/s pretējā virzienā ;   E ≈ 3,8·10³ J",
              piezime="Impulss palika nulle, bet enerģija radās no "
                      "sprāgstvielas ķīmiskās enerģijas."),
     ],
@@ -670,7 +671,7 @@ dict(
              "ar berzi Ep = Ek + Q.", GOLD),
             ("formula", "IMPULSS UN TRIECIENI",
              "p = m v   ·   F t = Δp   ·   "
-             "m₁v₁ + m₂v₂ = m₁u₁ + m₂u₂",
+             "m₁v₁ + m₂v₂ = m₁v₁′ + m₂v₂′",
              "Impulss saglabājas visos triecienos; kinētiskā enerģija - "
              "tikai elastīgajos.", GOLD),
         ]),
@@ -721,13 +722,13 @@ dict(
                     "(10 t) un saķeras. Aprēķini kopējo ātrumu un\n"
                     "enerģijas zudumus!",
              dots=["m₁ = 15 000 kg, v₁ = 2,0 m/s", "m₂ = 10 000 kg"],
-             jaaprekina=["u = ?", "ΔEk = ?"],
-             formulas=["m₁v₁ = (m₁+m₂)u", "Ek = mv²/2"],
-             aprekins=["1)  u = 15 000 · 2,0 : 25 000 = 1,2 m/s",
+             jaaprekina=["v′ = ?", "ΔEk = ?"],
+             formulas=["m₁v₁ = (m₁+m₂)v′", "Ek = mv²/2"],
+             aprekins=["1)  v′ = 15 000 · 2,0 : 25 000 = 1,2 m/s",
                        "2)  Ek(pirms) = 15 000 · 4,0 : 2 = 30 000 J",
                        "3)  Ek(pēc) = 25 000 · 1,44 : 2 = 18 000 J;  "
                        "ΔEk = 1,2·10⁴ J"],
-             atbilde="u = 1,2 m/s ;   ΔEk = 1,2·10⁴ J (40 %)",
+             atbilde="v′ = 1,2 m/s ;   ΔEk = 1,2·10⁴ J (40 %)",
              piezime="Neelastīgā triecienā vienmēr ir zudumi."),
         dict(nr=4, virsraksts="Spēks no impulsa",
              teksts="Cilvēks (70 kg) nolec no 1,25 m augstuma un "
@@ -840,13 +841,13 @@ dict(
     uzdevumi=[
         dict(nr=1, virsraksts="Atrodi kļūdu I",
              teksts="«Divi ķermeņi saduras un saķeras. Kinētiskā "
-                    "enerģija\nsaglabājas, tāpēc m₁v₁²/2 = (m₁+m₂)u²/2.»\n"
+                    "enerģija\nsaglabājas, tāpēc m₁v₁²/2 = (m₁+m₂)v′²/2.»\n"
                     "Izlabo!",
              dots=["neelastīgs trieciens"],
              jaaprekina=["pareizais vienādojums = ?"],
              formulas=["Triecienā saglabājas IMPULSS"],
              aprekins=["1)  Saķeroties Ek NEsaglabājas",
-                       "2)  Pareizi: m₁v₁ = (m₁+m₂)u",
+                       "2)  Pareizi: m₁v₁ = (m₁+m₂)v′",
                        "3)  Enerģijas zudumus var aprēķināt pēc tam"],
              atbilde="Jālieto impulsa nezūdamība, nevis enerģijas.",
              piezime="Šī ir visbiežākā PD6 kļūda."),
@@ -882,7 +883,7 @@ dict(
              formulas=["Σp(pirms) = Σp(pēc)"],
              aprekins=["1)  Sākumā kopējais impulss ir nulle",
                        "2)  Daļas aizlido pretējos virzienos",
-                       "3)  m₁u₁ + m₂u₂ = 0 - summa joprojām nulle"],
+                       "3)  m₁v₁′ + m₂v₂′ = 0 - summa joprojām nulle"],
              atbilde="Likums darbojas: atsevišķie impulsi nav nulle, bet "
                      "to VEKTORU summa ir.",
              piezime="Impulss ir vektors - vienmēr summē ar zīmēm, ne "
@@ -1169,12 +1170,12 @@ dict(
                     "1,0 kg ķermeni,\nsaķeroties. Aprēķini kopējo "
                     "ātrumu! (g = 9,8 m/s²)",
              dots=["m₁ = 0,50 kg", "h = 3,0 m", "m₂ = 1,0 kg"],
-             jaaprekina=["v = ?", "u = ?"],
-             formulas=["v = √(2gh)", "m₁v = (m₁+m₂)u"],
+             jaaprekina=["v = ?", "v′ = ?"],
+             formulas=["v = √(2gh)", "m₁v = (m₁+m₂)v′"],
              aprekins=["1)  v = √(2 · 9,8 · 3,0) = √58,8 = 7,67 m/s",
                        "2)  m₁v = 0,50 · 7,67 ≈ 3,83 kg·m/s",
-                       "3)  u = 3,83 : 1,5 ≈ 2,56 ≈ 2,6 m/s"],
-             atbilde="v ≈ 7,7 m/s ;   u ≈ 2,6 m/s",
+                       "3)  v′ = 3,83 : 1,5 ≈ 2,56 ≈ 2,6 m/s"],
+             atbilde="v ≈ 7,7 m/s ;   v′ ≈ 2,6 m/s",
              piezime="Divas metodes: enerģija slīdēšanai, impulss "
                      "triecienam."),
         dict(nr=3, virsraksts="Kombinēts uzdevums III",

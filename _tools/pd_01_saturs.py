@@ -19,7 +19,7 @@ PD = {
         "µ = 10⁻⁶  ·  n = 10⁻⁹",
         "1 cm² = 10⁻⁴ m²  ·  1 cm³ = 10⁻⁶ m³  ·  no km/h uz m/s dala ar 3,6",
         "ρ = m / V   ·   Γ = Γ(objektīva) · Γ(okulāra)   ·   d = D / Γ   ·   "
-        "ε = Δx / x · 100 %",
+        "R = Δx / x · 100 %",
         "Optiskā mikroskopa izšķirtspēja ≈ 200 nm  ·  acs izšķirtspēja "
         "≈ 0,1 mm  ·  ρ(ūdens) = 1000 kg/m³  ·  ρ(Al) = 2700 kg/m³",
     ],
@@ -67,7 +67,7 @@ PD = {
                   "ne ar vienu no tiem"], 2),
                 ("Lineāla iedaļas vērtība ir 1 mm. Cik liela ir mērījuma "
                  "instrumenta kļūda?",
-                 ["1 mm", "0,5 mm", "2 mm", "0,1 mm"], 1),
+                 ["1 mm", "0,5 mm", "2 mm", "0,1 mm"], 0),
                 ("Pēta, kā ūdens temperatūra ietekmē cukura izšķīšanas "
                  "laiku. Kurš lielums ir neatkarīgais?",
                  ["izšķīšanas laiks", "cukura masa", "trauka tilpums",
@@ -145,15 +145,15 @@ PD = {
                  "jaut": [
                      ("Nosaki absolūto kļūdu Δl un pieraksti rezultātu formā "
                       "l = (l ± Δl) cm!", 1),
-                     ("Aprēķini mērījuma relatīvo kļūdu ε!", 1),
+                     ("Aprēķini mērījuma relatīvo kļūdu R!", 1),
                      ("Nosauc vienu veidu, kā šo mērījumu varētu padarīt "
                       "precīzāku!", 1),
                  ],
                  "atbildes": [
-                     "1) Analogai ierīcei Δl = c / 2 = 0,5 mm = 0,05 cm; "
-                     "l = (24,00 ± 0,05) cm.   (1 p)",
-                     "2) ε = Δl / l · 100 % = 0,05 cm : 24,00 cm · 100 % ≈ "
-                     "0,2 %.   (1 p)",
+                     "1) Analogai ierīcei Δl = c = 1 mm = 0,1 cm; "
+                     "l = (24,0 ± 0,1) cm.   (1 p)",
+                     "2) R = Δl / l · 100 % = 0,1 cm : 24,0 cm · 100 % ≈ "
+                     "0,4 %.   (1 p)",
                      "3) Jebkurš pamatots veids: mērīt vairākas reizes un "
                      "rēķināt vidējo vērtību; izvēlēties ierīci ar mazāku "
                      "iedaļas vērtību; mērīt lielāku garumu, jo tad relatīvā "
@@ -298,14 +298,14 @@ PD = {
                  "jaut": [
                      ("Nosaki absolūto kļūdu Δm un pieraksti rezultātu formā "
                       "m = (m ± Δm) g!", 1),
-                     ("Aprēķini mērījuma relatīvo kļūdu ε!", 1),
+                     ("Aprēķini mērījuma relatīvo kļūdu R!", 1),
                      ("Vai digitāla ierīce vienmēr ir precīzāka par analogo? "
                       "Atbildi pamato!", 1),
                  ],
                  "atbildes": [
                      "1) Digitālai ierīcei Δm = c = 0,01 g; "
                      "m = (50,00 ± 0,01) g.   (1 p)",
-                     "2) ε = Δm / m · 100 % = 0,01 g : 50,00 g · 100 % = "
+                     "2) R = Δm / m · 100 % = 0,01 g : 50,00 g · 100 % = "
                      "0,02 %.   (1 p)",
                      "3) Nē. Precizitāti nosaka ierīces kļūda, nevis tas, vai "
                      "rādījums ir skalā vai ciparos; ekrānā var būt daudz "
