@@ -13,12 +13,12 @@ STUNDAS = [
 dict(
     nr="7.1", virsraksts="Daļiņu modelis un temperatūra",
     jautajums="Kā temperatūra saistīta ar daļiņu kustību?",
-    apaksraksts="Daļiņu modelis · T = t + 273 · ν = m/M",
+    apaksraksts="Daļiņu modelis · T = t + 273 · n = m/M",
     merkis="Skaidrot vielas daļiņu modeli, pāriet starp Celsija un "
            "Kelvina skalu un lietot vielas daudzumu.",
     protu=["nosaukt daļiņu modeļa pamatatziņas;",
            "pāriet no grādiem uz kelviniem un atpakaļ;",
-           "aprēķināt vielas daudzumu ν = m/M;",
+           "aprēķināt vielas daudzumu n = m/M;",
            "aprēķināt daļiņu skaitu vielā."],
     atkartojums="10. klasē pētījām ķermeņu kustību. Tagad tas pats "
                 "skatījums, tikai daļiņu līmenī - un tieši daļiņu "
@@ -50,7 +50,7 @@ dict(
         ]),
         ("Temperatūra un vielas daudzums", [
             ("formula", "KELVINA SKALA UN VIELAS DAUDZUMS",
-             "T = t + 273        ν = m/M        [ν] = mol",
+             "T = t + 273        n = m/M        [n] = mol",
              "Kelvina skala sākas absolūtajā nullē, kur daļiņu kustība "
              "ir vismazākā. Vielas daudzumu mēra molos; vienā molā ir "
              "6,02·10²³ daļiņas.", GOLD),
@@ -90,19 +90,19 @@ dict(
              teksts="Traukā ir 36 g ūdens (M = 18 g/mol).\n"
                     "Aprēķini vielas daudzumu!",
              dots=["m = 36 g", "M = 18 g/mol"],
-             jaaprekina=["ν = ?"],
-             formulas=["ν = m/M"],
-             aprekins=["1)  ν = 36 : 18",
-                       "2)  ν = 2,0 mol"],
-             atbilde="ν = 2,0 mol",
+             jaaprekina=["n = ?"],
+             formulas=["n = m/M"],
+             aprekins=["1)  n = 36 : 18",
+                       "2)  n = 2,0 mol"],
+             atbilde="n = 2,0 mol",
              piezime="Molmasu M ņem no periodiskās tabulas: ūdenim "
                      "2 · 1 + 16 = 18 g/mol."),
         dict(nr=4, virsraksts="Daļiņu skaits",
              teksts="Cik molekulu ir 2,0 mol ūdens?\n"
                     "(N_A = 6,02·10²³ mol⁻¹)",
-             dots=["ν = 2,0 mol", "N_A = 6,02·10²³ mol⁻¹"],
+             dots=["n = 2,0 mol", "N_A = 6,02·10²³ mol⁻¹"],
              jaaprekina=["N = ?"],
-             formulas=["N = ν · N_A"],
+             formulas=["N = n · N_A"],
              aprekins=["1)  N = 2,0 · 6,02·10²³",
                        "2)  N = 1,204·10²⁴",
                        "3)  N ≈ 1,2·10²⁴ molekulas"],
@@ -112,9 +112,9 @@ dict(
         dict(nr=5, virsraksts="Masa no vielas daudzuma",
              teksts="Traukā ir 0,50 mol oglekļa dioksīda "
                     "(M = 44 g/mol).\nAprēķini gāzes masu!",
-             dots=["ν = 0,50 mol", "M = 44 g/mol"],
+             dots=["n = 0,50 mol", "M = 44 g/mol"],
              jaaprekina=["m = ?"],
-             formulas=["ν = m/M", "m = ν · M"],
+             formulas=["n = m/M", "m = n · M"],
              aprekins=["1)  m = 0,50 · 44",
                        "2)  m = 22 g",
                        "3)  m = 0,022 kg"],
@@ -126,12 +126,12 @@ dict(
                     "Aprēķini vielas daudzumu! "
                     "(N_A = 6,02·10²³ mol⁻¹)",
              dots=["N = 3,01·10²³", "N_A = 6,02·10²³ mol⁻¹"],
-             jaaprekina=["ν = ?"],
-             formulas=["N = ν · N_A", "ν = N/N_A"],
-             aprekins=["1)  ν = 3,01·10²³ : 6,02·10²³",
-                       "2)  ν = 0,50 mol",
+             jaaprekina=["n = ?"],
+             formulas=["N = n · N_A", "n = N/N_A"],
+             aprekins=["1)  n = 3,01·10²³ : 6,02·10²³",
+                       "2)  n = 0,50 mol",
                        "3)  Pārbaude: 0,50 · 6,02·10²³ = 3,01·10²³ ✔"],
-             atbilde="ν = 0,50 mol",
+             atbilde="n = 0,50 mol",
              piezime="Avogadro skaitlis ir tilts starp daļiņu skaitu un "
                      "vielas daudzumu."),
         dict(nr=7, virsraksts="Temperatūras starpība",
@@ -153,11 +153,11 @@ dict(
             "Viela sastāv no daļiņām, kas nepārtraukti kustas.",
             "Jo augstāka temperatūra, jo ātrāka daļiņu kustība.",
             "T = t + 273; absolūtā nulle ir 0 K jeb −273 °C.",
-            "ν = m/M; vienā molā ir 6,02·10²³ daļiņas.",
+            "n = m/M; vienā molā ir 6,02·10²³ daļiņas.",
         ],
         majasdarbs=[
             "Izsaki kelvinos: 0 °C, 37 °C, −40 °C.",
-            "m = 88 g oglekļa dioksīda, M = 44 g/mol. Aprēķini ν.",
+            "m = 88 g oglekļa dioksīda, M = 44 g/mol. Aprēķini n.",
             "Cik molekulu ir 0,50 mol gāzes?",
         ],
         pasvertejums=["Zinu daļiņu modeļa atziņas",
@@ -847,11 +847,11 @@ dict(
 dict(
     nr="7.6", virsraksts="Modeļi un vienkārši aprēķini",
     jautajums="Ko gāzes modelis palīdz paredzēt?",
-    apaksraksts="pV = νRT · R = 8,31 J/(mol·K) · Modeļa robežas",
-    merkis="Pēc parauga lietot vienādojumu pV = νRT un izvērtēt modeļa "
+    apaksraksts="pV = nRT · R = 8,31 J/(mol·K) · Modeļa robežas",
+    merkis="Pēc parauga lietot vienādojumu pV = nRT un izvērtēt modeļa "
            "ierobežojumus.",
-    protu=["nosaukt lielumus vienādojumā pV = νRT;",
-           "izteikt p, V vai ν no vienādojuma;",
+    protu=["nosaukt lielumus vienādojumā pV = nRT;",
+           "izteikt p, V vai n no vienādojuma;",
            "pārbaudīt mērvienības pirms aprēķina;",
            "nosaukt, kad ideālās gāzes modelis vairs neder."],
     atkartojums="Iepriekšējās divās stundās katrs likums saistīja divus "
@@ -861,7 +861,7 @@ dict(
     teorija=[
         ("Ideālās gāzes vienādojums", [
             ("formula", "STĀVOKĻA VIENĀDOJUMS",
-             "pV = νRT        R = 8,31 J/(mol·K)",
+             "pV = nRT        R = 8,31 J/(mol·K)",
              "Vienādojums saista spiedienu, tilpumu, vielas daudzumu un "
              "temperatūru. Visi iepriekšējie izoprocesi ir šī "
              "vienādojuma atsevišķi gadījumi.", GOLD),
@@ -902,10 +902,10 @@ dict(
              teksts="Traukā ar tilpumu 0,050 m³ ir 2,0 mol gāzes\n"
                     "300 K temperatūrā. Aprēķini spiedienu!\n"
                     "(R = 8,31 J/(mol·K))",
-             dots=["V = 0,050 m³", "ν = 2,0 mol", "T = 300 K"],
+             dots=["V = 0,050 m³", "n = 2,0 mol", "T = 300 K"],
              jaaprekina=["p = ?"],
-             formulas=["pV = νRT", "p = νRT/V"],
-             aprekins=["1)  νRT = 2,0 · 8,31 · 300 = 4986 J",
+             formulas=["pV = nRT", "p = nRT/V"],
+             aprekins=["1)  nRT = 2,0 · 8,31 · 300 = 4986 J",
                        "2)  p = 4986 : 0,050",
                        "3)  p ≈ 1,0·10⁵ Pa = 100 kPa"],
              atbilde="p ≈ 1,0·10⁵ Pa",
@@ -914,11 +914,11 @@ dict(
         dict(nr=2, virsraksts="Viens mols normālos apstākļos",
              teksts="Cik lielu tilpumu aizņem 1,0 mol gāzes pie 101 kPa\n"
                     "un 273 K? (R = 8,31 J/(mol·K))",
-             dots=["ν = 1,0 mol", "p = 101 kPa = 101 000 Pa",
+             dots=["n = 1,0 mol", "p = 101 kPa = 101 000 Pa",
                    "T = 273 K"],
              jaaprekina=["V = ?"],
-             formulas=["pV = νRT", "V = νRT/p"],
-             aprekins=["1)  νRT = 1,0 · 8,31 · 273 ≈ 2269 J",
+             formulas=["pV = nRT", "V = nRT/p"],
+             aprekins=["1)  nRT = 1,0 · 8,31 · 273 ≈ 2269 J",
                        "2)  V = 2269 : 101 000",
                        "3)  V ≈ 0,0225 m³ ≈ 22,5 L"],
              atbilde="V ≈ 22,5 L",
@@ -929,49 +929,49 @@ dict(
                     "temperatūra 300 K. Aprēķini vielas daudzumu!\n"
                     "(R = 8,31 J/(mol·K))",
              dots=["V = 0,010 m³", "p = 2,0·10⁵ Pa", "T = 300 K"],
-             jaaprekina=["ν = ?"],
-             formulas=["pV = νRT", "ν = pV/RT"],
+             jaaprekina=["n = ?"],
+             formulas=["pV = nRT", "n = pV/RT"],
              aprekins=["1)  pV = 2,0·10⁵ · 0,010 = 2000 J",
                        "2)  RT = 8,31 · 300 = 2493",
-                       "3)  ν = 2000 : 2493 ≈ 0,80 mol"],
-             atbilde="ν ≈ 0,80 mol",
-             piezime="Zinot ν un molmasu, var atrast arī gāzes masu: "
-                     "m = νM."),
+                       "3)  n = 2000 : 2493 ≈ 0,80 mol"],
+             atbilde="n ≈ 0,80 mol",
+             piezime="Zinot n un molmasu, var atrast arī gāzes masu: "
+                     "m = nM."),
         dict(nr=4, virsraksts="Mērvienību pārrēķins",
              teksts="Traukā ir 20 L gāzes pie 27 °C un 150 kPa.\n"
                     "Aprēķini vielas daudzumu!\n"
                     "(R = 8,31 J/(mol·K))",
              dots=["V = 20 L = 0,020 m³", "t = 27 °C",
                    "p = 150 kPa = 150 000 Pa"],
-             jaaprekina=["ν = ?"],
-             formulas=["T = t + 273", "ν = pV/RT"],
+             jaaprekina=["n = ?"],
+             formulas=["T = t + 273", "n = pV/RT"],
              aprekins=["1)  T = 27 + 273 = 300 K",
                        "2)  pV = 150 000 · 0,020 = 3000 J",
-                       "3)  ν = 3000 : (8,31 · 300) ≈ 1,2 mol"],
-             atbilde="ν ≈ 1,2 mol",
+                       "3)  n = 3000 : (8,31 · 300) ≈ 1,2 mol"],
+             atbilde="n ≈ 1,2 mol",
              piezime="Trīs pārrēķini pirms aprēķina: litri kubikmetros, "
                      "kilopaskāli paskālos, grādi kelvinos."),
         dict(nr=5, virsraksts="Gāzes masa balonā",
              teksts="Balonā ir 0,80 mol slāpekļa (M = 28 g/mol).\n"
                     "Aprēķini gāzes masu!",
-             dots=["ν = 0,80 mol", "M = 28 g/mol"],
+             dots=["n = 0,80 mol", "M = 28 g/mol"],
              jaaprekina=["m = ?"],
-             formulas=["ν = m/M", "m = νM"],
+             formulas=["n = m/M", "m = nM"],
              aprekins=["1)  m = 0,80 · 28",
                        "2)  m = 22,4 g",
                        "3)  m ≈ 0,022 kg"],
              atbilde="m ≈ 22 g",
-             piezime="Zinot pV = νRT, no spiediena un tilpuma var "
+             piezime="Zinot pV = nRT, no spiediena un tilpuma var "
                      "noteikt arī gāzes masu."),
         dict(nr=6, virsraksts="Temperatūra no stāvokļa vienādojuma",
              teksts="Traukā ar tilpumu 0,020 m³ ir 2,0 mol gāzes pie\n"
                     "spiediena 2,5·10⁵ Pa. Aprēķini temperatūru!\n"
                     "(R = 8,31 J/(mol·K))",
-             dots=["V = 0,020 m³", "ν = 2,0 mol", "p = 2,5·10⁵ Pa"],
+             dots=["V = 0,020 m³", "n = 2,0 mol", "p = 2,5·10⁵ Pa"],
              jaaprekina=["T = ?"],
-             formulas=["pV = νRT", "T = pV/(νR)"],
+             formulas=["pV = nRT", "T = pV/(nR)"],
              aprekins=["1)  pV = 2,5·10⁵ · 0,020 = 5000 J",
-                       "2)  νR = 2,0 · 8,31 = 16,62",
+                       "2)  nR = 2,0 · 8,31 = 16,62",
                        "3)  T = 5000 : 16,62 ≈ 301 K = 28 °C"],
              atbilde="T ≈ 3,0·10² K ≈ 28 °C",
              piezime="Ticamības pārbaude: istabas temperatūra - "
@@ -979,7 +979,7 @@ dict(
     ],
     kopsavilkums=dict(
         iemacijamies=[
-            "pV = νRT saista spiedienu, tilpumu, vielas daudzumu un "
+            "pV = nRT saista spiedienu, tilpumu, vielas daudzumu un "
             "temperatūru.",
             "Aprēķinos lieto paskālus, kubikmetrus un kelvinus.",
             "Normālos apstākļos viens mols gāzes aizņem apmēram 22,4 L.",
@@ -987,13 +987,13 @@ dict(
             "zemas temperatūras.",
         ],
         majasdarbs=[
-            "ν = 3,0 mol, V = 0,10 m³, T = 300 K. Aprēķini p.",
-            "p = 100 kPa, V = 0,050 m³, T = 290 K. Aprēķini ν.",
+            "n = 3,0 mol, V = 0,10 m³, T = 300 K. Aprēķini p.",
+            "p = 100 kPa, V = 0,050 m³, T = 290 K. Aprēķini n.",
             "Atkārto 7.1.-7.6. stundu kopsavilkumus - nākamā stunda ir "
             "PD2.",
         ],
         pasvertejums=["Zinu vienādojuma lielumus",
-                      "Protu izteikt p, V un ν",
+                      "Protu izteikt p, V un n",
                       "Protu pārrēķināt mērvienības",
                       "Zinu modeļa robežas"],
         nakama="Nākamā stunda: PD2 - atoma un vielas uzbūve."),

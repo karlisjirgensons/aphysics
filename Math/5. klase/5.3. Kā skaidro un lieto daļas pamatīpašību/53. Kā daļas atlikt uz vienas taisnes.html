@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>53. Kā daļas atlikt uz vienas taisnes?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);
+     line-height:1.55}
+a{color:inherit;text-decoration:none}
+
+.augsa{position:sticky;top:0;z-index:20;display:flex;align-items:center;
+    gap:.6rem;padding:.55rem .8rem;background:var(--grad);color:#fff;
+    box-shadow:var(--sh-md)}
+.augsa .atpakal{flex:none;padding:.35rem .8rem;border-radius:var(--r-pill);
+    background:rgba(255,255,255,.16);font-size:.85rem;font-weight:500;
+    transition:background .15s}
+.augsa .atpakal:hover{background:rgba(255,255,255,.3)}
+.augsa .kods{flex:1;text-align:right;font-size:.78rem;
+    color:rgba(255,255,255,.85)}
+
+.lapa{max-width:46rem;margin:0 auto;padding:0 .8rem 3rem}
+
+header.galva{margin:0 -.8rem 1.1rem;padding:1.4rem 1.1rem 1.5rem;
+    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem}
+header.galva .mikro{margin:0;font-size:.82rem;color:rgba(255,255,255,.85);
+    text-transform:uppercase;letter-spacing:.06em}
+header.galva h1{margin:.3rem 0 0;font-family:var(--font-h);font-weight:600;
+    line-height:1.2;font-size:clamp(1.45rem,6.4vw,2.1rem)}
+header.galva .merkis{margin:.6rem 0 0;font-size:clamp(.95rem,4vw,1.08rem);
+    color:rgba(255,255,255,.9)}
+
+.skolotajam{margin:.4rem 0 1rem;border:1px dashed var(--line);
+    border-radius:var(--r);background:var(--surface)}
+.skolotajam summary{padding:.6rem .9rem;cursor:pointer;color:var(--dim);
+    font-size:.85rem;font-weight:500;list-style:none}
+.skolotajam summary::-webkit-details-marker{display:none}
+.skolotajam summary::before{content:"\25B8  "}
+.skolotajam[open] summary::before{content:"\25BE  "}
+.skolotajam div{padding:0 .9rem .8rem}
+.skolotajam p{margin:.2rem 0;font-size:.85rem;color:var(--dim)}
+.skolotajam b{color:var(--fg);font-weight:600}
+
+nav.talak{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.2rem 0 0}
+nav.talak a{flex:1 1 12rem;padding:.85rem 1rem;border-radius:var(--r);
+    background:var(--surface);border:1px solid var(--line);
+    box-shadow:var(--sh);font-size:.95rem;transition:border-color .15s}
+nav.talak a:hover{border-color:var(--violet)}
+nav.talak a span{display:block;color:var(--dim);font-size:.78rem}
+nav.talak a b{color:var(--primary);font-weight:600}
+
+/* Vertikāla daļa un kvadrātsakne - tas pats pieraksts, ko lieto
+   prezentācijas (deck_page.py) un darba lapas (fd_page.py); HTML tam nāk no
+   mathhtml.py, tāpēc forma ir vienā vietā (DRY). */
+.f{display:inline-flex;flex-direction:column;align-items:stretch;
+   text-align:center;vertical-align:middle;margin:0 .28em;line-height:1.14}
+.f .n{display:block;padding:0 .2em}
+.f .d{display:block;padding:0 .2em;border-top:.075em solid currentColor}
+.rt{position:relative;display:inline-block;white-space:nowrap;
+    --rw:.66em;padding-left:var(--rw);margin:0 .06em}
+.rt .rk{position:absolute;left:0;top:0;bottom:0;width:var(--rw);height:auto;
+        fill:currentColor}
+.rt .rv{display:inline-block;border-top:.075em solid currentColor;
+        padding:.16em .2em 0 .06em}
+.izcel{color:var(--violet);font-weight:700}
+
+/* Zīmējumi (math_zimejumi.py). Izskats ir lapas, nevis bloka ziņā, jo
+   zīmējums var stāvēt gan savā blokā, gan stundas sākumā - un abās vietās
+   tam jāizskatās vienādi (DRY). */
+svg.zim{display:block;width:100%;height:auto;max-height:52vh;
+    overflow:visible}
+.zim text{font-family:var(--font);fill:var(--fg)}
+.zim .z-ass{stroke:var(--fg);stroke-width:.5;fill:var(--fg)}
+.zim .z-iedala{stroke:var(--dim);stroke-width:.4}
+.zim .z-punkts{fill:var(--violet)}
+.zim .z-stabs{fill:var(--violet);opacity:.85}
+.zim .z-kopa{fill:rgba(124,58,237,.10);stroke:var(--violet);stroke-width:.5}
+.zim .z-bits{fill:var(--surface);stroke:var(--violet);stroke-width:.5}
+.zim .z-bits.on{fill:var(--violet)}
+.zim .z-ruts{fill:var(--surface);stroke:var(--violet);stroke-width:.5}
+.zim .z-ruts.tuksa{fill:var(--bg);stroke-dasharray:1.8 1.2}
+.zim .z-resti{stroke:var(--line);stroke-width:.35}
+.zim .z-rame{fill:none;stroke:var(--violet);stroke-width:.7}
+.zim .z-lauks{fill:rgba(124,58,237,.28)}
+.zim .z-figura{fill:rgba(124,58,237,.16);stroke:var(--violet);
+    stroke-width:.7}
+.zim .z-lin{fill:none;stroke:var(--violet);stroke-width:.8;
+    stroke-linejoin:round}
+.zim .z-kerm{fill:none;stroke:var(--primary);stroke-width:.7;
+    stroke-linejoin:round}
+.zim .z-kerm.slepts{stroke:var(--dim);stroke-dasharray:1.6 1.2}
+.zim .z-bulta{fill:none;stroke:var(--amber-ink);stroke-width:.7}
+.zim .z-bultgals{fill:var(--amber-ink)}
+.zim .z-mazs{font-size:3px;fill:var(--dim)}
+.zim .z-dsvitra{stroke:currentColor;stroke-width:.3;stroke:var(--violet)}
+.zim .z-nr{font-size:3.4px}
+.zim .z-atzime{font-size:3.6px;font-weight:600;fill:var(--violet)}
+.zim .z-virs{font-size:3.8px;font-weight:600;fill:var(--primary)}
+.zim .z-bits-c{font-size:4.4px;font-weight:700;fill:var(--violet)}
+.zim .z-bits-c.on{fill:#fff}
+.zim .z-ruts-c{font-size:5px;font-weight:700;fill:var(--violet)}
+.zim .z-ruts-c.tuksa{fill:var(--dim);font-weight:600}
+.vv{position:relative;white-space:nowrap}
+.vv::after{content:"";position:absolute;left:-.04em;right:-.04em;top:-.52em;
+    height:.42em;border-top:.075em solid currentColor;
+    border-right:.075em solid currentColor;
+    transform:skewX(58deg) scaleY(.5);transform-origin:right top}
+
+.ik{display:inline-block;width:1em;height:1em;vertical-align:-.13em;
+    line-height:0}
+.ik svg{width:100%;height:100%;display:block;overflow:visible}
+.ik .l{fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;
+    stroke-linejoin:round}
+.ik .p{fill:currentColor;stroke:none}
+
+@media (min-width:768px){
+  .lapa{padding:0 1.4rem 4rem}
+  header.galva{margin:0 -1.4rem 1.4rem;padding:2rem 1.6rem 2.1rem}
+  .bl{padding:1.4rem 1.4rem 1.5rem}
+}
+
+.bl{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh);
+    padding:1.1rem 1rem 1.2rem;margin:0 0 1rem}
+.bl>h2{margin:0 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--primary);font-size:clamp(1.05rem,4.6vw,1.3rem)}
+.bl p{margin:.45rem 0;font-size:clamp(1rem,4.2vw,1.12rem)}
+.bl .punkti{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.5rem}
+.bl .punkti li{position:relative;padding:.55rem .7rem .55rem 2.2rem;
+    background:var(--bg);border-radius:var(--r-sm);
+    font-size:clamp(.98rem,4vw,1.08rem)}
+.bl .punkti li::before{content:"";position:absolute;left:.85rem;top:1.05em;
+    width:.5rem;height:.5rem;margin-top:-.25rem;border-radius:50%;
+    background:var(--cyan)}
+.bl .zime{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;
+    margin:.8rem 0 .2rem;color:var(--violet)}
+.bl .zime .ik{font-size:2.8rem}
+
+.bl.sakums{background:linear-gradient(135deg,#EEF2FF,#F5F3FF);
+    border:1px solid #DDD6FE;box-shadow:none}
+.bl.sakums>h2{font-size:clamp(1.15rem,5.2vw,1.5rem);line-height:1.25}
+.bl.sakums .fakti{list-style:none;margin:.7rem 0 0;padding:0;display:grid;
+    gap:.45rem}
+.bl.sakums .fakti li{padding:.55rem .75rem;background:#fff;
+    border-radius:var(--r-sm);border:1px solid #DDD6FE;
+    font-size:clamp(.95rem,3.9vw,1.05rem)}
+.bl.sakums .paraksts{margin:.35rem 0 0;color:var(--dim);text-align:center;
+    font-size:clamp(.85rem,3.5vw,.95rem)}
+
+.bl.doma{border-left:5px solid var(--violet)}
+.bl.doma .liela{margin:.2rem 0 .6rem;font-family:var(--font-h);
+    font-weight:600;color:var(--violet);line-height:1.35;
+    font-size:clamp(1.12rem,5vw,1.42rem)}
+.bl.doma ol{margin:.5rem 0 0;padding-left:1.4rem;display:grid;gap:.4rem}
+.bl.doma ol li{font-size:clamp(.98rem,4vw,1.08rem)}
+.bl.doma ol li::marker{color:var(--primary);font-weight:600}
+
+.bl.paraugs{border-left:5px solid var(--cyan)}
+.bl.paraugs .uzd{margin:.2rem 0 .7rem;padding:.6rem .8rem;
+    background:var(--surface2);border-radius:var(--r);font-weight:500}
+.bl.paraugs ol{margin:.4rem 0 0;padding:0;list-style:none;display:grid;
+    gap:.7rem;counter-reset:solis}
+.bl.paraugs ol li{position:relative;padding-left:2.3rem}
+.bl.paraugs ol li::before{counter-increment:solis;content:counter(solis);
+    position:absolute;left:0;top:.1rem;width:1.7rem;height:1.7rem;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;background:var(--cyan);color:#fff;font-weight:600;
+    font-size:.85rem}
+.bl.paraugs .mat{margin:0;font-size:clamp(1.05rem,4.6vw,1.25rem);
+    color:var(--primary);font-weight:500}
+.bl.paraugs .kap{margin:.15rem 0 0;color:var(--dim);
+    font-size:clamp(.9rem,3.7vw,1rem)}
+.bl.paraugs .atbilde{margin:.9rem 0 0;padding:.6rem .8rem;
+    background:#ECFDF5;border:1px solid #A7F3D0;border-radius:var(--r);
+    color:#047857;font-weight:600;
+    font-size:clamp(1.02rem,4.4vw,1.18rem)}
+
+.bl.zimejums .ramis{margin:.6rem 0 .2rem}
+.bl.zimejums .paskaidro{margin:.3rem 0 0;color:var(--dim);
+    font-size:clamp(.88rem,3.6vw,.98rem)}
+
+.speles{margin:.7rem 0 0}
+.speles .virsa{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;
+    padding:.6rem .8rem;border-radius:var(--r);background:var(--surface2)}
+.speles .kart{flex:none;padding:.15rem .6rem;border-radius:var(--r-pill);
+    background:var(--surface);color:var(--primary);font-weight:600;
+    font-size:.82rem}
+.speles .jaut{flex:1 1 12rem;margin:0;color:var(--primary);font-weight:600;
+    font-size:clamp(1rem,4.3vw,1.15rem)}
+.speles .laukums{margin:.7rem 0}
+.speles .kzim{margin:0 0 .6rem}
+/* Atbildes rinda ar lodziņu - to lieto gan Ievadi, gan Kustiba, tāpēc tā ir
+   dzinējā, nevis vienā uzdevuma veidā (DRY). */
+.speles .ie-rinda{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
+    margin:.8rem 0 0}
+.speles .ie-rinda input{flex:1 1 8rem;min-width:7rem;font:inherit;
+    padding:.7rem .9rem;min-height:2.9rem;border-radius:var(--r);
+    border:2px solid var(--line);background:var(--surface);color:var(--fg);
+    font-size:clamp(1rem,4.3vw,1.15rem)}
+.speles .ie-rinda input:focus{outline:0;border-color:var(--violet)}
+.speles .ie-rinda input.labi{border-color:#047857;background:#DCFCE7}
+.speles .ie-rinda input.nepareizi{border-color:#FCA5A5;background:#FEF2F2}
+.speles .vadiba{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0 0}
+.speles .atb{margin:.6rem 0 0;min-height:1.5rem;font-weight:600;
+    font-size:clamp(.98rem,4vw,1.08rem)}
+.speles .atb.labi{color:#047857}
+.speles .atb.vel{color:var(--amber-ink)}
+.speles .gals{margin:.2rem 0;color:#047857;font-weight:600}
+
+.speles button{font:inherit;cursor:pointer;border-radius:var(--r-pill);
+    border:1px solid var(--line);background:var(--surface);color:var(--fg);
+    padding:.7rem 1.1rem;min-height:2.9rem;font-weight:500;
+    font-size:clamp(.95rem,4vw,1.05rem);transition:background .15s}
+.speles button:hover{background:var(--surface2)}
+.speles button:disabled{opacity:.4;cursor:default}
+.speles button:disabled:hover{background:var(--surface)}
+.speles button.galvena,.speles button.talak{background:var(--primary);
+    border-color:var(--primary);color:#fff}
+.speles button.galvena:hover,.speles button.talak:hover{
+    background:var(--violet);border-color:var(--violet)}
+
+.speles .mantas{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+.speles .manta{position:relative;display:inline-flex;align-items:center;
+    justify-content:center;width:4rem;height:4rem;padding:0;
+    border-radius:var(--r);border:2px solid var(--line);
+    background:var(--surface);color:var(--primary)}
+.speles .manta .ik{font-size:2.4rem}
+.speles .manta.ok{background:#DCFCE7;border-color:#047857;color:#047857}
+.speles .manta .nr{position:absolute;right:.15rem;top:.05rem;
+    font-style:normal;font-weight:700;font-size:.85rem;color:#047857}
+.speles .manta.klusi{cursor:default}
+
+.speles .ie-mers{margin:.35rem 0 0;color:var(--dim);font-size:.9rem}
+
+.speles .va-opcijas{display:grid;gap:.5rem;margin:.8rem 0 0;width:100%}
+.speles .va-opcijas button{text-align:left;padding:.75rem .9rem;
+    border-radius:var(--r);border:2px solid var(--line);
+    font-size:clamp(.98rem,4.1vw,1.1rem);display:flex;gap:.6rem;
+    align-items:baseline}
+.speles .va-opcijas button .b{flex:none;color:var(--primary);font-weight:700}
+.speles .va-opcijas button.labi{background:#DCFCE7;border-color:#047857}
+.speles .va-opcijas button.labi .b{color:#047857}
+.speles .va-opcijas button.nepareizi{background:#FEF2F2;border-color:#FCA5A5}
+.speles .va-opcijas button.nepareizi .b{color:#B91C1C}
+@media (min-width:600px){
+  .speles .va-opcijas{grid-template-columns:1fr 1fr}
+}
+
+.bl.pasaule{border-left:5px solid var(--amber)}
+.bl.pasaule>h2{color:var(--amber-ink)}
+.bl.pasaule .pav{display:inline-block;margin:0 0 .5rem;padding:.2rem .7rem;
+    border-radius:var(--r-pill);background:#FFF4D6;color:var(--amber-ink);
+    font-size:.78rem;font-weight:600}
+.bl.pasaule .konteksts{margin:.2rem 0 .3rem;padding:.6rem .8rem;
+    background:var(--bg);border-radius:var(--r);
+    font-size:clamp(.95rem,3.9vw,1.06rem)}
+.bl.pasaule .kapec{margin:.7rem 0 0;color:var(--dim);
+    font-size:clamp(.88rem,3.6vw,.98rem)}
+
+.bl.kopa{background:#ECFDF5;border:1px solid #A7F3D0;box-shadow:none}
+.bl.kopa>h2{color:#047857}
+.bl.kopa .punkti li{background:#fff}
+.bl.kopa .punkti li::before{background:#047857}
+
+.bl.majas{background:#FFFBEB;border:1px solid #FDE68A;box-shadow:none}
+.bl.majas>h2{color:var(--amber-ink)}
+.bl.majas .punkti li{background:#fff}
+.bl.majas .punkti li::before{background:var(--amber)}
+
+.pilnpoga{display:none;flex:none;font:inherit;font-size:.82rem;
+    font-weight:500;cursor:pointer;border:0;border-radius:var(--r-pill);
+    padding:.35rem .9rem;color:#fff;background:rgba(255,255,255,.16);
+    transition:background .15s}
+.pilnpoga:hover{background:rgba(255,255,255,.3)}
+.pilnpoga{display:inline-block}
+
+body.pilns{overflow:hidden;background:#1E1B4B}
+body.pilns .augsa{display:none}
+body.pilns .skolotajam,body.pilns nav.talak{display:none}
+body.pilns .lapa{max-width:none;height:100vh;height:100svh;margin:0;padding:0;
+    display:flex;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+body.pilns .lapa::-webkit-scrollbar{display:none}
+body.pilns .saturs{display:contents}
+body.pilns header.galva,body.pilns .bl{flex:0 0 100%;height:100vh;
+    height:100svh;
+    overflow-y:auto;
+    scroll-snap-align:start;margin:0;border-radius:0;box-shadow:none;
+    border:0;background:var(--surface);
+    display:flex;flex-direction:column;justify-content:center;
+    justify-content:safe center;
+    padding:3rem max(1.2rem,calc((100vw - 46rem)/2)) 5rem}
+body.pilns header.galva{background:var(--grad)}
+body.pilns .bl.stasts{background:linear-gradient(135deg,#EEF2FF,#F5F3FF)}
+body.pilns .bl.kopa{background:#ECFDF5}
+body.pilns .bl.majas{background:#FFFBEB}
+/* Uz visa ekrāna kreisā mala būtu tālu no teksta, tāpēc galveno domu
+   iezīmē fons, nevis svītra. */
+body.pilns .bl.doma{background:var(--surface2)}
+body.pilns .bl>h2{font-size:clamp(1.3rem,3.2vw,1.9rem)}
+body.pilns header.galva h1{font-size:clamp(1.8rem,4.6vw,2.8rem)}
+
+.pilnjosla{display:none}
+body.pilns .pilnjosla{display:flex;position:fixed;z-index:30;left:50%;
+    bottom:calc(1rem + env(safe-area-inset-bottom));transform:translateX(-50%);
+    align-items:center;gap:.35rem;padding:.3rem .45rem;color:#fff;
+    border-radius:var(--r-pill);background:rgba(15,12,45,.78);
+    opacity:.55;transition:opacity .2s}
+body.pilns .pilnjosla:hover,body.pilns .pilnjosla:focus-within{opacity:1}
+.pilnjosla button{font:inherit;line-height:1;border:0;cursor:pointer;
+    color:#fff;background:transparent;border-radius:var(--r-pill);
+    padding:.3rem .7rem;white-space:nowrap;transition:background .15s}
+.pilnjosla button:hover{background:rgba(255,255,255,.18)}
+.pilnjosla .nav{font-size:1.3rem;padding:.15rem .65rem}
+.pilnjosla .cnt{font-size:.8rem;min-width:4.2rem;text-align:center;
+    font-variant-numeric:tabular-nums}
+
+/* Cik tālu stunda aizgājusi - plāna svītra augšmalā. Uz telefona tā ir
+   vienīgā zīme, ka aiz malas vēl kaut kas ir, tāpēc tā ir vienmēr redzama. */
+.pilnprog{display:none}
+body.pilns .pilnprog{display:block;position:fixed;z-index:31;left:0;top:0;
+    height:.2rem;width:0;background:var(--violet);transition:width .2s}
+
+/* Pirmajā reizē pasaka, ko ar lenti darīt; pēc pāris sekundēm pazūd pati. */
+.pilnmajiens{display:none}
+body.pilns .pilnmajiens{display:block;position:fixed;z-index:30;left:50%;
+    bottom:calc(4.4rem + env(safe-area-inset-bottom));
+    transform:translateX(-50%);padding:.4rem .95rem;white-space:nowrap;
+    border-radius:var(--r-pill);background:rgba(15,12,45,.8);color:#fff;
+    font-size:.82rem;animation:pilnzud 4.5s forwards}
+@keyframes pilnzud{0%,55%{opacity:.95}100%{opacity:0;visibility:hidden}}
+
+/* Telefonā lente ir noklusētais skats, tāpēc vadība nav pieklusināta un
+   pogas ir tik lielas, cik prasa īkšķis. */
+@media (max-width:767px){
+  body.pilns .pilnjosla{opacity:1;gap:.1rem;padding:.25rem .4rem;
+      bottom:calc(.6rem + env(safe-area-inset-bottom))}
+  body.pilns .pilnjosla .nav{font-size:1.6rem;padding:.4rem 1.2rem}
+  body.pilns .pilnjosla button{padding:.5rem .85rem}
+  body.pilns .pilnjosla .cnt{min-width:3.6rem}
+  body.pilns header.galva,body.pilns .bl{padding:2rem 1.1rem 5rem}
+}
+</style>
+</head>
+<body>
+<div class="augsa">
+<a class="atpakal" href="../index.html">&#8592; 5. klase</a>
+<span class="kods">5.3. 5. klase · 53. stunda</span>
+</div>
+<div class="lapa">
+<header class="galva">
+<p class="mikro">Daļas pamatīpašība</p>
+<h1>Kā daļas atlikt uz vienas taisnes?</h1>
+<p class="merkis">Mācīsimies izvēlēties vienu iedaļu, kurā uz vienas skaitļu taisnes ietilpst daļas ar dažādiem saucējiem.</p>
+</header>
+<details class="skolotajam">
+<summary>Skolotājam</summary>
+<div>
+<p><b>Sasniedzamais rezultāts.</b> Plāno, kā uz vienas skaitļu taisnes atlikt daļas ar dažādiem saucējiem.</p>
+<p><b>Temats.</b> 5.3. Kā skaidro un lieto daļas pamatīpašību?</p>
+<p><b>Mikrotemats.</b> Daļas pamatīpašība</p>
+<p><b>Provizoriskais datums.</b> 20.11.2026</p>
+</div>
+</details>
+<main class="saturs">
+<section class="bl sakums">
+<h2>Trīs daļas, viena taisne</h2>
+<svg class="zim" viewBox="0 0 100 26" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line class="z-ass" x1="3.00" y1="17.00" x2="97.00" y2="17.00"/><path class="z-ass" d="M97.40 17.00 l-2.6 -1.6 v3.2 z"/><line class="z-iedala" x1="6.00" y1="14.80" x2="6.00" y2="19.20"/><text class="z-nr" x="6.00" y="24.40" text-anchor="middle">0</text><line class="z-iedala" x1="94.00" y1="14.80" x2="94.00" y2="19.20"/><text class="z-nr" x="94.00" y="24.40" text-anchor="middle">1</text><circle class="z-punkts" cx="50.00" cy="17.00" r="2.2"/><text class="z-atzime" x="50.00" y="8.78" text-anchor="middle">1</text><line class="z-dsvitra" x1="48.31" y1="10.00" x2="51.69" y2="10.00"/><text class="z-atzime" x="50.00" y="13.46" text-anchor="middle">2</text><circle class="z-punkts" cx="72.00" cy="17.00" r="2.2"/><text class="z-atzime" x="72.00" y="8.78" text-anchor="middle">3</text><line class="z-dsvitra" x1="70.31" y1="10.00" x2="73.69" y2="10.00"/><text class="z-atzime" x="72.00" y="13.46" text-anchor="middle">4</text><text class="z-virs" x="50.00" y="5.00" text-anchor="middle">Puses un ceturtdaļas kopā</text></svg>
+<p class="paraksts">Ceturtdaļu iedaļās ietilpst arī puse:&nbsp;<span class="f"><span class="n">1</span><span class="d">2</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">2</span><span class="d">4</span></span>.</p>
+<ul class="fakti">
+<li>Uz vienas taisnes salīdzināt ir vieglāk nekā uz divām.</li>
+<li>Bet iedaļa var būt tikai viena.</li>
+<li>Tātad tai jāder visām daļām uzreiz.</li>
+</ul>
+</section>
+<section class="bl doma">
+<h2>Iedaļu izvēlas pēc saucējiem</h2>
+<p class="liela">Vienību sadala tik daļās, lai šis skaitlis dalītos ar visiem dotajiem saucējiem.</p>
+<ol>
+<li>Izraksti visus saucējus.</li>
+<li>Atrodi skaitli, kas dalās ar tiem visiem.</li>
+<li>Sadali vienību tik daļās - tā ir taisnes iedaļa.</li>
+<li>Pārraksti katru daļu ar šo saucēju.</li>
+<li>Atzīmē visus punktus un salīdzini.</li>
+</ol>
+<p>Der jebkurš kopīgais dalāmais, bet mazākais ir ērtākais: saucējiem 2 un 3 der gan 12, gan 18, tomēr ar 6 iedaļām zīmējums ir skaidrāks.</p>
+</section>
+<section class="bl paraugs">
+<h2><span class="f"><span class="n">1</span><span class="d">2</span></span>,&nbsp;<span class="f"><span class="n">2</span><span class="d">3</span></span>&nbsp;un&nbsp;<span class="f"><span class="n">5</span><span class="d">6</span></span>&nbsp;uz vienas taisnes</h2>
+<p class="uzd">Kādā iedaļā sadalīt vienību un kur nokļūst katra daļa?</p>
+<ol>
+<li><p class="mat">Saucēji: 2, 3 un 6</p>
+<p class="kap">Vispirms izraksta, kas jāsaskaņo.</p></li>
+<li><p class="mat">6 dalās ar 2, 3 un 6</p>
+<p class="kap">Mazākais kopīgais dalāmais ir 6.</p></li>
+<li><p class="mat"><span class="f"><span class="n">1</span><span class="d">2</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">3</span><span class="d">6</span></span></p>
+<p class="kap">Abus locekļus reizina ar 3.</p></li>
+<li><p class="mat"><span class="f"><span class="n">2</span><span class="d">3</span></span>&nbsp;=&nbsp;<span class="f"><span class="n">4</span><span class="d">6</span></span></p>
+<p class="kap">Abus locekļus reizina ar 2.</p></li>
+<li><p class="mat"><span class="f"><span class="n">5</span><span class="d">6</span></span>&nbsp;paliek&nbsp;<span class="f"><span class="n">5</span><span class="d">6</span></span></p>
+<p class="kap">Tās saucējs jau ir 6.</p></li>
+</ol>
+<p class="atbilde">Atbilde: Vienību sadala 6 daļās; punkti ir&nbsp;<span class="f"><span class="n">3</span><span class="d">6</span></span>,&nbsp;<span class="f"><span class="n">4</span><span class="d">6</span></span>&nbsp;un&nbsp;<span class="f"><span class="n">5</span><span class="d">6</span></span></p>
+</section>
+<section class="bl zimejums">
+<h2>Visi trīs punkti vienā taisnē</h2>
+<p>Kad saucējs visiem viens, secība ir acīmredzama.</p>
+<div class="ramis"><svg class="zim" viewBox="0 0 100 26" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><line class="z-ass" x1="3.00" y1="17.00" x2="97.00" y2="17.00"/><path class="z-ass" d="M97.40 17.00 l-2.6 -1.6 v3.2 z"/><line class="z-iedala" x1="6.00" y1="14.80" x2="6.00" y2="19.20"/><text class="z-nr" x="6.00" y="24.40" text-anchor="middle">0</text><line class="z-iedala" x1="94.00" y1="14.80" x2="94.00" y2="19.20"/><text class="z-nr" x="94.00" y="24.40" text-anchor="middle">1</text><circle class="z-punkts" cx="50.00" cy="17.00" r="2.2"/><text class="z-atzime" x="50.00" y="8.78" text-anchor="middle">3</text><line class="z-dsvitra" x1="48.31" y1="10.00" x2="51.69" y2="10.00"/><text class="z-atzime" x="50.00" y="13.46" text-anchor="middle">6</text><circle class="z-punkts" cx="64.67" cy="17.00" r="2.2"/><text class="z-atzime" x="64.67" y="8.78" text-anchor="middle">4</text><line class="z-dsvitra" x1="62.97" y1="10.00" x2="66.36" y2="10.00"/><text class="z-atzime" x="64.67" y="13.46" text-anchor="middle">6</text><circle class="z-punkts" cx="79.33" cy="17.00" r="2.2"/><text class="z-atzime" x="79.33" y="8.78" text-anchor="middle">5</text><line class="z-dsvitra" x1="77.64" y1="10.00" x2="81.03" y2="10.00"/><text class="z-atzime" x="79.33" y="13.46" text-anchor="middle">6</text><text class="z-virs" x="50.00" y="5.00" text-anchor="middle">Vienība sadalīta 6 daļās</text></svg></div>
+<p class="paskaidro">Tie paši trīs skaitļi, ko sauc par&nbsp;<span class="f"><span class="n">1</span><span class="d">2</span></span>,&nbsp;<span class="f"><span class="n">2</span><span class="d">3</span></span>&nbsp;un&nbsp;<span class="f"><span class="n">5</span><span class="d">6</span></span>. Tagad uzreiz redz, kurš ir lielāks.</p>
+</section>
+<section class="bl">
+<h2>Cik daļās sadalīt vienību?</h2>
+<p>Vispirms iedaļa, tikai tad punkti - citādi kaut kas neietilps.</p>
+<div class="speles" data-veids="ievadi" data-kartas="[{&quot;jaut&quot;: &quot;Uz taisnes jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;. Cik daļās sadalīt vienību?&quot;, &quot;atb&quot;: [&quot;6&quot;], &quot;padoms&quot;: &quot;Mazākais skaitlis, kas dalās ar 2 un 3.&quot;, &quot;atbZ&quot;: &quot;6&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;. Cik daļās sadalīt vienību?&quot;, &quot;atb&quot;: [&quot;4&quot;], &quot;padoms&quot;: &quot;4 jau dalās ar 2.&quot;, &quot;atbZ&quot;: &quot;4&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;. Cik daļās sadalīt vienību?&quot;, &quot;atb&quot;: [&quot;12&quot;], &quot;padoms&quot;: &quot;Mazākais skaitlis, kas dalās ar 3 un 4.&quot;, &quot;atbZ&quot;: &quot;12&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;5&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;. Cik daļās sadalīt vienību?&quot;, &quot;atb&quot;: [&quot;10&quot;], &quot;padoms&quot;: &quot;5 · 2.&quot;, &quot;atbZ&quot;: &quot;10&quot;}, {&quot;jaut&quot;: &quot;Vienība sadalīta 6 daļās. Kurā iedaļā nokļūst&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;?&quot;, &quot;atb&quot;: [&quot;4&quot;], &quot;padoms&quot;: &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;=&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;4&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;.&quot;, &quot;atbZ&quot;: &quot;4&quot;}, {&quot;jaut&quot;: &quot;Vienība sadalīta 12 daļās. Kurā iedaļā nokļūst&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;?&quot;, &quot;atb&quot;: [&quot;9&quot;], &quot;padoms&quot;: &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&amp;nbsp;=&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;9&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;12&lt;/span&gt;&lt;/span&gt;.&quot;, &quot;atbZ&quot;: &quot;9&quot;}, {&quot;jaut&quot;: &quot;Vienība sadalīta 10 daļās. Kurā iedaļā nokļūst&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;?&quot;, &quot;atb&quot;: [&quot;5&quot;], &quot;padoms&quot;: &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;=&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;5&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;10&lt;/span&gt;&lt;/span&gt;.&quot;, &quot;atbZ&quot;: &quot;5&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;,&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;. Cik daļās sadalīt vienību?&quot;, &quot;atb&quot;: [&quot;12&quot;], &quot;padoms&quot;: &quot;12 dalās ar 4, 6 un 2.&quot;, &quot;atbZ&quot;: &quot;12&quot;}]" data-pamats="4"></div>
+</section>
+<section class="bl">
+<h2>Kā izvēlēties iedaļu?</h2>
+<div class="speles" data-veids="varianti" data-kartas="[{&quot;jaut&quot;: &quot;Kādam jābūt daļu skaitam, kurā sadala vienību?&quot;, &quot;opcijas&quot;: [&quot;Tādam, kas dalās ar visiem saucējiem&quot;, &quot;Tādam, kas dalās ar visiem skaitītājiem&quot;, &quot;Lielākajam no saucējiem&quot;, &quot;Visu saucēju summai&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;Iedaļai jāder katrai daļai.&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;. Vai der 6 iedaļas?&quot;, &quot;opcijas&quot;: [&quot;Der, jo 6 dalās gan ar 3, gan ar 6&quot;, &quot;Neder, vajag 18&quot;, &quot;Neder, vajag 9&quot;, &quot;Der tikai&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;Lielākais saucējs reizēm jau ir kopīgais dalāmais.&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;5&lt;/span&gt;&lt;/span&gt;. Vai der 20 iedaļas?&quot;, &quot;opcijas&quot;: [&quot;Der, bet 10 ir ērtāk&quot;, &quot;Neder nekādā gadījumā&quot;, &quot;Der, un mazāk nevar&quot;, &quot;Neder, vajag 7&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;Jebkurš kopīgais dalāmais der; mazākais ir skaidrāks.&quot;}, {&quot;jaut&quot;: &quot;Vienību sadala 8 daļās. Kuru daļu uz tās &lt;b class=\&quot;izcel\&quot;&gt;nevar&lt;/b&gt; precīzi atzīmēt?&quot;, &quot;opcijas&quot;: [&quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&quot;, &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&quot;, &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&quot;, &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;5&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;8&lt;/span&gt;&lt;/span&gt;&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;8 nedalās ar 3.&quot;}, {&quot;jaut&quot;: &quot;Kāpēc uz vienas taisnes salīdzināt ir ērtāk?&quot;, &quot;opcijas&quot;: [&quot;Visi punkti ir vienā rindā un secība redzama uzreiz&quot;, &quot;Taisne ir garāka&quot;, &quot;Nevajag pārrakstīt daļas&quot;, &quot;Iedaļas kļūst lielākas&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;Divas taisnes vēl jāsalīdzina savā starpā.&quot;}, {&quot;jaut&quot;: &quot;Jāatliek&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;,&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;. Cik iedaļu ir ērtākais sadalījums?&quot;, &quot;opcijas&quot;: [&quot;12&quot;, &quot;24&quot;, &quot;9&quot;, &quot;7&quot;], &quot;pareizi&quot;: 0, &quot;padoms&quot;: &quot;Mazākais skaitlis, kas dalās ar 3, 4 un 2.&quot;}]" data-pamats="4"></div>
+</section>
+<section class="bl pasaule">
+<h2>Viens mērtrauks visai receptei</h2>
+<p class="pav">Virtuve un receptes</p>
+<p class="konteksts">Virtuvē neviens negrib trīs mērtraukus - grib vienu, kas der visai receptei.</p>
+<div class="speles" data-veids="ievadi" data-kartas="[{&quot;jaut&quot;: &quot;Receptē ir&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;glāzes piena un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;glāzes eļļas. Cik iedaļu mērtraukam vajag vismaz?&quot;, &quot;atb&quot;: [&quot;6&quot;], &quot;padoms&quot;: &quot;6 dalās ar 2 un 3.&quot;, &quot;atbZ&quot;: &quot;6&quot;}, {&quot;jaut&quot;: &quot;Tāds trauks ir. Cik iedaļu ir&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;glāzes?&quot;, &quot;atb&quot;: [&quot;3&quot;], &quot;padoms&quot;: &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;2&lt;/span&gt;&lt;/span&gt;&amp;nbsp;=&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;.&quot;, &quot;atbZ&quot;: &quot;3&quot;}, {&quot;jaut&quot;: &quot;Tas pats trauks. Cik iedaļu ir&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;glāzes?&quot;, &quot;atb&quot;: [&quot;2&quot;], &quot;padoms&quot;: &quot;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;1&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;=&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;6&lt;/span&gt;&lt;/span&gt;.&quot;, &quot;atbZ&quot;: &quot;2&quot;}, {&quot;jaut&quot;: &quot;Receptē ir&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;3&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;4&lt;/span&gt;&lt;/span&gt;&amp;nbsp;un&amp;nbsp;&lt;span class=\&quot;f\&quot;&gt;&lt;span class=\&quot;n\&quot;&gt;2&lt;/span&gt;&lt;span class=\&quot;d\&quot;&gt;3&lt;/span&gt;&lt;/span&gt;&amp;nbsp;glāzes. Cik iedaļu mērtraukam vajag vismaz?&quot;, &quot;atb&quot;: [&quot;12&quot;], &quot;padoms&quot;: &quot;12 dalās ar 4 un 3.&quot;, &quot;atbZ&quot;: &quot;12&quot;}]"></div>
+<p class="kapec">Iedaļu skaitu izvēlas tāpat kā iedaļu uz skaitļu taisnes.</p>
+</section>
+<section class="bl kopa">
+<h2>Tagad es protu</h2>
+<ul class="punkti">
+<li>Izvēlos iedaļu, kas dalās ar visiem dotajiem saucējiem.</li>
+<li>Pārrakstu katru daļu ar izvēlēto saucēju.</li>
+<li>Atlieku visas daļas uz vienas skaitļu taisnes.</li>
+<li>Skaidroju, kāpēc mazākais kopīgais dalāmais ir ērtākais.</li>
+</ul>
+</section>
+<section class="bl majas">
+<h2>Pamēģini mājās</h2>
+<ul class="punkti">
+<li>Uzzīmē taisni no 0 līdz 1 ar 12 iedaļām un atzīmē uz tās&nbsp;<span class="f"><span class="n">1</span><span class="d">2</span></span>,&nbsp;<span class="f"><span class="n">2</span><span class="d">3</span></span>&nbsp;un&nbsp;<span class="f"><span class="n">3</span><span class="d">4</span></span>.</li>
+<li>Atrodi divas daļas, kurām der 10 iedaļas, bet neder 6.</li>
+<li>Padomā, vai ir daļas, kurām nederētu nekāds iedaļu skaits.</li>
+</ul>
+</section>
+</main>
+<nav class="talak">
+<a href="52.%20K%C4%81%20izskat%C4%81s%20divas%20skait%C4%BCu%20taisnes.html"><span>Iepriekšējā stunda</span><b>52. Kā izskatās divas skaitļu taisnes?</b></a>
+<a href="54.%20K%C4%81%20da%C4%BCu%20pierakst%C4%ABt%20cit%C4%81di%20bez%20mode%C4%BCa.html"><span>Nākamā stunda</span><b>54. Kā daļu pierakstīt citādi bez modeļa?</b></a>
+</nav>
+</div>
+<script>window.MATH_IKONAS={"logs": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><rect class=\"l\" x=\"10\" y=\"8\" width=\"44\" height=\"48\" rx=\"4\"/><path class=\"l\" d=\"M32 8v48M10 32h44\"/></svg>", "durvis": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><rect class=\"l\" x=\"16\" y=\"6\" width=\"32\" height=\"52\" rx=\"3\"/><circle class=\"p\" cx=\"40\" cy=\"34\" r=\"3\"/></svg>", "kresls": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path class=\"l\" d=\"M22 10v46M22 16h12M22 36h26M46 36v20\"/></svg>", "galds": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path class=\"l\" d=\"M8 26h48M16 26v28M48 26v28\"/></svg>", "soma": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><rect class=\"l\" x=\"10\" y=\"24\" width=\"44\" height=\"32\" rx=\"7\"/><path class=\"l\" d=\"M22 24a10 10 0 0 1 20 0M18 42h28\"/></svg>", "zimulis": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path class=\"l\" d=\"M14 50l3-11L39 17l8 8-22 22z\"/><path class=\"l\" d=\"M36 20l8 8\"/></svg>", "gramata": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><path class=\"l\" d=\"M32 20v32M32 20c-6-4-14-4-22-2v32c8-2 16-2 22 2 6-4 14-4 22-2V18c-8-2-16-2-22 2z\"/></svg>", "abols": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><circle class=\"l\" cx=\"32\" cy=\"38\" r=\"17\"/><path class=\"l\" d=\"M32 21v-7\"/><ellipse class=\"l\" cx=\"41\" cy=\"15\" rx=\"7\" ry=\"4\" transform=\"rotate(-25 41 15)\"/></svg>", "bumba": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><circle class=\"l\" cx=\"32\" cy=\"32\" r=\"18\"/><path class=\"l\" d=\"M14 32h36M32 14c7 6 7 30 0 36M32 14c-7 6-7 30 0 36\"/></svg>", "puke": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><circle class=\"l\" cx=\"32\" cy=\"16\" r=\"8\"/><circle class=\"l\" cx=\"46\" cy=\"26\" r=\"8\"/><circle class=\"l\" cx=\"41\" cy=\"42\" r=\"8\"/><circle class=\"l\" cx=\"23\" cy=\"42\" r=\"8\"/><circle class=\"l\" cx=\"18\" cy=\"26\" r=\"8\"/><circle class=\"p\" cx=\"32\" cy=\"29\" r=\"6\"/><path class=\"l\" d=\"M32 50v10\"/></svg>", "karote": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><ellipse class=\"l\" cx=\"32\" cy=\"20\" rx=\"9\" ry=\"12\"/><path class=\"l\" d=\"M32 32v26\"/></svg>", "ripina": "<svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><circle class=\"p\" cx=\"32\" cy=\"32\" r=\"16\"/></svg>"};window.MATH_VARDI={"logs": ["logs", "logi", "logu"], "durvis": ["durvis", "durvis", "durvju"], "kresls": ["krēsls", "krēsli", "krēslu"], "galds": ["galds", "galdi", "galdu"], "soma": ["soma", "somas", "somu"], "zimulis": ["zīmulis", "zīmuļi", "zīmuļu"], "gramata": ["grāmata", "grāmatas", "grāmatu"], "abols": ["ābols", "āboli", "ābolu"], "bumba": ["bumba", "bumbas", "bumbu"], "puke": ["puķe", "puķes", "puķu"], "karote": ["karote", "karotes", "karošu"], "ripina": ["ripiņa", "ripiņas", "ripiņu"]};
+window.MSP=(function(){
+  var IK=window.MATH_IKONAS||{},FORMAS=window.MATH_VARDI||{};
+  var VARDI=["nulle","viens","divi","trīs","četri","pieci","seši",
+             "septiņi","astoņi","deviņi","desmit"];
+  function e(t,c,x){var n=document.createElement(t);
+    if(c){n.className=c;}if(x!=null){n.textContent=x;}return n;}
+  function poga(c,x){var b=e("button",c,x);b.type="button";return b;}
+  function ikona(v){var s=e("span","ik");s.innerHTML=IK[v]||"";return s;}
+  function formas(k){return k.vardi||FORMAS[k.ikona]||null;}
+  /* Latviski skaits maina vārdu: 1 logs, 2 logi, 0 logu. */
+  function skaitlis(n,v){
+    if(!v){return ""+n;}
+    if(n===0){return n+" "+v[2];}
+    if(n%10===1&&n%100!==11){return n+" "+v[0];}
+    return n+" "+v[1];
+  }
+  function vards(n){return VARDI[n]||(""+n);}
+  /* Latviski decimāldaļu atdala komats, arī tad, kad skaitli raksta JS. */
+  function cip(n){
+    var t=Math.round(n*1e6)/1e6;
+    return (""+t).replace(".",",");
+  }
+  function dati(el,k){try{return JSON.parse(el.getAttribute(k));}
+    catch(x){return null;}}
+  function manta(k,klikskis){
+    var b=klikskis?poga("manta"):e("span","manta klusi");
+    b.appendChild(ikona(k.ikona));
+    if(klikskis){
+      var nr=e("i","nr","");
+      b.appendChild(nr);
+      b.addEventListener("click",function(){klikskis(b,nr);});
+    }
+    return b;
+  }
+  function mantas(k,klikskis){
+    var g=e("div","mantas"),i;
+    for(i=0;i<k.skaits;i++){g.appendChild(manta(k,klikskis));}
+    return g;
+  }
+  /* Kārtu dzinējs: viena kārta uz ekrāna, tad nākamā. Obligātās kārtas ir
+     pirmās «data-pamats»; pārējās izsniedz pa divām, kad lūdz vēl. */
+  function kartas(root,zime,gala){
+    var visas=dati(root,"data-kartas")||[],i=0;
+    var pamats=parseInt(root.getAttribute("data-pamats")||"0",10)||
+               visas.length;
+    var redz=Math.min(pamats,visas.length);
+    var virsa=e("div","virsa"),kart=e("span","kart"),jaut=e("p","jaut");
+    var laukums=e("div","laukums"),vadiba=e("div","vadiba"),atb=e("p","atb");
+    virsa.appendChild(kart);virsa.appendChild(jaut);
+    root.appendChild(virsa);root.appendChild(laukums);
+    root.appendChild(vadiba);root.appendChild(atb);
+    var talak=poga("talak","Nākamais");
+    talak.addEventListener("click",function(){i++;radi();});
+    var vel=poga("talak","Vēl divi uzdevumi");
+    vel.addEventListener("click",function(){
+      redz=Math.min(redz+2,visas.length);i++;radi();
+    });
+    function saki(teksts,labi){
+      /* Atbildē mēdz būt daļa, tāpēc te liek gatavu HTML, nevis tekstu. */
+      atb.innerHTML=teksts;atb.className="atb "+(labi?"labi":"vel");
+    }
+    function gatavs(teksts){
+      /* Kad kārta atrisināta, atbilde nāk pirms pogas - vispirms izlasa,
+         ko izdarīja, tikai tad iet tālāk. */
+      saki(teksts,true);root.insertBefore(atb,vadiba);vadiba.innerHTML="";
+      if(i+1<redz){vadiba.appendChild(talak);return;}
+      vadiba.appendChild(e("p","gals",gala||"Viss izdarīts!"));
+      if(redz<visas.length){vadiba.appendChild(vel);}
+    }
+    function radi(){
+      var k=visas[i];
+      kart.textContent=(i+1)+". no "+redz;
+      jaut.innerHTML=k.jaut||"";
+      laukums.innerHTML="";vadiba.innerHTML="";
+      root.appendChild(atb);atb.textContent="";atb.className="atb";
+      if(k.zim){
+        var z=e("div","kzim");z.innerHTML=k.zim;laukums.appendChild(z);
+      }
+      zime(k,{laukums:laukums,vadiba:vadiba,gatavs:gatavs,saki:saki});
+    }
+    if(visas.length){radi();}
+  }
+  var veidi={};
+  function sakt(){
+    var els=document.querySelectorAll("[data-veids]"),i,f;
+    for(i=0;i<els.length;i++){
+      f=veidi[els[i].getAttribute("data-veids")];
+      if(f){f(els[i]);}
+    }
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",sakt);
+  }else{setTimeout(sakt,0);}
+  return {e:e,poga:poga,ikona:ikona,formas:formas,skaitlis:skaitlis,
+          vards:vards,cip:cip,dati:dati,manta:manta,mantas:mantas,
+          kartas:kartas,veidi:veidi};
+})();
+
+MSP.veidi.ievadi=function(root){
+  MSP.kartas(root,function(k,c){
+    /* Atbildi salīdzina bez atstarpēm, un punkts der komata vietā. */
+    function tirs(s){
+      return (s==null?"":""+s).toLowerCase().replace(/\s+/g,"")
+             .replace(/\./g,",");
+    }
+    var derigas=[],i;
+    for(i=0;i<k.atb.length;i++){derigas.push(tirs(k.atb[i]));}
+    var meginajumi=0;
+    var rinda=MSP.e("div","ie-rinda");
+    var lauks=document.createElement("input");
+    lauks.type="text";
+    lauks.setAttribute("inputmode",k.tastatura||"decimal");
+    lauks.setAttribute("aria-label","Atbilde");
+    lauks.placeholder=k.vieta||"atbilde";
+    var parbaudit=MSP.poga("galvena","Pārbaudīt");
+    rinda.appendChild(lauks);rinda.appendChild(parbaudit);
+    c.laukums.appendChild(rinda);
+    if(k.mers){c.laukums.appendChild(MSP.e("p","ie-mers",k.mers));}
+    function skatit(){
+      var ir=tirs(lauks.value);
+      if(!ir){c.saki("Ieraksti atbildi lodziņā.",false);return;}
+      if(derigas.indexOf(ir)>=0){
+        lauks.className="labi";lauks.readOnly=true;
+        c.gatavs(k.labi||"Pareizi!");
+        return;
+      }
+      meginajumi++;
+      lauks.className="nepareizi";
+      var teikums=k.padoms?("Vēl ne. "+k.padoms)
+                          :"Vēl ne. Pārrēķini un mēģini vēlreiz.";
+      if(meginajumi>=3){teikums+=" Pareizā atbilde: "+k.atbZ+".";}
+      c.saki(teikums,false);
+    }
+    parbaudit.addEventListener("click",skatit);
+    lauks.addEventListener("keydown",function(ev){
+      if(ev.key==="Enter"){ev.preventDefault();skatit();}
+    });
+  },"Šos uzdevumus tu proti izrēķināt pats!");
+};
+
+MSP.veidi.varianti=function(root){
+  MSP.kartas(root,function(k,c){
+    var burti="ABCDEFGH";
+    var saraksts=MSP.e("div","va-opcijas");
+    for(var i=0;i<k.opcijas.length;i++){
+      (function(i){
+        var b=MSP.poga("","");
+        var burts=MSP.e("span","b",burti.charAt(i)+")");
+        var teksts=MSP.e("span","t","");
+        teksts.innerHTML=k.opcijas[i];
+        b.appendChild(burts);b.appendChild(teksts);
+        b.addEventListener("click",function(){
+          if(i===k.pareizi){
+            b.className="labi";
+            c.gatavs(k.labi||"Pareizi!");
+          }else{
+            b.className="nepareizi";
+            c.saki(k.padoms||"Vēl ne. Pārdomā vēlreiz.",false);
+          }
+        });
+        saraksts.appendChild(b);
+      })(i);
+    }
+    c.vadiba.appendChild(saraksts);
+  },"Šo tu tagad proti atšķirt!");
+};
+
+(function(){
+  /* Katrai daļai viens uzdevums: ekrāns (fullscreen API), stāvoklis (kura
+     daļa ir priekšā) un attēlošana. Pogas un taustiņi sauc tos pašus
+     darbus - atver, aizver, ej. */
+  var lapa=document.querySelector(".lapa");
+  var dalas=[].slice.call(
+    document.querySelectorAll("header.galva,.saturs>.bl"));
+  if(!lapa||dalas.length<2){return;}
+  var cur=0,on=false;
+
+  function e(tag,cls,txt){var n=document.createElement(tag);
+    if(cls){n.className=cls;}if(txt!=null){n.textContent=txt;}return n;}
+  function poga(cls,txt,zime){var b=e("button",cls,txt);b.type="button";
+    b.addEventListener("click",zime);return b;}
+
+  /* Telefons ir citāds tikai divās lietās: lente tur atveras pati, un
+     pilnekrāna režīmu no pārlūka neprasa (to atļauj tikai pēc pieskāriena
+     - un lentei tas nav vajadzīgs). */
+  var telefons=!!(window.matchMedia&&
+                  window.matchMedia("(max-width:767px)").matches);
+  function atceras(k,v){try{localStorage.setItem(k,v);}catch(x){}}
+  function atminas(k){try{return localStorage.getItem(k);}
+    catch(x){return null;}}
+  var SKATS="math-lente",MAJIENS="math-lente-majiens";
+
+  /* --- josla lejā un poga augšā --- */
+  var skaits=e("span","cnt","");
+  var progress=e("div","pilnprog");
+  document.body.appendChild(progress);
+  var josla=e("div","pilnjosla");
+  josla.appendChild(poga("nav","‹",function(){ej(cur-1);}));
+  josla.appendChild(skaits);
+  josla.appendChild(poga("nav","›",function(){ej(cur+1);}));
+  josla.appendChild(poga("",telefons?"Visa lapa":"Esc",aizvert));
+  document.body.appendChild(josla);
+
+  var augsa=document.querySelector(".augsa");
+  var pilnpoga=poga("pilnpoga",telefons?"Šķirstīt":"Pilnekrāns",function(){
+    atvert(!telefons);
+  });
+  if(augsa){augsa.appendChild(pilnpoga);}
+
+  /* --- ekrāns --- */
+  var sakne=document.documentElement;
+  function ekrana(){return document.fullscreenElement||
+                           document.webkitFullscreenElement;}
+  function prasit(){
+    var f=sakne.requestFullscreen||sakne.webkitRequestFullscreen;
+    if(f){try{var p=f.call(sakne);if(p&&p["catch"]){p["catch"](
+      function(){});}}catch(x){}}
+  }
+  function atlaist(){
+    var f=document.exitFullscreen||document.webkitExitFullscreen;
+    if(ekrana()&&f){try{var p=f.call(document);
+      if(p&&p["catch"]){p["catch"](function(){});}}catch(x){}}
+  }
+
+  /* --- stāvoklis --- */
+  function zimet(){
+    skaits.textContent=(cur+1)+" / "+dalas.length;
+    progress.style.width=((cur+1)/dalas.length*100)+"%";
+  }
+  function ej(i){
+    cur=i<0?0:(i>=dalas.length?dalas.length-1:i);
+    lapa.scrollTo({left:cur*lapa.clientWidth,behavior:"smooth"});
+    zimet();
+  }
+  function atvert(arEkranu){
+    on=true;document.body.classList.add("pilns");
+    if(arEkranu){prasit();}
+    if(telefons){atceras(SKATS,"1");}
+    /* Lente rodas tikai tagad, tāpēc vieta jāieņem pēc pārzīmēšanas. */
+    setTimeout(function(){lapa.scrollLeft=cur*lapa.clientWidth;zimet();},0);
+  }
+  function aizvert(){
+    on=false;document.body.classList.remove("pilns");atlaist();
+    if(telefons){atceras(SKATS,"0");}
+    if(dalas[cur]){dalas[cur].scrollIntoView({block:"start"});}
+  }
+
+  /* Telefonā lente ir noklusējums - bet tikai tik ilgi, kamēr students nav
+     izvēlējies garo lapu. */
+  if(telefons&&atminas(SKATS)!=="0"){
+    atvert(false);
+    if(atminas(MAJIENS)!=="1"){
+      document.body.appendChild(e("div","pilnmajiens",
+                                  "Velc uz sāniem →"));
+      atceras(MAJIENS,"1");
+    }
+  }
+
+  /* Pagriežot telefonu, lentes solis kļūst cits, tāpēc tā pati daļa
+     jāpabīda no jauna zem malas. */
+  window.addEventListener("resize",function(){
+    if(on&&lapa.clientWidth){lapa.scrollLeft=cur*lapa.clientWidth;}
+  });
+
+  /* Ar pirkstu šķirot, kārtas numuru nolasa no lentes, nevis glabā
+     atsevišķi - tā skaitītājs vienmēr runā par to, ko cilvēks redz.
+     Nolasa tikai tad, kad lente apstājusies: citādi ar pogu sāktais
+     slīdiens pa ceļam pārrakstītu tikko izvēlēto numuru. */
+  var miers=null;
+  lapa.addEventListener("scroll",function(){
+    if(!on||!lapa.clientWidth){return;}
+    if(miers){clearTimeout(miers);}
+    miers=setTimeout(function(){
+      var i=Math.round(lapa.scrollLeft/lapa.clientWidth);
+      if(i!==cur&&i>=0&&i<dalas.length){cur=i;zimet();}
+    },140);
+  });
+
+  /* Kamēr cilvēks raksta atbildi, taustiņi pieder laukam, nevis lentei:
+     jauktā daļskaitlī «3 2/5» atstarpe ir daļa no atbildes. */
+  function raksta(el){
+    if(!el){return false;}
+    if(el.isContentEditable){return true;}
+    var t=(el.tagName||"").toUpperCase();
+    return t==="INPUT"||t==="TEXTAREA"||t==="SELECT";
+  }
+  document.addEventListener("keydown",function(ev){
+    if(!on||raksta(ev.target)){return;}
+    var k=ev.key;
+    if(k==="ArrowRight"||k===" "||k==="PageDown"){ej(cur+1);}
+    else if(k==="ArrowLeft"||k==="PageUp"){ej(cur-1);}
+    else if(k==="Home"){ej(0);}
+    else if(k==="End"){ej(dalas.length-1);}
+    else if(k==="Escape"){aizvert();}
+    else{return;}
+    ev.preventDefault();
+  });
+  /* Esc pilnekrānā pārtver pārlūks - tad jāsakārto pašiem. */
+  function saskanot(){if(on&&!ekrana()){aizvert();}}
+  document.addEventListener("fullscreenchange",saskanot);
+  document.addEventListener("webkitfullscreenchange",saskanot);
+
+  zimet();
+})();
+</script>
+</body>
+</html>

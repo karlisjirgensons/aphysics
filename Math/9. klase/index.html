@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>9. klase · matemātika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
+      font-size:clamp(.85rem,3.4vw,1rem)}
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- matemātikas stundu saraksts ---------- */
+.mt{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin:.9rem 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--violet);font-size:clamp(.85rem,3.4vw,.98rem)}
+.mt .cnt{color:var(--dim);font-weight:400;font-size:.85em}
+li.gaida span.t{color:var(--dim)}
+li.gaida .box{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--bg);
+     border:1px dashed var(--line);border-radius:.75rem;
+     font-size:clamp(.85rem,3.5vw,1rem)}
+li.gaida .n{flex:none;color:var(--dim);font-weight:500}
+li.pd a,li.pd .box{background:#FFF4D6;border-color:var(--amber);
+     color:var(--amber-ink);font-weight:500}
+li.pd .n{color:var(--amber-ink)}
+.tinfo{margin:.2rem 0 .6rem;color:var(--dim);
+       font-size:clamp(.8rem,3.2vw,.9rem)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>9. klase</h1>
+<p class="lead">Temats atveras uz pieskāriena. Stundas ir sagrupētas pa mikrotematiem, un katra temata beigās ir pārbaudes darbs.</p>
+</header>
+<div class="bar">
+<a class="back" href="../index.html">&#8592; Klases</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Izvērst visu</button>
+</div>
+<details class="theme">
+<summary><span class="n">9.1.</span><span class="t">Kā definē un raksturo līdzīgus trijstūrus?</span><span class="c">18</span></summary>
+<p class="tinfo">Veido izpratni par proporcionāliem nogriežņiem, trijstūra viduslīniju un trijstūru līdzību un lieto tās aprēķinos.</p>
+<h3 class="mt">Proporcionāli nogriežņi un viduslīnija<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">1.</span><span class="t">Kad nogriežņi ir proporcionāli?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">2.</span><span class="t">Ko dara paralēlas taisnes leņķī?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">3.</span><span class="t">Kā sadalīt nogriezni vienādās daļās?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">4.</span><span class="t">Kas ir trijstūra viduslīnija?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">5.</span><span class="t">Kādas ir viduslīnijas īpašības?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">6.</span><span class="t">Kā lietot viduslīniju aprēķinos?</span></span></li>
+</ul>
+<h3 class="mt">Līdzīgi trijstūri<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">7.</span><span class="t">Ko nozīmē «līdzīgi»?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">8.</span><span class="t">Kas ir līdzības koeficients?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">9.</span><span class="t">Kāda ir līdzības pirmā pazīme?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">10.</span><span class="t">Kādas ir pārējās pazīmes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">11.</span><span class="t">Kā pamatot, ka trijstūri ir līdzīgi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">12.</span><span class="t">Kā mainās perimetrs un laukums?</span></span></li>
+</ul>
+<h3 class="mt">Līdzības lietojums<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">13.</span><span class="t">Kā aprēķināt nezināmo malu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">14.</span><span class="t">Kā izmērīt koka augstumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">15.</span><span class="t">Kur kļūdās pierādījums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">16.</span><span class="t">Kā līdzība palīdz taisnleņķa trijstūrī?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">17.</span><span class="t">Kā plānot risinājumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">18.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.2.</span><span class="t">Kas kopīgs četrstūriem, kuriem tieši divas malas ir paralēlas?</span><span class="c">19</span></summary>
+<p class="tinfo">Sistematizē zināšanas par četrstūriem, definējot trapeci un pētot tās īpašības, viduslīniju un laukumu.</p>
+<h3 class="mt">Trapece un tās veidi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">20.</span><span class="t">Kā definē trapeci?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">21.</span><span class="t">Kādi ir trapeču veidi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">22.</span><span class="t">Kādi leņķi ir trapecē?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">23.</span><span class="t">Kā konstruēt trapeci?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">24.</span><span class="t">Kā pierādīt trapeces īpašību?</span></span></li>
+</ul>
+<h3 class="mt">Trapeces viduslīnija<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">25.</span><span class="t">Kas ir trapeces viduslīnija?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">26.</span><span class="t">Kāda ir sakarība ar pamatiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">27.</span><span class="t">Kā to pierādīt?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">28.</span><span class="t">Kā aprēķināt pamatu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">29.</span><span class="t">Kā sadalīt trapeci?</span></span></li>
+</ul>
+<h3 class="mt">Trapeces laukums<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">30.</span><span class="t">Kā rodas trapeces laukuma formula?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">31.</span><span class="t">Kā aprēķināt laukumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">32.</span><span class="t">Kā Pitagora teorēma palīdz trapecē?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">33.</span><span class="t">Kā līdzība palīdz trapecē?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">34.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+<h3 class="mt">Trapece telpiskos ķermeņos<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">35.</span><span class="t">Kā izskatās prizma ar trapeces pamatu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">36.</span><span class="t">Kā aprēķināt virsmas laukumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">37.</span><span class="t">Kā aprēķināt tilpumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">38.</span><span class="t">Kur tādas formas sastopamas?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.3.</span><span class="t">Kā aprēķinos izmanto taisnleņķa trijstūra divu malu attiecību?</span><span class="c">17</span></summary>
+<p class="tinfo">Veido izpratni par šaurā leņķa sinusu, kosinusu un tangensu un lieto tos aprēķinos.</p>
+<h3 class="mt">Sinuss, kosinuss un tangenss<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">40.</span><span class="t">Kāpēc visi trijstūri ar vienādu leņķi ir līdzīgi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">41.</span><span class="t">Ko nozīmē malu attiecība?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">42.</span><span class="t">Kas ir sinuss?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">43.</span><span class="t">Kas ir kosinuss un tangenss?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">44.</span><span class="t">Kā noteikt vērtību?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">45.</span><span class="t">Kā no vērtības atrast leņķi?</span></span></li>
+</ul>
+<h3 class="mt">Īpašie leņķi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">46.</span><span class="t">Kāds ir 30° leņķa sinuss?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">47.</span><span class="t">Kāds ir 45° leņķa sinuss?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">48.</span><span class="t">Kā izveidot atgādni?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">49.</span><span class="t">Kā katete saistās ar hipotenūzu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">50.</span><span class="t">Kā pārbaudīt rezultātu?</span></span></li>
+</ul>
+<h3 class="mt">Trigonometrija uzdevumos<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">51.</span><span class="t">Kā aprēķināt nezināmo malu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">52.</span><span class="t">Kā aprēķināt leņķi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">53.</span><span class="t">Kur figūrā ir taisnleņķa trijstūris?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">54.</span><span class="t">Cik stāvs ir nogāzes slīpums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">55.</span><span class="t">Kā aprēķināt laukumu ar leņķi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">56.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.4.</span><span class="t">Kā izmanto izteiksmju sadalīšanu reizinātājos?</span><span class="c">21</span></summary>
+<p class="tinfo">Pilnveido darbu ar algebriskām izteiksmēm: saīsinātās reizināšanas formulas un sadalīšana reizinātājos.</p>
+<h3 class="mt">Sadalīšana reizinātājos<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">58.</span><span class="t">Kad izteiksme ir reizinājums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">59.</span><span class="t">Kā iznest kopīgo reizinātāju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">60.</span><span class="t">Kā grupēt locekļus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">61.</span><span class="t">Kāpēc sadalīšana noder?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">62.</span><span class="t">Kā pārbaudīt sadalījumu?</span></span></li>
+</ul>
+<h3 class="mt">Saīsinātās reizināšanas formulas<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">63.</span><span class="t">Kas notiek, kāpinot binomu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">64.</span><span class="t">Kā to parādīt ar laukumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">65.</span><span class="t">Kāda ir starpības kvadrāta formula?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">66.</span><span class="t">Kas ir kvadrātu starpība?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">67.</span><span class="t">Kā atcerēties formulas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">68.</span><span class="t">Kā formulas paātrina rēķinus?</span></span></li>
+</ul>
+<h3 class="mt">Formulu lietojums pārveidojumos<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">69.</span><span class="t">Kā formulu lasīt abos virzienos?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">70.</span><span class="t">Kā vienkāršot garāku izteiksmi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">71.</span><span class="t">Kā saīsināt algebrisku daļu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">72.</span><span class="t">Kā pierādīt apgalvojumu par skaitļiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">73.</span><span class="t">Kur radusies kļūda?</span></span></li>
+</ul>
+<h3 class="mt">Nepilnie kvadrātvienādojumi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">74.</span><span class="t">Ko nozīmē, ka reizinājums ir nulle?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">75.</span><span class="t">Kā atrisināt vienādojumu ar iznestu reizinātāju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">76.</span><span class="t">Kā atrisināt vienādojumu ar kvadrātu starpību?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">77.</span><span class="t">Cik sakņu ir vienādojumam?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">78.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.5.</span><span class="t">Kā skaidro un izmanto formulas darbā ar kvadrātvienādojumu, kvadrātfunkciju?</span><span class="c">22</span></summary>
+<p class="tinfo">Apgūst kvadrātvienādojuma risināšanu ar sakņu formulu un kvadrātfunkcijas grafika veidošanu; risina kvadrātnevienādības.</p>
+<h3 class="mt">Kvadrātvienādojums un tā saknes<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">80.</span><span class="t">Kas ir kvadrātvienādojums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">81.</span><span class="t">Kā atrisināt spriežot?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">82.</span><span class="t">Ko rāda grafiks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">83.</span><span class="t">Kas ir kvadrāttrinoms?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">84.</span><span class="t">Kā pārveidot vienādojumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">85.</span><span class="t">Kā pārbaudīt sakni?</span></span></li>
+</ul>
+<h3 class="mt">Sakņu formula un diskriminants<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">86.</span><span class="t">Kas ir diskriminants?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">87.</span><span class="t">Kā lietot sakņu formulu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">88.</span><span class="t">Kad saknes ir iracionālas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">89.</span><span class="t">Kā rīkoties ar daļām vienādojumā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">90.</span><span class="t">Kā atrisināt vienādojumu ar nezināmo saucējā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">91.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+<h3 class="mt">Kvadrātfunkcijas grafiks<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">92.</span><span class="t">Kur atrodas parabolas virsotne?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">93.</span><span class="t">Kas ir funkcijas nulles?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">94.</span><span class="t">Kā uzzīmēt grafiku?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">95.</span><span class="t">Kāda ir funkcijas lielākā vērtība?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">96.</span><span class="t">Kā grafiks palīdz saprast uzdevumu?</span></span></li>
+</ul>
+<h3 class="mt">Kvadrātnevienādības un lietojums<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">97.</span><span class="t">Kā atrisināt kvadrātnevienādību?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">98.</span><span class="t">Kā pierakstīt atrisinājumu kopu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">99.</span><span class="t">Kā atrisināt sistēmu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">100.</span><span class="t">Kā uzdevumu pierakstīt ar vienādojumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">101.</span><span class="t">Kur meklēt lielāko vērtību?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.6.</span><span class="t">Kā apraksta situācijas ar diviem nezināmiem lielumiem?</span><span class="c">20</span></summary>
+<p class="tinfo">Veido izpratni par vienādojumu ar diviem nezināmajiem un vienādojumu sistēmu, to grafisko un analītisko risināšanu.</p>
+<h3 class="mt">Vienādojums ar diviem nezināmajiem<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">103.</span><span class="t">Kas ir vienādojuma atrisinājums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">104.</span><span class="t">Kā atrisinājumus attēlot plaknē?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">105.</span><span class="t">Kā no vienādojuma iegūt funkciju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">106.</span><span class="t">Kā atrast naturālos atrisinājumus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">107.</span><span class="t">Kā situāciju pierakstīt ar diviem nezināmajiem?</span></span></li>
+</ul>
+<h3 class="mt">Grafiskā risināšana<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">108.</span><span class="t">Kas ir vienādojumu sistēma?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">109.</span><span class="t">Kā atrisināt grafiski?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">110.</span><span class="t">Kad sistēmai nav atrisinājuma?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">111.</span><span class="t">Cik precīzs ir grafiskais atrisinājums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">112.</span><span class="t">Kā digitālie rīki palīdz?</span></span></li>
+</ul>
+<h3 class="mt">Analītiskie paņēmieni<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">113.</span><span class="t">Kā risināt ar ievietošanas paņēmienu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">114.</span><span class="t">Kā risināt ar saskaitīšanas paņēmienu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">115.</span><span class="t">Kurš paņēmiens ir ērtāks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">116.</span><span class="t">Kā pārbaudīt atrisinājumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">117.</span><span class="t">Kā atrisināt sarežģītāku sistēmu?</span></span></li>
+</ul>
+<h3 class="mt">Uzdevumu risināšana ar sistēmu<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">118.</span><span class="t">Kā uzdevumu pārtulkot sistēmā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">119.</span><span class="t">Kā risināt uzdevumu par kustību?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">120.</span><span class="t">Kā risināt uzdevumu par maisījumiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">121.</span><span class="t">Vai atrisinājums der situācijai?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">122.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.7.</span><span class="t">Kā skaitļu virkni pieraksta ar formulu?</span><span class="c">18</span></summary>
+<p class="tinfo">Sistematizē izpratni par skaitļu virkni un apgūst aritmētisko progresiju un tās formulas.</p>
+<h3 class="mt">Skaitļu virknes<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">124.</span><span class="t">Kas ir skaitļu virkne?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">125.</span><span class="t">Kā virkni pieraksta ar formulu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">126.</span><span class="t">Kā pieraksta rekurenti?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">127.</span><span class="t">Kāpēc virkne ir funkcija?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">128.</span><span class="t">Kā virkni attēlot grafiski?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">129.</span><span class="t">Kāda ir virknes likumsakarība?</span></span></li>
+</ul>
+<h3 class="mt">Aritmētiskā progresija<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">130.</span><span class="t">Kas ir aritmētiskā progresija?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">131.</span><span class="t">Kā atrast jebkuru locekli?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">132.</span><span class="t">Kā atrast diferenci un pirmo locekli?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">133.</span><span class="t">Kāda ir vidējā locekļa īpašība?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">134.</span><span class="t">Vai skaitlis pieder progresijai?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">135.</span><span class="t">Kā progresiju attēlot grafiski?</span></span></li>
+</ul>
+<h3 class="mt">Progresijas summa un lietojums<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">136.</span><span class="t">Kā saskaitīt pirmos locekļus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">137.</span><span class="t">Cik ir visu skaitļu summa no 1 līdz 100?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">138.</span><span class="t">Kā progresija apraksta uzkrājumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">139.</span><span class="t">Kā atrast locekļu skaitu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">140.</span><span class="t">Kur vēl sastopamas virknes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">141.</span><span class="t">Kā to risinātu eksāmenā?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">9.8.</span><span class="t">Kā raksturo riņķa līnijas un daudzstūra savstarpējo novietojumu?</span><span class="c">21</span></summary>
+<p class="tinfo">Pēta riņķa līnijas un daudzstūra savstarpējo novietojumu: pieskare, ievilkti un apvilkti daudzstūri, regulāri daudzstūri.</p>
+<h3 class="mt">Ap trijstūri apvilkta riņķa līnija<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">143.</span><span class="t">Kur atrodas punkts vienādā attālumā no trim punktiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">144.</span><span class="t">Kā konstruēt apvilktu riņķa līniju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">145.</span><span class="t">Kur ir centrs taisnleņķa trijstūrim?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">146.</span><span class="t">Kāpēc trijstūris uz diametra ir taisnleņķa?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">147.</span><span class="t">Kā lietot šīs sakarības?</span></span></li>
+</ul>
+<h3 class="mt">Leņķi un hordas riņķa līnijā<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">148.</span><span class="t">Kas ir centra leņķis un loks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">149.</span><span class="t">Kas ir ievilktais leņķis?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">150.</span><span class="t">Kā to pierādīt?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">151.</span><span class="t">Kādi ir ievilktie leņķi uz viena loka?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">152.</span><span class="t">Kā aprēķināt leņķus riņķa līnijā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">153.</span><span class="t">Kādas īpašības ir hordai?</span></span></li>
+</ul>
+<h3 class="mt">Pieskare un ievilkta riņķa līnija<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">154.</span><span class="t">Cik kopīgu punktu var būt taisnei un riņķa līnijai?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">155.</span><span class="t">Kas ir pieskare?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">156.</span><span class="t">Kādas ir pieskaru nogriežņu īpašības?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">157.</span><span class="t">Kā konstruēt ievilktu riņķa līniju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">158.</span><span class="t">Kur tas noder dzīvē?</span></span></li>
+</ul>
+<h3 class="mt">Ievilkti un apvilkti daudzstūri<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">159.</span><span class="t">Ap kuriem četrstūriem var apvilkt riņķa līniju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">160.</span><span class="t">Kuros četrstūros var ievilkt riņķa līniju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">161.</span><span class="t">Kas ir regulārs daudzstūris?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">162.</span><span class="t">Kādas sakarības ir regulāram daudzstūrim?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">163.</span><span class="t">Kā uzzīmēt parketu?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">&#9873;</span><span class="t">Mācību gada noslēgums</span><span class="c">8</span></summary>
+<h3 class="mt">Eksāmena saturs un formāts<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">165.</span><span class="t">Kas ir eksāmenā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">166.</span><span class="t">Kā noformē risinājumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">167.</span><span class="t">Kas man vēl jāatkārto?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">168.</span><span class="t">Kā plānot atkārtošanu?</span></span></li>
+</ul>
+<h3 class="mt">Treniņš eksāmena formātā<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">169.</span><span class="t">Cik veikli risinu skaitļu un izteiksmju uzdevumus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">170.</span><span class="t">Kā risinu vienādojumus un funkcijas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">171.</span><span class="t">Kā risinu ģeometrijas uzdevumus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">172.</span><span class="t">Ko darīt ar laiku eksāmenā?</span></span></li>
+</ul>
+</details>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+  });
+})();
+</script>
+</body>
+</html>

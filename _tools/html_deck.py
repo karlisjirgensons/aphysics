@@ -160,94 +160,11 @@ def _lighten_on_dark(shapes):
 
 
 # --------------------------------------------------------------------- HTML
-def esc(s):
-    """Tikai HTML rakstzīmju aizsegšana - bez formulu noformējuma."""
-    return html.escape(s, quote=False)
-
-
-_RUN_HTML = {"v": '<span class="vv">%s</span>',   # bultiņu zīmē CSS
-             "s": "<sub>%s</sub>"}                # F_y -> indekss
-
-
-def txt_html(s):
-    """Teksts HTML: aizsegts, ar uzzīmētām bultiņām un īstiem indeksiem.
-
-    Viss slaida teksts iet caur šo funkciju (DRY) - tāpēc vektora un
-    indeksa pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un
-    formulās.
-    """
-    if not MF.has_markup(s):
-        return esc(s)
-    return "".join(_RUN_HTML.get(k, "%s") % esc(v)
-                   for k, v in MF.split_runs(s))
-
-
-def _sp(s):
-    """Atstarpes HTML nesaspiež - tās notur formulu atstatumus.
-
-    Rindas sākuma un beigu atstarpi pārlūks izmet pavisam, tāpēc centrēts
-    gabals ("√2500" un " = 50 N") saslīdētu kopā; te tās paliek kā &nbsp;.
-    """
-    lead = len(s) - len(s.lstrip(" "))
-    trail = len(s) - len(s.rstrip(" ")) if s.strip() else 0
-    core = s[lead:len(s) - trail] if trail else s[lead:]
-    body = txt_html(core).replace("  ", "&nbsp;&nbsp;")
-    return "&nbsp;" * lead + body + "&nbsp;" * trail
-
-
-# Saknes zīmes augstums fonta izmēra daļās nāk no mathfmt - tie paši mēri,
-# pēc kuriem zīmi uzzīmē arī .pptx, tāpēc abi skati sakrīt.
-ROOT_EM = MF.root_em([("t", "")])
-ROOT_EM_TALL = MF.root_em([("f", "", "")])
-
-
-def root_svg(h=ROOT_EM):
-    """Saknes zīme kā SVG - tā pati forma, ko zīmē slaidā (MF.root_pts)."""
-    return MF.root_svg(h)
-
-
-def root_html(inner, tall=False):
-    """√-izteiksme: vinkuls (svītra) pāri VISAI izteiksmei, ne tikai iekavai.
-
-    Saknes zīmi zīmē pati lapa (MF.ROOT_PTS), tāpēc tā izstiepjas līdz
-    satura augstumam - arī tad, ja zem vinkula ir vertikāla daļa - un
-    vinkuls turpinās no tās augšmalas. `inner` jau ir gatavs HTML.
-    """
-    h = ROOT_EM_TALL if tall else ROOT_EM
-    w, _ = MF.root_pts(h)
-    return ('<span class="rt" style="--rw:%.3fem">%s'
-            '<span class="rv">%s</span></span>'
-            % (w, root_svg(h), inner))
-
-
-def frac_span(num, den):
-    """Vertikāla daļa: skaitītājs virs saucēja."""
-    return ('<span class="f"><span class="n">%s</span>'
-            '<span class="d">%s</span></span>'
-            % (txt_html(num), txt_html(den)))
-
-
-def atoms_html(atoms):
-    """Atomu virkne uz HTML - viena vieta abiem parsētājiem (DRY)."""
-    out = []
-    for a in atoms:
-        if a[0] == "t":
-            out.append(_sp(a[1]))
-        elif a[0] == "r":
-            out.append(root_html(atoms_html(a[1]),
-                                 tall=any(x[0] == "f" for x in a[1])))
-        else:
-            out.append(frac_span(a[1], a[2]))
-    return "".join(out)
-
-
-def frac_html(text):
-    """Parasta teksta dalījumi HTML - vertikāla daļa kā <span class=f>.
-
-    Lieto piesardzīgo atpazīšanu: mērvienības (m/s, kg/m³) un vārdu pāri
-    (garums/augstums) paliek rindā, bet 1/16, F/S, 1/r² kļūst vertikāli.
-    """
-    return atoms_html(MP.parse_prose(text))
+# Daļas, saknes, indeksi un vektori HTML ir mathhtml.py - to pašu pierakstu
+# lieto matemātikas stundas, tāpēc tas dzīvo atsevišķi (DRY).
+from mathhtml import (atoms_html, esc, frac_span, root_html,  # noqa: E402
+                      root_svg, txt_html, _sp, ROOT_EM, ROOT_EM_TALL)
+from mathhtml import proza as frac_html                       # noqa: E402
 
 
 # ---------------------------------------------------------------- zīmējumi

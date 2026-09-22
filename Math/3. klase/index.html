@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3. klase · matemātika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
+      font-size:clamp(.85rem,3.4vw,1rem)}
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- matemātikas stundu saraksts ---------- */
+.mt{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin:.9rem 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--violet);font-size:clamp(.85rem,3.4vw,.98rem)}
+.mt .cnt{color:var(--dim);font-weight:400;font-size:.85em}
+li.gaida span.t{color:var(--dim)}
+li.gaida .box{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--bg);
+     border:1px dashed var(--line);border-radius:.75rem;
+     font-size:clamp(.85rem,3.5vw,1rem)}
+li.gaida .n{flex:none;color:var(--dim);font-weight:500}
+li.pd a,li.pd .box{background:#FFF4D6;border-color:var(--amber);
+     color:var(--amber-ink);font-weight:500}
+li.pd .n{color:var(--amber-ink)}
+.tinfo{margin:.2rem 0 .6rem;color:var(--dim);
+       font-size:clamp(.8rem,3.2vw,.9rem)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>3. klase</h1>
+<p class="lead">Temats atveras uz pieskāriena. Stundas ir sagrupētas pa mikrotematiem, un katra temata beigās ir pārbaudes darbs.</p>
+</header>
+<div class="bar">
+<a class="back" href="../index.html">&#8592; Klases</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Izvērst visu</button>
+</div>
+<details class="theme">
+<summary><span class="n">3.1.</span><span class="t">Kā reizina un dala ar 6, 7, 8, 9 un 10?</span><span class="c">32</span></summary>
+<p class="tinfo">Nostiprina reizināšanas tabulu līdz 10 un pārnes prasmi uz divciparu skaitļu reizināšanu un dalīšanu ar viencipara skaitli.</p>
+<h3 class="mt">Reizināšana ar 6 un 7<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">1.</span><span class="t">Ko jau proti no reizināšanas tabulas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">2.</span><span class="t">Kāpēc pietiek iemācīties pusi tabulas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">3.</span><span class="t">Kā modelēt reizinājumu ar 6?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">4.</span><span class="t">Kā atcerēties reizinājumus ar 6?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">5.</span><span class="t">Kā izskatās reizināšana uz skaitļu taisnes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">6.</span><span class="t">Kas jauns ir reizinājumos ar 7?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">7.</span><span class="t">Kā trenēties ar kartītēm?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">8.</span><span class="t">Cik veikli jau rēķini?</span></span></li>
+</ul>
+<h3 class="mt">Reizināšana ar 8, 9 un 10<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">9.</span><span class="t">Kā reizināšana ar 8 saistās ar reizināšanu ar 4?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">10.</span><span class="t">Kāds triks palīdz reizināt ar 9?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">11.</span><span class="t">Kas notiek, reizinot ar 10?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">12.</span><span class="t">Kā izskatās pabeigta reizināšanas tabula?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">13.</span><span class="t">Kuri skaitļi dalās ar 5 un kuri ar 10?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">14.</span><span class="t">Kā skaitli uzrakstīt kā reizinājumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">15.</span><span class="t">Kā trenēties ar digitālu rīku?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">16.</span><span class="t">Cik daudz tabulas zini no galvas?</span></span></li>
+</ul>
+<h3 class="mt">Dalīšana tabulas apjomā<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">17.</span><span class="t">Kā reizinājums palīdz atrast dalījumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">18.</span><span class="t">Vienādās daļās vai pa vienādi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">19.</span><span class="t">Ko dara ar 1 un 0?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">20.</span><span class="t">Cik vienādās daļās var sadalīt figūru?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">21.</span><span class="t">Cik zīmuļus var nopirkt?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">22.</span><span class="t">Kā pārbaudīt dalījumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">23.</span><span class="t">Kāds uzdevums der šai darbībai?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">24.</span><span class="t">Cik veikli dali?</span></span></li>
+</ul>
+<h3 class="mt">Divciparu skaitļu reizināšana un dalīšana<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">25.</span><span class="t">Kā reizināt 23 ar 2?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">26.</span><span class="t">Kāpēc drīkst reizināt pa daļām?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">27.</span><span class="t">Kā dalīt 48 ar 4?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">28.</span><span class="t">Cik apmēram sanāks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">29.</span><span class="t">Kā aug virkne, kas trīskāršojas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">30.</span><span class="t">Pērku divreiz vairāk - cik maksā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">31.</span><span class="t">Kā atrisināt divu darbību uzdevumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">32.</span><span class="t">Kāds uzdevums sanāk tev?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.2.</span><span class="t">Kā izmanto visas darbības?</span><span class="c">23</span></summary>
+<p class="tinfo">Pilnveido visas četras darbības 100 apjomā, darbību secību vairākdarbību izteiksmēs un taisnstūra perimetra formulu.</p>
+<h3 class="mt">Cik labi protu rēķināt?<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">34.</span><span class="t">Ko es jau protu un ko vēl ne?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">35.</span><span class="t">Cik veikli rēķinu galvā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">36.</span><span class="t">Kā izveidot savu treniņu plānu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">37.</span><span class="t">Kurš paņēmiens man der?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">38.</span><span class="t">Kā pārbaudīt savu darbu?</span></span></li>
+</ul>
+<h3 class="mt">Izteiksmes un darbību secība<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">39.</span><span class="t">Kura darbība ir pirmā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">40.</span><span class="t">Kā pieraksta risinājumu ar izteiksmi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">41.</span><span class="t">Kā aprēķināt izteiksmi ar iekavām?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">42.</span><span class="t">Kā izskatās saistītais pieraksts?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">43.</span><span class="t">Kur risinājumā ir kļūda?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">44.</span><span class="t">Cik izteiksmes var izveidot no trim skaitļiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">45.</span><span class="t">Vai visas izteiksmes ir atrastas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">46.</span><span class="t">Kāds teksts der šai izteiksmei?</span></span></li>
+</ul>
+<h3 class="mt">Uzdevumi par naudu un dzīvi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">47.</span><span class="t">Kā samaksāt vajadzīgo summu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">48.</span><span class="t">Ko var nopirkt par šo naudu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">49.</span><span class="t">Cik jāmaksā par klases pasākumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">50.</span><span class="t">Vai atbilde atbilst situācijai?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">51.</span><span class="t">Kā pastāstīt savu risinājumu?</span></span></li>
+</ul>
+<h3 class="mt">Taisnstūra perimetra formula<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">52.</span><span class="t">Cik dažādi var aprēķināt perimetru?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">53.</span><span class="t">Kā pateikt formulu ar vārdiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">54.</span><span class="t">Ko nozīmē burti formulā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">55.</span><span class="t">Cik taisnstūru ar vienādu perimetru?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">56.</span><span class="t">Kāds perimetrs rodas, figūras savietojot?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.3.</span><span class="t">Kā veido vietas plānu?</span><span class="c">14</span></summary>
+<p class="tinfo">Praktisks temats: mērījumi dabā, samazinājums un telpas plāns; ceļā uz to - skaitļi līdz 1000 un reizināšana ar 10 un 100.</p>
+<h3 class="mt">Kas ir plāns un kā to veido<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">58.</span><span class="t">Ko var ieraudzīt evakuācijas plānā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">59.</span><span class="t">Ko nozīmē samazināt vienādu skaitu reižu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">60.</span><span class="t">Ko mēs prasmi vēl nezinām?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">61.</span><span class="t">Kā sadalīt darbu grupā?</span></span></li>
+</ul>
+<h3 class="mt">Mērīšana un lielie skaitļi<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">62.</span><span class="t">Kā izlasīt četrciparu skaitli?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">63.</span><span class="t">Kā skaitli pierakstīt kā summu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">64.</span><span class="t">Kas notiek, reizinot ar 10 un 100?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">65.</span><span class="t">Cik tas ir centimetros?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">66.</span><span class="t">Cik precīzi jāmēra?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">67.</span><span class="t">Kā apkopot mērījumus?</span></span></li>
+</ul>
+<h3 class="mt">Telpas plāna izveide<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">68.</span><span class="t">Kādu samazinājumu izvēlēties?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">69.</span><span class="t">Cik liels objekts ir plānā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">70.</span><span class="t">Kā uzzīmēt telpas plānu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">71.</span><span class="t">Vai plāns ir labs?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.4.</span><span class="t">Ko nozīmē daļa no veselā?</span><span class="c">32</span></summary>
+<p class="tinfo">Veido sākotnējo izpratni par daļskaitļiem - parastajām daļām un decimāldaļām, ko satiek naudā un mērījumos.</p>
+<h3 class="mt">Veselais un daļa<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">73.</span><span class="t">Kā sadalīt riņķi vienādās daļās?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">74.</span><span class="t">Kā sadalīt sloksnīti trīs daļās?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">75.</span><span class="t">Kur uz lineāla ir desmitdaļas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">76.</span><span class="t">Cik liela ir viena daļa?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">77.</span><span class="t">Cik daļu ir iekrāsotas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">78.</span><span class="t">Kā daļu parāda pulkstenis?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">79.</span><span class="t">Cik liels bija veselais?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">80.</span><span class="t">Cik dažādi var sadalīt taisnstūri?</span></span></li>
+</ul>
+<h3 class="mt">Daļskaitļa pieraksts<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">81.</span><span class="t">Kā pieraksta daļu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">82.</span><span class="t">Ko rāda saucējs un ko skaitītājs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">83.</span><span class="t">Kā atcerēties, kurš ir kurš?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">84.</span><span class="t">Kāda daļa ir iekrāsota un kāda - ne?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">85.</span><span class="t">Kur uz skaitļu taisnes ir puse?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">86.</span><span class="t">Kā saskaitīt daļas ar vienādu saucēju?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">87.</span><span class="t">Kāds ir tavs piemērs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">88.</span><span class="t">Kāda daļa ir mazāka nekā viens?</span></span></li>
+</ul>
+<h3 class="mt">Daļskaitļu salīdzināšana<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">89.</span><span class="t">Kura daļa ir lielāka?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">90.</span><span class="t">Puse vai trešdaļa?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">91.</span><span class="t">Kā salīdzināt uz skaitļu taisnes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">92.</span><span class="t">Vai puse vienmēr ir vienāda?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">93.</span><span class="t">Kad daļa ir vesels?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">94.</span><span class="t">Vai vienu skaitli var pierakstīt dažādi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">95.</span><span class="t">Cik daļu vajag līdz veselam?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">96.</span><span class="t">Kurš apgalvojums ir patiess?</span></span></li>
+</ul>
+<h3 class="mt">Decimāldaļas un daļa no skaita<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">97.</span><span class="t">Kā desmitdaļu pieraksta ar komatu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">98.</span><span class="t">Kā ar komatu pieraksta centus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">99.</span><span class="t">Kas ir simtdaļa?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">100.</span><span class="t">Kā saskaitīt centus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">101.</span><span class="t">Cik ir puse no divpadsmit?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">102.</span><span class="t">Kāda daļa no stundas ir 15 minūtes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">103.</span><span class="t">Kāda daļa no decimetra ir centimetrs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">104.</span><span class="t">Kur dzīvē noder daļas?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.5.</span><span class="t">Kādi lielumi raksturo figūru?</span><span class="c">21</span></summary>
+<p class="tinfo">Pilnveido izpratni par malu garumiem, perimetru un laukumu; iepazīst leņķi un tilpumu.</p>
+<h3 class="mt">Leņķi un figūru īpašības<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">106.</span><span class="t">Kas taisnstūrim ir īpašs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">107.</span><span class="t">Kāpēc figūra ar vienādām malām var izskatīties citādi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">108.</span><span class="t">Kas ir leņķis?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">109.</span><span class="t">Šaurs, taisns vai plats?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">110.</span><span class="t">Kā ar locīšanu iegūt taisnu leņķi?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">111.</span><span class="t">Kā uzzīmēt četrstūri ar diviem taisniem leņķiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">112.</span><span class="t">Kā uzzīmēt riņķi?</span></span></li>
+</ul>
+<h3 class="mt">Taisnstūra laukums<span class="cnt">8 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">113.</span><span class="t">Cik rūtiņu ietilpst figūrā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">114.</span><span class="t">Kā aprēķināt, nenoklājot visu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">115.</span><span class="t">Kā pateikt laukuma aprēķinu ar vārdiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">116.</span><span class="t">Kurš laukums ir lielāks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">117.</span><span class="t">Kā izmērīt lapas laukumu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">118.</span><span class="t">Vai dažādām figūrām var būt vienāds laukums?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">119.</span><span class="t">Kas notiek ar laukumu, mainot malas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">120.</span><span class="t">Vai apgalvojums ir patiess?</span></span></li>
+</ul>
+<h3 class="mt">Tilpums<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">121.</span><span class="t">Cik kubu ietilpst kastē?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">122.</span><span class="t">Kurā traukā ietilpst vairāk?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">123.</span><span class="t">Kā nolasīt mērtrauku?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">124.</span><span class="t">Cik litru vajag?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">125.</span><span class="t">Kas kopīgs diviem ķermeņiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">126.</span><span class="t">Kā izmērīt neregulāru ķermeni?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.6.</span><span class="t">Kā saskaita un atņem trīsciparu skaitļus?</span><span class="c">28</span></summary>
+<p class="tinfo">Pārnes darbības 100 apjomā uz skaitļiem līdz 1000 un lieto tās reālās situācijās ar garumu, masu un tilpumu.</p>
+<h3 class="mt">Trīsciparu skaitļi<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">128.</span><span class="t">Kā izlasīt un uzrakstīt lielu skaitli?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">129.</span><span class="t">Cik simtu, desmitu un vienu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">130.</span><span class="t">Kurš skaitlis ir lielāks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">131.</span><span class="t">Kā sakārtot skaitļus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">132.</span><span class="t">Kur skaitlis atrodas uz skaitļu taisnes?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">133.</span><span class="t">Kurš skaitlis trūkst?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">134.</span><span class="t">Cik ir desmit simtu?</span></span></li>
+</ul>
+<h3 class="mt">Saskaitīšana 1000 apjomā<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">135.</span><span class="t">Kā saskaitīt simtus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">136.</span><span class="t">Kā saskaitīt trīsciparu skaitļus galvā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">137.</span><span class="t">Kāpēc izdevīgi rakstīt vienu zem otra?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">138.</span><span class="t">Kad rodas jauns simts?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">139.</span><span class="t">Kādā secībā saskaitīt vairākus skaitļus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">140.</span><span class="t">Cik apmēram sanāks?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">141.</span><span class="t">Kā pārbaudīt savu darbu?</span></span></li>
+</ul>
+<h3 class="mt">Atņemšana 1000 apjomā<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">142.</span><span class="t">Kā atņemt pilnus simtus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">143.</span><span class="t">Kad simts jāsadala desmitos?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">144.</span><span class="t">Kā pieraksta atņemšanu stabiņā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">145.</span><span class="t">Kā pārbaudīt starpību?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">146.</span><span class="t">Cik pietrūkst līdz 1000?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">147.</span><span class="t">Kur ir kļūda?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">148.</span><span class="t">Cik veikli rēķini?</span></span></li>
+</ul>
+<h3 class="mt">Lielumi, dati un situācijas<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">149.</span><span class="t">Cik gara ir figūras apmale?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">150.</span><span class="t">Cik smaga ir prece?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">151.</span><span class="t">Milimetri, metri vai kilometri?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">152.</span><span class="t">Cik tālu ir kilometrs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">153.</span><span class="t">Kā savākt un pierakstīt mērījumus?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">154.</span><span class="t">Ko stāsta diagramma?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">155.</span><span class="t">Cik maksās klases pasākums?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.7.</span><span class="t">Kā veido telpiskus modeļus?</span><span class="c">11</span></summary>
+<p class="tinfo">Attīsta ģeometrisko iztēli, praktiski darbojoties ar plaknes un telpiskām figūrām un to izklājumiem.</p>
+<h3 class="mt">Telpiskas figūras<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">157.</span><span class="t">Kā sauc šo ķermeni?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">158.</span><span class="t">Cik skaldņu, šķautņu un virsotņu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">159.</span><span class="t">Cik gara ir visu šķautņu summa?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">160.</span><span class="t">Kā uzbūvēt modeli no kociņiem?</span></span></li>
+</ul>
+<h3 class="mt">Izklājums<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">161.</span><span class="t">Kas rodas, pārgriežot kastīti?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">162.</span><span class="t">Vai no šī izklājuma sanāks kubs?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">163.</span><span class="t">Kāds taisnstūris vajadzīgs cilindram?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">164.</span><span class="t">Kāds konuss sanāks?</span></span></li>
+</ul>
+<h3 class="mt">Skati no dažādām pusēm<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">165.</span><span class="t">Kā ķermenis izskatās no augšas?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">166.</span><span class="t">Kā uzbūvēt figūru pēc skatiem?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">167.</span><span class="t">Kuras skaldnes būs blakus?</span></span></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">&#9873;</span><span class="t">Mācību gada noslēgums</span><span class="c">4</span></summary>
+<h3 class="mt">Ko esmu iemācījies 3. klasē<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li class="gaida"><span class="box"><span class="n">169.</span><span class="t">Cik droši zinu reizināšanas tabulu?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">170.</span><span class="t">Cik veikli rēķinu 1000 apjomā?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">171.</span><span class="t">Ko es zinu par daļām?</span></span></li>
+  <li class="gaida"><span class="box"><span class="n">172.</span><span class="t">Ko gribu iemācīties 4. klasē?</span></span></li>
+</ul>
+</details>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+  });
+})();
+</script>
+</body>
+</html>

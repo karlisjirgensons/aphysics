@@ -382,10 +382,18 @@ def build_pd_index():
 
 
 def build_home():
-    """Uzbūvē sākumlapu ar pogu uz katru kursu un uz PD ģeneratoru."""
+    """Uzbūvē sākumlapu ar pogu uz katru kursu, matemātikas stundām un uz PD
+    ģeneratoru.
+
+    Matemātikas sadaļu ievieto šeit, nevis courses.py, jo tai nav .pptx
+    prezentāciju - tās lapas aug no stundu plāniem (math_vietne.py). Moduli
+    importē tikai izpildes brīdī, lai imports nesanāktu aplī.
+    """
+    import math_vietne
     cards = [render_card(c, *course_stats(c["root"])) for _, c in ordered()]
     return write(os.path.join(SITE_ROOT, "index.html"),
-                 render_home(cards + [render_pd_card()]))
+                 render_home([math_vietne.render_card()] + cards
+                             + [render_pd_card()]))
 
 
 def build_site():

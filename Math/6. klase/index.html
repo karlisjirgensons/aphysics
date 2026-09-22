@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>6. klase · matemātika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
+      font-size:clamp(.85rem,3.4vw,1rem)}
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- matemātikas stundu saraksts ---------- */
+.mt{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin:.9rem 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--violet);font-size:clamp(.85rem,3.4vw,.98rem)}
+.mt .cnt{color:var(--dim);font-weight:400;font-size:.85em}
+li.gaida span.t{color:var(--dim)}
+li.gaida .box{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--bg);
+     border:1px dashed var(--line);border-radius:.75rem;
+     font-size:clamp(.85rem,3.5vw,1rem)}
+li.gaida .n{flex:none;color:var(--dim);font-weight:500}
+li.pd a,li.pd .box{background:#FFF4D6;border-color:var(--amber);
+     color:var(--amber-ink);font-weight:500}
+li.pd .n{color:var(--amber-ink)}
+.tinfo{margin:.2rem 0 .6rem;color:var(--dim);
+       font-size:clamp(.8rem,3.2vw,.9rem)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>6. klase</h1>
+<p class="lead">Temats atveras uz pieskāriena. Stundas ir sagrupētas pa mikrotematiem, un katra temata beigās ir pārbaudes darbs.</p>
+</header>
+<div class="bar">
+<a class="back" href="../index.html">&#8592; Klases</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Izvērst visu</button>
+</div>
+<details class="theme">
+<summary><span class="n">6.1.</span><span class="t">Kā kopumu sadala noteiktā attiecībā?</span><span class="c">16</span></summary>
+<p class="tinfo">Veido izpratni par lielumu attiecību, tieši un apgriezti proporcionāliem lielumiem un mērogu.</p>
+<h3 class="mt">Skaitļu attiecība<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/1.%20Ko%20noz%C4%ABm%C4%93%20divi%20pret%20tr%C4%ABs.html"><span class="n">1.</span><span class="t">Ko nozīmē «divi pret trīs»?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/2.%20K%C4%81%20attiec%C4%ABbu%20uzz%C4%ABm%C4%93t.html"><span class="n">2.</span><span class="t">Kā attiecību uzzīmēt?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/3.%20K%C4%81%20attiec%C4%ABbu%20pieraksta.html"><span class="n">3.</span><span class="t">Kā attiecību pieraksta?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/4.%20K%C4%81di%20lielumi%20veido%20attiec%C4%ABbu%201%20pret%2010.html"><span class="n">4.</span><span class="t">Kādi lielumi veido attiecību 1 pret 10?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/5.%20K%C4%81da%20ir%20%C5%A1o%20objektu%20attiec%C4%ABba.html"><span class="n">5.</span><span class="t">Kāda ir šo objektu attiecība?</span></a></li>
+</ul>
+<h3 class="mt">Kopuma sadalīšana attiecībā<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/6.%20Ko%20var%20uzzin%C4%81t%20no%20pieraksta%201%203%204.html"><span class="n">6.</span><span class="t">Ko var uzzināt no pieraksta 1 : 3 : 4?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/7.%20K%C4%81%20pagatavot%20mais%C4%ABjumu.html"><span class="n">7.</span><span class="t">Kā pagatavot maisījumu?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/8.%20K%C4%81%20sadal%C4%ABt%20nogriezni.html"><span class="n">8.</span><span class="t">Kā sadalīt nogriezni?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/9.%20K%C4%81%20sadal%C4%ABt%20fig%C5%ABru.html"><span class="n">9.</span><span class="t">Kā sadalīt figūru?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/10.%20Cik%20katram%20pien%C4%81kas.html"><span class="n">10.</span><span class="t">Cik katram pienākas?</span></a></li>
+</ul>
+<h3 class="mt">Proporcionāli lielumi un mērogs<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/11.%20Kad%20otrs%20lielums%20aug%20tikpat%20rei%C5%BEu.html"><span class="n">11.</span><span class="t">Kad otrs lielums aug tikpat reižu?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/12.%20K%C4%81%20p%C4%81rr%C4%93%C4%B7in%C4%81t%20recepti.html"><span class="n">12.</span><span class="t">Kā pārrēķināt recepti?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/13.%20Ko%20st%C4%81sta%20tabula%20un%20grafiks.html"><span class="n">13.</span><span class="t">Ko stāsta tabula un grafiks?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/14.%20K%C4%81%20nolas%C4%ABt%20nezin%C4%81mo%20no%20grafika.html"><span class="n">14.</span><span class="t">Kā nolasīt nezināmo no grafika?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/15.%20Ko%20noz%C4%ABm%C4%93%20m%C4%93rogs%201%20500.html"><span class="n">15.</span><span class="t">Ko nozīmē mērogs 1 : 500?</span></a></li>
+  <li><a href="6.1.%20K%C4%81%20kopumu%20sadala%20noteikt%C4%81%20attiec%C4%ABb%C4%81/16.%20K%C4%81%20uzz%C4%ABm%C4%93t%20pl%C4%81nu%20m%C4%93rog%C4%81.html"><span class="n">16.</span><span class="t">Kā uzzīmēt plānu mērogā?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.2.</span><span class="t">Kā reizina un dala parastās daļas?</span><span class="c">20</span></summary>
+<p class="tinfo">Apgūst parasto daļu un jauktu skaitļu reizināšanu un dalīšanu, izmantojot modeļus, darbību īpašības un daļas pamatīpašību.</p>
+<h3 class="mt">Reizināšana un dalīšana ar veselu skaitli<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/18.%20Ko%20noz%C4%ABm%C4%93%20reizin%C4%81t%20da%C4%BCu%20ar%20veselu%20skaitli.html"><span class="n">18.</span><span class="t">Ko nozīmē reizināt daļu ar veselu skaitli?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/19.%20K%C4%81%20da%C4%BCu%20sadal%C4%ABt%20vien%C4%81d%C4%81s%20da%C4%BC%C4%81s.html"><span class="n">19.</span><span class="t">Kā daļu sadalīt vienādās daļās?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/20.%20Kad%20da%C4%BCu%20izdev%C4%ABgi%20papla%C5%A1in%C4%81t.html"><span class="n">20.</span><span class="t">Kad daļu izdevīgi paplašināt?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/21.%20Cik%20rei%C5%BEu%20da%C4%BCa%20ietilpst%20veselaj%C4%81.html"><span class="n">21.</span><span class="t">Cik reižu daļa ietilpst veselajā?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/22.%20K%C4%81%20p%C4%81rbaud%C4%ABt%20rezult%C4%81tu.html"><span class="n">22.</span><span class="t">Kā pārbaudīt rezultātu?</span></a></li>
+</ul>
+<h3 class="mt">Divu daļu reizināšana<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/23.%20K%C4%81%20reizin%C4%81jumu%20par%C4%81d%C4%ABt%20kvadr%C4%81t%C4%81.html"><span class="n">23.</span><span class="t">Kā reizinājumu parādīt kvadrātā?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/24.%20K%C4%81%20reizin%C4%81t%20bez%20z%C4%ABm%C4%93juma.html"><span class="n">24.</span><span class="t">Kā reizināt bez zīmējuma?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/25.%20Kad%20reizin%C4%81jumu%20var%20sa%C4%ABsin%C4%81t.html"><span class="n">25.</span><span class="t">Kad reizinājumu var saīsināt?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/26.%20K%C4%81p%C4%93c%20reizinot%20var%20ieg%C5%ABt%20maz%C4%81ku%20skaitli.html"><span class="n">26.</span><span class="t">Kāpēc reizinot var iegūt mazāku skaitli?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/27.%20Da%C4%BCa%20no%20skait%C4%BCa%20vai%20reizin%C4%81jums.html"><span class="n">27.</span><span class="t">Daļa no skaitļa vai reizinājums?</span></a></li>
+</ul>
+<h3 class="mt">Dalīšana ar daļu<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/28.%20K%C4%81%20dal%C4%ABjumu%20par%C4%81d%C4%ABt%20uz%20skait%C4%BCu%20taisnes.html"><span class="n">28.</span><span class="t">Kā dalījumu parādīt uz skaitļu taisnes?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/29.%20Kas%20ir%20apgrieztais%20skaitlis.html"><span class="n">29.</span><span class="t">Kas ir apgrieztais skaitlis?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/30.%20K%C4%81p%C4%93c%20dal%C4%AB%C5%A1anu%20var%20aizst%C4%81t%20ar%20reizin%C4%81%C5%A1anu.html"><span class="n">30.</span><span class="t">Kāpēc dalīšanu var aizstāt ar reizināšanu?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/31.%20K%C4%81%20izskat%C4%81s%20pieraksts.html"><span class="n">31.</span><span class="t">Kā izskatās pieraksts?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/32.%20K%C4%81p%C4%93c%20dalot%20var%20ieg%C5%ABt%20liel%C4%81ku%20skaitli.html"><span class="n">32.</span><span class="t">Kāpēc dalot var iegūt lielāku skaitli?</span></a></li>
+</ul>
+<h3 class="mt">Jaukti skaitļi un lietojums<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/33.%20K%C4%81%20reizin%C4%81t%20jauktus%20skait%C4%BCus.html"><span class="n">33.</span><span class="t">Kā reizināt jauktus skaitļus?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/34.%20K%C4%81%20dal%C4%ABt%20ar%20jauktu%20skaitli.html"><span class="n">34.</span><span class="t">Kā dalīt ar jauktu skaitli?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/35.%20Cik%20apm%C4%93ram%20san%C4%81ks.html"><span class="n">35.</span><span class="t">Cik apmēram sanāks?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/36.%20K%C4%81%20k%C4%81pin%C4%81t%20da%C4%BCu.html"><span class="n">36.</span><span class="t">Kā kāpināt daļu?</span></a></li>
+  <li><a href="6.2.%20K%C4%81%20reizina%20un%20dala%20parast%C4%81s%20da%C4%BCas/37.%20Kur%20tas%20noder%20dz%C4%ABv%C4%93.html"><span class="n">37.</span><span class="t">Kur tas noder dzīvē?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.3.</span><span class="t">Kā izpratne par komata lietojumu palīdz, ja reizina un dala decimāldaļas?</span><span class="c">20</span></summary>
+<p class="tinfo">Apgūst decimāldaļu reizināšanu un dalīšanu, izmantojot veselo skaitļu paņēmienus un skaitļa decimālo sastāvu.</p>
+<h3 class="mt">Decimāldaļu reizināšana<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/39.%20K%C4%81%20reizin%C4%81jumu%20par%C4%81d%C4%ABt%20simta%20kvadr%C4%81t%C4%81.html"><span class="n">39.</span><span class="t">Kā reizinājumu parādīt simta kvadrātā?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/40.%20K%C4%81%20reizin%C4%81t%20galv%C4%81.html"><span class="n">40.</span><span class="t">Kā reizināt galvā?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/41.%20Cik%20ciparu%20b%C5%ABs%20aiz%20komata.html"><span class="n">41.</span><span class="t">Cik ciparu būs aiz komata?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/42.%20K%C4%81%20reizina%20rakstos.html"><span class="n">42.</span><span class="t">Kā reizina rakstos?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/43.%20Kura%20izteiksme%20ir%20liel%C4%81ka.html"><span class="n">43.</span><span class="t">Kura izteiksme ir lielāka?</span></a></li>
+</ul>
+<h3 class="mt">Reizināšana un dalīšana ar 10 un ar 0,1<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/44.%20Kas%20notiek%2C%20reizinot%20ar%2010%2C%20100%20un%201000.html"><span class="n">44.</span><span class="t">Kas notiek, reizinot ar 10, 100 un 1000?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/45.%20Kas%20notiek%2C%20reizinot%20ar%200%2C1.html"><span class="n">45.</span><span class="t">Kas notiek, reizinot ar 0,1?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/46.%20K%C4%81%20izskat%C4%81s%20dal%C4%AB%C5%A1ana%20ar%2010.html"><span class="n">46.</span><span class="t">Kā izskatās dalīšana ar 10?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/47.%20K%C4%81p%C4%93c%20dalot%20ar%200%2C1%20skaitlis%20aug.html"><span class="n">47.</span><span class="t">Kāpēc dalot ar 0,1 skaitlis aug?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/48.%20K%C4%81%20algoritmi%20saist%C4%ABti%20sav%C4%81%20starp%C4%81.html"><span class="n">48.</span><span class="t">Kā algoritmi saistīti savā starpā?</span></a></li>
+</ul>
+<h3 class="mt">Decimāldaļu dalīšana<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/49.%20K%C4%81%20dal%C4%ABt%20decim%C4%81lda%C4%BCu%20ar%20veselu%20skaitli.html"><span class="n">49.</span><span class="t">Kā dalīt decimāldaļu ar veselu skaitli?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/50.%20K%C4%81ds%20dal%C4%ABjums%20san%C4%81k%2C%20dalot%2042%207%20un%204%2C2%207.html"><span class="n">50.</span><span class="t">Kāds dalījums sanāk, dalot 42 : 7 un 4,2 : 7?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/51.%20K%C4%81%20dal%C4%ABt%20ar%20decim%C4%81lda%C4%BCu.html"><span class="n">51.</span><span class="t">Kā dalīt ar decimāldaļu?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/52.%20Kur%20liek%20komatu.html"><span class="n">52.</span><span class="t">Kur liek komatu?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/53.%20Cik%20apm%C4%93ram%20b%C5%ABs%20dal%C4%ABjums.html"><span class="n">53.</span><span class="t">Cik apmēram būs dalījums?</span></a></li>
+</ul>
+<h3 class="mt">Parastās daļas un decimāldaļas kopā<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/54.%20K%C4%81%20parasto%20da%C4%BCu%20p%C4%81rv%C4%93rst%20decim%C4%81lda%C4%BC%C4%81.html"><span class="n">54.</span><span class="t">Kā parasto daļu pārvērst decimāldaļā?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/55.%20Kur%C5%A1%20pieraksts%20ir%20%C4%93rt%C4%81ks.html"><span class="n">55.</span><span class="t">Kurš pieraksts ir ērtāks?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/56.%20K%C4%81%20r%C4%93%C4%B7in%C4%81t%20jaukt%C4%81%20izteiksm%C4%93.html"><span class="n">56.</span><span class="t">Kā rēķināt jauktā izteiksmē?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/57.%20Cik%20da%C5%BE%C4%81dus%20rezult%C4%81tus%20var%20ieg%C5%ABt.html"><span class="n">57.</span><span class="t">Cik dažādus rezultātus var iegūt?</span></a></li>
+  <li><a href="6.3.%20K%C4%81%20izpratne%20par%20komata%20lietojumu%20pal%C4%ABdz%2C%20ja%20reizina%20un%20dala%20decim/58.%20Kur%20radusies%20k%C4%BC%C5%ABda.html"><span class="n">58.</span><span class="t">Kur radusies kļūda?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.4.</span><span class="t">Kā attēlo un raksturo telpiskus ķermeņus?</span><span class="c">20</span></summary>
+<p class="tinfo">Sistematizē izpratni par telpisku ķermeņu attēlošanu, virsmas laukumu un tilpumu.</p>
+<h3 class="mt">Telpisku ķermeņu īpašības<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/60.%20Cik%20da%C5%BE%C4%81dus%20%C4%B7erme%C5%86us%20var%20izveidot.html"><span class="n">60.</span><span class="t">Cik dažādus ķermeņus var izveidot?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/61.%20K%C4%81%20%C4%B7ermeni%20aprakst%C4%ABt%20prec%C4%ABzi.html"><span class="n">61.</span><span class="t">Kā ķermeni aprakstīt precīzi?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/62.%20K%C4%81%20%C4%B7ermenis%20izskat%C4%81s%20no%20da%C5%BE%C4%81d%C4%81m%20pus%C4%93m.html"><span class="n">62.</span><span class="t">Kā ķermenis izskatās no dažādām pusēm?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/63.%20K%C4%81%20uzb%C5%ABv%C4%93t%20cilindru.html"><span class="n">63.</span><span class="t">Kā uzbūvēt cilindru?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/64.%20Kas%20kop%C4%ABgs%20piram%C4%ABdai%20un%20konusam.html"><span class="n">64.</span><span class="t">Kas kopīgs piramīdai un konusam?</span></a></li>
+</ul>
+<h3 class="mt">Virsmas laukums un izklājums<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/65.%20K%C4%81%20izskat%C4%81s%20kastes%20izkl%C4%81jums.html"><span class="n">65.</span><span class="t">Kā izskatās kastes izklājums?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/66.%20K%C4%81%20apr%C4%93%C4%B7in%C4%81t%20virsmas%20laukumu.html"><span class="n">66.</span><span class="t">Kā aprēķināt virsmas laukumu?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/67.%20Cik%20liela%20ir%20kubu%20fig%C5%ABras%20virsma.html"><span class="n">67.</span><span class="t">Cik liela ir kubu figūras virsma?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/68.%20Cik%20daudz%20pap%C4%ABra%20vajag%20d%C4%81vanai.html"><span class="n">68.</span><span class="t">Cik daudz papīra vajag dāvanai?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/69.%20K%C4%81%20p%C4%81rveidot%20laukuma%20m%C4%93rvien%C4%ABbas.html"><span class="n">69.</span><span class="t">Kā pārveidot laukuma mērvienības?</span></a></li>
+</ul>
+<h3 class="mt">Tilpums<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/70.%20Cik%20kubu%20ietilpst%20%C4%B7ermen%C4%AB.html"><span class="n">70.</span><span class="t">Cik kubu ietilpst ķermenī?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/71.%20K%C4%81%20rodas%20tilpuma%20formula.html"><span class="n">71.</span><span class="t">Kā rodas tilpuma formula?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/72.%20Cik%20kubikcentimetru%20ir%20kubikdecimetr%C4%81.html"><span class="n">72.</span><span class="t">Cik kubikcentimetru ir kubikdecimetrā?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/73.%20K%C4%81p%C4%93c%20litrs%20ir%20kubikdecimetrs.html"><span class="n">73.</span><span class="t">Kāpēc litrs ir kubikdecimetrs?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/74.%20Cik%20liels%20ir%20%C5%A1is%20trauks.html"><span class="n">74.</span><span class="t">Cik liels ir šis trauks?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/75.%20K%C4%81%20r%C4%93%C4%B7in%C4%81t%20saliktam%20%C4%B7ermenim.html"><span class="n">75.</span><span class="t">Kā rēķināt saliktam ķermenim?</span></a></li>
+</ul>
+<h3 class="mt">Sakarības starp lielumiem<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/76.%20K%C4%81%20izveidot%20izdev%C4%ABg%C4%81ko%20iepakojumu.html"><span class="n">76.</span><span class="t">Kā izveidot izdevīgāko iepakojumu?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/77.%20Kas%20notiek%2C%20ja%20%C5%A1%C4%B7autni%20palielina%20divas%20reizes.html"><span class="n">77.</span><span class="t">Kas notiek, ja šķautni palielina divas reizes?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/78.%20K%C4%81%20main%C4%81s%20tilpums%2C%20mainot%20vienu%20izm%C4%93ru.html"><span class="n">78.</span><span class="t">Kā mainās tilpums, mainot vienu izmēru?</span></a></li>
+  <li><a href="6.4.%20K%C4%81%20att%C4%93lo%20un%20raksturo%20telpiskus%20%C4%B7erme%C5%86us/79.%20K%C4%81da%20likumsakar%C4%ABba%20ir%20%C4%B7erme%C5%86u%20virkn%C4%93.html"><span class="n">79.</span><span class="t">Kāda likumsakarība ir ķermeņu virknē?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.5.</span><span class="t">Kā sadzīves situācijās izmanto procentus?</span><span class="c">16</span></summary>
+<p class="tinfo">Nosaka vienu skaitli kā otra skaitļa procentus un lieto procentus autentisku problēmu risināšanā.</p>
+<h3 class="mt">Skaitlis kā otra skaitļa procenti<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/81.%20K%C4%81%20procentus%20saist%C4%ABt%20ar%20da%C4%BCu.html"><span class="n">81.</span><span class="t">Kā procentus saistīt ar daļu?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/82.%20K%C4%81%20apr%C4%93%C4%B7in%C4%81t%2C%20cik%20procenti.html"><span class="n">82.</span><span class="t">Kā aprēķināt, cik procenti?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/83.%20Kuras%20vien%C4%81d%C4%ABbas%20j%C4%81zina%20no%20galvas.html"><span class="n">83.</span><span class="t">Kuras vienādības jāzina no galvas?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/84.%20K%C4%81%20z%C4%ABm%C4%93jums%20pal%C4%ABdz.html"><span class="n">84.</span><span class="t">Kā zīmējums palīdz?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/85.%20K%C4%81das%20sakar%C4%ABbas%20var%20izlas%C4%ABt.html"><span class="n">85.</span><span class="t">Kādas sakarības var izlasīt?</span></a></li>
+</ul>
+<h3 class="mt">Procenti dzīvē<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/86.%20Cik%20liela%20ir%20atlaide.html"><span class="n">86.</span><span class="t">Cik liela ir atlaide?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/87.%20Cik%20maks%C4%81ja%20s%C4%81kum%C4%81.html"><span class="n">87.</span><span class="t">Cik maksāja sākumā?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/88.%20Ko%20st%C4%81sta%20produkta%20sast%C4%81vs.html"><span class="n">88.</span><span class="t">Ko stāsta produkta sastāvs?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/89.%20K%C4%81%20izpl%C4%81not%20telpas%20iek%C4%81rto%C5%A1anu.html"><span class="n">89.</span><span class="t">Kā izplānot telpas iekārtošanu?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/90.%20Ko%20r%C4%81da%20skolas%20sporta%20dati.html"><span class="n">90.</span><span class="t">Ko rāda skolas sporta dati?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/91.%20Cik%20liela%20ir%20vielas%20masas%20da%C4%BCa.html"><span class="n">91.</span><span class="t">Cik liela ir vielas masas daļa?</span></a></li>
+</ul>
+<h3 class="mt">Procentu problēmas<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/92.%20K%C4%81%20pierakst%C4%ABt%20probl%C4%93mas%20risin%C4%81jumu.html"><span class="n">92.</span><span class="t">Kā pierakstīt problēmas risinājumu?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/93.%20Procenti%20vai%20reizes.html"><span class="n">93.</span><span class="t">Procenti vai reizes?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/94.%20Vai%20rezult%C4%81ts%20ir%20ticams.html"><span class="n">94.</span><span class="t">Vai rezultāts ir ticams?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/95.%20K%C4%81%20izlas%C4%ABt%20sare%C5%BE%C4%A3%C4%ABtu%20tekstu.html"><span class="n">95.</span><span class="t">Kā izlasīt sarežģītu tekstu?</span></a></li>
+  <li><a href="6.5.%20K%C4%81%20sadz%C4%ABves%20situ%C4%81cij%C4%81s%20izmanto%20procentus/96.%20K%C4%81ds%20uzdevums%20san%C4%81k%20tev.html"><span class="n">96.</span><span class="t">Kāds uzdevums sanāk tev?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.6.</span><span class="t">Kāpēc nepieciešami skaitļi, kuri ir mazāki nekā nulle?</span><span class="c">25</span></summary>
+<p class="tinfo">Veido izpratni par pozitīviem un negatīviem skaitļiem, to novietojumu uz skaitļu taisnes un par visu koordinātu plakni.</p>
+<h3 class="mt">Negatīvi skaitļi un skaitļu taisne<span class="cnt">7 stundas</span></h3>
+<ul>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/98.%20Kur%20dz%C4%ABv%C4%93%20satiekam%20skait%C4%BCus%20zem%20nulles.html"><span class="n">98.</span><span class="t">Kur dzīvē satiekam skaitļus zem nulles?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/99.%20Kas%20ir%20pret%C4%93jais%20skaitlis.html"><span class="n">99.</span><span class="t">Kas ir pretējais skaitlis?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/100.%20K%C4%81%20izskat%C4%81s%20pilna%20skait%C4%BCu%20taisne.html"><span class="n">100.</span><span class="t">Kā izskatās pilna skaitļu taisne?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/101.%20Kas%20ir%20skait%C4%BCa%20modulis.html"><span class="n">101.</span><span class="t">Kas ir skaitļa modulis?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/102.%20Kur%C5%A1%20skaitlis%20ir%20liel%C4%81ks.html"><span class="n">102.</span><span class="t">Kurš skaitlis ir lielāks?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/103.%20K%C4%81%20skait%C4%ABt%20no%20negat%C4%ABva%20skait%C4%BCa.html"><span class="n">103.</span><span class="t">Kā skaitīt no negatīva skaitļa?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/104.%20K%C4%81ds%20visp%C4%81r%C4%ABgs%20apgalvojums%20ir%20patiess.html"><span class="n">104.</span><span class="t">Kāds vispārīgs apgalvojums ir patiess?</span></a></li>
+</ul>
+<h3 class="mt">Sakarības starp negatīviem skaitļiem<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/105.%20Kur%C5%A1%20skaitlis%20ir%20tie%C5%A1i%20vid%C5%AB.html"><span class="n">105.</span><span class="t">Kurš skaitlis ir tieši vidū?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/106.%20K%C4%81di%20skait%C4%BCi%20ir%20starp.html"><span class="n">106.</span><span class="t">Kādi skaitļi ir starp?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/107.%20Cik%20t%C4%81lu%20viens%20no%20otra.html"><span class="n">107.</span><span class="t">Cik tālu viens no otra?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/108.%20K%C4%81%20izveidot%20virkni%20ar%20vien%C4%81du%20soli.html"><span class="n">108.</span><span class="t">Kā izveidot virkni ar vienādu soli?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/109.%20K%C4%81da%20likumsakar%C4%ABba%20ir%20virkn%C4%93.html"><span class="n">109.</span><span class="t">Kāda likumsakarība ir virknē?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/110.%20Kuri%20skait%C4%BCi%20atbilst%20nosac%C4%ABjumiem.html"><span class="n">110.</span><span class="t">Kuri skaitļi atbilst nosacījumiem?</span></a></li>
+</ul>
+<h3 class="mt">Koordinātu plakne<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/111.%20Kas%20kop%C4%ABgs%20visiem%20%C5%A1iem%20grafikiem.html"><span class="n">111.</span><span class="t">Kas kopīgs visiem šiem grafikiem?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/112.%20K%C4%81%20iek%C4%81rto%20koordin%C4%81tu%20plakni.html"><span class="n">112.</span><span class="t">Kā iekārto koordinātu plakni?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/113.%20K%C4%81%20att%C4%93lot%20temperat%C5%ABras%20izmai%C5%86as.html"><span class="n">113.</span><span class="t">Kā attēlot temperatūras izmaiņas?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/114.%20Ko%20var%20secin%C4%81t%20starp%20m%C4%93r%C4%ABjumiem.html"><span class="n">114.</span><span class="t">Ko var secināt starp mērījumiem?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/115.%20K%C4%81%20izp%C4%93t%C4%ABt%20ledus%20ku%C5%A1anu.html"><span class="n">115.</span><span class="t">Kā izpētīt ledus kušanu?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/116.%20K%C4%81%20raksturot%20grafiku%20ar%20v%C4%81rdiem.html"><span class="n">116.</span><span class="t">Kā raksturot grafiku ar vārdiem?</span></a></li>
+</ul>
+<h3 class="mt">Figūras koordinātu plaknē<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/117.%20K%C4%81%20pieraksta%20punkta%20koordin%C4%81tas.html"><span class="n">117.</span><span class="t">Kā pieraksta punkta koordinātas?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/118.%20K%C4%81%20uzz%C4%ABm%C4%93t%20daudzst%C5%ABri%20p%C4%93c%20koordin%C4%81t%C4%81m.html"><span class="n">118.</span><span class="t">Kā uzzīmēt daudzstūri pēc koordinātām?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/119.%20K%C4%81da%20fig%C5%ABra%20san%C4%81ks.html"><span class="n">119.</span><span class="t">Kāda figūra sanāks?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/120.%20Kas%20notiek%2C%20fig%C5%ABru%20p%C4%81rvietojot.html"><span class="n">120.</span><span class="t">Kas notiek, figūru pārvietojot?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/121.%20K%C4%81%20uzz%C4%ABm%C4%93t%20simetrisku%20fig%C5%ABru%20pret%20asi.html"><span class="n">121.</span><span class="t">Kā uzzīmēt simetrisku figūru pret asi?</span></a></li>
+  <li><a href="6.6.%20K%C4%81p%C4%93c%20nepiecie%C5%A1ami%20skait%C4%BCi%2C%20kuri%20ir%20maz%C4%81ki%20nek%C4%81%20nulle/122.%20K%C4%81%20pagriezt%20fig%C5%ABru%20par%20180%C2%B0.html"><span class="n">122.</span><span class="t">Kā pagriezt figūru par 180°?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.7.</span><span class="t">Ko nozīmē skaitlim pieskaitīt negatīvu skaitli, no skaitļa atņemt negatīvu skaitli?</span><span class="c">22</span></summary>
+<p class="tinfo">Modelē un skaidro saskaitīšanu un atņemšanu ar negatīviem skaitļiem un formulē algoritmus racionālu skaitļu saskaitīšanai un atņemšanai.</p>
+<h3 class="mt">Veselu skaitļu saskaitīšana<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/124.%20K%C4%81%20main%C4%81s%20temperat%C5%ABra.html"><span class="n">124.</span><span class="t">Kā mainās temperatūra?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/125.%20Ko%20noz%C4%ABm%C4%93%20z%C4%ABme%20skait%C4%BCa%20priek%C5%A1%C4%81.html"><span class="n">125.</span><span class="t">Ko nozīmē zīme skaitļa priekšā?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/126.%20K%C4%81%20saskait%C4%AB%C5%A1anu%20par%C4%81d%C4%ABt%20ar%20bulti%C5%86%C4%81m.html"><span class="n">126.</span><span class="t">Kā saskaitīšanu parādīt ar bultiņām?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/127.%20K%C4%81p%C4%93c%20pret%C4%93jo%20skait%C4%BCu%20summa%20ir%20nulle.html"><span class="n">127.</span><span class="t">Kāpēc pretējo skaitļu summa ir nulle?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/128.%20K%C4%81da%20b%C5%ABs%20summas%20z%C4%ABme.html"><span class="n">128.</span><span class="t">Kāda būs summas zīme?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/129.%20K%C4%81%20saskait%C4%ABt%20vair%C4%81kus%20skait%C4%BCus.html"><span class="n">129.</span><span class="t">Kā saskaitīt vairākus skaitļus?</span></a></li>
+</ul>
+<h3 class="mt">Veselu skaitļu atņemšana<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/130.%20Vai%20no%20maz%C4%81ka%20var%20at%C5%86emt%20liel%C4%81ku.html"><span class="n">130.</span><span class="t">Vai no mazāka var atņemt lielāku?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/131.%20Kas%20notiek%2C%20at%C5%86emot%20negat%C4%ABvu%20skaitli.html"><span class="n">131.</span><span class="t">Kas notiek, atņemot negatīvu skaitli?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/132.%20K%C4%81p%C4%93c%20at%C5%86em%C5%A1anu%20var%20aizst%C4%81t.html"><span class="n">132.</span><span class="t">Kāpēc atņemšanu var aizstāt?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/133.%20K%C4%81%20izlas%C4%ABt%20garu%20izteiksmi.html"><span class="n">133.</span><span class="t">Kā izlasīt garu izteiksmi?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/134.%20Kur%C5%A1%20skaitlis%20tr%C5%ABkst.html"><span class="n">134.</span><span class="t">Kurš skaitlis trūkst?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/135.%20Cik%20da%C5%BE%C4%81dus%20rezult%C4%81tus%20var%20ieg%C5%ABt.html"><span class="n">135.</span><span class="t">Cik dažādus rezultātus var iegūt?</span></a></li>
+</ul>
+<h3 class="mt">Izteiksmes un likumsakarības<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/136.%20K%C4%81%20pierakst%C4%ABt%20izteiksmi%20cit%C4%81di.html"><span class="n">136.</span><span class="t">Kā pierakstīt izteiksmi citādi?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/137.%20K%C4%81%20saskait%C4%ABt%20%C4%BCoti%20daudz%20saskait%C4%81mo.html"><span class="n">137.</span><span class="t">Kā saskaitīt ļoti daudz saskaitāmo?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/138.%20K%C4%81da%20izteiksme%20atbilst%20aprakstam.html"><span class="n">138.</span><span class="t">Kāda izteiksme atbilst aprakstam?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/139.%20K%C4%81%20atrisin%C4%81t%20nevien%C4%81d%C4%ABbu.html"><span class="n">139.</span><span class="t">Kā atrisināt nevienādību?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/140.%20Kur%20radusies%20k%C4%BC%C5%ABda.html"><span class="n">140.</span><span class="t">Kur radusies kļūda?</span></a></li>
+</ul>
+<h3 class="mt">Daļskaitļi un lietojums<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/141.%20K%C4%81%20saskait%C4%ABt%20negat%C4%ABvas%20da%C4%BCas.html"><span class="n">141.</span><span class="t">Kā saskaitīt negatīvas daļas?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/142.%20K%C4%81%20r%C4%93%C4%B7in%C4%81t%20ar%20negat%C4%ABv%C4%81m%20decim%C4%81lda%C4%BC%C4%81m.html"><span class="n">142.</span><span class="t">Kā rēķināt ar negatīvām decimāldaļām?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/143.%20K%C4%81%20pl%C4%81not%20savu%20risin%C4%81jumu.html"><span class="n">143.</span><span class="t">Kā plānot savu risinājumu?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/144.%20Par%20cik%20main%C4%ABj%C4%81s%20temperat%C5%ABra.html"><span class="n">144.</span><span class="t">Par cik mainījās temperatūra?</span></a></li>
+  <li><a href="6.7.%20Ko%20noz%C4%ABm%C4%93%20skaitlim%20pieskait%C4%ABt%20negat%C4%ABvu%20skaitli%2C%20no%20skait%C4%BCa%20at%C5%86emt/145.%20Cik%20dro%C5%A1i%20jau%20protu.html"><span class="n">145.</span><span class="t">Cik droši jau protu?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.8.</span><span class="t">Kā plāno darbību izpildi ar visu veidu skaitļiem?</span><span class="c">21</span></summary>
+<p class="tinfo">Apgūst pozitīvu un negatīvu skaitļu reizināšanu un dalīšanu un sistematizē rēķināšanu ar visu veidu skaitļiem.</p>
+<h3 class="mt">Reizināšana un dalīšana ar negatīviem skaitļiem<span class="cnt">6 stundas</span></h3>
+<ul>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/147.%20K%C4%81p%C4%93c%20reizin%C4%81jums%20san%C4%81k%20negat%C4%ABvs.html"><span class="n">147.</span><span class="t">Kāpēc reizinājums sanāk negatīvs?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/148.%20K%C4%81da%20z%C4%ABme%20b%C5%ABs%20rezult%C4%81tam.html"><span class="n">148.</span><span class="t">Kāda zīme būs rezultātam?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/149.%20K%C4%81%20reizina%20un%20dala%20veselus%20skait%C4%BCus.html"><span class="n">149.</span><span class="t">Kā reizina un dala veselus skaitļus?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/150.%20K%C4%81da%20z%C4%ABme%20ir%20garai%20izteiksmei.html"><span class="n">150.</span><span class="t">Kāda zīme ir garai izteiksmei?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/151.%20K%C4%81%20k%C4%81pin%C4%81t%20negat%C4%ABvu%20skaitli.html"><span class="n">151.</span><span class="t">Kā kāpināt negatīvu skaitli?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/152.%20K%C4%81%20reizina%20un%20dala%20da%C4%BCskait%C4%BCus.html"><span class="n">152.</span><span class="t">Kā reizina un dala daļskaitļus?</span></a></li>
+</ul>
+<h3 class="mt">Racionālie skaitļi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/153.%20K%C4%81di%20skait%C4%BCi%20mums%20ir.html"><span class="n">153.</span><span class="t">Kādi skaitļi mums ir?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/154.%20Kas%20ir%20racion%C4%81ls%20skaitlis.html"><span class="n">154.</span><span class="t">Kas ir racionāls skaitlis?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/155.%20Cik%20da%C5%BE%C4%81di%20var%20pierakst%C4%ABt%20vienu%20skaitli.html"><span class="n">155.</span><span class="t">Cik dažādi var pierakstīt vienu skaitli?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/156.%20K%C4%81%20sagrup%C4%93t%20skait%C4%BCus.html"><span class="n">156.</span><span class="t">Kā sagrupēt skaitļus?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/157.%20Kuri%20apgalvojumi%20ir%20patiesi.html"><span class="n">157.</span><span class="t">Kuri apgalvojumi ir patiesi?</span></a></li>
+</ul>
+<h3 class="mt">Aprēķinu plānošana<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/158.%20K%C4%81%20izpl%C4%81not%20garu%20apr%C4%93%C4%B7inu.html"><span class="n">158.</span><span class="t">Kā izplānot garu aprēķinu?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/159.%20Kad%20p%C4%81riet%20uz%20viena%20veida%20da%C4%BCskait%C4%BCiem.html"><span class="n">159.</span><span class="t">Kad pāriet uz viena veida daļskaitļiem?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/160.%20K%C4%81da%20ir%20darb%C4%ABbu%20sec%C4%ABba.html"><span class="n">160.</span><span class="t">Kāda ir darbību secība?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/161.%20Kad%20izmantot%20kalkulatoru.html"><span class="n">161.</span><span class="t">Kad izmantot kalkulatoru?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/162.%20Kur%20risin%C4%81jum%C4%81%20ir%20k%C4%BC%C5%ABda.html"><span class="n">162.</span><span class="t">Kur risinājumā ir kļūda?</span></a></li>
+</ul>
+<h3 class="mt">Situāciju uzdevumi<span class="cnt">5 stundas</span></h3>
+<ul>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/163.%20K%C4%81%20uzdevumu%20pierakst%C4%ABt%20matem%C4%81tiski.html"><span class="n">163.</span><span class="t">Kā uzdevumu pierakstīt matemātiski?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/164.%20K%C4%81%20r%C4%93%C4%B7ini%20pal%C4%ABdz%20pl%C4%81not%20bud%C5%BEetu.html"><span class="n">164.</span><span class="t">Kā rēķini palīdz plānot budžetu?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/165.%20K%C4%81%20apvienot%20procentus%20un%20da%C4%BCas.html"><span class="n">165.</span><span class="t">Kā apvienot procentus un daļas?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/166.%20Vai%20atbilde%20ir%20ticama.html"><span class="n">166.</span><span class="t">Vai atbilde ir ticama?</span></a></li>
+  <li><a href="6.8.%20K%C4%81%20pl%C4%81no%20darb%C4%ABbu%20izpildi%20ar%20visu%20veidu%20skait%C4%BCiem/167.%20Cik%20dro%C5%A1i%20jau%20r%C4%93%C4%B7inu.html"><span class="n">167.</span><span class="t">Cik droši jau rēķinu?</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">&#9873;</span><span class="t">Mācību gada noslēgums</span><span class="c">4</span></summary>
+<h3 class="mt">Ko esmu iemācījies 6. klasē<span class="cnt">4 stundas</span></h3>
+<ul>
+  <li><a href="M%C4%81c%C4%ABbu%20gada%20nosl%C4%93gums/169.%20Cik%20dro%C5%A1i%20r%C4%93%C4%B7inu%20ar%20racion%C4%81liem%20skait%C4%BCiem.html"><span class="n">169.</span><span class="t">Cik droši rēķinu ar racionāliem skaitļiem?</span></a></li>
+  <li><a href="M%C4%81c%C4%ABbu%20gada%20nosl%C4%93gums/170.%20Ko%20protu%20ar%20procentiem%20un%20attiec%C4%ABbu.html"><span class="n">170.</span><span class="t">Ko protu ar procentiem un attiecību?</span></a></li>
+  <li><a href="M%C4%81c%C4%ABbu%20gada%20nosl%C4%93gums/171.%20K%C4%81%20lietoju%20koordin%C4%81tu%20plakni.html"><span class="n">171.</span><span class="t">Kā lietoju koordinātu plakni?</span></a></li>
+  <li><a href="M%C4%81c%C4%ABbu%20gada%20nosl%C4%93gums/172.%20Ko%20gaida%207.%20klas%C4%93.html"><span class="n">172.</span><span class="t">Ko gaida 7. klasē?</span></a></li>
+</ul>
+</details>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+  });
+})();
+</script>
+</body>
+</html>
