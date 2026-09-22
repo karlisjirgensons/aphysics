@@ -14,6 +14,7 @@ Trīs skati, viens saturs:
 
 import html
 
+import analytics
 import palette
 
 CSS = """
@@ -334,7 +335,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
-</head>
+%(analytics)s</head>
 <body>
 <div class="top">
   <a class="back" href="../index.html">&#8592; Uz t&#275;m&#257;m</a>
@@ -367,4 +368,5 @@ def page(title, kicker, slides):
                    "kicker": html.escape(kicker),
                    "slides": "\n".join(slides),
                    "css": CSS, "js": JS,
-                   "root": palette.root_css(), "fonts": palette.FONT_LINK}
+                   "root": palette.root_css(), "fonts": palette.FONT_LINK,
+                   "analytics": analytics.head()}

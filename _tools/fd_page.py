@@ -20,6 +20,7 @@ Krāsas nāk no palette.py, lapas noformējums - no fd_stils.py (DRY).
 import html
 import json
 
+import analytics
 import fd_docx
 import fd_math
 import fd_paper
@@ -248,7 +249,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
-</head>
+%(analytics)s</head>
 <body>
 <div class="top">
   <a class="back" href="../index.html">&#8592; Uz t&#275;m&#257;m</a>
@@ -290,4 +291,5 @@ def page(dati):
         "izloze": izloze.JS,
         "dati": "window.FD_DATI=%s;" % json.dumps(dati, ensure_ascii=False),
         "root": palette.root_css(), "fonts": palette.FONT_LINK,
+        "analytics": analytics.head(),
     }

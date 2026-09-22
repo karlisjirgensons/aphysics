@@ -173,6 +173,7 @@ vietās:
 |---|---|
 | `_tools/courses.py` | kursu saraksts: mapes, nosaukumi, secība |
 | `_tools/palette.py` | krāsas, fonti, formas; arī veco slaidu krāsu pārnešana |
+| `_tools/analytics.py` | Google Analytics skaitītājs: mērījuma ID un sadaļas |
 | `_tools/site_index.py` | sākumlapa un tematu saraksti |
 | `_tools/html_deck.py` | `.pptx` → responsīva HTML prezentācija |
 | `_tools/deck_page.py` | prezentācijas lapas čaula: CSS, vadība, veidne |

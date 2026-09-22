@@ -24,6 +24,7 @@ import re
 import sys
 from urllib.parse import quote
 
+import analytics
 import mat_temati
 import palette
 from courses import (COURSES, LESSONS_LEAD, RIKI, SITE_LEAD, SITE_ROOT,
@@ -175,7 +176,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
-</head>
+%(analytics)s</head>
 <body>
 <div class="wrap">
 %(body)s
@@ -190,7 +191,8 @@ def page(title, body):
     """Viens karkass visām lapām."""
     return PAGE % {"title": esc(title), "css": CSS, "js": JS,
                    "body": body, "root": palette.root_css(),
-                   "fonts": palette.FONT_LINK}
+                   "fonts": palette.FONT_LINK,
+                   "analytics": analytics.head()}
 
 
 # ---------------------------------------------------------------- nolasīšana

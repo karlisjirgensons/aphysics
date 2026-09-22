@@ -17,6 +17,7 @@ redzamas kā pelēks uzraksts, lai sarakstā būtu viss gada plāns.
 
 import os
 
+import analytics
 import math_plani
 import palette
 import site_index
@@ -55,7 +56,8 @@ def page(title, body):
     return site_index.PAGE % {"title": esc(title), "css": CSS,
                               "js": site_index.JS, "body": body,
                               "root": palette.root_css(),
-                              "fonts": palette.FONT_LINK}
+                              "fonts": palette.FONT_LINK,
+                              "analytics": analytics.head()}
 
 
 # ------------------------------------------------------------------- stundas

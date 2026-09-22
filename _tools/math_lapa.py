@@ -18,6 +18,7 @@ Krāsas un fonti nāk no palette.py, tāpēc stunda izskatās tāpat kā pārēj
 vietne; kur lapa nonāk failu kokā, zina math_stundas.py.
 """
 
+import analytics
 import math_bloki
 import math_ikonas
 import math_pilnekrans
@@ -149,7 +150,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
-</head>
+%(analytics)s</head>
 <body>
 <div class="augsa">
 <a class="atpakal" href="%(atpakal)s">&#8592; %(klase)s</a>
@@ -228,7 +229,8 @@ def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=()):
                    "css": CSS + css + math_pilnekrans.CSS,
                    "js": math_ikonas.js() + js + math_pilnekrans.JS,
                    "atpakal": atpakal, "klase": esc(klases_nosaukums),
-                   "kods": esc(kods.strip()), "body": body}
+                   "kods": esc(kods.strip()), "body": body,
+                   "analytics": analytics.head()}
 
 
 def parbaudi(saturs):
