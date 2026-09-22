@@ -246,6 +246,22 @@ def render_header(title, lead):
     return "<header>\n%s\n</header>" % "\n".join(rindas)
 
 
+def render_bar(atpakal, uzraksts="Sākums", izverst=True):
+    """Lapas josla: poga atpakaļ un (ja lapā ir temati) «Izvērst visu».
+
+    Joslu raksta tikai šeit - to lieto gan kursu saraksti, gan PD
+    ģenerators, gan matemātikas sadaļa, tāpēc uzraksts un izskats nedrīkst
+    dzīvot vairākās vietās. «izverst=False» ir lapām, kurās nav neviena
+    <details> - tur poga tikai maldinātu.
+    """
+    poga = ('<button class="toggle" id="all" data-open="0" type="button">'
+            'Izvērst visu</button>\n') if izverst else ""
+    return ('<div class="bar">\n'
+            '<a class="back" href="%s">&#8592; %s</a>\n'
+            '<span class="spacer"></span>\n'
+            '%s</div>' % (atpakal, esc(uzraksts), poga))
+
+
 def render_lesson(link, label):
     num, name = split_number(label)
     return ('  <li><a href="%s">%s<span>%s</span></a></li>'
@@ -271,11 +287,7 @@ def render_theme(title, lessons, riki=()):
 
 def render_course(course, themes):
     """Viena kursa saraksts: temati atveras uz pieskāriena."""
-    bar = ('<div class="bar">\n'
-           '<a class="back" href="../index.html">&#8592; Sākums</a>\n'
-           '<span class="spacer"></span>\n'
-           '<button class="toggle" id="all" data-open="0" type="button">'
-           'Izvērst visu</button>\n</div>')
+    bar = render_bar("../index.html")
     return page("%s · %s" % (course["title"], course["kicker"]),
                 "\n".join([render_header(course["title"], LESSONS_LEAD), bar]
                           + [render_theme(t, ls, rk)
@@ -318,11 +330,7 @@ def render_klase(nr, mape, temati):
 
 def render_pd_index():
     """PD ģeneratora saraksts: klases, to temati un abu darbu pogas."""
-    bar = ('<div class="bar">\n'
-           '<a class="back" href="../index.html">&#8592; Sākums</a>\n'
-           '<span class="spacer"></span>\n'
-           '<button class="toggle" id="all" data-open="0" type="button">'
-           'Izvērst visu</button>\n</div>')
+    bar = render_bar("../index.html")
     klases = [render_klase(nr, mape, temati)
               for nr, mape, temati in mat_temati.klases()]
     return page("%s · %s" % (mat_temati.POGA, mat_temati.NOSAUKUMS),

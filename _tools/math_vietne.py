@@ -58,13 +58,6 @@ def page(title, body):
                               "fonts": palette.FONT_LINK}
 
 
-def bar(atpakal, uzraksts):
-    return ('<div class="bar">\n<a class="back" href="%s">&#8592; %s</a>\n'
-            '<span class="spacer"></span>\n'
-            '<button class="toggle" id="all" data-open="0" type="button">'
-            'Izvērst visu</button>\n</div>' % (atpakal, esc(uzraksts)))
-
-
 # ------------------------------------------------------------------- stundas
 def stundas_cels(klase, stunda):
     """Stundas HTML fails attiecībā pret klases mapi."""
@@ -138,7 +131,7 @@ def render_klase(klase):
     return page(virsraksts,
                 "\n".join([site_index.render_header(klase.nosaukums,
                                                     KLASES_LEAD),
-                           bar("../index.html", "Klases")]
+                           site_index.render_bar("../index.html", "Klases")]
                           + temati + [render_noslegums(klase)]))
 
 
@@ -156,6 +149,8 @@ def render_index(klases):
     kartes = "\n".join(render_klases_karte(k) for k in klases)
     return page(NOSAUKUMS,
                 "\n".join([site_index.render_header(NOSAUKUMS, LEAD),
+                           site_index.render_bar("../index.html",
+                                                 izverst=False),
                            '<div class="cards">\n%s\n</div>' % kartes]))
 
 
