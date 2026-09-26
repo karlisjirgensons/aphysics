@@ -11,6 +11,10 @@ Matemātiku uzdevuma tekstā raksta ar to pašu marķējumu, ko visur citur:
 {3|4} ir daļa, √(a + b) ir sakne (rules_pd.txt).
 """
 
+import itertools
+import random
+import zlib
+
 import math_pavedieni
 from math_bloki import Bloks, _Kartas, esc
 
@@ -93,11 +97,7 @@ class Ievadi(_Kartas):
     JS = """
 MSP.veidi.ievadi=function(root){
   MSP.kartas(root,function(k,c){
-    /* Atbildi salīdzina bez atstarpēm, un punkts der komata vietā. */
-    function tirs(s){
-      return (s==null?"":""+s).toLowerCase().replace(/\\s+/g,"")
-             .replace(/\\./g,",");
-    }
+    var tirs=MSP.tirs;
     var derigas=[],i;
     for(i=0;i<k.atb.length;i++){derigas.push(tirs(k.atb[i]));}
     var meginajumi=0;
@@ -216,6 +216,21 @@ MSP.veidi.varianti=function(root){
                     "«%s»: kārtai «%s» nav pareizās atbildes numura"
                     % (self.virsraksts, k.get("jaut")))
 
+    def _zimeta(self, karta):
+        """Atbildes lapā sajauktas, lai pareizā nav vienmēr «A)».
+
+        Autors pareizo raksta pirmo (tā to vieglāk pārbaudīt), bet skolēns
+        ātri pamana, ka der pirmā. Secību nosaka pati kārta (sēkla no
+        jautājuma un atbildēm), tāpēc katrā būvējumā tā ir tā pati un lapa
+        nemainās bez vajadzības. Kārtai ar "jaukt": False secība paliek
+        autora - tur, kur tā ir daļa no jautājuma (skala, secīgi soļi).
+        """
+        out = _Kartas._zimeta(self, karta)
+        if not karta.get("jaukt", True):
+            return out
+        out.pop("jaukt", None)
+        return sajauc(out, karta)
+
     def veids(self):
         return "varianti"
 
@@ -283,3 +298,64 @@ class Pasaule(Bloks):
         if self.kapec:
             gabali.append('<p class="kapec">%s</p>' % esc(self.kapec))
         return "\n".join(gabali)
+
+
+def sajauc(out, karta):
+    """Atbilžu secība pēc kārtas sēklas: pareizā nav vienmēr pirmā, bet
+    katrā būvējumā secība ir tā pati, tāpēc lapa bez vajadzības nemainās.
+
+    «karta» ir autora kārta (no tās ņem sēklu), «out» - lapai sagatavotā,
+    kuras opcijas pārkārto. To lieto visi izvēles uzdevumi (DRY).
+    """
+    seciba = list(range(len(karta["opcijas"])))
+    seka = "|".join([karta.get("jaut", "")] + list(karta["opcijas"]))
+    random.Random(zlib.crc32(seka.encode("utf-8"))).shuffle(seciba)
+    out["opcijas"] = [out["opcijas"][i] for i in seciba]
+    out["pareizi"] = seciba.index(karta["pareizi"])
+    return out
+
+
+def saknes(*vertibas):
+    """Pieņemamās atbildes vienādojumam ar vairākām saknēm.
+
+    Skolēns saknes var rakstīt jebkurā secībā un atdalīt ar semikolu vai
+    «un» (komats neder - latviešu pierakstā tas ir decimālkomats: 0,5).
+    Pirmā atbilde ir tā, ko lapa parāda pēc trim mēģinājumiem, tāpēc tā ir
+    augošā secībā ar semikolu, kā raksta eksāmenā: «−3; 3».
+
+        Ievadi("", [{"jaut": "x^2 = 9", "atb": saknes("−3", "3")}])
+    """
+    out = []
+    for seciba in itertools.permutations(vertibas):
+        for atdalitajs in ("; ", " un "):
+            teksts = atdalitajs.join(seciba)
+            if teksts not in out:
+                out.append(teksts)
+    return out
+
+
+def paris(x, y, burti=("x", "y")):
+    """Pieņemamās atbildes skaitļu pārim - sistēmas atrisinājumam.
+
+    Latviešu pierakstā pāri raksta (3; 2); skolēns var rakstīt arī bez
+    iekavām vai ar burtiem. Pirmā atbilde ir tā, ko lapa parāda.
+
+        Ievadi("", [{"jaut": "x + y = 5, x − y = 1", "atb": paris(3, 2)}])
+    """
+    x, y = str(x), str(y)
+    a, b = burti
+    return ["(%s; %s)" % (x, y), "%s; %s" % (x, y),
+            "%s = %s; %s = %s" % (a, x, b, y),
+            "%s = %s un %s = %s" % (a, x, b, y)]
+
+
+def laiks(stundas, minutes=0):
+    """Pieņemamās atbildes pulksteņa laikam: «8:15», «8.15» vai «8,15».
+
+    Latviešu tekstā laiku raksta ar punktu vai kolu; telefona ciparu
+    tastatūrā kola bieži nav, tāpēc der arī komats (Ievadi punktu jau
+    pārvērš komatā). Pirmā ir tā, ko lapa parāda pēc trim mēģinājumiem.
+
+        Ievadi("", [{"jaut": "Cik ir pulkstenis?", "atb": laiks(8, 15)}])
+    """
+    return ["%d:%02d" % (stundas, minutes), "%d,%02d" % (stundas, minutes)]

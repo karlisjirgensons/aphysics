@@ -22,6 +22,7 @@ import analytics
 import math_bloki
 import math_ikonas
 import math_pilnekrans
+import math_zimejumi
 import palette
 from site_index import esc
 
@@ -86,6 +87,9 @@ nav.talak a b{color:var(--primary);font-weight:600}
 .rt .rv{display:inline-block;border-top:.075em solid currentColor;
         padding:.16em .2em 0 .06em}
 .izcel{color:var(--violet);font-weight:700}
+/* Kāpinātājs (a^{m + n}) nepaceļ rindu: bez line-height:0 katra rinda ar
+   pakāpi būtu augstāka par blakus rindām. */
+sup.pk{font-size:.68em;line-height:0;vertical-align:.62em;margin-left:.04em}
 
 /* Zīmējumi (math_zimejumi.py). Izskats ir lapas, nevis bloka ziņā, jo
    zīmējums var stāvēt gan savā blokā, gan stundas sākumā - un abās vietās
@@ -112,11 +116,29 @@ svg.zim{display:block;width:100%;height:auto;max-height:52vh;
 .zim .z-kerm{fill:none;stroke:var(--primary);stroke-width:.7;
     stroke-linejoin:round}
 .zim .z-kerm.slepts{stroke:var(--dim);stroke-dasharray:1.6 1.2}
+.zim .z-graf{fill:none;stroke:var(--violet);stroke-width:.9;
+    stroke-linecap:round}
+.zim .z-graf.otra{stroke:var(--amber-ink);stroke-dasharray:2.4 1.2}
+.zim .z-atzime.otra{fill:var(--amber-ink)}
+.zim .z-uz{paint-order:stroke;stroke:var(--surface);stroke-width:1.2px}
+.zim .z-svitr{stroke:var(--amber-ink);stroke-width:.35}
+.zim .z-tukss{fill:var(--surface);stroke:var(--violet);stroke-width:.6}
+.zim .z-lin.otra{stroke:var(--amber-ink)}
+.zim .z-lin.slepts{stroke:var(--dim);stroke-width:.6;stroke-dasharray:1.6 1.2}
+.zim .z-figura.otra{fill:rgba(245,158,11,.20);stroke:var(--amber-ink)}
 .zim .z-bulta{fill:none;stroke:var(--amber-ink);stroke-width:.7}
 .zim .z-bultgals{fill:var(--amber-ink)}
+/* Sektoru diagramma: sešas krāsas pēc kārtas, balta mala atdala sektorus. */
+.zim .z-sekt{stroke:var(--surface);stroke-width:.6}
+.zim .z-sekt.s0{fill:var(--violet)}
+.zim .z-sekt.s1{fill:var(--amber-ink)}
+.zim .z-sekt.s2{fill:#0EA5E9}
+.zim .z-sekt.s3{fill:#10B981}
+.zim .z-sekt.s4{fill:#F472B6}
+.zim .z-sekt.s5{fill:#94A3B8}
 .zim .z-mazs{font-size:3px;fill:var(--dim)}
 .zim .z-dsvitra{stroke:currentColor;stroke-width:.3;stroke:var(--violet)}
-.zim .z-nr{font-size:3.4px}
+.zim .z-nr{font-size:3.4px;fill:var(--fg)}
 .zim .z-atzime{font-size:3.6px;font-weight:600;fill:var(--violet)}
 .zim .z-virs{font-size:3.8px;font-weight:600;fill:var(--primary)}
 .zim .z-bits-c{font-size:4.4px;font-weight:700;fill:var(--violet)}
@@ -128,6 +150,34 @@ svg.zim{display:block;width:100%;height:auto;max-height:52vh;
     height:.42em;border-top:.075em solid currentColor;
     border-right:.075em solid currentColor;
     transform:skewX(58deg) scaleY(.5);transform-origin:right top}
+
+/* 1.-2. klases zīmējumi (math_bildes.py). */
+.zim .z-ik .l{fill:none;stroke:var(--violet);stroke-width:3.4;
+    stroke-linecap:round;stroke-linejoin:round}
+.zim .z-ik .p{fill:var(--violet);stroke:none}
+.zim .z-ik.otra .l{stroke:var(--amber-ink)}
+.zim .z-ik.otra .p{fill:var(--amber-ink)}
+.zim .z-ripa{fill:var(--violet)}
+.zim .z-ripa.otra{fill:var(--amber-ink)}
+.zim .z-ruts.on{fill:rgba(124,58,237,.22)}
+.zim .z-ruts.siena{fill:var(--dim)}
+.zim .z-kf{fill:#DDD6FE;stroke:var(--primary);stroke-width:.4}
+.zim .z-kt{fill:#EDE9FE;stroke:var(--primary);stroke-width:.4}
+.zim .z-ks{fill:#C4B5FD;stroke:var(--primary);stroke-width:.4}
+.zim .z-ruts.dz{fill:rgba(245,158,11,.30);stroke:var(--amber-ink)}
+.zim .z-cels{fill:none;stroke:var(--amber-ink);stroke-width:1.4;
+    stroke-linecap:round;stroke-linejoin:round}
+.zim .z-ciparnica{fill:var(--surface);stroke:var(--violet);stroke-width:1}
+.zim .z-cipars{font-size:4.4px;font-weight:600;fill:var(--fg)}
+.zim .z-rad{stroke:var(--primary);stroke-width:1.8;stroke-linecap:round}
+.zim .z-rad.min{stroke:var(--violet);stroke-width:1}
+.zim .z-nauda{fill:#FDE68A;stroke:var(--amber-ink);stroke-width:.5}
+.zim .z-nauda.banknote{fill:#DDD6FE;stroke:var(--violet)}
+.zim .z-kubs{fill:rgba(124,58,237,.22);stroke:var(--violet);stroke-width:.35}
+.zim .z-kubs.viens{fill:rgba(245,158,11,.30);stroke:var(--amber-ink)}
+.zim .z-simts{font-size:3.4px;font-weight:600;fill:var(--fg)}
+.zim .z-simts.tuksa{fill:var(--dim)}
+.zim .z-lineals{fill:#FEF3C7;stroke:var(--amber-ink);stroke-width:.4}
 
 .ik{display:inline-block;width:1em;height:1em;vertical-align:-.13em;
     line-height:0}
@@ -211,15 +261,22 @@ def render_talak(saites):
     return '<nav class="talak">\n%s\n</nav>' % "\n".join(pogas)
 
 
-def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=()):
-    """Vienas stundas lapa: galva, bloki, skolotāja rinda un ceļš tālāk."""
+def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
+           kods=None):
+    """Vienas stundas lapa: galva, bloki, skolotāja rinda un ceļš tālāk.
+
+    Lapai bez mācību kalendāra (IQ testi) datums ir None - tad nav arī
+    rindas «Skolotājam», jo plāna datu tai nav. «kods» ir uzraksts augšējā
+    joslā; ja tā nav, tas ir stundas temats, klase un numurs.
+    """
     bloki = list(saturs.SATURS)
     css, js = _fragmenti(bloki)
-    kods = "%s %s · %d. stunda" % (
-        stunda.temats.kods if stunda.temats else "",
-        klases_nosaukums, stunda.nr)
+    if kods is None:
+        kods = "%s %s · %d. stunda" % (
+            stunda.temats.kods if stunda.temats else "",
+            klases_nosaukums, stunda.nr)
     body = "\n".join([render_galva(stunda, saturs.MERKIS),
-                      render_skolotajam(stunda, datums),
+                      render_skolotajam(stunda, datums) if datums else "",
                       '<main class="saturs">',
                       "\n".join(b.html() for b in bloki),
                       "</main>",
@@ -227,7 +284,8 @@ def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=()):
     return PAGE % {"title": esc("%d. %s" % (stunda.nr, stunda.tema)),
                    "fonts": palette.FONT_LINK, "root": palette.root_css(),
                    "css": CSS + css + math_pilnekrans.CSS,
-                   "js": math_ikonas.js() + js + math_pilnekrans.JS,
+                   "js": (math_ikonas.js() + math_zimejumi.JS + js
+                          + math_pilnekrans.JS),
                    "atpakal": atpakal, "klase": esc(klases_nosaukums),
                    "kods": esc(kods.strip()), "body": body,
                    "analytics": analytics.head()}

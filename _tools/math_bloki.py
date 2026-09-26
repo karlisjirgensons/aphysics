@@ -295,6 +295,39 @@ class Spele(Bloks):
 .speles .manta .nr{position:absolute;right:.15rem;top:.05rem;
     font-style:normal;font-weight:700;font-size:.85rem;color:#047857}
 .speles .manta.klusi{cursor:default}
+
+/* Laika vērtējums (MSP.tempo): cik ātri atrisināts pret mērķa laiku. */
+.speles .tempo{margin:.6rem 0 0;padding:.6rem .8rem .5rem;
+    border-radius:var(--r);background:var(--surface2);animation:tempo-in .35s}
+.speles .tempo-r{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
+.speles .tempo-r b{font-family:var(--font-h);font-weight:600;
+    font-size:clamp(1.25rem,5.5vw,1.5rem);color:var(--primary)}
+.speles .tempo-r span{font-weight:600;font-size:clamp(.92rem,3.8vw,1.02rem)}
+.speles .tempo-j{position:relative;height:.5rem;margin:.45rem 0 1.1rem;
+    border-radius:1rem;background:#fff}
+.speles .tempo-j i{position:absolute;left:0;top:0;bottom:0;border-radius:1rem;
+    background:var(--violet);animation:tempo-aug .8s ease-out}
+.speles .tempo-j em{position:absolute;left:50%;top:-.25rem;bottom:-.25rem;
+    width:2px;background:var(--fg)}
+.speles .tempo-j small{position:absolute;left:50%;top:.75rem;
+    transform:translateX(-50%);white-space:nowrap;color:var(--dim);
+    font-size:.75rem}
+.speles .tempo.zibens{background:linear-gradient(135deg,#EDE9FE,#CFFAFE)}
+.speles .tempo.zibens .tempo-r span{color:var(--violet)}
+.speles .tempo.atri{background:#DCFCE7}
+.speles .tempo.atri .tempo-r span{color:#047857}
+.speles .tempo.atri .tempo-j i{background:#10B981}
+.speles .tempo.labi{background:#E0F2FE}
+.speles .tempo.labi .tempo-r span{color:#0369A1}
+.speles .tempo.labi .tempo-j i{background:#0EA5E9}
+.speles .tempo.treni{background:#FEF3C7}
+.speles .tempo.treni .tempo-r span{color:var(--amber-ink)}
+.speles .tempo.treni .tempo-j i{background:var(--amber)}
+@keyframes tempo-aug{from{width:0}}
+@keyframes tempo-in{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){
+  .speles .tempo,.speles .tempo-j i{animation:none}
+}
 """
 
     JS = """
@@ -319,6 +352,39 @@ window.MSP=(function(){
   function cip(n){
     var t=Math.round(n*1e6)/1e6;
     return (""+t).replace(".",",");
+  }
+  /* Atbildi salīdzina bez atstarpēm, punkts der komata vietā, un
+     tastatūras «-» ir tas pats mīnuss, ko grāmatā raksta «−». Pakāpe
+     a⁵, a^5 un a^{5} ir viena un tā pati atbilde - telefonā augšraksta
+     nav, tāpēc katrs to raksta, kā prot. Visi uzdevumi, kur atbildi
+     raksta, salīdzina ar šo pašu funkciju. */
+  function tirs(s){
+    return (s==null?"":""+s).toLowerCase().replace(/\\s+/g,"")
+           .replace(/\\./g,",").replace(/\\u2212/g,"-")
+           .replace(/\\^\\{([^{}]*)\\}/g,"^$1").replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+/g,
+             function(p){return "^"+p.replace(/./g,function(c){
+               return "0123456789-".charAt("⁰¹²³⁴⁵⁶⁷⁸⁹⁻".indexOf(c));});});
+  }
+  /* Laika vērtējums: sekundes pret uzdevuma mērķa laiku. Mērķis ir
+     aptuvens laiks, kurā šāda veida uzdevumu atrisina, tāpēc teikums
+     uzslavē ātru darbu un lēnāku mudina trenēties, nevis bāra. Joslā mērķis
+     stāv pa vidu - pa kreisi no tā ir ātrāk. Atgriež {el, limenis}:
+     0 - zibens (≤ puse mērķa), 1 - ātrāk, 2 - līdz divreiz, 3 - lēnāk. */
+  var TEMPO=[["zibens","Zibens! Divreiz ātrāk par mērķa laiku."],
+             ["atri","Super! Ātrāk par mērķa laiku."],
+             ["labi","Labs darbs! Mērķa laiks jau pavisam tuvu."],
+             ["treni","Izdevās! Ar katru reizi sanāks ātrāk."]];
+  function tempo(sek,merkis){
+    var r=sek/merkis,lim=r<=0.5?0:r<=1?1:r<=2?2:3,T=TEMPO[lim];
+    var el=e("div","tempo "+T[0]),rinda=e("div","tempo-r"),
+        j=e("div","tempo-j"),f=e("i");
+    rinda.appendChild(e("b","",Math.max(1,Math.round(sek))+" s"));
+    rinda.appendChild(e("span","",T[1]));
+    f.style.width=Math.min(100,r*50)+"%";
+    j.appendChild(f);j.appendChild(e("em"));
+    j.appendChild(e("small","","mērķis "+merkis+" s"));
+    el.appendChild(rinda);el.appendChild(j);
+    return {el:el,limenis:lim};
   }
   function dati(el,k){try{return JSON.parse(el.getAttribute(k));}
     catch(x){return null;}}
@@ -392,7 +458,7 @@ window.MSP=(function(){
     document.addEventListener("DOMContentLoaded",sakt);
   }else{setTimeout(sakt,0);}
   return {e:e,poga:poga,ikona:ikona,formas:formas,skaitlis:skaitlis,
-          vards:vards,cip:cip,dati:dati,manta:manta,mantas:mantas,
+          vards:vards,cip:cip,tirs:tirs,tempo:tempo,dati:dati,manta:manta,mantas:mantas,
           kartas:kartas,veidi:veidi};
 })();
 """

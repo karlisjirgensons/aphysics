@@ -49,6 +49,22 @@ _FORMAS = {
     "karote": '<ellipse class="l" cx="32" cy="20" rx="9" ry="12"/>'
               '<path class="l" d="M32 32v26"/>',
     "ripina": '<circle class="p" cx="32" cy="32" r="16"/>',
+    "klucis": '<rect class="l" x="10" y="26" width="44" height="28" rx="3"/>'
+              '<rect class="l" x="16" y="15" width="11" height="11" rx="2"/>'
+              '<rect class="l" x="37" y="15" width="11" height="11" rx="2"/>',
+    "zvaigzne": '<path class="p" d="M32.0 11.0L37.9 26.9L54.8 27.6L41.5 38.1L46.1 54.4L32.0 45.0L17.9 54.4L22.5 38.1L9.2 27.6L26.1 26.9z"/>',
+    "aplis": '<circle class="p" cx="32" cy="32" r="20"/>',
+    "trijsturis": '<path class="p" d="M32 10L55 52H9z"/>',
+    "kvadrats": '<rect class="p" x="12" y="12" width="40" height="40" rx="2"/>',
+    "sirds": '<path class="p" d="M32 54C10 39 7 26 13 18c5-7 15-7 19 2'
+             ' 4-9 14-9 19-2 6 8 3 21-19 36z"/>',
+    "masina": '<path class="l" d="M7 42V31l9-11h22l11 11h8v11z"/>'
+              '<circle class="l" cx="19" cy="45" r="6"/>'
+              '<circle class="l" cx="45" cy="45" r="6"/>',
+    "zivs": '<path class="l" d="M8 32c10-14 30-14 38 0-8 14-28 14-38 0z"/>'
+            '<path class="l" d="M46 32l11-9v18z"/>'
+            '<circle class="p" cx="19" cy="29" r="2.6"/>',
+    "putns": '<path class="l" d="M8 34c8-10 16-10 24 0 8-10 16-10 24 0"/>',
 }
 
 # Vārda formas: (viens, vairāki, «cik?» - ģenitīvs).
@@ -65,6 +81,15 @@ VARDI = {
     "puke": ("puķe", "puķes", "puķu"),
     "karote": ("karote", "karotes", "karošu"),
     "ripina": ("ripiņa", "ripiņas", "ripiņu"),
+    "klucis": ("klucītis", "klucīši", "klucīšu"),
+    "zvaigzne": ("zvaigzne", "zvaigznes", "zvaigžņu"),
+    "aplis": ("aplis", "apļi", "apļu"),
+    "trijsturis": ("trijstūris", "trijstūri", "trijstūru"),
+    "kvadrats": ("kvadrāts", "kvadrāti", "kvadrātu"),
+    "sirds": ("sirds", "sirdis", "siržu"),
+    "masina": ("mašīna", "mašīnas", "mašīnu"),
+    "zivs": ("zivs", "zivis", "zivju"),
+    "putns": ("putns", "putni", "putnu"),
 }
 
 IKONAS = dict((v, _SVG % f) for v, f in _FORMAS.items())

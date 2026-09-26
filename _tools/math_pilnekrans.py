@@ -14,6 +14,11 @@ maza ekrāna gara ritināma lapa pazaudē, kur beidzas viens bloks un sākas
 nākamais. Ar pogu «Visa lapa» var pāriet uz garo lapu, un izvēle paliek
 atmiņā (localStorage), tāpēc nākamā stunda atveras tā, kā students grib.
 
+Lentes pēdējā lapa ir tās pašas pogas «Iepriekšējā / Nākamā stunda», kas
+garās lapas apakšā (nav.talak) - tas pats HTML, tikai citā vietā. Ja uz datora
+nākamo stundu atver no pilnekrāna, tā atveras lentē, un pilnekrānu pārlūks
+atdod pēc pirmā taustiņa vai klikšķa (bez tā pārlūks to neatļauj).
+
 Pilnekrāna režīmu (fullscreen API) telefonā neprasa: pārlūks to atļauj tikai
 pēc pieskāriena, un lentes skatam tas nav vajadzīgs - to dod pati CSS.
 """
@@ -31,7 +36,7 @@ CSS = """
 
 body.pilns{overflow:hidden;background:#1E1B4B}
 body.pilns .augsa{display:none}
-body.pilns .skolotajam,body.pilns nav.talak{display:none}
+body.pilns .skolotajam{display:none}
 body.pilns .lapa{max-width:none;height:100vh;height:100svh;margin:0;padding:0;
     display:flex;overflow-x:auto;overflow-y:hidden;
     scroll-snap-type:x mandatory;scroll-behavior:smooth;
@@ -53,6 +58,17 @@ body.pilns .bl.majas{background:#FFFBEB}
 /* Uz visa ekrāna kreisā mala būtu tālu no teksta, tāpēc galveno domu
    iezīmē fons, nevis svītra. */
 body.pilns .bl.doma{background:var(--surface2)}
+/* Stundas beigas: ceļš uz blakus stundām ir lentes pēdējā lapa, nevis
+   paslēpts zem tās. Uzrakstu bloks var nomainīt ar --gals (IQ testā -
+   «Tests galā»). */
+body.pilns nav.talak{flex:0 0 100%;height:100vh;height:100svh;margin:0;
+    scroll-snap-align:start;flex-direction:column;flex-wrap:nowrap;
+    justify-content:center;gap:.9rem;overflow-y:auto;background:var(--grad);
+    padding:3rem max(1.2rem,calc((100vw - 34rem)/2)) 5rem}
+body.pilns nav.talak::before{content:var(--gals,"Stunda galā");color:#fff;
+    font-family:var(--font-h);font-weight:600;text-align:center;
+    font-size:clamp(1.5rem,4vw,2.3rem);margin-bottom:.4rem}
+body.pilns nav.talak a{flex:none;border:0;box-shadow:var(--sh-md)}
 body.pilns .bl>h2{font-size:clamp(1.3rem,3.2vw,1.9rem)}
 body.pilns header.galva h1{font-size:clamp(1.8rem,4.6vw,2.8rem)}
 
@@ -105,7 +121,7 @@ JS = """
      darbus - atver, aizver, ej. */
   var lapa=document.querySelector(".lapa");
   var dalas=[].slice.call(
-    document.querySelectorAll("header.galva,.saturs>.bl"));
+    document.querySelectorAll("header.galva,.saturs>.bl,.lapa>nav.talak"));
   if(!lapa||dalas.length<2){return;}
   var cur=0,on=false;
 
@@ -122,7 +138,10 @@ JS = """
   function atceras(k,v){try{localStorage.setItem(k,v);}catch(x){}}
   function atminas(k){try{return localStorage.getItem(k);}
     catch(x){return null;}}
-  var SKATS="math-lente",MAJIENS="math-lente-majiens";
+  var SKATS="math-lente",MAJIENS="math-lente-majiens",TURPINA="math-lente-turpina";
+  function atceras1(k,v){try{sessionStorage.setItem(k,v);}catch(x){}}
+  function atminas1(k){try{var v=sessionStorage.getItem(k);
+    sessionStorage.removeItem(k);return v;}catch(x){return null;}}
 
   /* --- josla lejā un poga augšā --- */
   var skaits=e("span","cnt","");
@@ -188,6 +207,24 @@ JS = """
                                   "Velc uz sāniem →"));
       atceras(MAJIENS,"1");
     }
+  }
+
+  /* Datorā uz nākamo stundu no pilnekrāna: tā atveras lentē, un pilnekrānu
+     paprasa pie pirmā cilvēka pieskāriena - bez tā pārlūks atsaka. */
+  [].slice.call(document.querySelectorAll("nav.talak a")).forEach(function(a){
+    a.addEventListener("click",function(){if(on&&!telefons){
+      atceras1(TURPINA,"1");}});
+  });
+  if(!telefons&&atminas1(TURPINA)==="1"){
+    atvert(false);
+    var vienreiz=function(ev){
+      if(ev.key==="Escape"){return;}
+      document.removeEventListener("keydown",vienreiz,true);
+      document.removeEventListener("pointerdown",vienreiz,true);
+      if(on&&!ekrana()){prasit();}
+    };
+    document.addEventListener("keydown",vienreiz,true);
+    document.addEventListener("pointerdown",vienreiz,true);
   }
 
   /* Pagriežot telefonu, lentes solis kļūst cits, tāpēc tā pati daļa

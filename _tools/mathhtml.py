@@ -24,7 +24,11 @@ Marķējums (tas pats, ko lieto darba lapas - fd_math.py):
     √25          kvadrātsakne vienam loceklim;
     *7*          izcelts gabals - ar to uzdevumā parāda, par kuru ciparu
                  vai vārdu ir runa (HTML birkas saturā rakstīt nedrīkst,
-                 tās nonāktu lapā kā teksts).
+                 tās nonāktu lapā kā teksts);
+    a^{m + n}    kāpinātājs - viss iekavās kāpinātājā;
+    10^−3, a^n   kāpinātājs - skaitlis vai viens burts, tāpēc x^3y ir x³y
+                 un daļā raksta {a^10|a^2}, jo iekavas daļā neder.
+                 Skaitļu kāpinātājiem der arī ² un ³ - tie ir fontā.
 """
 
 import html
@@ -44,19 +48,20 @@ _RUN_HTML = {"v": '<span class="vv">%s</span>',   # bultiņu zīmē CSS
              "s": "<sub>%s</sub>"}                # F_y -> indekss
 
 
-def txt_html(s):
+def txt_html(s, iekavas=True):
     """Teksts HTML: aizsegts, ar uzzīmētām bultiņām un īstiem indeksiem.
 
     Viss teksts iet caur šo funkciju (DRY) - tāpēc vektora un indeksa
     pieraksts izskatās vienādi virsrakstos, kartītēs, tabulās un formulās.
+    iekavas=False - matemātikā «P(A)» un «f(a)» nav indeksi (MF.split_runs).
     """
     if not MF.has_markup(s):
         return esc(s)
     return "".join(_RUN_HTML.get(k, "%s") % esc(v)
-                   for k, v in MF.split_runs(s))
+                   for k, v in MF.split_runs(s, iekavas))
 
 
-def _sp(s):
+def _sp(s, iekavas=True):
     """Atstarpes HTML nesaspiež - tās notur formulu atstatumus.
 
     Rindas sākuma un beigu atstarpi pārlūks izmet pavisam, tāpēc centrēts
@@ -65,7 +70,7 @@ def _sp(s):
     lead = len(s) - len(s.lstrip(" "))
     trail = len(s) - len(s.rstrip(" ")) if s.strip() else 0
     core = s[lead:len(s) - trail] if trail else s[lead:]
-    body = txt_html(core).replace("  ", "&nbsp;&nbsp;")
+    body = txt_html(core, iekavas).replace("  ", "&nbsp;&nbsp;")
     return "&nbsp;" * lead + body + "&nbsp;" * trail
 
 
@@ -101,9 +106,9 @@ def _frac(num, den):
             '<span class="d">%s</span></span>' % (num, den))
 
 
-def frac_span(num, den):
+def frac_span(num, den, iekavas=True):
     """Vertikāla daļa: skaitītājs virs saucēja; `num`/`den` ir teksts."""
-    return _frac(txt_html(num), txt_html(den))
+    return _frac(txt_html(num, iekavas), txt_html(den, iekavas))
 
 
 def atoms_html(atoms):
@@ -133,54 +138,87 @@ def proza(text):
 _DALA = re.compile(r"\{([^{}|]*)\|([^{}|]*)\}")
 # Izcēlumā nav atstarpes pie malām, tāpēc «3 * 4» paliek, kā bija.
 _IZCEL = re.compile(r"\*(\S|\S[^*]*?\S)\*")
+# Kāpinātājs: ^{...} - viss iekavās; ^−3, ^n - viens loceklis ar zīmi.
+_PAKAPE = re.compile(r"\^(?:\{([^{}]*)\}|([−-]?(?:\d+|[A-Za-z])))")
 
 
 def _teksts(s):
-    """Stundas teksta gabals: aizsegts, ar atstarpēm un izcēlumiem.
+    """Stundas teksta gabals: aizsegts, ar atstarpēm, izcēlumiem un
+    kāpinātājiem.
 
-    Izcēlumu liek tikai šeit, nevis _sp(), jo to pašu _sp() lieto
-    prezentācijas, un tur zvaigznīte tekstā nozīmē zvaigznīti.
+    Izcēlumu un kāpinātāju liek tikai šeit, nevis _sp(), jo to pašu _sp()
+    lieto prezentācijas, un tur zvaigznīte tekstā nozīmē zvaigznīti.
     """
-    return _IZCEL.sub(lambda m: '<b class="izcel">%s</b>' % m.group(1),
-                      _sp(s))
-
-
-def _sakne(s):
-    """√(...) un √x -> uzzīmēta saknes zīme; pārējais paliek teksts.
-
-    Kur √-izteiksme beidzas, zina mathfmt - tas pats noteikums, pēc kura
-    sakni zīmē prezentācijās un darba lapās (DRY).
-    """
-    out, i = [], 0
-    while True:
-        j = s.find(MF.ROOT_SIGN, i)
-        if j < 0:
-            out.append(_teksts(s[i:]))
-            return "".join(out)
-        out.append(_teksts(s[i:j]))
-        sakums, beigas = MF._root_span(s, j)
-        iekss = s[sakums:beigas]
-        if iekss.startswith("(") and iekss.endswith(")"):
-            iekss = iekss[1:-1]
-        out.append(root_html(_teksts(iekss)))
-        i = beigas
+    s = _IZCEL.sub(lambda m: '<b class="izcel">%s</b>' % m.group(1),
+                   _sp(s, iekavas=False))
+    return _PAKAPE.sub(lambda m: '<sup class="pk">%s</sup>'
+                       % (m.group(1) if m.group(1) is not None
+                          else m.group(2)).replace("-", "−"), s)
 
 
 def mat(text):
     """Autora marķējums -> HTML: {a|b} ir daļa, √(...) ir sakne.
 
     Neko nemin: kas nav marķēts, paliek teksts, tāpēc «12 m/s» un
-    «1. variants» netiek pārveidoti (rules_lessons.txt).
+    «1. variants» netiek pārveidoti (rules_lessons.txt). Sakne un daļa var
+    būt viena otrā: √{9|16} ir sakne no daļas (vinkuls pāri visai daļai),
+    {√2|2} - daļa ar sakni skaitītājā.
     """
     out, i = [], 0
+    while True:
+        j = _saknes_vieta(text, i)
+        if j < 0:
+            out.append(_bez_saknes(text[i:]))
+            return "".join(out)
+        out.append(_bez_saknes(text[i:j]))
+        iekss, i = _zem_saknes(text, j)
+        out.append(root_html(mat(iekss), tall=bool(_DALA.search(iekss))))
+
+
+def _saknes_vieta(text, no):
+    """Pirmā √ ārpus daļas iekavām - saknes daļā apstrādā pati daļa."""
+    dzilums = 0
+    for k in range(no, len(text)):
+        if text[k] == "{":
+            dzilums += 1
+        elif text[k] == "}":
+            dzilums -= 1
+        elif text[k] == MF.ROOT_SIGN and dzilums == 0:
+            return k
+    return -1
+
+
+def _zem_saknes(text, j):
+    """(zemsaknes teksts, kur sakne beidzas) saknei pozīcijā j.
+
+    √{a|b} - zem vinkula visa daļa; citādi robežu nosaka mathfmt - tas pats
+    noteikums, pēc kura sakni zīmē prezentācijās un darba lapās (DRY).
+    """
+    k = j + 1
+    while k < len(text) and text[k] == " ":
+        k += 1
+    if k < len(text) and text[k] == "{":
+        beigas = text.find("}", k) + 1 or len(text)
+        return text[k:beigas], beigas
+    sakums, beigas = MF._root_span(text, j)
+    iekss = text[sakums:beigas]
+    if iekss.startswith("(") and iekss.endswith(")"):
+        iekss = iekss[1:-1]
+    return iekss, beigas
+
+
+def _bez_saknes(text):
+    """Teksts bez saknēm ārpus daļām: daļas vertikāli, pārējais teksts."""
+    out, i = [], 0
     for m in _DALA.finditer(text):
-        out.append(_sakne(text[i:m.start()]))
-        out.append(frac_span(_sakne(m.group(1)), _sakne(m.group(2))))
+        out.append(_teksts(text[i:m.start()]))
+        out.append(_frac(mat(m.group(1)), mat(m.group(2))))
         i = m.end()
-    out.append(_sakne(text[i:]))
+    out.append(_teksts(text[i:]))
     return "".join(out)
 
 
 def ir_mat(text):
     """Vai tekstā vispār ir marķējums - lai lieki nesauc parsētāju."""
-    return bool(_DALA.search(text)) or MF.ROOT_SIGN in text
+    return (bool(_DALA.search(text)) or MF.ROOT_SIGN in text
+            or bool(_PAKAPE.search(text)))

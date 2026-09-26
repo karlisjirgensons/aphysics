@@ -40,6 +40,10 @@ PAVEDIENI = {
                 "sastāvdaļas, proporcijas un porciju skaits"),
     "planeta": ("Planēta un klimats",
                 "temperatūra, ledus, ūdens un gaiss"),
+    "speles": ("Spēles un nejaušība",
+               "kauliņi, kārtis, loterijas un izredzes"),
+    "kodi": ("Kodi un drošība",
+             "PIN kodi, paroles, šifri un pārbaudes"),
 }
 
 

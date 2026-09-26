@@ -606,6 +606,10 @@ _PREFIKSI = set("ΣΔ∑∆Π∏")
 # Indeksa saturs: tikai burti un cipari, bez atstarpēm un darbības zīmēm,
 # citādi par indeksu kļūtu arī "(R + h)" un "(3,0 ± 0,2)".
 _SUB_BODY = re.compile(r"[^\W_]{1,12}\Z", re.UNICODE)
+# Figūriekavās autors indeksu ir iezīmējis pats, tāpēc tur drīkst būt arī
+# darbības zīme vai komats - progresijas a_{n+1} un saknes x_{1,2}. Atstarpi
+# gan ne: tā indeksu no teksta atdala.
+_SUB_BRACE_BODY = re.compile(r"[^\W_][^\s{}]{0,11}\Z", re.UNICODE)
 
 # Iekavās ne vienmēr ir indekss - fizikā tāpat pieraksta grafiku un
 # raksturlīkņu funkcijas: "v(t) grafiks", "I(U) raksturlīkne". Tās uzskaita
@@ -631,7 +635,9 @@ def _is_sub(text, i):
         return _sub_brace_end(text, i) > 0
     nxt = text[i + 1] if i + 1 < len(text) else ""
     nxt2 = text[i + 2] if i + 2 < len(text) else ""
-    return nxt in _ASCII_ALNUM and nxt2 not in _ASCII_ALNUM
+    # Cipara indeksam drīkst sekot lielais burts: A_1B_1, H_2O.
+    return nxt in _ASCII_ALNUM and (nxt2 not in _ASCII_ALNUM or (
+        nxt.isdigit() and nxt2.isupper()))
 
 
 def _sub_brace_end(text, i):
@@ -639,7 +645,7 @@ def _sub_brace_end(text, i):
     close = text.find(SUB_CLOSE, i + 2)
     if close < 0:
         return 0
-    return close if _SUB_BODY.match(text[i + 2:close]) else 0
+    return close if _SUB_BRACE_BODY.match(text[i + 2:close]) else 0
 
 
 def _sub_paren_end(text, i):
@@ -674,8 +680,11 @@ def has_markup(text):
     return has_vector(text) or has_index(text)
 
 
-def split_runs(text):
+def split_runs(text, iekavas=True):
     """Tekstu sadala gabalos, ko attēlo atšķirīgi.
+
+    iekavas=False - matemātikas pieraksts: «P(A)» ir varbūtība un «f(a)» -
+    funkcijas vērtība, nevis indekss, tāpēc indekss ir tikai «F_y» / «F_{max}».
 
         ("t", teksts)   - parasts teksts
         ("v", simbols)  - vektors (bultiņa virs simbola)
@@ -709,7 +718,7 @@ def split_runs(text):
                 out.append(("s", text[i + 1]))
                 i += 2
             continue
-        close = _sub_paren_end(text, i)
+        close = _sub_paren_end(text, i) if iekavas else 0
         if close:
             flush()
             out.append(("s", text[i + 1:close]))

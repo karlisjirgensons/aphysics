@@ -62,11 +62,11 @@ def saite(no_stundas, uz_stundu, klase):
     return href(*rel.split(os.sep))
 
 
-def blakus(klase, stunda, gatavas):
+def blakus(klase, stunda, gatavas,
+           vardi=("Iepriekšējā stunda", "Nākamā stunda")):
     """Pogas «iepriekšējā» un «nākamā» - tikai uz jau uzrakstītām stundām."""
     out = []
-    for nobide, uzraksts in ((-1, "Iepriekšējā stunda"),
-                             (1, "Nākamā stunda")):
+    for nobide, uzraksts in zip((-1, 1), vardi):
         kaimins = gatavas.get(stunda.nr + nobide)
         if kaimins:
             out.append((uzraksts, "%d. %s" % (kaimins.nr, kaimins.tema),

@@ -8,6 +8,8 @@ un tad redz, kas ar to notiek (SRP).
     Kustiba - kustīgs objekts uz trases. Ieraksti skaitli, spied «Palaist»,
               un objekts aizbrauc tieši tik tālu; ja aprēķins bija pareizs,
               tas apstājas pie mērķa karodziņa.
+    Simulacija - nejaušs eksperiments: simts metienu vienā pieskārienā
+              un relatīvais biežums, kas tuvojas varbūtībai.
     Slidnis  - vizualizācija pa soļiem. Katrs soļa stāvoklis
               ir sagatavots jau būvējot, tāpēc lapā nav ne formulu, ne
               rēķināšanas - tikai iepriekš uzzīmēti stāvokļi (DRY).
@@ -337,3 +339,128 @@ class Petijums(Bloks):
         if self.secinajums:
             gabali.append('<p class="secinajums">%s</p>' % esc(self.secinajums))
         return "\n".join(gabali)
+
+
+
+class Simulacija(Spele):
+    """Nejaušs eksperiments: met kauliņu vai monētu daudz reižu un vēro.
+
+    Varbūtību 7. klasē vispirms iegūst ar eksperimentu: relatīvais biežums
+    ar katru metienu svārstās mazāk un tuvojas teorētiskajai varbūtībai.
+    Ar rokām simts metienu stundā nepaspēj, tāpēc tos izdara lapa - skolēns
+    redz gan katra iznākuma skaitu, gan notikuma biežumu.
+
+    iznakumi  - iznākumu nosaukumi («1» ... «6», «ģerbonis», «cipars»);
+    svari     - cik «vietu» katram iznākumam (ruletei ar nevienādiem
+                sektoriem), pēc noklusējuma visiem vienādi;
+    notikums  - to iznākumu numuri (no 0), kuros notikums notiek;
+    nosaukums - notikuma vārdi («uzkrīt sešinieks»);
+    teorija   - teorētiskā varbūtība marķējumā, piemēram, «{1|6} ≈ 0,17»;
+                to rāda tikai pēc 50 metieniem, kad ir ar ko salīdzināt.
+    """
+
+    CSS = """
+.speles .sim-pogas{display:flex;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 .7rem}
+.speles .sim-pedejais{margin:0 0 .6rem;text-align:center;color:var(--dim)}
+.speles .sim-pedejais b{display:inline-block;min-width:2.6rem;
+    margin-left:.4rem;padding:.2rem .6rem;border-radius:var(--r-sm);
+    background:var(--violet);color:#fff;font-family:var(--font-h);
+    font-size:1.2rem}
+.speles .sim-rinda{display:grid;gap:.5rem;align-items:center;margin:.25rem 0;
+    grid-template-columns:minmax(3.2rem,auto) 1fr 2.6rem}
+.speles .sim-rinda .n{font-weight:600;color:var(--primary);
+    overflow-wrap:anywhere}
+.speles .sim-rinda .s{height:1rem;border-radius:var(--r-sm);
+    background:var(--surface2);overflow:hidden}
+.speles .sim-rinda .s i{display:block;height:100%;width:0;
+    background:var(--violet);transition:width .2s}
+.speles .sim-rinda.ir .s i{background:var(--amber)}
+.speles .sim-rinda .c{text-align:right;font-variant-numeric:tabular-nums}
+.speles .sim-kopa{margin:.8rem 0 0;padding:.6rem .8rem;border-radius:var(--r);
+    background:var(--bg);font-size:clamp(.98rem,4vw,1.08rem)}
+.speles .sim-teorija{margin:.4rem 0 0;color:var(--dim)}
+"""
+
+    JS = """
+MSP.veidi.simulacija=function(root){
+  var d=MSP.dati(root,"data-sim")||{};
+  var iz=d.iznakumi||[],svari=d.svari||[],ir={},kopa=0,i;
+  for(i=0;i<(d.notikums||[]).length;i++){ir[d.notikums[i]]=1;}
+  for(i=0;i<svari.length;i++){kopa+=svari[i];}
+  var skaits=[],n=0,m=0,pedejais=null,joslas=[],cipari=[];
+  var pogas=MSP.e("div","sim-pogas"),ped=MSP.e("p","sim-pedejais");
+  var rindas=MSP.e("div","sim-rindas"),kopsav=MSP.e("p","sim-kopa");
+  var teorija=MSP.e("p","sim-teorija");
+  for(i=0;i<iz.length;i++){
+    skaits.push(0);
+    var r=MSP.e("div","sim-rinda"+(ir[i]?" ir":""));
+    var s=MSP.e("span","s"),j=MSP.e("i"),c=MSP.e("span","c","0");
+    s.appendChild(j);
+    r.appendChild(MSP.e("span","n",iz[i]));r.appendChild(s);r.appendChild(c);
+    joslas.push(j);cipari.push(c);rindas.appendChild(r);
+  }
+  /* Viens metiens: nejaušs skaitlis nokrīt kāda iznākuma «vietās». */
+  function viens(){
+    var x=Math.random()*kopa,k=0;
+    while(k<svari.length-1&&x>=svari[k]){x-=svari[k];k++;}
+    skaits[k]++;n++;if(ir[k]){m++;}pedejais=k;
+  }
+  function radi(){
+    var liel=1,k;
+    for(k=0;k<skaits.length;k++){liel=Math.max(liel,skaits[k]);}
+    for(k=0;k<skaits.length;k++){
+      joslas[k].style.width=(100*skaits[k]/liel)+"%";
+      cipari[k].textContent=skaits[k];
+    }
+    ped.textContent=pedejais===null?"Vēl nav mests.":"Pēdējais iznākums:";
+    if(pedejais!==null){ped.appendChild(MSP.e("b","",iz[pedejais]));}
+    kopsav.textContent=n?("Notikums «"+d.nosaukums+"»: "+m+" reizes no "+n+
+      ". Relatīvais biežums "+m+" : "+n+" ≈ "+MSP.cip(Math.round(m/n*100)/100))
+      :"Spied pogu un skaties, kā mainās biežums.";
+    teorija.innerHTML=(n>=50&&d.teorija)?
+      ("Teorētiskā varbūtība: "+d.teorija):"";
+  }
+  function metiens(reizes,uzraksts){
+    var b=MSP.poga(reizes===100?"galvena":"",uzraksts);
+    b.setAttribute("data-reizes",""+reizes);
+    b.addEventListener("click",function(){
+      for(var q=0;q<reizes;q++){viens();}
+      radi();
+    });
+    pogas.appendChild(b);
+  }
+  metiens(1,"1 reizi");metiens(10,"10 reizes");metiens(100,"100 reizes");
+  var no=MSP.poga("","No sākuma");
+  no.addEventListener("click",function(){
+    for(var k=0;k<skaits.length;k++){skaits[k]=0;}
+    n=0;m=0;pedejais=null;radi();
+  });
+  pogas.appendChild(no);
+  root.appendChild(pogas);root.appendChild(ped);root.appendChild(rindas);
+  root.appendChild(kopsav);root.appendChild(teorija);
+  radi();
+};
+"""
+
+    def __init__(self, virsraksts, iznakumi, notikums, nosaukums,
+                 teorija=None, svari=None, ievads=None):
+        Spele.__init__(self, virsraksts, ievads)
+        self.iznakumi = [str(x) for x in iznakumi]
+        self.svari = list(svari or [1] * len(self.iznakumi))
+        self.notikums, self.nosaukums = list(notikums), nosaukums
+        self.teorija = teorija
+        if len(self.svari) != len(self.iznakumi):
+            raise AssertionError("«%s»: svaru un iznākumu skaits nesakrīt"
+                                 % virsraksts)
+        if not all(0 <= i < len(self.iznakumi) for i in self.notikums):
+            raise AssertionError("«%s»: notikumā ir neesošs iznākums"
+                                 % virsraksts)
+
+    def veids(self):
+        return "simulacija"
+
+    def atributi(self):
+        return {"data-sim": _atr({
+            "iznakumi": self.iznakumi, "svari": self.svari,
+            "notikums": self.notikums, "nosaukums": self.nosaukums,
+            "teorija": esc(self.teorija) if self.teorija else ""})}

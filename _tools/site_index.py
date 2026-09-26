@@ -101,6 +101,18 @@ h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
         font-size:clamp(.82rem,3.3vw,.95rem)}
 .card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
         font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
 
 .theme{border-bottom:1px solid var(--line)}
 .theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
@@ -353,15 +365,28 @@ def render_pd_card():
                plural(temati, "temats", "temati", "tematu")))
 
 
-def render_card(course, n_themes, n_lessons):
-    return ('<a class="card" href="%s">\n'
+def render_karte(saite, virsraksts, apraksts, meta, zime=None):
+    """Viena poga-karte: nosaukums, apraksts un skaitļi apakšā.
+
+    Visas sākumlapas un sarakstu kartes (kursi, matemātika, IQ testi) iet
+    caur šo vienu vietu, tāpēc tās izskatās vienādi (DRY). «zime» - īss
+    uzraksts stūrī; karte ar to ir izcelta (.card.izcelta).
+    """
+    return ('<a class="card%s" href="%s">\n%s'
             '<span class="card-t">%s</span>\n'
             '<span class="card-s">%s</span>\n'
-            '<span class="card-m">%s · %s</span>\n</a>'
-            % (href(os.path.basename(course["root"]), "index.html"),
-               esc(course["label"]), esc(course["kicker"]),
-               plural(n_themes, "temats", "temati", "tematu"),
-               plural(n_lessons, "stunda", "stundas", "stundu")))
+            '<span class="card-m">%s</span>\n</a>'
+            % (" izcelta" if zime else "", saite,
+               '<span class="card-z">%s</span>\n' % esc(zime) if zime else "",
+               esc(virsraksts), esc(apraksts), esc(meta)))
+
+
+def render_card(course, n_themes, n_lessons):
+    return render_karte(
+        href(os.path.basename(course["root"]), "index.html"),
+        course["label"], course["kicker"],
+        "%s · %s" % (plural(n_themes, "temats", "temati", "tematu"),
+                     plural(n_lessons, "stunda", "stundas", "stundu")))
 
 
 def render_home(cards):
@@ -399,10 +424,12 @@ def build_home():
     prezentāciju - tās lapas aug no stundu plāniem (math_vietne.py). Moduli
     importē tikai izpildes brīdī, lai imports nesanāktu aplī.
     """
+    import iq_vietne
     import math_vietne
     cards = [render_card(c, *course_stats(c["root"])) for _, c in ordered()]
     return write(os.path.join(SITE_ROOT, "index.html"),
-                 render_home([math_vietne.render_card()] + cards
+                 render_home([math_vietne.render_card(),
+                              iq_vietne.render_card()] + cards
                              + [render_pd_card()]))
 
 

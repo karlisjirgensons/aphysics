@@ -210,7 +210,7 @@ TEMATI = [
            "Aplūko dažādus telpu plānus un stāsta, kā tie veidoti."),
           ("Ko nozīmē samazināt vienādu skaitu reižu?",
            "Skaidro, ka plānā visi lielumi samazināti vienādu skaitu reižu."),
-          ("Ko mēs prasmi vēl nezinām?",
+          ("Kādas prasmes mums vēl trūkst?",
            "Kopā veido darbības plānu klases attēlošanai un nosaka, kādas "
            "prasmes vēl vajadzīgas."),
           ("Kā sadalīt darbu grupā?",

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IQ · matemātika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
+      font-size:clamp(.85rem,3.4vw,1rem)}
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- matemātikas stundu saraksts ---------- */
+.mt{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin:.9rem 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--violet);font-size:clamp(.85rem,3.4vw,.98rem)}
+.mt .cnt{color:var(--dim);font-weight:400;font-size:.85em}
+li.gaida span.t{color:var(--dim)}
+li.gaida .box{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--bg);
+     border:1px dashed var(--line);border-radius:.75rem;
+     font-size:clamp(.85rem,3.5vw,1rem)}
+li.gaida .n{flex:none;color:var(--dim);font-weight:500}
+li.pd a,li.pd .box{background:#FFF4D6;border-color:var(--amber);
+     color:var(--amber-ink);font-weight:500}
+li.pd .n{color:var(--amber-ink)}
+.tinfo{margin:.2rem 0 .6rem;color:var(--dim);
+       font-size:clamp(.8rem,3.2vw,.9rem)}
+</style>
+<script>
+(function(){
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7";
+  /* Lokāli atvērta lapa nav apmeklējums. */
+  if(location.protocol.indexOf("http")!==0){return;}
+  if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
+  var dl=window.dataLayer=window.dataLayer||[];
+  function gtag(){dl.push(arguments);}
+  window.gtag=gtag;
+  var s=document.createElement("script");
+  s.async=true;
+  s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+  document.head.appendChild(s);
+  /* Sadaļa ir adreses pirmā mape; sākumlapai mapes nav. */
+  var d=location.pathname.split("/")[1]||"";
+  gtag("js",new Date());
+  gtag("config",ID,{content_group:(d&&d.indexOf(".")<0)?d:"Sākums"});
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>IQ</h1>
+<p class="lead">Mīklas bez stundas: skaitļu virknes, figūru matricas, telpiskā domāšana, loģika un atmiņa. Katrā kategorijā ir trīs pakāpes - no 1., 4. un 7. klases. Par pareizu atbildi ar pirmo mēģinājumu - zvaigzne!</p>
+</header>
+<div class="bar">
+<a class="back" href="../../index.html">&#8592; Sākums</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Izvērst visu</button>
+</div>
+<details class="theme">
+<summary><span class="n">1.</span><span class="t">Skaitļu virknes</span><span class="c">9</span></summary>
+<p class="tinfo">Atrodi likumu, pēc kura aug skaitļi, un uzmini nākamo.</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/1.%20K%C4%81pnes%20uz%20aug%C5%A1u.html"><span class="n">1.</span><span class="t">Kāpnes uz augšu</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/2.%20K%C4%81pnes%20uz%20leju.html"><span class="n">2.</span><span class="t">Kāpnes uz leju</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/3.%20Dubult%C4%81%21.html"><span class="n">3.</span><span class="t">Dubultā!</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/4.%20So%C4%BCi%2C%20kas%20aug.html"><span class="n">4.</span><span class="t">Soļi, kas aug</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/5.%20Divas%20virknes%20vien%C4%81.html"><span class="n">5.</span><span class="t">Divas virknes vienā</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/6.%20Kvadr%C4%81ti%20un%20reizin%C4%81jumi.html"><span class="n">6.</span><span class="t">Kvadrāti un reizinājumi</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/7.%20Fibona%C4%8Di%20nosl%C4%93pums.html"><span class="n">7.</span><span class="t">Fibonači noslēpums</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/8.%20Pirmskait%C4%BCi%20un%20kubi.html"><span class="n">8.</span><span class="t">Pirmskaitļi un kubi</span></a></li>
+  <li><a href="1.%20Skait%C4%BCu%20virknes/9.%20Virk%C5%86u%20meistars.html"><span class="n">9.</span><span class="t">Virkņu meistars</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">2.</span><span class="t">Figūru matricas</span><span class="c">9</span></summary>
+<p class="tinfo">Kas iet tukšajā rūtiņā? Atrodi likumu rindās un kolonnās.</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/10.%20Kas%20iztr%C5%ABkst.html"><span class="n">10.</span><span class="t">Kas iztrūkst?</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/11.%20Viena%20paz%C4%ABme%20main%C4%81s.html"><span class="n">11.</span><span class="t">Viena pazīme mainās</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/12.%20Rindas%20un%20kolonnas.html"><span class="n">12.</span><span class="t">Rindas un kolonnas</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/13.%20Divi%20likumi%20vienlaikus.html"><span class="n">13.</span><span class="t">Divi likumi vienlaikus</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/14.%20Bultas%20grie%C5%BEas.html"><span class="n">14.</span><span class="t">Bultas griežas</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/15.%20R%C5%ABti%C5%86u%20detekt%C4%ABvs.html"><span class="n">15.</span><span class="t">Rūtiņu detektīvs</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/16.%20Tr%C4%ABs%20likumi.html"><span class="n">16.</span><span class="t">Trīs likumi</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/17.%20Grie%C5%BEas%20un%20main%C4%81s.html"><span class="n">17.</span><span class="t">Griežas un mainās</span></a></li>
+  <li><a href="2.%20Fig%C5%ABru%20matricas/18.%20Matricu%20meistars.html"><span class="n">18.</span><span class="t">Matricu meistars</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.</span><span class="t">Lieks ārā</span><span class="c">9</span></summary>
+<p class="tinfo">Viens no tiem neiederas. Kurš un kāpēc?</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/19.%20Kur%C5%A1%20neiederas.html"><span class="n">19.</span><span class="t">Kurš neiederas?</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/20.%20P%C4%81ra%20un%20nep%C4%81ra.html"><span class="n">20.</span><span class="t">Pāra un nepāra</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/21.%20%C4%80tr%C4%81%20acs.html"><span class="n">21.</span><span class="t">Ātrā acs</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/22.%20Skaiti%20un%20sal%C4%ABdzini.html"><span class="n">22.</span><span class="t">Skaiti un salīdzini</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/23.%20Dal%C4%81m%C4%ABbas%20detekt%C4%ABvs.html"><span class="n">23.</span><span class="t">Dalāmības detektīvs</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/24.%20Bultu%20labirints.html"><span class="n">24.</span><span class="t">Bultu labirints</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/25.%20Spogu%C4%BCa%20slazds.html"><span class="n">25.</span><span class="t">Spoguļa slazds</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/26.%20Pirmskait%C4%BCi%20un%20kvadr%C4%81ti.html"><span class="n">26.</span><span class="t">Pirmskaitļi un kvadrāti</span></a></li>
+  <li><a href="3.%20Lieks%20%C4%81r%C4%81/27.%20Liek%C4%81%20meistars.html"><span class="n">27.</span><span class="t">Liekā meistars</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">4.</span><span class="t">Telpiskā domāšana</span><span class="c">9</span></summary>
+<p class="tinfo">Pagriez, apgriez, saloki un saskaiti - tikai prātā.</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/28.%20Pagriez%20fig%C5%ABru.html"><span class="n">28.</span><span class="t">Pagriez figūru</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/29.%20Spogul%C4%ABtis.html"><span class="n">29.</span><span class="t">Spogulītis</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/30.%20Kubu%20tornis.html"><span class="n">30.</span><span class="t">Kubu tornis</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/31.%20Pagriez%20vai%20apgriez.html"><span class="n">31.</span><span class="t">Pagriez vai apgriez?</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/32.%20Kubu%20pils%C4%93ta.html"><span class="n">32.</span><span class="t">Kubu pilsēta</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/33.%20Saloki%20kubu.html"><span class="n">33.</span><span class="t">Saloki kubu</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/34.%20Se%C5%A1u%20r%C5%ABti%C5%86u%20galvasgrieziens.html"><span class="n">34.</span><span class="t">Sešu rūtiņu galvasgrieziens</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/35.%20Lielais%20kubs.html"><span class="n">35.</span><span class="t">Lielais kubs</span></a></li>
+  <li><a href="4.%20Telpisk%C4%81%20dom%C4%81%C5%A1ana/36.%20Kuba%20t%C4%ABklu%20meistars.html"><span class="n">36.</span><span class="t">Kuba tīklu meistars</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">5.</span><span class="t">Loģika un svari</span><span class="c">9</span></summary>
+<p class="tinfo">Figūras slēpj skaitļus, svari nemelo, un katrai mīklai ir atbilde.</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/37.%20Fig%C5%ABru%20%C5%A1ifrs.html"><span class="n">37.</span><span class="t">Figūru šifrs</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/38.%20Svaru%20m%C4%ABklas.html"><span class="n">38.</span><span class="t">Svaru mīklas</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/39.%20Skait%C4%BCu%20piram%C4%ABda.html"><span class="n">39.</span><span class="t">Skaitļu piramīda</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/40.%20Tr%C4%ABs%20fig%C5%ABru%20%C5%A1ifrs.html"><span class="n">40.</span><span class="t">Trīs figūru šifrs</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/41.%20Svaru%20%C4%B7%C4%93de.html"><span class="n">41.</span><span class="t">Svaru ķēde</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/42.%20Vilt%C4%ABg%C4%81s%20m%C4%ABklas.html"><span class="n">42.</span><span class="t">Viltīgās mīklas</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/43.%20Darb%C4%ABbu%20sec%C4%ABbas%20%C5%A1ifrs.html"><span class="n">43.</span><span class="t">Darbību secības šifrs</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/44.%20Ma%C4%A3iskais%20kvadr%C4%81ts.html"><span class="n">44.</span><span class="t">Maģiskais kvadrāts</span></a></li>
+  <li><a href="5.%20Lo%C4%A3ika%20un%20svari/45.%20M%C4%ABklas%20ar%20%C4%81%C4%B7i.html"><span class="n">45.</span><span class="t">Mīklas ar āķi</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.</span><span class="t">Atmiņa un uzmanība</span><span class="c">9</span></summary>
+<p class="tinfo">Iegaumē, pamani un saskaiti - ātri un precīzi.</p>
+<h3 class="mt">Iesildīšanās · no 1. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/46.%20Sp%C4%ABdo%C5%A1%C4%81s%20r%C5%ABti%C5%86as.html"><span class="n">46.</span><span class="t">Spīdošās rūtiņas</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/47.%20Ko%20tu%20redz%C4%93ji.html"><span class="n">47.</span><span class="t">Ko tu redzēji?</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/48.%20As%C4%81%20acs.html"><span class="n">48.</span><span class="t">Asā acs</span></a></li>
+</ul>
+<h3 class="mt">Uzkāpiens · no 4. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/49.%20R%C5%ABti%C5%86u%20labirints.html"><span class="n">49.</span><span class="t">Rūtiņu labirints</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/50.%20Fig%C5%ABru%20rinda.html"><span class="n">50.</span><span class="t">Figūru rinda</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/51.%20Detekt%C4%ABva%20acs.html"><span class="n">51.</span><span class="t">Detektīva acs</span></a></li>
+</ul>
+<h3 class="mt">Virsotne · no 7. klases<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/52.%20Atmi%C5%86as%20%C4%8Dempions.html"><span class="n">52.</span><span class="t">Atmiņas čempions</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/53.%20Ciparu%20virtuozs.html"><span class="n">53.</span><span class="t">Ciparu virtuozs</span></a></li>
+  <li><a href="6.%20Atmi%C5%86a%20un%20uzman%C4%ABba/54.%20Uzman%C4%ABbas%20meistars.html"><span class="n">54.</span><span class="t">Uzmanības meistars</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">7.</span><span class="t">Lielie IQ testi</span><span class="c">3</span></summary>
+<p class="tinfo">15 dažādas mīklas pēc kārtas - pārbaudi sevi visās jomās.</p>
+<h3 class="mt">Viss kopā · trīs līmeņi<span class="cnt">3 stundas</span></h3>
+<ul>
+  <li><a href="7.%20Lielie%20IQ%20testi/55.%20IQ%20tests%20s%C4%81kums.html"><span class="n">55.</span><span class="t">IQ tests: sākums</span></a></li>
+  <li><a href="7.%20Lielie%20IQ%20testi/56.%20IQ%20tests%20izaicin%C4%81jums.html"><span class="n">56.</span><span class="t">IQ tests: izaicinājums</span></a></li>
+  <li><a href="7.%20Lielie%20IQ%20testi/57.%20IQ%20tests%20%C4%A3%C4%93nijs.html"><span class="n">57.</span><span class="t">IQ tests: ģēnijs</span></a></li>
+</ul>
+</details>
+
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+  });
+})();
+</script>
+</body>
+</html>

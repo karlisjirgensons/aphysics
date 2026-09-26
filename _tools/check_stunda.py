@@ -4,6 +4,12 @@
     python check_stunda.py 5          # visas uzrakstītās 5. klases stundas
     python check_stunda.py 5 12 13    # tikai 12. un 13. stunda
     python check_stunda.py            # visas klases
+    python check_stunda.py iq         # visi IQ testi (Math/IQ)
+    python check_stunda.py iq 5 36    # tikai 5. un 36. IQ tests
+
+IQ testus izspēlē vēl divos īstos ekrānos (EKRANI - telefons lentē un
+klēpjdators) un katrai mīklai pirms un pēc atbildes pārbauda, vai spēle
+ietilpst ekrānā: IQ spēlē nedrīkst būt jāritina.
 
 Lapu atver īstā pārlūkā telefona platumā un pārbauda to, ko ar aci var
 nepamanīt:
@@ -34,11 +40,15 @@ from urllib.request import pathname2url
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import iq_testi                                     # noqa: E402
+import iq_vietne                                    # noqa: E402
 import math_plani                                   # noqa: E402
 import math_stundas                                 # noqa: E402
 
 PLATUMS = 390            # telefona platums, kurā lapu pārbauda
 AUGSTUMS = 9000          # rāmja augstums - lai neviens bloks nepaliek ārpus
+# Īsti ekrāni, kuros IQ spēlei jāietilpst bez ritināšanas.
+EKRANI = [("telefons", 390, 844), ("dators", 1280, 720)]
 PARLUKS = os.environ.get(
     "CHROME", r"C:\Program Files\Google\Chrome\Application\chrome.exe")
 
@@ -65,6 +75,27 @@ function audits(doc){
     zin.plats="satura platums "+de.scrollWidth+" > "+de.clientWidth+
               (vainigs?" ("+vainigs+")":"");
   }
+  /* Teksts rūtiņā: zīmējuma uzraksts nedrīkst būt platāks par savu rūtiņu,
+     un HTML lodziņa saturs - par pašu lodziņu. */
+  var zt=doc.querySelectorAll(".zim text[data-maks]");
+  for(var z=0;z<zt.length;z++){
+    var gar=zt[z].getComputedTextLength();
+    if(gar>parseFloat(zt[z].getAttribute("data-maks"))+0.2){
+      zin.kludas.push("zīmējuma uzraksts «"+zt[z].textContent+
+                      "» neietilpst rūtiņā");
+    }
+  }
+  var lodz=doc.querySelectorAll(".bl *");
+  for(var l=0;l<lodz.length;l++){
+    var el=lodz[l];
+    if(el.closest("svg")||!el.clientWidth){continue;}
+    if(el.scrollWidth>el.clientWidth+2){
+      zin.kludas.push("teksts neietilpst lodziņā "+el.tagName.toLowerCase()+
+                      "."+String(el.className).split(" ")[0]+" («"+
+                      (el.textContent||"").trim().slice(0,30)+"»)");
+      break;
+    }
+  }
   if(!doc.defaultView.MSP&&doc.querySelector("[data-veids]")){
     zin.kludas.push("MSP dzinējs nav ielādējies");
   }
@@ -72,6 +103,20 @@ function audits(doc){
   var redzams=doc.body.innerText||"";
   if(/\\{[^{}\\n]*\\|[^{}\\n]*\\}/.test(redzams)){
     zin.kludas.push("ekrānā redzams daļas marķējums {a|b}");
+  }
+  if(/\\^[{0-9A-Za-z\\u2212-]/.test(redzams)){
+    zin.kludas.push("ekrānā redzams kāpinātāja marķējums a^n");
+  }
+  /* Indeksa marķējums: a_{10} un aₙ ir pareizi, bet «a_10» paliek teksts.
+     Zīmējumu uzraksti (SVG) innerText neietilpst - tos pārbauda atsevišķi. */
+  var zim="";
+  var teksti=doc.querySelectorAll("svg text");
+  for(var t=0;t<teksti.length;t++){zim+=" "+teksti[t].textContent;}
+  if(/[A-Za-z\\u0370-\\u03ff]_[{0-9A-Za-z]/.test(redzams+zim)){
+    zin.kludas.push("ekrānā redzams indeksa marķējums a_n");
+  }
+  if(/\\^[{0-9A-Za-z\\u2212-]/.test(zim)){
+    zin.kludas.push("zīmējumā redzams kāpinātāja marķējums a^n");
   }
   if(/<\\/?[a-zA-Z]+ ?\\/?>/.test(redzams)){
     zin.kludas.push("ekrānā redzama HTML birka - saturā lieto *izcēlumu*");
@@ -201,6 +246,120 @@ function audits(doc){
       if(cik<2){return "soļa pogas neko nemaina";}
       return null;
     },
+    simulacija:function(el){
+      var p=el.querySelector(".sim-pogas button[data-reizes='100']");
+      if(!p){return "nav metienu pogas";}
+      p.click();
+      if(teksts(el,".sim-kopa").indexOf("no 100")<0){
+        return "pēc 100 metieniem skaits nav 100";
+      }
+      var c=pogas(el,".sim-rinda .c"),summa=0;
+      for(var i=0;i<c.length;i++){summa+=parseInt(c[i].textContent,10);}
+      return summa===100?null:"iznākumu skaitu summa nav 100";
+    },
+    /* Vai IQ spēle ietilpst: bloks nav jāritina, un nekas neiziet ārpus
+       savas vietas (skatuves, zīmējuma laukuma vai paneļa). Īstā ekrānā
+       to mēra tikai tad, kad rāmis nav mākslīgi augsts. */
+    ietilpst:function(el){
+      if(doc.defaultView.innerHeight>3000){return null;}
+      var bl=el.closest(".bl"),kl=[];
+      function ara(x,sk){
+        if(x&&x.scrollHeight>x.clientHeight+2){kl.push(sk+" jāritina ("+
+          x.scrollHeight+" > "+x.clientHeight+")");}}
+      ara(bl,"bloks");ara(el,"spēle");
+      ara(el.querySelector(".iq-kart"),"kārts");
+      ara(el.querySelector(".iq-panelis"),"panelis");
+      var v=el.querySelector(".iq-vieta");
+      if(v){
+        var r=v.getBoundingClientRect(),d=v.querySelectorAll("*");
+        for(var i=0;i<d.length;i++){
+          if(d[i].closest("svg")&&d[i].tagName.toLowerCase()!=="svg"){
+            continue;}
+          var q=d[i].getBoundingClientRect();
+          if(!q.height){continue;}
+          if(q.bottom>r.bottom+2||q.right>r.right+2){
+            kl.push("iziet ārpus vietas: "+d[i].tagName.toLowerCase()+"."+
+                    String(d[i].getAttribute("class")||"").split(" ")[0]);
+            break;
+          }
+        }
+      }
+      if(doc.documentElement.scrollWidth>doc.documentElement.clientWidth+1){
+        kl.push("lapa platāka par ekrānu");}
+      /* Garajā lapā visa spēle redzama jau pirmajā ekrānā. */
+      var w=doc.defaultView;
+      if(!doc.body.classList.contains("pilns")&&
+         el.getBoundingClientRect().bottom+w.pageYOffset>w.innerHeight+2){
+        kl.push("spēle nav redzama visa bez lapas ritināšanas");}
+      return kl.length?kl.join("; "):null;
+    },
+    /* IQ tests: katrai mīklai vispirms greiza atbilde (vai to noraida un
+       piedāvā «Izlaist»), tad pareizā ar laika vērtējumu. Pirmo mīklu
+       izlaiž - arī tam ceļam jānoved līdz «Tālāk». Beigās jābūt rezultāta
+       ekrānam ar «Spēlēt vēlreiz». */
+    iq:function(el){
+      var dati=JSON.parse(el.getAttribute("data-kartas"));
+      var vieta;
+      for(var n=0;n<dati.length;n++){
+        var k=dati[n],nr=(n+1)+". mīkla: ";
+        if((vieta=draiveri.ietilpst(el))){return nr+vieta;}
+        var atc=el.querySelector("button.iq-atceros");
+        if(k.radit){
+          if(!atc){return nr+"nav iegaumēšanas pogas";}
+          atc.click();
+        }
+        if(k.veids==="izvele"){
+          var o=pogas(el,".iq-opc button");
+          if(o.length<2){return nr+"nav variantu";}
+          o[(k.pareizi+1)%o.length].click();
+          if(!el.querySelector(".iq-zin.vel")){
+            return nr+"nepareiza atbilde netiek noraidīta";}
+        }else if(k.veids==="ievade"){
+          var lauks=el.querySelector(".ie-rinda input");
+          var poga=el.querySelector(".ie-rinda button");
+          if(!lauks||!poga){return nr+"nav ievades lauka";}
+          lauks.value="—";poga.click();
+          if(!el.querySelector(".iq-zin.vel")){
+            return nr+"nepareiza atbilde netiek noraidīta";}
+        }else{
+          var r=pogas(el,".iq-rez button"),parb=el.querySelector(".iq-parb");
+          if(!r.length||!parb){return nr+"nav rūtiņu";}
+          var cita=0;while(k.atb.indexOf(cita)>=0){cita++;}
+          r[cita].click();parb.click();
+          if(!el.querySelector(".iq-zin.vel")){
+            return nr+"nepareiza atzīme netiek noraidīta";}
+        }
+        var izl=el.querySelector("button.iq-izlaist");
+        if(!izl){return nr+"pēc kļūdas nav pogas «Izlaist»";}
+        if(n===0){
+          izl.click();
+          if(!el.querySelector(".iq-prog span.izlaists")){
+            return nr+"izlaistā mīkla nav atzīmēta joslā";}
+        }else{
+          if(k.veids==="izvele"){o[k.pareizi].click();}
+          else if(k.veids==="ievade"){lauks.value=k.atb[0];poga.click();}
+          else{
+            r[cita].click();
+            for(var j=0;j<k.atb.length;j++){r[k.atb[j]].click();}
+            parb.click();
+          }
+          if(!el.querySelector(".iq-zin.labi")){
+            return nr+"pareizā atbilde netika pieņemta";}
+          if(!el.querySelector(".tempo .tempo-r b")){
+            return nr+"nav laika vērtējuma";}
+        }
+        if(k.skaidro&&!teksts(el,".iq-skaidro").trim()){
+          return nr+"nav paskaidrojuma";}
+        if((vieta=draiveri.ietilpst(el))){return nr+"pēc atbildes "+vieta;}
+        var t=el.querySelector("button.iq-talak");
+        if(!t){return nr+"nav pogas «Tālāk»";}
+        t.click();
+      }
+      if(!el.querySelector(".iq-beigas button.iq-atkal")){
+        return "nav rezultāta ekrāna";}
+      if((vieta=draiveri.ietilpst(el))){return "rezultāts: "+vieta;}
+      return null;
+    },
     izvele:function(el){
       return kartas(el,function(e){
         var c=pogas(e,".cipari button");
@@ -264,30 +423,54 @@ else{document.getElementById("zinojums").textContent="ZINOJUMS[]BEIGAS";}
 _ZINO = re.compile(r"ZINOJUMS(\[.*?\])BEIGAS", re.S)
 
 
+def lapas(klase, gatavas, numuri=None):
+    """[{nr, nos, url}, ...] - uzbūvētās lapas, ko atvērt pārlūkā."""
+    ja = sorted(n for n in gatavas if not numuri or n in numuri)
+    return [{"nr": n, "nos": gatavas[n].tema,
+             "url": url(os.path.join(math_stundas.mape(klase),
+                                     math_stundas.cels(klase, gatavas[n])))}
+            for n in ja]
+
+
 def parbaudi(klases_nr, numuri=None):
     """Uzbūvē stundas, atver tās pārlūkā un atgriež ziņojumu sarakstu."""
     klase = math_plani.klase(klases_nr)
     math_stundas.build_klase(klase)
-    gatavas = math_stundas.saturi(klase)
-    ja = sorted(n for n in gatavas if not numuri or n in numuri)
-    lapas = [{"nr": n, "nos": gatavas[n].tema,
-              "url": url(os.path.join(math_stundas.mape(klase),
-                                      math_stundas.cels(klase, gatavas[n])))}
-             for n in ja]
+    return parbaudi_lapas(lapas(klase, math_stundas.saturi(klase), numuri))
+
+
+def parbaudi_iq(numuri=None):
+    """Tas pats IQ testiem: uzbūvē un izspēlē katru testu - vispirms garā
+    rāmī (kā stundas), tad katrā īstajā ekrānā, kur mēra, vai ietilpst."""
+    iq_vietne.build()
+    kurss = iq_testi.kurss()
+    visas = lapas(kurss, {t.nr: t for t in kurss.visas}, numuri)
+    out = parbaudi_lapas(visas)
+    for nos, w, h in EKRANI:
+        for z in parbaudi_lapas(visas, w, h):
+            for s in z.get("speles") or []:
+                if s.get("kluda"):
+                    s["kluda"] = "%s %dx%d: %s" % (nos, w, h, s["kluda"])
+            out.append(z)
+    return out
+
+
+def parbaudi_lapas(lapas, platums=PLATUMS, augstums=AUGSTUMS):
+    """Atver lapas pārlūkā pēc kārtas un atgriež ziņojumu sarakstu."""
     if not lapas:
         return []
 
     mape = tempfile.mkdtemp(prefix="stundas_")
     cels = os.path.join(mape, "parbaude.html")
     with open(cels, "w", encoding="utf-8") as f:
-        f.write(RAMIS % {"w": PLATUMS, "h": AUGSTUMS, "audits": AUDITS,
+        f.write(RAMIS % {"w": platums, "h": augstums, "audits": AUDITS,
                          "lapas": json.dumps(lapas, ensure_ascii=False)})
     # Budžets aug līdz ar stundu skaitu - katra lapa jāielādē un jāizspēlē.
     budzets = 4000 + 1500 * len(lapas)
     out = subprocess.run(
         [PARLUKS, "--headless=new", "--disable-gpu",
          "--allow-file-access-from-files", "--hide-scrollbars",
-         "--window-size=%d,900" % (PLATUMS + 140),
+         "--window-size=%d,%d" % (platums + 140, min(augstums, 900) + 80),
          "--virtual-time-budget=%d" % budzets, "--dump-dom", url(cels)],
         capture_output=True, text=True, encoding="utf-8", errors="replace")
     m = _ZINO.search(out.stdout or "")
@@ -311,12 +494,17 @@ def rinda(z):
 
 def main(argv):
     skaitli = [int(a) for a in argv if a.isdigit()]
-    klases = [skaitli[0]] if skaitli else range(1, math_plani.KLASU_SKAITS + 1)
-    numuri = skaitli[1:] or None
+    if "iq" in [a.lower() for a in argv]:
+        klases, numuri = ["IQ"], skaitli or None
+    else:
+        klases = ([skaitli[0]] if skaitli
+                  else range(1, math_plani.KLASU_SKAITS + 1))
+        numuri = skaitli[1:] or None
     slikti = 0
     for nr in klases:
         try:
-            zinojumi = parbaudi(nr, numuri)
+            zinojumi = (parbaudi_iq(numuri) if nr == "IQ"
+                        else parbaudi(nr, numuri))
         except ImportError:
             continue
         for z in zinojumi:
@@ -324,11 +512,11 @@ def main(argv):
             speles = len(z.get("speles") or [])
             if vainas:
                 slikti += 1
-                print("VAINA  %d.kl %3d. %s" % (nr, z["stunda"], z["nos"]))
+                print("VAINA  %s.kl %3d. %s" % (nr, z["stunda"], z["nos"]))
                 for v in vainas:
                     print("       - %s" % v)
             else:
-                print("labi   %d.kl %3d. %-44s %d uzdevumi"
+                print("labi   %s.kl %3d. %-44s %d uzdevumi"
                       % (nr, z["stunda"], z["nos"][:44], speles))
     print("-" * 60)
     print("Vainas: %d" % slikti if slikti else "Viss kārtībā.")

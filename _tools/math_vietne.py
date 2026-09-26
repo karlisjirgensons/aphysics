@@ -127,13 +127,14 @@ def render_noslegums(klase):
 
 
 # --------------------------------------------------------------------- lapas
-def render_klase(klase):
+def render_klase(klase, lead=KLASES_LEAD, atpakal=("../index.html",
+                                                   "Klases")):
+    """Klases (vai IQ) tematu lapa; «atpakal» - (saite, uzraksts)."""
     virsraksts = "%s · matemātika" % klase.nosaukums
     temati = [render_temats(klase, t) for t in klase.temati]
     return page(virsraksts,
-                "\n".join([site_index.render_header(klase.nosaukums,
-                                                    KLASES_LEAD),
-                           site_index.render_bar("../index.html", "Klases")]
+                "\n".join([site_index.render_header(klase.nosaukums, lead),
+                           site_index.render_bar(*atpakal)]
                           + temati + [render_noslegums(klase)]))
 
 
@@ -188,11 +189,7 @@ def render_card():
     """Matemātikas poga sākumlapā - blakus pārējiem kursiem."""
     klases = math_plani.klases()
     stundas = sum(k.stundu_skaits for k in klases)
-    return ('<a class="card" href="%s">\n'
-            '<span class="card-t">%s</span>\n'
-            '<span class="card-s">%s</span>\n'
-            '<span class="card-m">%s · %s</span>\n</a>'
-            % (href(MAPE, "index.html"), esc("Matemātika"),
-               esc(KICKER),
-               plural(len(klases), "klase", "klases", "klašu"),
-               plural(stundas, "stunda", "stundas", "stundu")))
+    return site_index.render_karte(
+        href(MAPE, "index.html"), "Matemātika", KICKER,
+        "%s · %s" % (plural(len(klases), "klase", "klases", "klašu"),
+                     plural(stundas, "stunda", "stundas", "stundu")))

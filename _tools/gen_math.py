@@ -6,7 +6,8 @@
 
 Gada plānu saturs ir math_1.py ... math_9.py, plāna izskats - math_plani.py,
 atsevišķas stundas saturs - math_<klase>_<nr>.py, tās lapa - math_lapa.py un
-math_stundas.py, klašu un tematu saraksti - math_vietne.py. Šis fails tikai
+math_stundas.py, klašu un tematu saraksti - math_vietne.py, IQ testi -
+iq_vietne.py. Šis fails tikai
 savieno tos un pastāsta, kas sanāca (SRP).
 
 Secība ir svarīga: stundu lapas jāuzraksta pirms sarakstiem, jo stunda kļūst
@@ -18,6 +19,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+import iq_vietne                                    # noqa: E402
 import math_plani                                   # noqa: E402
 import math_stundas                                 # noqa: E402
 import math_vietne                                  # noqa: E402
@@ -42,6 +44,8 @@ def main(argv):
               % (os.path.basename(path), k.stundu_skaits, len(k.temati)))
     for path in math_stundas.build_visas(numuri or None):
         print("Stunda:     %s" % os.path.relpath(path, math_plani.SAKNE))
+    for path in iq_vietne.build():
+        print("IQ:         %s" % os.path.relpath(path, math_plani.SAKNE))
     for path in math_vietne.build_vietne():
         print("Lapa:       %s" % path)
     print("Sākumlapa:  %s" % site_index.build_home())
