@@ -53,7 +53,7 @@ def build_tests(kurss, tests, visi):
         tests, saturs(tests), atpakal="../index.html",
         klases_nosaukums=kurss.nosaukums, datums=None,
         saites=math_stundas.blakus(kurss, tests, visi, KAIMINI),
-        kods="%s · %d. tests" % (kurss.kods, tests.nr))
+        kods="%s · %d. tests" % (kurss.kods, tests.nr), skats="spele")
     return write(cels, lapa)
 
 

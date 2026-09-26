@@ -201,7 +201,7 @@ PAGE = """<!DOCTYPE html>
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
 %(analytics)s</head>
-<body>
+<body%(body_atr)s>
 <div class="augsa">
 <a class="atpakal" href="%(atpakal)s">&#8592; %(klase)s</a>
 <span class="kods">%(kods)s</span>
@@ -262,12 +262,13 @@ def render_talak(saites):
 
 
 def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
-           kods=None):
+           kods=None, skats="stunda"):
     """Vienas stundas lapa: galva, bloki, skolotāja rinda un ceļš tālāk.
 
     Lapai bez mācību kalendāra (IQ testi) datums ir None - tad nav arī
     rindas «Skolotājam», jo plāna datu tai nav. «kods» ir uzraksts augšējā
-    joslā; ja tā nav, tas ir stundas temats, klase un numurs.
+    joslā; ja tā nav, tas ir stundas temats, klase un numurs. «skats» -
+    kā lapu rāda pilnekrānā un telefonā (math_pilnekrans.SKATI).
     """
     bloki = list(saturs.SATURS)
     css, js = _fragmenti(bloki)
@@ -288,7 +289,8 @@ def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
                           + math_pilnekrans.JS),
                    "atpakal": atpakal, "klase": esc(klases_nosaukums),
                    "kods": esc(kods.strip()), "body": body,
-                   "analytics": analytics.head()}
+                   "analytics": analytics.head(),
+                   "body_atr": math_pilnekrans.atributs(skats)}
 
 
 def parbaudi(saturs):
