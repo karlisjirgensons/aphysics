@@ -24,10 +24,78 @@ atbildei pieliek laika vērtējumu pret kārtas mērķa laiku (MSP.tempo no
 spēļu dzinēja, tāpēc to pašu var lietot arī stundu uzdevumos).
 """
 
+import json
+
 from math_bloki import Spele, _atr, esc
 from math_uzdevumi import sajauc
 
 VEIDI = ("izvele", "ievade", "rezgis")
+
+# Spēles teikumi abās valodās; JS ņem tos, kas atbilst <html lang>. {n} u.c.
+# aizpilda JS (f). Rūtiņu vārdam latviski ir trīs formas (1, daudz, 0),
+# angliski divas - pēc tā JS zina, kā locīt.
+TEKSTI = {
+    "lv": {
+        "slave": ["Pareizi!", "Lieliski!", "Tā turpināt!", "Ass prāts!",
+                  "Nepārspējami!"],
+        "variants": "Variants {n}", "atbilde": "Atbilde",
+        "parbaudit": "Pārbaudīt", "ieraksti": "Ieraksti atbildi lodziņā.",
+        "rutina": "Rūtiņa {n}", "rutinas": ["rūtiņa", "rūtiņas", "rūtiņu"],
+        "atzime": "Vispirms atzīmē rūtiņas.", "trukst": "trūkst {n}",
+        "lieka": "lieka {n}", "liekas": "liekas {n}",
+        "vel_ne_rez": "Vēl ne: {t}. Labo un pārbaudi vēlreiz!",
+        "atceros": "Atceros!", "kapec": "Kāpēc?",
+        "mans": "Mans rezultāts", "talak": "Tālāk",
+        "serija": " Sērija: {n}!",
+        "velak": "Pareizi! Nākamo reizi sanāks ar pirmo mēģinājumu.",
+        "izlaists": "Nekas! Pareizā atbilde ir iezīmēta - izlasi, kāpēc tā, "
+                    "un nākamā sanāks.",
+        "izlaist": "Izlaist - parādīt atbildi",
+        "vel_ne": "Vēl ne - pamēģini vēlreiz vai izlaid.",
+        "nr": "{i}. mīkla no {n}",
+        "virsraksti": ["Treniņš dara meistaru!", "Labs sākums!",
+                       "Ass prāts!", "Ģeniāli!"],
+        "rezultats": "Ar pirmo mēģinājumu atrisināji {p} no {n} mīklām.",
+        "labaka": "labākā sērija {n}", "atri": "ātrāk par mērķi: {a} no {n}",
+        "jauns": "jauns rekords!", "rekords": "rekords {b}/{n}",
+        "atkal": "Spēlēt vēlreiz",
+        "tempo": ["Zibens! Divreiz ātrāk par mērķa laiku.",
+                  "Super! Ātrāk par mērķa laiku.",
+                  "Labs darbs! Mērķa laiks jau pavisam tuvu.",
+                  "Izdevās! Ar katru reizi sanāks ātrāk."],
+        "merkis": "mērķis {m} s",
+    },
+    "en": {
+        "slave": ["Correct!", "Great!", "Keep it up!", "Sharp mind!",
+                  "Unbeatable!"],
+        "variants": "Option {n}", "atbilde": "Answer",
+        "parbaudit": "Check", "ieraksti": "Type your answer in the box.",
+        "rutina": "Cell {n}", "rutinas": ["cell", "cells"],
+        "atzime": "Tap some cells first.", "trukst": "{n} missing",
+        "lieka": "{n} extra", "liekas": "{n} extra",
+        "vel_ne_rez": "Not yet: {t}. Fix it and check again!",
+        "atceros": "Got it!", "kapec": "Why?",
+        "mans": "My result", "talak": "Next",
+        "serija": " Streak: {n}!",
+        "velak": "Correct! Next time you'll get it on the first try.",
+        "izlaists": "No problem! The right answer is marked - read why, and "
+                    "you'll get the next one.",
+        "izlaist": "Skip - show the answer",
+        "vel_ne": "Not yet - try again or skip.",
+        "nr": "Puzzle {i} of {n}",
+        "virsraksti": ["Practice makes perfect!", "Good start!",
+                       "Sharp mind!", "Genius!"],
+        "rezultats": "You solved {p} of {n} puzzles on the first try.",
+        "labaka": "best streak {n}", "atri": "faster than target: {a} of {n}",
+        "jauns": "new record!", "rekords": "record {b}/{n}",
+        "atkal": "Play again",
+        "tempo": ["Lightning! Twice as fast as the target time.",
+                  "Super! Faster than the target time.",
+                  "Good job! The target time is very close.",
+                  "Done! It gets faster every time."],
+        "merkis": "target {m} s",
+    },
+}
 
 
 class IQTests(Spele):
@@ -44,6 +112,7 @@ class IQTests(Spele):
 :root{--iq-h:min(calc(100svh - 5.5rem),52rem)}
 body.pilns{--iq-h:calc(100svh - 5.8rem);--gals:"Tests galā"}
 body{--gals:"Tests galā"}
+html[lang="en"] body{--gals:"Test complete"}
 body.pilns .bl.iq{padding-top:1rem;padding-bottom:4.8rem;
     justify-content:flex-start}
 .bl.iq{position:relative;overflow:hidden;padding-top:.9rem}
@@ -290,9 +359,21 @@ MSP.veidi.iq=function(root){
        'A9 9 0 0 0 12 4zm1 9.4V8h-2v6.2l4 2.4 1-1.7z"/></svg>'
   };
   var KRASAS=["#7C3AED","#F59E0B","#0EA5E9","#10B981","#EC4899","#4F46E5"];
-  var SLAVE=["Pareizi!","Lieliski!","Tā turpināt!","Ass prāts!",
-             "Nepārspējami!"];
+  var VALODA=document.documentElement.lang==="en"?"en":"lv";
+  var T=/*TEKSTI*/[VALODA];
   var st,taimeris;
+  /* T teikumā «{n}» vietā liek o.n. */
+  function f(s,o){return s.replace(/\\{(\\w+)\\}/g,function(_,k){return o[k];});}
+  /* «2 rūtiņas» / «2 squares» - latviski trīs formas, angliski divas. */
+  function rutinas(n){var v=T.rutinas;
+    return v.length>2?MSP.skaitlis(n,v):n+" "+v[n===1?0:1];}
+  /* Google Analytics notikums (analytics.py): tests sākts / pabeigts. Lokāli
+     gtag nav - tad nekas nenotiek. */
+  function zinot(vards,dati){
+    if(!window.gtag){return;}
+    dati.test_id=id;dati.test_lang=VALODA;
+    try{window.gtag("event",vards,dati);}catch(x){}
+  }
   var hud=e("div","iq-hud"),prog=e("div","iq-prog"),stat=e("div","iq-stat");
   var pZv=e("span","iq-pill zv"),pUg=e("span","iq-pill ug"),
       pLk=e("span","iq-pill lk"),kart=e("div","iq-kart");
@@ -357,7 +438,7 @@ MSP.veidi.iq=function(root){
       c.rada=function(){pogas[k.pareizi].classList.add("ja","rada");};
       k.opcijas.forEach(function(h,i){
         var b=poga("iq-o","");b.innerHTML=h;
-        b.setAttribute("aria-label","Variants "+(i+1));
+        b.setAttribute("aria-label",f(T.variants,{n:i+1}));
         b.addEventListener("click",function(){
           if(st.gatavs){return;}
           if(i===k.pareizi){b.classList.add("ja");c.labi();}
@@ -373,16 +454,16 @@ MSP.veidi.iq=function(root){
       var rinda=e("div","ie-rinda"),inp=document.createElement("input");
       inp.type="text";inp.autocomplete="off";
       inp.setAttribute("inputmode",k.tastatura||"decimal");
-      inp.setAttribute("aria-label","Atbilde");
+      inp.setAttribute("aria-label",T.atbilde);
       inp.placeholder=k.vieta||"?";
-      var b=poga("galvena","Pārbaudīt");
+      var b=poga("galvena",T.parbaudit);
       rinda.appendChild(inp);rinda.appendChild(b);c.lauks.appendChild(rinda);
       c.rada=function(){inp.value=k.atb[0].replace(/<[^>]*>/g,"");
         inp.className="rada";inp.readOnly=true;b.disabled=true;};
       function skatit(){
         if(st.gatavs){return;}
         var ir=MSP.tirs(inp.value);
-        if(!ir){saki(c,"Ieraksti atbildi lodziņā.",false);return;}
+        if(!ir){saki(c,T.ieraksti,false);return;}
         if(derigas.indexOf(ir)>=0){
           inp.className="labi";inp.readOnly=true;b.disabled=true;c.labi();
           return;
@@ -403,7 +484,7 @@ MSP.veidi.iq=function(root){
       for(var i=0;i<cik;i++){(function(i){
         var b=poga("","");
         if(k.saturs){b.innerHTML=k.saturs[i];}
-        b.setAttribute("aria-label","Rūtiņa "+(i+1));
+        b.setAttribute("aria-label",f(T.rutina,{n:i+1}));
         b.addEventListener("click",function(){
           if(st.gatavs){return;}
           izv[i]=!izv[i];b.classList.toggle("sel",!!izv[i]);
@@ -414,8 +495,7 @@ MSP.veidi.iq=function(root){
       c.rada=function(){
         for(var j=0;j<k.atb.length;j++){pogas[k.atb[j]].classList.add("rada");}
       };
-      var parb=poga("galvena iq-parb","Pārbaudīt");c.vad.appendChild(parb);
-      var R=["rūtiņa","rūtiņas","rūtiņu"];
+      var parb=poga("galvena iq-parb",T.parbaudit);c.vad.appendChild(parb);
       parb.addEventListener("click",function(){
         if(st.gatavs){return;}
         var trukst=0,lieki=0,ir=0,j;
@@ -425,12 +505,12 @@ MSP.veidi.iq=function(root){
           if(der&&!izv[j]){trukst++;}
           if(!der&&izv[j]){lieki++;}
         }
-        if(!ir){saki(c,"Vispirms atzīmē rūtiņas.",false);return;}
+        if(!ir){saki(c,T.atzime,false);return;}
         if(!trukst&&!lieki){c.labi();return;}
         var t=[];
-        if(trukst){t.push("trūkst "+MSP.skaitlis(trukst,R));}
-        if(lieki){t.push("lieka"+(lieki>1?"s ":" ")+MSP.skaitlis(lieki,R));}
-        c.ne("Vēl ne: "+t.join(", ")+". Labo un pārbaudi vēlreiz!");
+        if(trukst){t.push(f(T.trukst,{n:rutinas(trukst)}));}
+        if(lieki){t.push(f(lieki>1?T.liekas:T.lieka,{n:rutinas(lieki)}));}
+        c.ne(f(T.vel_ne_rez,{t:t.join(", ")}));
       });
     }
   };
@@ -440,7 +520,7 @@ MSP.veidi.iq=function(root){
     var box=e("div","iq-atcer"),lj=e("div","iq-laiks"),li=e("i");
     lj.appendChild(li);li.style.animationDuration=c.k.laiks+"ms";
     box.innerHTML=c.k.radit;
-    var b=poga("iq-atceros galvena","Atceros!");
+    var b=poga("iq-atceros galvena",T.atceros);
     c.lauks.appendChild(lj);c.lauks.appendChild(box);c.vad.appendChild(b);
     var t=setTimeout(beigt,c.k.laiks),bija=false;
     function beigt(){
@@ -460,12 +540,13 @@ MSP.veidi.iq=function(root){
     saki({zin:z},teikums,labi);p.appendChild(z);
     if(vel){p.appendChild(vel);}
     if(c.k.skaidro){
-      var s=e("div","iq-skaidro");s.innerHTML="<b>Kāpēc?</b> "+c.k.skaidro;
+      var s=e("div","iq-skaidro");
+      s.innerHTML="<b>"+T.kapec+"</b> "+c.k.skaidro;
       p.appendChild(s);
     }
     var vad=e("div","iq-vad");p.appendChild(vad);c.kart.appendChild(p);
     var pedeja=st.i+1>=visas.length;
-    var t=poga("iq-talak galvena",pedeja?"Mans rezultāts":"Tālāk");
+    var t=poga("iq-talak galvena",pedeja?T.mans:T.talak);
     t.addEventListener("click",function(){
       if(pedeja){beigas();}else{st.i++;radi();redzams();}
     });
@@ -474,7 +555,7 @@ MSP.veidi.iq=function(root){
   function atrisinats(c){
     if(st.gatavs){return;}
     var pirma=!st.kluda,sek=(Date.now()-c.t0)/1000;
-    var tp=c.k.merkis?MSP.tempo(sek,c.k.merkis):null;
+    var tp=c.k.merkis?MSP.tempo(sek,c.k.merkis,T):null;
     if(pirma){
       st.punkti++;st.serija++;st.labaka=Math.max(st.labaka,st.serija);
       if(tp&&tp.limenis<=1){st.atri++;}
@@ -482,27 +563,26 @@ MSP.veidi.iq=function(root){
     }
     hop(pirma?pZv:pUg);
     noslegt(c,pirma?"ja":"velak",
-            pirma?(SLAVE[Math.min(st.serija,SLAVE.length)-1]+
-                   (st.serija>=3?" Sērija: "+st.serija+"!":""))
-                 :"Pareizi! Nākamo reizi sanāks ar pirmo mēģinājumu.",
+            pirma?(T.slave[Math.min(st.serija,T.slave.length)-1]+
+                   (st.serija>=3?f(T.serija,{n:st.serija}):""))
+                 :T.velak,
             true,tp&&tp.el);
   }
   function izlaist(c){
     if(st.gatavs){return;}
     st.serija=0;
     if(c.rada){c.rada();}
-    noslegt(c,"izlaists","Nekas! Pareizā atbilde ir iezīmēta - izlasi, "+
-                        "kāpēc tā, un nākamā sanāks.",false);
+    noslegt(c,"izlaists",T.izlaists,false);
   }
   function kluda(c,teksts){
     if(!st.kluda){st.kluda=true;st.serija=0;atjauno();}
     if(!c.izl){
       /* Kad neiet, ir skaidra izeja: parādīt atbildi un iet tālāk. */
-      c.izl=poga("iq-izlaist","Izlaist - parādīt atbildi");
+      c.izl=poga("iq-izlaist",T.izlaist);
       c.izl.addEventListener("click",function(){izlaist(c);});
       c.vad.appendChild(c.izl);
     }
-    saki(c,teksts||"Vēl ne - pamēģini vēlreiz vai izlaid.",false);
+    saki(c,teksts||T.vel_ne,false);
     c.lauks.classList.remove("krata");void c.lauks.offsetWidth;
     c.lauks.classList.add("krata");
   }
@@ -518,7 +598,7 @@ MSP.veidi.iq=function(root){
            vad:e("div","iq-vad")};
     c.labi=function(){atrisinats(c);};
     c.ne=function(t){kluda(c,t);};
-    kart.appendChild(e("p","iq-nr",(st.i+1)+". mīkla no "+visas.length));
+    kart.appendChild(e("p","iq-nr",f(T.nr,{i:st.i+1,n:visas.length})));
     var vieta=e("div","iq-vieta");vieta.appendChild(c.lauks);
     kart.appendChild(jaut);kart.appendChild(vieta);
     kart.appendChild(c.zin);kart.appendChild(c.vad);
@@ -558,27 +638,27 @@ MSP.veidi.iq=function(root){
       zvs.appendChild(s);
     }
     kart.appendChild(zvs);
-    kart.appendChild(e("h3","",["Treniņš dara meistaru!","Labs sākums!",
-      "Ass prāts!","Ģeniāli!"][zv]));
-    kart.appendChild(e("p","","Ar pirmo mēģinājumu atrisināji "+p+" no "+
-                               n+" mīklām."));
+    kart.appendChild(e("h3","",T.virsraksti[zv]));
+    kart.appendChild(e("p","",f(T.rezultats,{p:p,n:n})));
     var ch=e("div","iq-stat"),a=e("span","iq-pill lk"),
         b=e("span","iq-pill ug"),c=e("span","iq-pill zv");
     pill(a,"lk",laiks(Date.now()-st.sak));
-    pill(b,"ug","labākā sērija "+st.labaka);
+    pill(b,"ug",f(T.labaka,{n:st.labaka}));
     ch.appendChild(a);ch.appendChild(b);
     var d_=e("span","iq-pill lk");
-    pill(d_,"lk","ātrāk par mērķi: "+st.atri+" no "+n);
+    pill(d_,"lk",f(T.atri,{a:st.atri,n:n}));
     ch.appendChild(d_);
     if(bija>=0){
-      pill(c,"zv",p>bija?"jauns rekords!":"rekords "+bija+"/"+n);
+      pill(c,"zv",p>bija?T.jauns:f(T.rekords,{b:bija,n:n}));
       ch.appendChild(c);
     }
     kart.appendChild(ch);
-    var vad=e("div","iq-vad"),no=poga("galvena iq-atkal","Spēlēt vēlreiz");
+    var vad=e("div","iq-vad"),no=poga("galvena iq-atkal",T.atkal);
     no.addEventListener("click",function(){sakt();redzams();});
     vad.appendChild(no);kart.appendChild(vad);
     if(zv>=2){setTimeout(function(){konfeti(60);},400);}
+    zinot("iq_finish",{score:p,total:n,stars:zv,best_streak:st.labaka,
+                       seconds:Math.round((Date.now()-st.sak)/1000)});
   }
 
   /* Garajā lapā spēle aizņem tieši to, kas ekrānā palicis zem galvas.
@@ -603,6 +683,7 @@ MSP.veidi.iq=function(root){
 
   function sakt(){
     st={i:0,punkti:0,serija:0,labaka:0,atri:0,sak:Date.now(),rez:[]};
+    zinot("iq_start",{total:visas.length});
     clearInterval(taimeris);
     taimeris=setInterval(function(){pill(pLk,"lk",
       laiks(Date.now()-st.sak));},1000);
@@ -629,6 +710,8 @@ MSP.veidi.iq=function(root){
         if karta["veids"] == "izvele":
             sajauc(out, karta)
         return out
+
+    JS = JS.replace("/*TEKSTI*/", json.dumps(TEKSTI, ensure_ascii=False))
 
     def klase(self):
         return "iq"

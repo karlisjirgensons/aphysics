@@ -17,6 +17,8 @@ Tā pati vārdnīca der gan zīmēšanai, gan salīdzināšanai, gan paskaidroju
 
 import math
 
+from valoda import en
+
 # --------------------------------------------------------------- vārdnīca
 # Vārda formas teikumiem: nominatīvs, daudzskaitlis, datīvs («pretī
 # zvaigznei»), akuzatīvs daudzskaitlī («atzīmē visus apļus») un ģenitīvs
@@ -52,13 +54,35 @@ KRASAS = {
 
 PILDIJUMI = {"pilns": "aizkrāsota", "tukss": "tukša", "gaiss": "gaiša"}
 
+# Angliski locījumu nav: tās pašas piecas vietas teikumā ir vienskaitlis vai
+# daudzskaitlis («pretī zvaigznei» - «opposite the star»).
+FORMAS_EN = {
+    "aplis": ("circle", "circles"), "kvadrats": ("square", "squares"),
+    "trijsturis": ("triangle", "triangles"),
+    "piecsturis": ("pentagon", "pentagons"),
+    "sessturis": ("hexagon", "hexagons"), "zvaigzne": ("star", "stars"),
+    "rombs": ("diamond", "diamonds"), "krusts": ("cross", "crosses"),
+    "bulta": ("arrow", "arrows"),
+}
+KRASAS_EN = {"violets": "purple", "oranzs": "orange", "zils": "blue",
+             "zals": "green", "roza": "pink"}
+PILDIJUMI_EN = {"pilns": "filled", "tukss": "empty", "gaiss": "light"}
+
 
 def vards(forma, kas=NOM):
+    if en():
+        return FORMAS_EN[forma][0 if kas in (NOM, DAT) else 1]
     return FORMAS[forma][kas]
+
+
+def pildijums(p):
+    return (PILDIJUMI_EN if en() else PILDIJUMI)[p]
 
 
 def krasa(krasa_, kas="nom", forma=None):
     """Krāsas vārds: «nom» - violeta, «akk» - violetos/violetās, «gen»."""
+    if en():
+        return KRASAS_EN[krasa_]
     k = KRASAS[krasa_]
     if kas == "akk":
         return k[3] if forma in SIEVIESU else k[2]
@@ -67,6 +91,8 @@ def krasa(krasa_, kas="nom", forma=None):
 
 def ko_akk(forma, krasa_=None):
     """«visus zilos apļus» / «visas zvaigznes»."""
+    if en():
+        return "all %s" % ko_gen(forma, krasa_)
     visi = "visas" if forma in SIEVIESU else "visus"
     if krasa_:
         return "%s %s %s" % (visi, krasa(krasa_, "akk", forma),

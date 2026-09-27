@@ -18,8 +18,18 @@ header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
        color:#fff;border-radius:0 0 1.5rem 1.5rem}
 h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
    font-size:clamp(1.35rem,5vw,2.1rem)}
-.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
-      font-size:clamp(.85rem,3.4vw,1rem)}
+/* Valodu pārslēgs galvas augšējā stūrī (izskats - VALODAS_CSS). */
+header{position:relative}
+header:has(.valodas) h1{padding-right:6.5rem}
+header .valodas{position:absolute;top:.9rem;right:1rem}
+
+.valodas{display:flex;gap:2px;padding:2px;border-radius:var(--r-pill);
+         background:rgba(255,255,255,.16)}
+.valodas a,.valodas span{padding:.22rem .7rem;border-radius:var(--r-pill);
+         font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff}
+.valodas a:hover{background:rgba(255,255,255,.22)}
+.valodas .on{background:#fff;color:var(--primary)}
+
 
 .bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
      padding:.8rem 0;position:sticky;top:0;z-index:10;
@@ -45,6 +55,18 @@ h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
         font-size:clamp(.82rem,3.3vw,.95rem)}
 .card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
         font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
 
 .theme{border-bottom:1px solid var(--line)}
 .theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
@@ -100,7 +122,7 @@ li.tema .pogas span{background:var(--bg);color:var(--dim);
 </style>
 <script>
 (function(){
-  var DOM="calcubo.lv", ID="G-D08NE6MVZ7";
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi"};
   /* Lokāli atvērta lapa nav apmeklējums. */
   if(location.protocol.indexOf("http")!==0){return;}
   if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
@@ -111,10 +133,17 @@ li.tema .pogas span{background:var(--bg);color:var(--dim);
   s.async=true;
   s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
   document.head.appendChild(s);
-  /* Sadaļa ir adreses pirmā mape; sākumlapai mapes nav. */
-  var d=location.pathname.split("/")[1]||"";
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
   gtag("js",new Date());
-  gtag("config",ID,{content_group:(d&&d.indexOf(".")<0)?d:"Sākums"});
+  gtag("config",ID,{content_group:grupa});
 })();
 </script>
 </head>
@@ -265,7 +294,9 @@ li.tema .pogas span{background:var(--bg);color:var(--dim);
         open=b.getAttribute("data-open")!=="1",i;
     for(i=0;i<d.length;i++){d[i].open=open;}
     b.setAttribute("data-open",open?"1":"0");
-    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+    var en=document.documentElement.lang==="en";
+    b.textContent=open?(en?"Collapse all":"Sakļaut visu"):
+                       (en?"Expand all":"Izvērst visu");
   });
 })();
 </script>

@@ -24,8 +24,19 @@ import itertools
 
 import iq_zimejumi as Z
 from math_bloki import esc
+from valoda import en, t
 
-LIMENI = {1: "no 1. klases", 2: "no 4. klases", 3: "no 7. klases"}
+
+def limenis(n):
+    """Grūtības pakāpe testa lapas galvā."""
+    return t({1: "no 1. klases", 2: "no 4. klases", 3: "no 7. klases"}[n],
+             {1: "age 7+", 2: "age 10+", 3: "age 13+"}[n])
+
+
+def teikuma(vards):
+    """Vārds teikuma sākumā: latviski ar lielo burtu («Aplis sver...»);
+    angliski priekšā ir «A»/«The», tāpēc vārds paliek mazs."""
+    return vards if en() else vards.capitalize()
 
 
 # ================================================================ palīgi
@@ -88,22 +99,25 @@ def _v_plus(rng, lim):
     d = rng.randint(2, 5 if lim == 1 else 9)
     a = rng.randint(1, 12)
     v = [a + d * i for i in range(6)]
-    return v, "Katrs nākamais skaitlis ir par %d lielāks: %d + %d = %d." % (
-        d, v[-2], d, v[-1])
+    return v, t("Katrs nākamais skaitlis ir par %d lielāks: %d + %d = %d.",
+                "Each number is %d more than the one before: "
+                "%d + %d = %d.") % (d, v[-2], d, v[-1])
 
 
 def _v_minus(rng, lim):
     d = rng.randint(2, 5 if lim == 1 else 9)
     a = d * 6 + rng.randint(0, 10)
     v = [a - d * i for i in range(6)]
-    return v, "Katrs nākamais skaitlis ir par %d mazāks: %d − %d = %d." % (
-        d, v[-2], d, v[-1])
+    return v, t("Katrs nākamais skaitlis ir par %d mazāks: %d − %d = %d.",
+                "Each number is %d less than the one before: "
+                "%d − %d = %d.") % (d, v[-2], d, v[-1])
 
 
 def _v_divreiz(rng, lim):
     a = rng.randint(1, 3)
     v = [a * 2 ** i for i in range(6)]
-    return v, "Katrs nākamais skaitlis ir divreiz lielāks: %d · 2 = %d." % (
+    return v, t("Katrs nākamais skaitlis ir divreiz lielāks: %d · 2 = %d.",
+                "Each number is twice the one before: %d · 2 = %d.") % (
         v[-2], v[-1])
 
 
@@ -113,7 +127,8 @@ def _v_augosi(rng, lim):
     for i in range(1, 6):
         v.append(v[-1] + d * i)
     soli = ", ".join("+%d" % (d * i) for i in range(1, 6))
-    return v, "Soļi aug: %s. Tāpēc %d + %d = %d." % (
+    return v, t("Soļi aug: %s. Tāpēc %d + %d = %d.",
+                "The steps grow: %s. So %d + %d = %d.") % (
         soli, v[-2], d * 5, v[-1])
 
 
@@ -122,21 +137,24 @@ def _v_mainigi(rng, lim):
     v = [rng.randint(3, 15)]
     for i in range(7):
         v.append(v[-1] + (a if i % 2 == 0 else -b))
-    return v, "Pārmaiņus +%d un −%d. Pēdējais solis ir +%d: %d + %d = %d." % (
-        a, b, a, v[-2], a, v[-1])
+    return v, t("Pārmaiņus +%d un −%d. Pēdējais solis ir +%d: %d + %d = %d.",
+                "Alternately +%d and −%d. The last step is +%d: "
+                "%d + %d = %d.") % (a, b, a, v[-2], a, v[-1])
 
 
 def _v_trisreiz(rng, lim):
     a = rng.randint(1, 2)
     v = [a * 3 ** i for i in range(6)]
-    return v, "Katrs nākamais skaitlis ir trīsreiz lielāks: %d · 3 = %d." % (
-        v[-2], v[-1])
+    return v, t("Katrs nākamais skaitlis ir trīsreiz lielāks: %d · 3 = %d.",
+                "Each number is three times the one before: "
+                "%d · 3 = %d.") % (v[-2], v[-1])
 
 
 def _v_kvadrati(rng, lim):
     n = rng.randint(1, 4)
     v = [(n + i) ** 2 for i in range(6)]
-    return v, "Tie ir kvadrāti: %d² = %d, ..., %d² = %d." % (
+    return v, t("Tie ir kvadrāti: %d² = %d, ..., %d² = %d.",
+                "They are squares: %d² = %d, ..., %d² = %d.") % (
         n, v[0], n + 5, v[-1])
 
 
@@ -146,8 +164,10 @@ def _v_divas(rng, lim):
     v = []
     for i in range(4):
         v += [a + da * i, b + db * i]
-    return v, ("Tās ir divas virknes pamīšus: %s (+%d) un %s (−%d). "
-               "Trūkst otrās virknes skaitļa: %d." % (
+    return v, (t("Tās ir divas virknes pamīšus: %s (+%d) un %s (−%d). "
+                 "Trūkst otrās virknes skaitļa: %d.",
+                 "Two sequences take turns: %s (+%d) and %s (−%d). "
+                 "The missing number belongs to the second one: %d.") % (
                    ", ".join(sk(x) for x in v[0::2]), da,
                    ", ".join(sk(x) for x in v[1::2]), -db, v[-1]))
 
@@ -155,7 +175,8 @@ def _v_divas(rng, lim):
 def _v_puse(rng, lim):
     a = rng.choice([3, 5, 7]) * 2 ** 5
     v = [a // 2 ** i for i in range(6)]
-    return v, "Katrs nākamais skaitlis ir divreiz mazāks: %d : 2 = %d." % (
+    return v, t("Katrs nākamais skaitlis ir divreiz mazāks: %d : 2 = %d.",
+                "Each number is half the one before: %d : 2 = %d.") % (
         v[-2], v[-1])
 
 
@@ -163,15 +184,19 @@ def _v_fibonaci(rng, lim):
     v = [rng.randint(1, 4), rng.randint(1, 5)]
     while len(v) < 8:
         v.append(v[-1] + v[-2])
-    return v, ("Katrs skaitlis ir divu iepriekšējo summa: %d + %d = %d. "
-               "Tā aug Fibonači virkne - tā slēpjas arī saulespuķu sēklās."
-               % (v[-3], v[-2], v[-1]))
+    return v, (t("Katrs skaitlis ir divu iepriekšējo summa: %d + %d = %d. "
+                 "Tā aug Fibonači virkne - tā slēpjas arī saulespuķu "
+                 "sēklās.",
+                 "Each number is the sum of the two before it: "
+                 "%d + %d = %d. That is how the Fibonacci sequence grows - "
+                 "it hides in sunflower seeds too.") % (v[-3], v[-2], v[-1]))
 
 
 def _v_kubi(rng, lim):
     n = rng.randint(1, 2)
     v = [(n + i) ** 3 for i in range(5)]
-    return v, "Tie ir kubi: %d³ = %d, ..., %d³ = %d." % (
+    return v, t("Tie ir kubi: %d³ = %d, ..., %d³ = %d.",
+                "They are cubes: %d³ = %d, ..., %d³ = %d.") % (
         n, v[0], n + 4, v[-1])
 
 
@@ -181,14 +206,18 @@ _PIRM = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53]
 def _v_pirmskaitli(rng, lim):
     i = rng.randint(0, 6)
     v = _PIRM[i:i + 7]
-    return v, ("Tie ir pirmskaitļi - dalās tikai ar 1 un ar sevi. Pēc %d "
-               "nākamais pirmskaitlis ir %d." % (v[-2], v[-1]))
+    return v, (t("Tie ir pirmskaitļi - dalās tikai ar 1 un ar sevi. Pēc %d "
+                 "nākamais pirmskaitlis ir %d.",
+                 "They are primes - divisible only by 1 and themselves. "
+                 "After %d the next prime is %d.") % (v[-2], v[-1]))
 
 
 def _v_trijstura(rng, lim):
     v = [n * (n + 1) // 2 for n in range(1, 8)]
-    return v, ("Soļi aug par vienu: +2, +3, +4, ... Pēdējais solis ir +7: "
-               "%d + 7 = %d." % (v[-2], v[-1]))
+    return v, (t("Soļi aug par vienu: +2, +3, +4, ... Pēdējais solis ir "
+                 "+7: %d + 7 = %d.",
+                 "The steps grow by one: +2, +3, +4, ... The last step is "
+                 "+7: %d + 7 = %d.") % (v[-2], v[-1]))
 
 
 def _v_reizpluss(rng, lim):
@@ -200,24 +229,29 @@ def _v_reizpluss(rng, lim):
     for _ in range(5):
         v.append(2 * v[-1] + p)
     zime = "+ 1" if p == 1 else "− 1"
-    return v, "Reizina ar 2 un %s: %d · 2 %s = %d." % (
-        "pieskaita 1" if p == 1 else "atņem 1", v[-2], zime, v[-1])
+    return v, t("Reizina ar 2 un %s: %d · 2 %s = %d.",
+                "Multiply by 2 and %s: %d · 2 %s = %d.") % (
+        t("pieskaita 1", "add 1") if p == 1 else t("atņem 1", "subtract 1"),
+        v[-2], zime, v[-1])
 
 
 def _v_dubultsoli(rng, lim):
     v = [rng.randint(1, 9)]
     for i in range(6):
         v.append(v[-1] + 2 ** i)
-    return v, "Soļi dubultojas: +1, +2, +4, +8, +16, +32. %d + 32 = %d." % (
-        v[-2], v[-1])
+    return v, t("Soļi dubultojas: +1, +2, +4, +8, +16, +32. %d + 32 = %d.",
+                "The steps double: +1, +2, +4, +8, +16, +32. "
+                "%d + 32 = %d.") % (v[-2], v[-1])
 
 
 def _v_negativi(rng, lim):
     d = rng.randint(3, 7)
     a = rng.randint(5, 12)
     v = [a - d * i for i in range(6)]
-    return v, "Katrs nākamais ir par %d mazāks - arī aiz nulles: %s − %d = %s." % (
-        d, sk(v[-2]), d, sk(v[-1]))
+    return v, t("Katrs nākamais ir par %d mazāks - arī aiz nulles: "
+                "%s − %d = %s.",
+                "Each number is %d less - even past zero: "
+                "%s − %d = %s.") % (d, sk(v[-2]), d, sk(v[-1]))
 
 
 VIRKNES = {
@@ -244,7 +278,8 @@ def virkne(rng, lim, likums=None):
     """Skaitļu virkne - atrodi nākamo skaitli."""
     f = VIRKNU_LIKUMI[likums] if likums else rng.choice(VIRKNES[lim])
     v, skaidro = f(rng, lim)
-    return ievade("Kurš skaitlis ir nākamais?", v[-1], skaidro,
+    return ievade(t("Kurš skaitlis ir nākamais?",
+                    "Which number comes next?"), v[-1], skaidro,
                   zim=Z.flizes([sk(x) for x in v[:-1]] + [None]))
 
 
@@ -260,27 +295,36 @@ _PAZIMES = {"forma": ("figūra", "visas trīs figūras"),
             "skaits": ("figūru skaits", "visi trīs skaiti"),
             "pild": ("aizkrāsojums", "visi trīs aizkrāsojumi"),
             "rot": ("bultas virziens", "visi trīs virzieni")}
+_PAZIMES_EN = {"forma": ("the shape", "all three shapes"),
+               "krasa": ("the colour", "all three colours"),
+               "skaits": ("the number of shapes", "all three counts"),
+               "pild": ("the fill", "all three fills"),
+               "rot": ("the arrow's direction", "all three directions")}
 
 
 def vards_saraksts(v):
     v = list(v)
-    return v[0] if len(v) == 1 else "%s un %s" % (", ".join(v[:-1]), v[-1])
+    return v[0] if len(v) == 1 else "%s %s %s" % (
+        ", ".join(v[:-1]), t("un", "and"), v[-1])
 
 
 def _vertibas_teksts(pazime, vert):
     f = {"forma": Z.vards, "krasa": Z.krasa, "skaits": str,
-         "pild": lambda v: Z.PILDIJUMI[v], "rot": lambda v: "%d°" % v}
+         "pild": Z.pildijums, "rot": lambda v: "%d°" % v}
     return vards_saraksts(f[pazime](v) for v in vert)
 
 
 def _likums_teksts(pazime, likums, vert):
-    nos, visas = _PAZIMES[pazime]
+    nos, visas = (_PAZIMES_EN if en() else _PAZIMES)[pazime]
     vt = _vertibas_teksts(pazime, vert)
     if likums == "kolonna":
-        return "Pa labi mainās %s: %s." % (nos, vt)
+        return t("Pa labi mainās %s: %s.",
+                 "Left to right, %s changes: %s.") % (nos, vt)
     if likums == "rinda":
-        return "Uz leju mainās %s: %s." % (nos, vt)
-    return "Katrā rindā un kolonnā ir %s: %s." % (visas, vt)
+        return t("Uz leju mainās %s: %s.",
+                 "Top to bottom, %s changes: %s.") % (nos, vt)
+    return t("Katrā rindā un kolonnā ir %s: %s.",
+             "Every row and column has %s: %s.") % (visas, vt)
 
 
 def _indekss(likums, r, c, n):
@@ -364,7 +408,9 @@ def matrica(rng, lim, n=None, bulta=None):
     citi = _atskir(rng, pareiza, unik, 3 if lim == 1 else 5)
     skaidro = " ".join(_likums_teksts(p, likumi[p], domenes[p])
                        for p in mainas)
-    return izvele("Kura figūra iet tukšajā rūtiņā?", Z.suna(pareiza),
+    return izvele(t("Kura figūra iet tukšajā rūtiņā?",
+                    "Which picture goes in the empty cell?"),
+                  Z.suna(pareiza),
                   [Z.suna(c) for c in citi], skaidro,
                   zim=Z.matrica(sunas[:-1] + [None], n), kol=3)
 
@@ -389,31 +435,41 @@ def _lieks_figuras(rng, lim):
             vienadas = [{"forma": forma, "krasa": k}
                         for k in (k1, k1, k2, k2)]
             lieka = {"forma": cita, "krasa": rng.choice((k1, k2))}
-        skaidro = "Visas pārējās figūras ir %s, bet šī ir %s." % (
+        skaidro = t("Visas pārējās figūras ir %s, bet šī ir %s.",
+                    "All the others are %s, but this one is a %s.") % (
             Z.vards(forma, Z.DSK), Z.vards(cita))
     elif veids == "krasa":
         cita = rng.choice([k for k in _M_KRASAS if k != krasa])
         vienadas = [{"forma": forma, "krasa": krasa}] * 4
         lieka = {"forma": forma, "krasa": cita}
-        skaidro = "Visām pārējām krāsa ir %s, bet šai - %s." % (
+        skaidro = t("Visām pārējām krāsa ir %s, bet šai - %s.",
+                    "All the others are %s, but this one is %s.") % (
             Z.krasa(krasa), Z.krasa(cita))
     elif veids == "skaits":
         n, m = rng.choice([(3, 4), (4, 3), (2, 3), (4, 5)])
         vienadas = [{"forma": f, "krasa": krasa, "skaits": n}
                     for f in formas[:4]]
         lieka = {"forma": formas[4], "krasa": krasa, "skaits": m}
-        skaidro = ("Forma te neko nenozīmē. Visās pārējās ir %d "
-                   "figūras, bet šajā - %d." % (n, m))
+        skaidro = t("Forma te neko nenozīmē. Visās pārējās ir %d "
+                    "figūras, bet šajā - %d.",
+                    "The shape doesn't matter here. All the others have %d "
+                    "shapes, but this one has %d.") % (n, m)
     else:
         p, cita = rng.sample(_M_PILD, 2)
         vienadas = [{"forma": f, "krasa": krasa, "pild": p}
                     for f in formas[:4]]
         lieka = {"forma": formas[4], "krasa": krasa, "pild": cita}
-        skaidro = ("Formas visas ir dažādas - tās nav pavediens. Visas "
-                   "pārējās ir %s, bet šī - %s." % (
-                       Z.PILDIJUMI[p], Z.PILDIJUMI[cita]))
-    return izvele("Kura figūra ir lieka?", Z.suna(lieka),
+        skaidro = t("Formas visas ir dažādas - tās nav pavediens. Visas "
+                    "pārējās ir %s, bet šī - %s.",
+                    "The shapes are all different - they are not the clue. "
+                    "All the others are %s, but this one is %s.") % (
+                        Z.pildijums(p), Z.pildijums(cita))
+    return izvele(_lieka(), Z.suna(lieka),
                   [Z.suna(v) for v in vienadas], skaidro, kol=5)
+
+
+def _lieka():
+    return t("Kura figūra ir lieka?", "Which picture is the odd one out?")
 
 
 def _lieks_spogulis(rng):
@@ -421,37 +477,47 @@ def _lieks_spogulis(rng):
     kr = rng.choice(_M_KRASAS)
     pagr = [_norm(_rot(fig, k)) for k in range(4)]
     lieka = _norm(_rot(_spog(fig), rng.randint(0, 3)))
-    return izvele("Kura figūra ir lieka?", Z.poliomino(lieka, kr),
+    return izvele(_lieka(), Z.poliomino(lieka, kr),
                   [Z.poliomino(p, kr) for p in pagr],
-                  "Četras ir viena un tā pati figūra, tikai pagriezta. "
-                  "Liekā ir tās spoguļattēls - to ar pagriešanu vien "
-                  "nevar dabūt.", kol=5)
+                  t("Četras ir viena un tā pati figūra, tikai pagriezta. "
+                    "Liekā ir tās spoguļattēls - to ar pagriešanu vien "
+                    "nevar dabūt.",
+                    "Four are the same shape, just turned. The odd one is "
+                    "its mirror image - you can't get it by turning."),
+                  kol=5)
 
 
 def _lieks_skaitli(rng, lim):
     if lim == 1:
         para = rng.sample(range(2, 40, 2), 4)
         lieka = rng.choice(range(3, 40, 2))
-        return para, lieka, ("Visi pārējie ir pāra skaitļi - dalās ar 2. "
-                             "%d ir nepāra." % lieka)
+        return para, lieka, t("Visi pārējie ir pāra skaitļi - dalās ar 2. "
+                              "%d ir nepāra.",
+                              "All the others are even - divisible by 2. "
+                              "%d is odd.") % lieka
     if lim == 2:
         d = rng.choice([3, 4, 5, 9])
         visi = rng.sample(range(d * 2, d * 12, d), 4)
         lieka = rng.choice([x for x in range(d * 2 + 1, d * 12)
                             if x % d and x % 2 == visi[0] % 2])
-        return visi, lieka, ("Visi pārējie dalās ar %d. %d ar %d nedalās."
-                             % (d, lieka, d))
+        return visi, lieka, t("Visi pārējie dalās ar %d. %d ar %d nedalās.",
+                              "All the others are divisible by %d. %d is "
+                              "not divisible by %d.") % (d, lieka, d)
     if rng.random() < 0.5:
         pirm = rng.sample([p for p in _PIRM if p > 10], 4)
         lieka = rng.choice([51, 57, 87, 91, 49, 39])
         dal = next(x for x in range(3, lieka) if lieka % x == 0)
-        return pirm, lieka, ("Visi pārējie ir pirmskaitļi. %d tikai izskatās "
-                             "pēc pirmskaitļa: %d = %d · %d."
-                             % (lieka, lieka, dal, lieka // dal))
+        return pirm, lieka, t("Visi pārējie ir pirmskaitļi. %d tikai "
+                              "izskatās pēc pirmskaitļa: %d = %d · %d.",
+                              "All the others are primes. %d only looks "
+                              "like one: %d = %d · %d.") % (
+                                  lieka, lieka, dal, lieka // dal)
     kv = rng.sample([n * n for n in range(4, 16)], 4)
     lieka = rng.choice([n * n + rng.choice([-1, 1]) for n in range(5, 15)])
-    return kv, lieka, ("Visi pārējie ir kvadrāti (%s). %d nav neviena "
-                       "vesela skaitļa kvadrāts." % (
+    return kv, lieka, (t("Visi pārējie ir kvadrāti (%s). %d nav neviena "
+                         "vesela skaitļa kvadrāts.",
+                         "All the others are squares (%s). %d is not the "
+                         "square of any whole number.") % (
                            ", ".join("%d = %d²" % (x, int(x ** .5))
                                      for x in kv), lieka))
 
@@ -462,7 +528,8 @@ def lieks(rng, lim, ko=None):
     if ko == "figuras":
         return _lieks_figuras(rng, lim)
     visi, lieka, skaidro = _lieks_skaitli(rng, lim)
-    return izvele("Kurš skaitlis ir lieks?", txt(sk(lieka)),
+    return izvele(t("Kurš skaitlis ir lieks?",
+                    "Which number is the odd one out?"), txt(sk(lieka)),
                   [txt(sk(x)) for x in visi], skaidro, kol=5)
 
 
@@ -505,10 +572,13 @@ def rotacija(rng, lim):
     pareiza = _rot(fig, rng.randint(1, 3))
     spog = [_rot(_spog(fig), k) for k in range(4)]
     citi = _atskir(rng, pareiza, spog, 3)
-    return izvele("Kura figūra ir šī pati, tikai pagriezta?",
+    return izvele(t("Kura figūra ir šī pati, tikai pagriezta?",
+                    "Which shape is this one, just turned?"),
                   Z.poliomino(pareiza, kr), [Z.poliomino(c, kr) for c in citi],
-                  "Pareizo var pagriezt atpakaļ un uzlikt virsū paraugam. "
-                  "Pārējās ir apgrieztas otrādi - kā spogulī.",
+                  t("Pareizo var pagriezt atpakaļ un uzlikt virsū paraugam. "
+                    "Pārējās ir apgrieztas otrādi - kā spogulī.",
+                    "The right one can be turned back to fit exactly on the "
+                    "original. The others are flipped - like in a mirror."),
                   zim='<div class="iq-viena">%s</div>' % Z.poliomino(fig, kr),
                   kol=4)
 
@@ -521,10 +591,14 @@ def spogulis(rng, lim):
     visas = [_rot(fig, k) for k in range(4)] + [_rot(pareiza, k)
                                                 for k in range(1, 4)]
     citi = _atskir(rng, pareiza, visas, 3)
-    return izvele("Kā šī figūra izskatās spogulī?", Z.poliomino(pareiza, kr),
+    return izvele(t("Kā šī figūra izskatās spogulī?",
+                    "What does this shape look like in the mirror?"),
+                  Z.poliomino(pareiza, kr),
                   [Z.poliomino(c, kr) for c in citi],
-                  "Spogulī kreisā puse kļūst par labo, bet augša paliek "
-                  "augšā - tāpat kā tavs atspulgs.",
+                  t("Spogulī kreisā puse kļūst par labo, bet augša paliek "
+                    "augšā - tāpat kā tavs atspulgs.",
+                    "In a mirror left becomes right, but the top stays on "
+                    "top - just like your reflection."),
                   zim=Z.ar_spoguli(Z.poliomino(fig, kr)), kol=4)
 
 
@@ -552,12 +626,20 @@ def kubi(rng, lim):
     stab = " + ".join(str(x) for r in h for x in r)
     if lim == 3 and rng.random() < 0.5:
         trukst = 27 - kopa
-        return ievade("Cik kubu vēl vajag, lai sanāktu liels kubs 3 × 3 × 3?",
-                      trukst, "Kaudzē ir %s = %d kubi. Lielajā kubā ir "
-                      "3 · 3 · 3 = 27, tātad trūkst 27 − %d = %d."
+        return ievade(t("Cik kubu vēl vajag, lai sanāktu liels kubs "
+                        "3 × 3 × 3?",
+                        "How many more cubes make a big 3 × 3 × 3 cube?"),
+                      trukst, t("Kaudzē ir %s = %d kubi. Lielajā kubā ir "
+                                "3 · 3 · 3 = 27, tātad trūkst 27 − %d = %d.",
+                                "The stack has %s = %d cubes. The big cube "
+                                "has 3 · 3 · 3 = 27, so 27 − %d = %d are "
+                                "missing.")
                       % (stab, kopa, kopa, trukst), zim=Z.kubi(h))
-    return ievade("Cik kubu ir kaudzē? Neviens kubs nekarājas gaisā.", kopa,
-                  "Skaitām pa stabiņiem: %s = %d." % (stab, kopa),
+    return ievade(t("Cik kubu ir kaudzē? Neviens kubs nekarājas gaisā.",
+                    "How many cubes are in the stack? No cube floats in "
+                    "the air."), kopa,
+                  t("Skaitām pa stabiņiem: %s = %d.",
+                    "Count column by column: %s = %d.") % (stab, kopa),
                   zim=Z.kubi(h))
 
 
@@ -638,12 +720,17 @@ def tikls(rng, lim):
     citas = [s for s in sunas if s not in (jaut_suna, pret)]
     citas = rng.sample(citas, 3)
     pf = simb[pret]
-    return izvele("Saloki kubu. Kas būs pretī %s?" % Z.vards(f, Z.DAT),
+    return izvele(t("Saloki kubu. Kas būs pretī %s?",
+                    "Fold the cube. What will be opposite the %s?")
+                  % Z.vards(f, Z.DAT),
                   Z.simbols(*pf), [Z.simbols(*simb[s]) for s in citas],
-                  "%s un %s nekad nesaskaras: salokot kubu, šīs skaldnes "
-                  "nonāk pretējās pusēs. Tīklā starp pretējām skaldnēm "
-                  "vienmēr ir vismaz viena cita." % (
-                      Z.vards(f).capitalize(), Z.vards(pf[0])),
+                  t("%s un %s nekad nesaskaras: salokot kubu, šīs skaldnes "
+                    "nonāk pretējās pusēs. Tīklā starp pretējām skaldnēm "
+                    "vienmēr ir vismaz viena cita.",
+                    "The %s and the %s never touch: when the cube is folded, these "
+                    "faces end up on opposite sides. In the net there is "
+                    "always at least one face between opposite faces.") % (
+                      teikuma(Z.vards(f)), Z.vards(pf[0])),
                   zim=Z.tikls(sunas, [simb[s] for s in sunas]), kol=4)
 
 
@@ -658,9 +745,12 @@ def simboli(rng, lim):
         a, b = rng.randint(2, 9), rng.randint(1, 9)
         rindas = [[A, "+", A, "=", sk(2 * a)], [A, "+", B, "=", sk(a + b)],
                   [B, "=", "?"]]
-        return ievade("Kādu skaitli slēpj figūra?", b,
-                      "No pirmās rindas %s = %d : 2 = %d. Tad %s = %d − %d "
-                      "= %d."
+        return ievade(t("Kādu skaitli slēpj figūra?",
+                        "Which number is hidden behind the shape?"), b,
+                      t("No pirmās rindas %s = %d : 2 = %d. Tad %s = %d − %d "
+                        "= %d.",
+                        "From the first line %s = %d : 2 = %d. Then "
+                        "%s = %d − %d = %d.")
                       % (Z.vards(A[0]), 2 * a, a, Z.vards(B[0]), a + b, a, b),
                       zim=Z.vienadojumi(rindas))
     if lim == 2:
@@ -668,24 +758,35 @@ def simboli(rng, lim):
         rindas = [[A, "+", A, "+", A, "=", sk(3 * a)],
                   [A, "+", B, "=", sk(a + b)], [B, "+", C, "=", sk(b + c)],
                   [C, "+", A, "=", "?"]]
-        return ievade("Kādu skaitli slēpj pēdējā rinda?", c + a,
-                      "%s = %d, %s = %d, %s = %d. Tātad %d + %d = %d."
+        return ievade(t("Kādu skaitli slēpj pēdējā rinda?",
+                        "Which number is hidden in the last line?"), c + a,
+                      t("%s = %d, %s = %d, %s = %d. Tātad %d + %d = %d.",
+                        "%s = %d, %s = %d, %s = %d. So %d + %d = %d.")
                       % (Z.vards(A[0]).capitalize(), a, Z.vards(B[0]), b,
                          Z.vards(C[0]),
                          c, c, a, c + a), zim=Z.vienadojumi(rindas))
     a, b, c = rng.randint(2, 6), rng.randint(2, 6), rng.randint(2, 5)
     rindas = [[A, "·", A, "=", sk(a * a)], [A, "+", B, "=", sk(a + b)],
               [B, "·", C, "=", sk(b * c)], [A, "+", B, "·", C, "=", "?"]]
-    return ievade("Kādu skaitli slēpj pēdējā rinda? Atceries darbību "
-                  "secību!", a + b * c,
-                  "%s = %d, %s = %d, %s = %d. Reizināšana ir pirms "
-                  "saskaitīšanas: %d + %d · %d = %d + %d = %d."
+    return ievade(t("Kādu skaitli slēpj pēdējā rinda? Atceries darbību "
+                    "secību!",
+                    "Which number is hidden in the last line? Mind the "
+                    "order of operations!"), a + b * c,
+                  t("%s = %d, %s = %d, %s = %d. Reizināšana ir pirms "
+                    "saskaitīšanas: %d + %d · %d = %d + %d = %d.",
+                    "%s = %d, %s = %d, %s = %d. Multiplication comes before "
+                    "addition: %d + %d · %d = %d + %d = %d.")
                   % (Z.vards(A[0]).capitalize(), a, Z.vards(B[0]), b,
                      Z.vards(C[0]), c, a, b, c, a, b * c, a + b * c),
                   zim=Z.vienadojumi(rindas))
 
 
 # ================================================================== svari
+def _svari_jaut():
+    return t("Cik %s jāliek «?» vietā?",
+             "How many %s replace the question mark?")
+
+
 def svari(rng, lim):
     """Līdzsvara mīkla: cik figūru jāliek «?» vietā?"""
     trio = list(zip(rng.sample(["aplis", "kvadrats", "trijsturis",
@@ -696,27 +797,35 @@ def svari(rng, lim):
     if lim == 1:
         m, k = rng.randint(2, 3), rng.randint(2, 3)
         zim = Z.svari([A], [B] * m) + Z.svari([A] * k, "?")
-        return ievade("Cik %s jāliek «?» vietā?" % Z.vards(B[0], Z.GEN),
-                      m * k, "%s sver tikpat, cik %d %s. Tātad %d %s sver "
-                      "tikpat, cik %d · %d = %d %s." % (
-                          a_.capitalize(), m, bd, k,
+        return ievade(_svari_jaut() % Z.vards(B[0], Z.GEN),
+                      m * k, t("%s sver tikpat, cik %d %s. Tātad %d %s sver "
+                               "tikpat, cik %d · %d = %d %s.",
+                               "A %s weighs as much as %d %s. So %d %s "
+                               "weigh as much as %d · %d = %d %s.") % (
+                          teikuma(a_), m, bd, k,
                           Z.vards(A[0], Z.DSK), k, m, m * k, bd), zim=zim)
     if lim == 2:
         m, n = rng.randint(2, 3), rng.randint(2, 3)
         zim = (Z.svari([A], [B] * m) + Z.svari([B], [C] * n)
                + Z.svari([A], "?"))
-        return ievade("Cik %s jāliek «?» vietā?" % Z.vards(C[0], Z.GEN),
-                      m * n, "%s = %d %s, un katrs %s = %d %s. Tātad "
-                      "%d · %d = %d." % (a_.capitalize(), m, bd, b_, n, cd,
-                                         m, n, m * n), zim=zim)
+        return ievade(_svari_jaut() % Z.vards(C[0], Z.GEN),
+                      m * n, t("%s = %d %s, un katrs %s = %d %s. Tātad "
+                               "%d · %d = %d.",
+                               "A %s = %d %s, and each %s = %d %s. So "
+                               "%d · %d = %d.")
+                      % (teikuma(a_), m, bd, b_, n, cd, m, n, m * n),
+                      zim=zim)
     b, a = rng.randint(2, 3), rng.randint(2, 3)
     kopa = a + b
     zim = (Z.svari([B], [C] * b) + Z.svari([A, B], [C] * kopa)
            + Z.svari([A, A, B], "?"))
-    return ievade("Cik %s jāliek «?» vietā?" % Z.vards(C[0], Z.GEN),
-                  2 * a + b, "%s = %d %s. No otrajiem svariem %s = %d − %d "
-                  "= %d %s. Tātad 2 · %d + %d = %d." % (
-                      b_.capitalize(), b, cd, a_, kopa, b, a, cd, a, b,
+    return ievade(_svari_jaut() % Z.vards(C[0], Z.GEN),
+                  2 * a + b, t("%s = %d %s. No otrajiem svariem %s = %d − %d "
+                               "= %d %s. Tātad 2 · %d + %d = %d.",
+                               "A %s = %d %s. From the second scale a "
+                               "%s = %d − %d = %d %s. So 2 · %d + %d = %d.")
+                  % (
+                      teikuma(b_), b, cd, a_, kopa, b, a, cd, a, b,
                       2 * a + b), zim=zim)
 
 
@@ -731,10 +840,13 @@ def piramida(rng, lim):
         rindas.append([r[i] + r[i + 1] for i in range(len(r) - 1)])
     rindas.reverse()                               # augšējā rinda pirmā
     radit = [[sk(x) for x in r] for r in rindas]
-    jaut = "Katrs bloks ir abu zem tā esošo summa. "
+    jaut = t("Katrs bloks ir abu zem tā esošo summa. ",
+             "Each block is the sum of the two below it. ")
+    apaksa_j = t("Kas slēpjas apakšā?", "What is hidden at the bottom?")
     if lim == 1:
         radit[0][0] = None
-        return ievade(jaut + "Kas ir virsotnē?", rindas[0][0],
+        return ievade(jaut + t("Kas ir virsotnē?", "What is at the top?"),
+                      rindas[0][0],
                       "%d + %d = %d." % (rindas[1][0], rindas[1][1],
                                          rindas[0][0]),
                       zim=Z.piramida(radit))
@@ -744,8 +856,10 @@ def piramida(rng, lim):
         # Virs trūkstošā ir bloks, un blakus tam - kaimiņš: viena atņemšana.
         vecaks = rindas[-2][j - 1 if j else 0]
         kaimins = apaksa[j - 1] if j else apaksa[1]
-        return ievade(jaut + "Kas slēpjas apakšā?", apaksa[j],
-                      "Bloks virs tā ir %d, blakus stāv %d: %d − %d = %d."
+        return ievade(jaut + apaksa_j, apaksa[j],
+                      t("Bloks virs tā ir %d, blakus stāv %d: %d − %d = %d.",
+                        "The block above it is %d, its neighbour is %d: "
+                        "%d − %d = %d.")
                       % (vecaks, kaimins, vecaks, kaimins, apaksa[j]),
                       zim=Z.piramida(radit))
     # Redzama tikai virsotne un apakša - vidus jāizdomā pašam.
@@ -754,9 +868,12 @@ def piramida(rng, lim):
             r[i] = ""
     koef = [1, 3, 3, 1]
     zin = sum(koef[i] * apaksa[i] for i in range(n) if i != j)
-    return ievade(jaut + "Kas slēpjas apakšā?", apaksa[j],
-                  "Virsotnē apakšējie skaitļi sanāk ar svariem 1, 3, 3, 1. "
-                  "Zināmie dod %d, tātad trūkstošais ir (%d − %d) : %d = %d."
+    return ievade(jaut + apaksa_j, apaksa[j],
+                  t("Virsotnē apakšējie skaitļi sanāk ar svariem 1, 3, 3, 1. "
+                    "Zināmie dod %d, tātad trūkstošais ir (%d − %d) : %d = %d.",
+                    "The bottom numbers reach the top with weights "
+                    "1, 3, 3, 1. The known ones give %d, so the missing one "
+                    "is (%d − %d) : %d = %d.")
                   % (zin, rindas[0][0], zin, koef[j], apaksa[j]),
                   zim=Z.piramida(radit))
 
@@ -792,9 +909,15 @@ def magiskais(rng, lim):
              for r in range(3)]
     l = caur_q[0]
     citi = [kv[r][c] for r, c in l if (r, c) != q]
-    return ievade("Maģiskajā kvadrātā katras rindas, kolonnas un diagonāles "
-                  "summa ir vienāda. Kas ir «?» vietā?", kv[q[0]][q[1]],
-                  "Pilnā līnija dod summu %d. Tad %d − %d − %d = %d."
+    return ievade(t("Maģiskajā kvadrātā katras rindas, kolonnas un "
+                    "diagonāles summa ir vienāda. Kas ir «?» vietā?",
+                    "In a magic square every row, column and diagonal has "
+                    "the same sum. Which number replaces the question "
+                    "mark?"),
+                  kv[q[0]][q[1]],
+                  t("Pilnā līnija dod summu %d. Tad %d − %d − %d = %d.",
+                    "A full line gives the sum %d. Then "
+                    "%d − %d − %d = %d.")
                   % (summa, summa, citi[0], citi[1], kv[q[0]][q[1]]),
                   zim=Z.tabula(radit))
 
@@ -862,9 +985,75 @@ MIKLAS = [
 ]
 
 
+# Tās pašas mīklas angliski - tādā pašā secībā, tāpēc tests ar sēklu dod
+# to pašu mīklu abās valodās.
+MIKLAS_EN = [
+    (1, "Anna is taller than Beth, and Beth is taller than Carl. Who is the "
+        "shortest?", "Carl", ["Anna", "Beth", "Can't tell"],
+     "Put them in order: Anna > Beth > Carl. The shortest is the last one."),
+    (1, "In two days it will be Friday. What day was yesterday?",
+     "Tuesday", ["Wednesday", "Monday", "Thursday"],
+     "If it's Friday in two days, today is Wednesday, so yesterday was "
+     "Tuesday."),
+    (1, "A father has 5 daughters, and each daughter has one brother. How "
+        "many children are in the family?", "6", None,
+     "All the daughters share the same brother: 5 daughters + 1 son = 6."),
+    (1, "A cat sits in each corner of a room, and each cat sees 3 cats. How "
+        "many cats are in the room?", "4", None,
+     "A room has 4 corners - each cat sees the other three."),
+    (1, "In a queue Eve is 7th from the front and 5th from the back. How "
+        "many people are in the queue?", "11", None,
+     "6 people are in front of Eve and 4 behind her: 6 + 1 + 4 = 11."),
+    (1, "Which month has 28 days?", "All of them", ["February", "None",
+                                                   "Only in leap years"],
+     "Every month has at least 28 days - January and July too."),
+    (2, "A log is sawn into 5 pieces. Each cut takes 2 minutes. How many "
+        "minutes does it take?", "8", None,
+     "5 pieces need 4 cuts: 4 · 2 = 8 minutes."),
+    (2, "A snail climbs a 10 m pole: 3 m up by day, 2 m down by night. On "
+        "which day does it reach the top?", "8", None,
+     "After 7 days and nights it is 7 m up, and on day 8 it climbs the last "
+     "3 m."),
+    (2, "5 cats catch 5 mice in 5 minutes. How many cats will catch 100 "
+        "mice in 100 minutes?", "5", None,
+     "Each cat catches a mouse in 5 minutes, so 20 mice in 100 minutes. "
+     "5 cats · 20 = 100."),
+    (2, "A drawer in the dark has 10 black and 10 white socks. How many "
+        "socks must you take out to be sure of a pair?", "3", None,
+     "Two can be different, but the third will surely match one of them."),
+    (2, "Water lilies on a pond double their area every day. On day 30 the "
+        "pond is full. On which day was it half full?", "29", None,
+     "If the area doubles, the pond was half full the day before it was "
+     "full."),
+    (2, "If 3 printers print 3 pages in 3 minutes, how many pages do 6 "
+        "printers print in 6 minutes?", "12", None,
+     "One printer - 1 page in 3 minutes, so 2 pages in 6 minutes. "
+     "6 · 2 = 12."),
+    (3, "A bat and a ball cost 1.10 € together. The bat costs 1 € more than "
+        "the ball. How many euros does the ball cost?", "0.05", None,
+     "If the ball is x, the bat is x + 1. Then 2x + 1 = 1.10, x = 0.05 €. "
+     "The quick answer 0.10 is a trap!"),
+    (3, "A mother is 3 times as old as her son. In 10 years she will be "
+        "twice as old. How old is the son?", "10", None,
+     "3x + 10 = 2(x + 10), so x = 10. The mother is 30."),
+    (3, "How many digits are needed to number the pages of a book from 1 to "
+        "100?", "192", None,
+     "9 one-digit + 90 · 2 two-digit + 3 = 9 + 180 + 3 = 192."),
+    (3, "What is 1 − 2 + 3 − 4 + ... + 99 − 100?", "−50", None,
+     "Each pair (1 − 2), (3 − 4), ... gives −1, and there are 50 pairs."),
+    (3, "Two cyclists 30 km apart ride towards each other, each at 15 km/h. "
+        "A fly flies between them at 30 km/h. How many km does the fly cover "
+        "before they meet?", "30", None,
+     "The cyclists meet after 1 h (30 : 30), and the fly flies the whole "
+     "hour: 30 km."),
+    (3, "Which number is 7 more than half of itself?", "14", None,
+     "x = {x|2} + 7, so {x|2} = 7 and x = 14."),
+]
+
+
 def mikla(rng, lim, nr=None):
     """Teksta mīkla no MIKLAS saraksta (nr - kura pēc kārtas šajā līmenī)."""
-    visas = [m for m in MIKLAS if m[0] == lim]
+    visas = [m for m in (MIKLAS_EN if en() else MIKLAS) if m[0] == lim]
     _, jaut, pareiza, citas, skaidro = (visas[nr % len(visas)] if nr is not None
                                         else rng.choice(visas))
     if citas:
@@ -879,10 +1068,13 @@ def atmina_rezgis(rng, lim):
     n, k = {1: (3, 3), 2: (4, 5), 3: (5, 7)}[lim]
     on = sorted(rng.sample(range(n * n), k))
     return {"veids": "rezgis", "n": n, "atb": on,
-            "jaut": "Atzīmē tās pašas %d rūtiņas!" % k,
+            "jaut": t("Atzīmē tās pašas %d rūtiņas!",
+                      "Tap the same %d cells!") % k,
             "radit": Z.rezgis(n, on), "laiks": 2500 + 400 * k,
-            "skaidro": "Atmiņu var trenēt: iegaumē rūtiņas kā figūru vai "
-                       "burtu, nevis katru atsevišķi."}
+            "skaidro": t("Atmiņu var trenēt: iegaumē rūtiņas kā figūru vai "
+                         "burtu, nevis katru atsevišķi.",
+                         "Memory can be trained: remember the cells as "
+                         "one shape or letter, not one by one.")}
 
 
 def atmina_cipari(rng, lim):
@@ -895,12 +1087,16 @@ def atmina_cipari(rng, lim):
     for g in {4: (2, 2), 6: (3, 3), 7: (3, 2, 2)}[n]:
         grupas.append(cip[i:i + g])
         i += g
-    k = ievade("Ieraksti ciparus %s!" % ("pretējā secībā - no beigām uz "
-                                         "sākumu" if atpakal else
-                                         "tādā pašā secībā"),
-               [atb], "Cipari bija %s%s. Iegaumēt palīdz grupas: %s."
-               % (cip, ", no beigām - %s" % atb if atpakal else "",
-                  " ".join(grupas)), vieta="cipari")
+    k = ievade(t("Ieraksti ciparus %s!", "Type the digits %s!") % (
+                   t("pretējā secībā - no beigām uz sākumu",
+                     "backwards - from last to first") if atpakal else
+                   t("tādā pašā secībā", "in the same order")),
+               [atb], t("Cipari bija %s%s. Iegaumēt palīdz grupas: %s.",
+                        "The digits were %s%s. Groups help you remember: "
+                        "%s.")
+               % (cip, t(", no beigām - %s", ", backwards - %s") % atb
+                  if atpakal else "", " ".join(grupas)),
+               vieta=t("cipari", "digits"))
     k["radit"], k["laiks"] = Z.cipari(cip), 1500 + 600 * n
     return k
 
@@ -912,14 +1108,16 @@ def atmina_figuras(rng, lim):
     krasas = [rng.choice(_M_KRASAS) for _ in range(n)]
     sunas = [{"forma": f, "krasa": k} for f, k in zip(formas, krasas)]
     j = rng.randint(1, n - 1)
-    nos = ["pirmā", "otrā", "trešā", "ceturtā", "piektā"][j]
+    nos = t(["pirmā", "otrā", "trešā", "ceturtā", "piektā"],
+            ["first", "second", "third", "fourth", "fifth"])[j]
     citas = [s for i, s in enumerate(sunas) if i != j]
     citas += [{"forma": rng.choice([f for f in _M_FORMAS
                                     if f not in formas]),
                "krasa": krasas[j]}]
-    k = izvele("Kura figūra bija %s?" % nos, Z.suna(sunas[j]),
-               [Z.suna(c) for c in citas[:3]],
-               "Rindā bija: %s." % ", ".join(Z.vards(f) for f in formas),
+    k = izvele(t("Kura figūra bija %s?", "Which picture was %s?") % nos,
+               Z.suna(sunas[j]), [Z.suna(c) for c in citas[:3]],
+               t("Rindā bija: %s.", "The row was: %s.")
+               % ", ".join(Z.vards(f) for f in formas),
                kol=4)
     k["radit"], k["laiks"] = Z.rinda(sunas), 1800 + 700 * n
     return k
@@ -935,20 +1133,27 @@ def citads(rng, lim):
                              ("zvaigzne", "krusts"), ("trijsturis", "rombs")])
         vien, cits = Z.suna({"forma": f1, "krasa": kr}), Z.suna(
             {"forma": f2, "krasa": kr})
-        skaidro = "Visi pārējie ir %s, bet šis ir %s." % (
+        skaidro = t("Visi pārējie ir %s, bet šis ir %s.",
+                    "All the others are %s, but this one is a %s.") % (
             Z.vards(f1, Z.DSK), Z.vards(f2))
     elif lim == 2:
         rot = rng.choice([0, 90, 180, 270])
         vien = Z.suna({"forma": "bulta", "krasa": kr, "rot": rot})
         cits = Z.suna({"forma": "bulta", "krasa": kr,
                        "rot": (rot + rng.choice([45, 90, 180])) % 360})
-        skaidro = "Visas pārējās bultas rāda vienā virzienā, bet šī - citā."
+        skaidro = t("Visas pārējās bultas rāda vienā virzienā, bet šī - "
+                    "citā.", "All the other arrows point the same way, but "
+                    "this one doesn't.")
     else:
         fig = _hirala(rng, 5)
         vien, cits = Z.poliomino(fig, kr), Z.poliomino(_spog(fig), kr)
-        skaidro = "Šī figūra ir spoguļattēls - pārējās ir tieši vienādas."
+        skaidro = t("Šī figūra ir spoguļattēls - pārējās ir tieši "
+                    "vienādas.", "This shape is a mirror image - the others "
+                    "are exactly the same.")
     # Visas vienādās pogas ir vienāds HTML, tāpēc tās atšķir ar numuru.
-    k = {"veids": "izvele", "jaut": "Atrodi vienu citādu - ātri!",
+    k = {"veids": "izvele", "jaut": t("Atrodi vienu citādu - ātri!",
+                                       "Find the one that's different - "
+                                       "fast!"),
          "opcijas": [cits] + [vien] * (n - 1), "pareizi": 0, "kol": kol,
          "skaidro": skaidro, "sikas": True}
     return k
@@ -967,9 +1172,11 @@ def skaiti(rng, lim):
                  for _ in range(n)]
         atb = sum(1 for s in sunas if s == merkis)
     ko = Z.ko_gen(formas[0], krasas[0] if lim > 1 else None)
-    return ievade("Cik te ir %s?" % ko, atb,
-                  "Skaitot palīdz iet pa rindām no kreisās uz labo. "
-                  "Pareizi: %d." % atb,
+    return ievade(t("Cik te ir %s?", "How many %s are there?") % ko, atb,
+                  t("Skaitot palīdz iet pa rindām no kreisās uz labo. "
+                    "Pareizi: %d.",
+                    "It helps to count row by row, left to right. "
+                    "Answer: %d.") % atb,
                   zim=Z.rezgis(4, (), [Z.suna(s) for s in sunas]))
 
 
@@ -992,14 +1199,17 @@ def atzime(rng, lim):
         else:
             der = [i for i, s in enumerate(sunas)
                    if s["forma"] == formas[0] or s["pild"] == "tukss"]
-            ko = "%s un visas tukšās figūras" % Z.ko_akk(formas[0])
+            ko = t("%s un visas tukšās figūras",
+                   "%s and all empty shapes") % Z.ko_akk(formas[0])
         if 2 <= len(der) <= n * n // 2:
             break
     return {"veids": "rezgis", "n": n, "atb": der,
             "saturs": [Z.suna(s) for s in sunas],
-            "jaut": "Atzīmē %s!" % ko,
-            "skaidro": "Der %d rūtiņas. Ej pa rindām un katru pārbaudi "
-                       "pret nosacījumu." % len(der)}
+            "jaut": t("Atzīmē %s!", "Tap %s!") % ko,
+            "skaidro": t("Der %d rūtiņas. Ej pa rindām un katru pārbaudi "
+                         "pret nosacījumu.",
+                         "%d cells fit. Go row by row and check each one "
+                         "against the rule.") % len(der)}
 
 
 # ========================================================== mērķa laiki

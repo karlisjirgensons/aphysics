@@ -27,7 +27,8 @@ from urllib.parse import quote
 import analytics
 import mat_temati
 import palette
-from courses import (COURSES, LESSONS_LEAD, RIKI, SITE_LEAD, SITE_ROOT,
+import valoda
+from courses import (COURSES, RIKI, SITE_ROOT,
                      SITE_TITLE, ordered)
 
 
@@ -63,6 +64,18 @@ def plural(n, one, many, none):
 
 
 # --------------------------------------------------------------------- stils
+# Valodu pārslēga (render_valodas) izskats - viens visām lapām, kurās tas ir:
+# sarakstu galvā un IQ testa augšējā joslā (math_lapa.py). Kur tas stāv,
+# nosaka katra lapa pati.
+VALODAS_CSS = """
+.valodas{display:flex;gap:2px;padding:2px;border-radius:var(--r-pill);
+         background:rgba(255,255,255,.16)}
+.valodas a,.valodas span{padding:.22rem .7rem;border-radius:var(--r-pill);
+         font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff}
+.valodas a:hover{background:rgba(255,255,255,.22)}
+.valodas .on{background:#fff;color:var(--primary)}
+"""
+
 CSS = """
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);
@@ -74,8 +87,11 @@ header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
        color:#fff;border-radius:0 0 1.5rem 1.5rem}
 h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
    font-size:clamp(1.35rem,5vw,2.1rem)}
-.lead{margin:.45rem 0 0;color:rgba(255,255,255,.85);max-width:44rem;
-      font-size:clamp(.85rem,3.4vw,1rem)}
+/* Valodu pārslēgs galvas augšējā stūrī (izskats - VALODAS_CSS). */
+header{position:relative}
+header:has(.valodas) h1{padding-right:6.5rem}
+header .valodas{position:absolute;top:.9rem;right:1rem}
+""" + VALODAS_CSS + """
 
 .bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
      padding:.8rem 0;position:sticky;top:0;z-index:10;
@@ -176,13 +192,15 @@ JS = """
         open=b.getAttribute("data-open")!=="1",i;
     for(i=0;i<d.length;i++){d[i].open=open;}
     b.setAttribute("data-open",open?"1":"0");
-    b.textContent=open?"Sakļaut visu":"Izvērst visu";
+    var en=document.documentElement.lang==="en";
+    b.textContent=open?(en?"Collapse all":"Sakļaut visu"):
+                       (en?"Expand all":"Izvērst visu");
   });
 })();
 """
 
 PAGE = """<!DOCTYPE html>
-<html lang="lv">
+<html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -203,7 +221,7 @@ def page(title, body):
     """Viens karkass visām lapām."""
     return PAGE % {"title": esc(title), "css": CSS, "js": JS,
                    "body": body, "root": palette.root_css(),
-                   "fonts": palette.FONT_LINK,
+                   "fonts": palette.FONT_LINK, "lang": valoda.tagad(),
                    "analytics": analytics.head()}
 
 
@@ -252,15 +270,29 @@ def render_number(text):
     return '<span class="n">%s</span>' % esc(text) if text else ""
 
 
-def render_header(title, lead):
-    """Lapas galva; tukšs «lead» nozīmē, ka paskaidrojuma rindas nav."""
-    rindas = ["<h1>%s</h1>" % esc(title)]
-    if lead:
-        rindas.append('<p class="lead">%s</p>' % esc(lead))
+def render_header(title, valodas=""):
+    """Lapas galva: tikai virsraksts - paskaidrojuma teksta zem tā nav
+    nevienā lapā. «valodas» - pārslēgs LV | EN (render_valodas) stūrī."""
+    rindas = ([valodas] if valodas else []) + ["<h1>%s</h1>" % esc(title)]
     return "<header>\n%s\n</header>" % "\n".join(rindas)
 
 
-def render_bar(atpakal, uzraksts="Sākums", izverst=True):
+def render_valodas(saites, tagad):
+    """Valodu pārslēgs: {"lv": saite, "en": saite}; tagadējā ir izcelta un
+    nav saite. Saite ved uz to pašu lapu otrā valodā."""
+    gab = []
+    for v in ("lv", "en"):
+        if v == tagad:
+            gab.append('<span class="on" aria-current="true">%s</span>'
+                       % v.upper())
+        else:
+            gab.append('<a href="%s" hreflang="%s" lang="%s">%s</a>'
+                       % (saites[v], v, v, v.upper()))
+    return ('<nav class="valodas" aria-label="%s">%s</nav>'
+            % (valoda.t("Valoda", "Language"), "".join(gab)))
+
+
+def render_bar(atpakal, uzraksts=None, izverst=True):
     """Lapas josla: poga atpakaļ un (ja lapā ir temati) «Izvērst visu».
 
     Joslu raksta tikai šeit - to lieto gan kursu saraksti, gan PD
@@ -268,8 +300,11 @@ def render_bar(atpakal, uzraksts="Sākums", izverst=True):
     dzīvot vairākās vietās. «izverst=False» ir lapām, kurās nav neviena
     <details> - tur poga tikai maldinātu.
     """
+    if uzraksts is None:
+        uzraksts = valoda.t("Sākums", "Home")
     poga = ('<button class="toggle" id="all" data-open="0" type="button">'
-            'Izvērst visu</button>\n') if izverst else ""
+            '%s</button>\n' % valoda.t("Izvērst visu", "Expand all")
+            ) if izverst else ""
     return ('<div class="bar">\n'
             '<a class="back" href="%s">&#8592; %s</a>\n'
             '<span class="spacer"></span>\n'
@@ -303,7 +338,7 @@ def render_course(course, themes):
     """Viena kursa saraksts: temati atveras uz pieskāriena."""
     bar = render_bar("../index.html")
     return page("%s · %s" % (course["title"], course["kicker"]),
-                "\n".join([render_header(course["title"], LESSONS_LEAD), bar]
+                "\n".join([render_header(course["title"]), bar]
                           + [render_theme(t, ls, rk)
                              for t, ls, rk in themes]))
 
@@ -348,8 +383,8 @@ def render_pd_index():
     klases = [render_klase(nr, mape, temati)
               for nr, mape, temati in mat_temati.klases()]
     return page("%s · %s" % (mat_temati.POGA, mat_temati.NOSAUKUMS),
-                "\n".join([render_header(mat_temati.NOSAUKUMS,
-                                         mat_temati.LEAD), bar] + klases))
+                "\n".join([render_header(mat_temati.NOSAUKUMS), bar]
+                          + klases))
 
 
 def render_pd_card():
@@ -389,9 +424,11 @@ def render_card(course, n_themes, n_lessons):
                      plural(n_lessons, "stunda", "stundas", "stundu")))
 
 
-def render_home(cards):
+def render_home(cards, valodas=""):
+    """Sākumlapa; «valodas» - pārslēgs uz angļu vietni (tikai IQ testi,
+    iq_vietne.valodu_saites)."""
     return page(SITE_TITLE,
-                "\n".join([render_header(SITE_TITLE, SITE_LEAD),
+                "\n".join([render_header(SITE_TITLE, valodas),
                            '<div class="cards">\n%s\n</div>'
                            % "\n".join(cards)]))
 
@@ -430,7 +467,8 @@ def build_home():
     return write(os.path.join(SITE_ROOT, "index.html"),
                  render_home([math_vietne.render_card(),
                               iq_vietne.render_card()] + cards
-                             + [render_pd_card()]))
+                             + [render_pd_card()],
+                             iq_vietne.valodu_saites(iq_vietne.SAKUMS)))
 
 
 def build_site():

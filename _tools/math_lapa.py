@@ -24,7 +24,8 @@ import math_ikonas
 import math_pilnekrans
 import math_zimejumi
 import palette
-from site_index import esc
+import valoda
+from site_index import VALODAS_CSS, esc
 
 CSS = """
 *{box-sizing:border-box}
@@ -46,7 +47,11 @@ a{color:inherit;text-decoration:none}
 .lapa{max-width:46rem;margin:0 auto;padding:0 .8rem 3rem}
 
 header.galva{margin:0 -.8rem 1.1rem;padding:1.4rem 1.1rem 1.5rem;
-    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem}
+    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem;
+    position:relative}
+/* Valodu pārslēgs (IQ testi) galvas stūrī; izskats - VALODAS_CSS. */
+header.galva .valodas{position:absolute;top:.7rem;right:.9rem}
+header.galva:has(.valodas) .mikro{padding-right:6rem}
 header.galva .mikro{margin:0;font-size:.82rem;color:rgba(255,255,255,.85);
     text-transform:uppercase;letter-spacing:.06em}
 header.galva h1{margin:.3rem 0 0;font-family:var(--font-h);font-weight:600;
@@ -194,7 +199,7 @@ svg.zim{display:block;width:100%;height:auto;max-height:52vh;
 """
 
 PAGE = """<!DOCTYPE html>
-<html lang="lv">
+<html lang="%(lang)s">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -232,10 +237,11 @@ def _fragmenti(bloki):
     return "".join(css), "".join(js)
 
 
-def render_galva(stunda, merkis):
-    return ('<header class="galva">\n<p class="mikro">%s</p>\n<h1>%s</h1>\n'
+def render_galva(stunda, merkis, valodas=""):
+    return ('<header class="galva">\n%s<p class="mikro">%s</p>\n<h1>%s</h1>\n'
             '<p class="merkis">%s</p>\n</header>'
-            % (esc(stunda.bloks.nosaukums), esc(stunda.tema), esc(merkis)))
+            % (valodas, esc(stunda.bloks.nosaukums), esc(stunda.tema),
+               esc(merkis)))
 
 
 def render_skolotajam(stunda, datums):
@@ -262,13 +268,16 @@ def render_talak(saites):
 
 
 def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
-           kods=None, skats="stunda"):
+           kods=None, skats="stunda", valodas=""):
     """Vienas stundas lapa: galva, bloki, skolotāja rinda un ceļš tālāk.
 
     Lapai bez mācību kalendāra (IQ testi) datums ir None - tad nav arī
     rindas «Skolotājam», jo plāna datu tai nav. «kods» ir uzraksts augšējā
     joslā; ja tā nav, tas ir stundas temats, klase un numurs. «skats» -
     kā lapu rāda pilnekrānā un telefonā (math_pilnekrans.SKATI).
+    «valodas» - valodu pārslēgs galvas stūrī (site_index.render_valodas);
+    to lieto IQ testi, kas ir abās valodās. Galvā, nevis augšējā joslā:
+    lentē josla ir paslēpta, bet galva ir pirmā lapa.
     """
     bloki = list(saturs.SATURS)
     css, js = _fragmenti(bloki)
@@ -276,7 +285,7 @@ def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
         kods = "%s %s · %d. stunda" % (
             stunda.temats.kods if stunda.temats else "",
             klases_nosaukums, stunda.nr)
-    body = "\n".join([render_galva(stunda, saturs.MERKIS),
+    body = "\n".join([render_galva(stunda, saturs.MERKIS, valodas),
                       render_skolotajam(stunda, datums) if datums else "",
                       '<main class="saturs">',
                       "\n".join(b.html() for b in bloki),
@@ -284,12 +293,13 @@ def render(stunda, saturs, atpakal, klases_nosaukums, datums, saites=(),
                       render_talak(saites)])
     return PAGE % {"title": esc("%d. %s" % (stunda.nr, stunda.tema)),
                    "fonts": palette.FONT_LINK, "root": palette.root_css(),
-                   "css": CSS + css + math_pilnekrans.CSS,
+                   "css": (CSS + (VALODAS_CSS if valodas else "") + css
+                           + math_pilnekrans.CSS),
                    "js": (math_ikonas.js() + math_zimejumi.JS + js
                           + math_pilnekrans.JS),
                    "atpakal": atpakal, "klase": esc(klases_nosaukums),
                    "kods": esc(kods.strip()), "body": body,
-                   "analytics": analytics.head(),
+                   "analytics": analytics.head(), "lang": valoda.tagad(),
                    "body_atr": math_pilnekrans.atributs(skats)}
 
 

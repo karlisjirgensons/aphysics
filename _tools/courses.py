@@ -16,11 +16,6 @@ Lauki:
 
 SITE_ROOT = "C:/aphysics"
 SITE_TITLE = "PD un nodarbības"
-SITE_LEAD = ("Pārbaudes darbu ģenerators un stundu prezentācijas telefonam "
-             "un datoram. Izvēlies, ko vajag.")
-# Kursa stundu sarakstam paskaidrojums nav vajadzīgs - virsraksts un
-# tematu saraksts pasaka visu. Tukša rinda nozīmē "bez paskaidrojuma".
-LESSONS_LEAD = ""
 
 COURSES = {
     "dabaszinibas": {

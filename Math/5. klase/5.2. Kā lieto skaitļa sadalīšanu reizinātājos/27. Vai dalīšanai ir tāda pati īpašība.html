@@ -27,7 +27,11 @@ a{color:inherit;text-decoration:none}
 .lapa{max-width:46rem;margin:0 auto;padding:0 .8rem 3rem}
 
 header.galva{margin:0 -.8rem 1.1rem;padding:1.4rem 1.1rem 1.5rem;
-    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem}
+    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem;
+    position:relative}
+/* Valodu pārslēgs (IQ testi) galvas stūrī; izskats - VALODAS_CSS. */
+header.galva .valodas{position:absolute;top:.7rem;right:.9rem}
+header.galva:has(.valodas) .mikro{padding-right:6rem}
 header.galva .mikro{margin:0;font-size:.82rem;color:rgba(255,255,255,.85);
     text-transform:uppercase;letter-spacing:.06em}
 header.galva h1{margin:.3rem 0 0;font-family:var(--font-h);font-weight:600;
@@ -446,7 +450,7 @@ body.pilns .pilnmajiens{display:block;position:fixed;z-index:30;left:50%;
 </style>
 <script>
 (function(){
-  var DOM="calcubo.lv", ID="G-D08NE6MVZ7";
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi"};
   /* Lokāli atvērta lapa nav apmeklējums. */
   if(location.protocol.indexOf("http")!==0){return;}
   if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
@@ -457,10 +461,17 @@ body.pilns .pilnmajiens{display:block;position:fixed;z-index:30;left:50%;
   s.async=true;
   s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
   document.head.appendChild(s);
-  /* Sadaļa ir adreses pirmā mape; sākumlapai mapes nav. */
-  var d=location.pathname.split("/")[1]||"";
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
   gtag("js",new Date());
-  gtag("config",ID,{content_group:(d&&d.indexOf(".")<0)?d:"Sākums"});
+  gtag("config",ID,{content_group:grupa});
 })();
 </script>
 </head>
@@ -618,15 +629,20 @@ window.MSP=(function(){
              ["atri","Super! Ātrāk par mērķa laiku."],
              ["labi","Labs darbs! Mērķa laiks jau pavisam tuvu."],
              ["treni","Izdevās! Ar katru reizi sanāks ātrāk."]];
-  function tempo(sek,merkis){
+  /* «teksti» - citas valodas teikumi {tempo: [4 teikumi], merkis:
+     "target {m} s"} (IQ testi angliski); bez tiem - latviski. */
+  function tempo(sek,merkis,teksti){
     var r=sek/merkis,lim=r<=0.5?0:r<=1?1:r<=2?2:3,T=TEMPO[lim];
+    var teik=teksti&&teksti.tempo?teksti.tempo[lim]:T[1];
+    var mt=teksti&&teksti.merkis?teksti.merkis.replace("{m}",merkis):
+           "mērķis "+merkis+" s";
     var el=e("div","tempo "+T[0]),rinda=e("div","tempo-r"),
         j=e("div","tempo-j"),f=e("i");
     rinda.appendChild(e("b","",Math.max(1,Math.round(sek))+" s"));
-    rinda.appendChild(e("span","",T[1]));
+    rinda.appendChild(e("span","",teik));
     f.style.width=Math.min(100,r*50)+"%";
     j.appendChild(f);j.appendChild(e("em"));
-    j.appendChild(e("small","","mērķis "+merkis+" s"));
+    j.appendChild(e("small","",mt));
     el.appendChild(rinda);el.appendChild(j);
     return {el:el,limenis:lim};
   }
@@ -781,6 +797,13 @@ MSP.veidi.varianti=function(root){
   if(!lapa||dalas.length<2){return;}
   var cur=0,on=false;
 
+  /* Pogu uzraksti pēc <html lang> - angliski ir IQ testi (valoda.py). */
+  var V=document.documentElement.lang==="en"?
+    {visa:"Full page",skirstit:"Swipe",pilns:"Fullscreen",
+     velc:"Swipe sideways →"}:
+    {visa:"Visa lapa",skirstit:"Šķirstīt",pilns:"Pilnekrāns",
+     velc:"Velc uz sāniem →"};
+
   function e(tag,cls,txt){var n=document.createElement(tag);
     if(cls){n.className=cls;}if(txt!=null){n.textContent=txt;}return n;}
   function poga(cls,txt,zime){var b=e("button",cls,txt);b.type="button";
@@ -812,7 +835,7 @@ MSP.veidi.varianti=function(root){
   josla.appendChild(poga("nav","‹",function(){ej(cur-1);}));
   josla.appendChild(skaits);
   josla.appendChild(poga("nav","›",function(){ej(cur+1);}));
-  josla.appendChild(poga("",telefons?"Visa lapa":"Esc",aizvert));
+  josla.appendChild(poga("",telefons?V.visa:"Esc",aizvert));
   document.body.appendChild(josla);
 
   var augsa=document.querySelector(".augsa");
@@ -820,7 +843,7 @@ MSP.veidi.varianti=function(root){
     atvert(!telefons||spele);
   });
   pilnpoga.innerHTML=IKONA+"<span></span>";
-  pilnpoga.lastChild.textContent=telefons&&!spele?"Šķirstīt":"Pilnekrāns";
+  pilnpoga.lastChild.textContent=telefons&&!spele?V.skirstit:V.pilns;
   if(augsa){augsa.appendChild(pilnpoga);}
 
   /* --- ekrāns --- */
@@ -884,7 +907,7 @@ MSP.veidi.varianti=function(root){
     atvert(false);
     if(atminas(MAJIENS)!=="1"){
       document.body.appendChild(e("div","pilnmajiens",
-                                  "Velc uz sāniem →"));
+                                  V.velc));
       atceras(MAJIENS,"1");
     }
   }

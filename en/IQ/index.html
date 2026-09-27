@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IQ tests · brain puzzles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+/* Valodu pārslēgs galvas augšējā stūrī (izskats - VALODAS_CSS). */
+header{position:relative}
+header:has(.valodas) h1{padding-right:6.5rem}
+header .valodas{position:absolute;top:.9rem;right:1rem}
+
+.valodas{display:flex;gap:2px;padding:2px;border-radius:var(--r-pill);
+         background:rgba(255,255,255,.16)}
+.valodas a,.valodas span{padding:.22rem .7rem;border-radius:var(--r-pill);
+         font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff}
+.valodas a:hover{background:rgba(255,255,255,.22)}
+.valodas .on{background:#fff;color:var(--primary)}
+
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+
+/* ---------- matemātikas stundu saraksts ---------- */
+.mt{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin:.9rem 0 .5rem;font-family:var(--font-h);font-weight:600;
+    color:var(--violet);font-size:clamp(.85rem,3.4vw,.98rem)}
+.mt .cnt{color:var(--dim);font-weight:400;font-size:.85em}
+li.gaida span.t{color:var(--dim)}
+li.gaida .box{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--bg);
+     border:1px dashed var(--line);border-radius:.75rem;
+     font-size:clamp(.85rem,3.5vw,1rem)}
+li.gaida .n{flex:none;color:var(--dim);font-weight:500}
+li.pd a,li.pd .box{background:#FFF4D6;border-color:var(--amber);
+     color:var(--amber-ink);font-weight:500}
+li.pd .n{color:var(--amber-ink)}
+.tinfo{margin:.2rem 0 .6rem;color:var(--dim);
+       font-size:clamp(.8rem,3.2vw,.9rem)}
+</style>
+<script>
+(function(){
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi"};
+  /* Lokāli atvērta lapa nav apmeklējums. */
+  if(location.protocol.indexOf("http")!==0){return;}
+  if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
+  var dl=window.dataLayer=window.dataLayer||[];
+  function gtag(){dl.push(arguments);}
+  window.gtag=gtag;
+  var s=document.createElement("script");
+  s.async=true;
+  s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+  document.head.appendChild(s);
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
+  gtag("js",new Date());
+  gtag("config",ID,{content_group:grupa});
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+<nav class="valodas" aria-label="Language"><a href="../../Math/IQ/index.html" hreflang="lv" lang="lv">LV</a><span class="on" aria-current="true">EN</span></nav>
+<h1>IQ tests</h1>
+</header>
+<div class="bar">
+<a class="back" href="../index.html">&#8592; Home</a>
+<span class="spacer"></span>
+<button class="toggle" id="all" data-open="0" type="button">Expand all</button>
+</div>
+<details class="theme">
+<summary><span class="n">1.</span><span class="t">Number sequences</span><span class="c">9</span></summary>
+<p class="tinfo">Find the rule that makes the numbers grow, and guess the next one.</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="1.%20Number%20sequences/1.%20Stairs%20up.html"><span class="n">1.</span><span class="t">Stairs up</span></a></li>
+  <li><a href="1.%20Number%20sequences/2.%20Stairs%20down.html"><span class="n">2.</span><span class="t">Stairs down</span></a></li>
+  <li><a href="1.%20Number%20sequences/3.%20Double%20it%21.html"><span class="n">3.</span><span class="t">Double it!</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="1.%20Number%20sequences/4.%20Growing%20steps.html"><span class="n">4.</span><span class="t">Growing steps</span></a></li>
+  <li><a href="1.%20Number%20sequences/5.%20Two%20sequences%20in%20one.html"><span class="n">5.</span><span class="t">Two sequences in one</span></a></li>
+  <li><a href="1.%20Number%20sequences/6.%20Squares%20and%20products.html"><span class="n">6.</span><span class="t">Squares and products</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="1.%20Number%20sequences/7.%20Fibonacci%27s%20secret.html"><span class="n">7.</span><span class="t">Fibonacci's secret</span></a></li>
+  <li><a href="1.%20Number%20sequences/8.%20Primes%20and%20cubes.html"><span class="n">8.</span><span class="t">Primes and cubes</span></a></li>
+  <li><a href="1.%20Number%20sequences/9.%20Sequence%20master.html"><span class="n">9.</span><span class="t">Sequence master</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">2.</span><span class="t">Shape matrices</span><span class="c">9</span></summary>
+<p class="tinfo">What goes in the empty cell? Find the rule in the rows and columns.</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="2.%20Shape%20matrices/10.%20What%27s%20missing.html"><span class="n">10.</span><span class="t">What's missing?</span></a></li>
+  <li><a href="2.%20Shape%20matrices/11.%20One%20feature%20changes.html"><span class="n">11.</span><span class="t">One feature changes</span></a></li>
+  <li><a href="2.%20Shape%20matrices/12.%20Rows%20and%20columns.html"><span class="n">12.</span><span class="t">Rows and columns</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="2.%20Shape%20matrices/13.%20Two%20rules%20at%20once.html"><span class="n">13.</span><span class="t">Two rules at once</span></a></li>
+  <li><a href="2.%20Shape%20matrices/14.%20Arrows%20turn.html"><span class="n">14.</span><span class="t">Arrows turn</span></a></li>
+  <li><a href="2.%20Shape%20matrices/15.%20Grid%20detective.html"><span class="n">15.</span><span class="t">Grid detective</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="2.%20Shape%20matrices/16.%20Three%20rules.html"><span class="n">16.</span><span class="t">Three rules</span></a></li>
+  <li><a href="2.%20Shape%20matrices/17.%20Turning%20and%20changing.html"><span class="n">17.</span><span class="t">Turning and changing</span></a></li>
+  <li><a href="2.%20Shape%20matrices/18.%20Matrix%20master.html"><span class="n">18.</span><span class="t">Matrix master</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">3.</span><span class="t">Odd one out</span><span class="c">9</span></summary>
+<p class="tinfo">One of them doesn't belong. Which one, and why?</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="3.%20Odd%20one%20out/19.%20Which%20one%20doesn%27t%20fit.html"><span class="n">19.</span><span class="t">Which one doesn't fit?</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/20.%20Odd%20and%20even.html"><span class="n">20.</span><span class="t">Odd and even</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/21.%20Quick%20eye.html"><span class="n">21.</span><span class="t">Quick eye</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="3.%20Odd%20one%20out/22.%20Count%20and%20compare.html"><span class="n">22.</span><span class="t">Count and compare</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/23.%20Divisibility%20detective.html"><span class="n">23.</span><span class="t">Divisibility detective</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/24.%20Arrow%20maze.html"><span class="n">24.</span><span class="t">Arrow maze</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="3.%20Odd%20one%20out/25.%20Mirror%20trap.html"><span class="n">25.</span><span class="t">Mirror trap</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/26.%20Primes%20and%20squares.html"><span class="n">26.</span><span class="t">Primes and squares</span></a></li>
+  <li><a href="3.%20Odd%20one%20out/27.%20Odd-one-out%20master.html"><span class="n">27.</span><span class="t">Odd-one-out master</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">4.</span><span class="t">Spatial thinking</span><span class="c">9</span></summary>
+<p class="tinfo">Turn, flip, fold and count - all in your head.</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="4.%20Spatial%20thinking/28.%20Turn%20the%20shape.html"><span class="n">28.</span><span class="t">Turn the shape</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/29.%20Little%20mirror.html"><span class="n">29.</span><span class="t">Little mirror</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/30.%20Cube%20tower.html"><span class="n">30.</span><span class="t">Cube tower</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="4.%20Spatial%20thinking/31.%20Turn%20or%20flip.html"><span class="n">31.</span><span class="t">Turn or flip?</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/32.%20Cube%20city.html"><span class="n">32.</span><span class="t">Cube city</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/33.%20Fold%20a%20cube.html"><span class="n">33.</span><span class="t">Fold a cube</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="4.%20Spatial%20thinking/34.%20Six-square%20brain%20teaser.html"><span class="n">34.</span><span class="t">Six-square brain teaser</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/35.%20The%20big%20cube.html"><span class="n">35.</span><span class="t">The big cube</span></a></li>
+  <li><a href="4.%20Spatial%20thinking/36.%20Cube%20net%20master.html"><span class="n">36.</span><span class="t">Cube net master</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">5.</span><span class="t">Logic and scales</span><span class="c">9</span></summary>
+<p class="tinfo">Shapes hide numbers, scales never lie, and every riddle has an answer.</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="5.%20Logic%20and%20scales/37.%20Shape%20code.html"><span class="n">37.</span><span class="t">Shape code</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/38.%20Scale%20puzzles.html"><span class="n">38.</span><span class="t">Scale puzzles</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/39.%20Number%20pyramid.html"><span class="n">39.</span><span class="t">Number pyramid</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="5.%20Logic%20and%20scales/40.%20Three-shape%20code.html"><span class="n">40.</span><span class="t">Three-shape code</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/41.%20Chain%20of%20scales.html"><span class="n">41.</span><span class="t">Chain of scales</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/42.%20Tricky%20riddles.html"><span class="n">42.</span><span class="t">Tricky riddles</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="5.%20Logic%20and%20scales/43.%20Order-of-operations%20code.html"><span class="n">43.</span><span class="t">Order-of-operations code</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/44.%20Magic%20square.html"><span class="n">44.</span><span class="t">Magic square</span></a></li>
+  <li><a href="5.%20Logic%20and%20scales/45.%20Riddles%20with%20a%20catch.html"><span class="n">45.</span><span class="t">Riddles with a catch</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">6.</span><span class="t">Memory and attention</span><span class="c">9</span></summary>
+<p class="tinfo">Remember, notice and count - quickly and precisely.</p>
+<h3 class="mt">Warm-up · age 7+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="6.%20Memory%20and%20attention/46.%20Glowing%20squares.html"><span class="n">46.</span><span class="t">Glowing squares</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/47.%20What%20did%20you%20see.html"><span class="n">47.</span><span class="t">What did you see?</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/48.%20Sharp%20eye.html"><span class="n">48.</span><span class="t">Sharp eye</span></a></li>
+</ul>
+<h3 class="mt">Climb · age 10+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="6.%20Memory%20and%20attention/49.%20Square%20maze.html"><span class="n">49.</span><span class="t">Square maze</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/50.%20Row%20of%20shapes.html"><span class="n">50.</span><span class="t">Row of shapes</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/51.%20Detective%27s%20eye.html"><span class="n">51.</span><span class="t">Detective's eye</span></a></li>
+</ul>
+<h3 class="mt">Summit · age 13+<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="6.%20Memory%20and%20attention/52.%20Memory%20champion.html"><span class="n">52.</span><span class="t">Memory champion</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/53.%20Digit%20virtuoso.html"><span class="n">53.</span><span class="t">Digit virtuoso</span></a></li>
+  <li><a href="6.%20Memory%20and%20attention/54.%20Attention%20master.html"><span class="n">54.</span><span class="t">Attention master</span></a></li>
+</ul>
+</details>
+<details class="theme">
+<summary><span class="n">7.</span><span class="t">Big IQ tests</span><span class="c">3</span></summary>
+<p class="tinfo">15 different puzzles in a row - test yourself in every area.</p>
+<h3 class="mt">Everything together · three levels<span class="cnt">3 tests</span></h3>
+<ul>
+  <li><a href="7.%20Big%20IQ%20tests/55.%20IQ%20test%20start.html"><span class="n">55.</span><span class="t">IQ test: start</span></a></li>
+  <li><a href="7.%20Big%20IQ%20tests/56.%20IQ%20test%20challenge.html"><span class="n">56.</span><span class="t">IQ test: challenge</span></a></li>
+  <li><a href="7.%20Big%20IQ%20tests/57.%20IQ%20test%20genius.html"><span class="n">57.</span><span class="t">IQ test: genius</span></a></li>
+</ul>
+</details>
+
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    var en=document.documentElement.lang==="en";
+    b.textContent=open?(en?"Collapse all":"Sakļaut visu"):
+                       (en?"Expand all":"Izvērst visu");
+  });
+})();
+</script>
+</body>
+</html>

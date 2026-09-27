@@ -17,7 +17,7 @@ import os
 import shutil
 import sys
 
-from courses import LESSONS_LEAD, SITE_LEAD, SITE_ROOT, SITE_TITLE, ordered
+from courses import SITE_ROOT, SITE_TITLE, ordered
 from site_index import (course_stats, esc, plural, scan_course, split_number)
 
 OUT = os.path.join(SITE_ROOT, "aphizika")
@@ -528,9 +528,8 @@ def num_span(text):
     return '<span class="n">%s</span>' % esc(text) if text else ""
 
 
-def head(title, lead):
-    return ('<header>\n<h1>%s</h1>\n<p class="lead">%s</p>\n</header>'
-            % (esc(title), esc(lead)))
+def head(title):
+    return '<header>\n<h1>%s</h1>\n</header>' % esc(title)
 
 
 def foot(theme, home):
@@ -559,7 +558,7 @@ def render_subject(theme, course):
            '<button class="toggle" id="all" data-open="0" type="button">'
            'Izvērst visu</button>\n</div>')
     body = "\n".join(
-        [head(course["title"], LESSONS_LEAD), bar]
+        [head(course["title"]), bar]
         + [render_theme(t, ls, prefix)
            for t, ls, _ in scan_course(course["root"])]
         + [foot(theme, "../index.html")])
@@ -567,7 +566,7 @@ def render_subject(theme, course):
 
 
 def render_home(theme, cards):
-    body = "\n".join([head(SITE_TITLE, SITE_LEAD),
+    body = "\n".join([head(SITE_TITLE),
                       '<div class="cards">\n%s\n</div>' % "\n".join(cards),
                       foot(theme, "../index.html")])
     return page(theme, "%s · %s" % (SITE_TITLE, theme["name"]), body)
@@ -633,10 +632,7 @@ def build_gallery():
             '<span class="card-s">%s</span>\n</a>'
             % (t["slug"], i, esc(t["name"]), esc(t["note"])))
     body.append("</div>")
-    lead = ("Viens un tas pats saturs %d izskatos. Atver, paskaties telefonā "
-            "un datorā, un pasaki numuru - to pārnesīšu uz visu vietni."
-            % len(THEMES))
-    body = ([head("Dizaina varianti", lead)] + body
+    body = ([head("Dizaina varianti")] + body
             + ['<p class="foot">Stundu saites variantos ved uz īstajām '
                'prezentācijām.</p>'])
     gallery = {"name": "Galerija", "note": "", "css": GALLERY_CSS}

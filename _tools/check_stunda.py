@@ -6,6 +6,7 @@
     python check_stunda.py            # visas klases
     python check_stunda.py iq         # visi IQ testi (Math/IQ)
     python check_stunda.py iq 5 36    # tikai 5. un 36. IQ tests
+    python check_stunda.py iq en      # IQ testi angliski (en/IQ)
 
 IQ testus izspēlē vēl divos īstos ekrānos (EKRANI - telefons lentē un
 klēpjdators) un katrai mīklai pirms un pēc atbildes pārbauda, vai spēle
@@ -44,6 +45,7 @@ import iq_testi                                     # noqa: E402
 import iq_vietne                                    # noqa: E402
 import math_plani                                   # noqa: E402
 import math_stundas                                 # noqa: E402
+import valoda                                       # noqa: E402
 
 PLATUMS = 390            # telefona platums, kurā lapu pārbauda
 AUGSTUMS = 9000          # rāmja augstums - lai neviens bloks nepaliek ārpus
@@ -439,12 +441,16 @@ def parbaudi(klases_nr, numuri=None):
     return parbaudi_lapas(lapas(klase, math_stundas.saturi(klase), numuri))
 
 
-def parbaudi_iq(numuri=None):
+def parbaudi_iq(numuri=None, kura="lv"):
     """Tas pats IQ testiem: uzbūvē un izspēlē katru testu - vispirms garā
-    rāmī (kā stundas), tad katrā īstajā ekrānā, kur mēra, vai ietilpst."""
-    iq_vietne.build()
-    kurss = iq_testi.kurss()
-    visas = lapas(kurss, {t.nr: t for t in kurss.visas}, numuri)
+    rāmī (kā stundas), tad katrā īstajā ekrānā, kur mēra, vai ietilpst.
+    «kura» - valoda (angliski testi ir en/IQ)."""
+    iq_vietne.build([kura])
+    with valoda.ar(kura):
+        kurss = iq_testi.kurss()
+        visas = [{"nr": x.nr, "nos": x.tema,
+                  "url": url(iq_vietne.testa_cels(kurss, x))}
+                 for x in kurss.visas if not numuri or x.nr in numuri]
     out = parbaudi_lapas(visas)
     for nos, w, h in EKRANI:
         for z in parbaudi_lapas(visas, w, h):
@@ -494,7 +500,8 @@ def rinda(z):
 
 def main(argv):
     skaitli = [int(a) for a in argv if a.isdigit()]
-    if "iq" in [a.lower() for a in argv]:
+    vardi = [a.lower() for a in argv]
+    if "iq" in vardi:
         klases, numuri = ["IQ"], skaitli or None
     else:
         klases = ([skaitli[0]] if skaitli
@@ -503,8 +510,8 @@ def main(argv):
     slikti = 0
     for nr in klases:
         try:
-            zinojumi = (parbaudi_iq(numuri) if nr == "IQ"
-                        else parbaudi(nr, numuri))
+            zinojumi = (parbaudi_iq(numuri, "en" if "en" in vardi else "lv")
+                        if nr == "IQ" else parbaudi(nr, numuri))
         except ImportError:
             continue
         for z in zinojumi:

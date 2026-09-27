@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""IQ sadaļas būvētājs - IQ testi un vietnes sākumlapa ar IQ pogu.
+"""IQ sadaļas būvētājs - IQ testi latviski (Math/IQ) un angliski (en/IQ,
+en/index.html) un vietnes sākumlapa ar IQ pogu.
 
     python gen_iq.py
 

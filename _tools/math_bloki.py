@@ -374,15 +374,20 @@ window.MSP=(function(){
              ["atri","Super! Ātrāk par mērķa laiku."],
              ["labi","Labs darbs! Mērķa laiks jau pavisam tuvu."],
              ["treni","Izdevās! Ar katru reizi sanāks ātrāk."]];
-  function tempo(sek,merkis){
+  /* «teksti» - citas valodas teikumi {tempo: [4 teikumi], merkis:
+     "target {m} s"} (IQ testi angliski); bez tiem - latviski. */
+  function tempo(sek,merkis,teksti){
     var r=sek/merkis,lim=r<=0.5?0:r<=1?1:r<=2?2:3,T=TEMPO[lim];
+    var teik=teksti&&teksti.tempo?teksti.tempo[lim]:T[1];
+    var mt=teksti&&teksti.merkis?teksti.merkis.replace("{m}",merkis):
+           "mērķis "+merkis+" s";
     var el=e("div","tempo "+T[0]),rinda=e("div","tempo-r"),
         j=e("div","tempo-j"),f=e("i");
     rinda.appendChild(e("b","",Math.max(1,Math.round(sek))+" s"));
-    rinda.appendChild(e("span","",T[1]));
+    rinda.appendChild(e("span","",teik));
     f.style.width=Math.min(100,r*50)+"%";
     j.appendChild(f);j.appendChild(e("em"));
-    j.appendChild(e("small","","mērķis "+merkis+" s"));
+    j.appendChild(e("small","",mt));
     el.appendChild(rinda);el.appendChild(j);
     return {el:el,limenis:lim};
   }

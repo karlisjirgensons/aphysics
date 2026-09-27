@@ -27,7 +27,11 @@ a{color:inherit;text-decoration:none}
 .lapa{max-width:46rem;margin:0 auto;padding:0 .8rem 3rem}
 
 header.galva{margin:0 -.8rem 1.1rem;padding:1.4rem 1.1rem 1.5rem;
-    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem}
+    background:var(--grad);color:#fff;border-radius:0 0 1.5rem 1.5rem;
+    position:relative}
+/* Valodu pārslēgs (IQ testi) galvas stūrī; izskats - VALODAS_CSS. */
+header.galva .valodas{position:absolute;top:.7rem;right:.9rem}
+header.galva:has(.valodas) .mikro{padding-right:6rem}
 header.galva .mikro{margin:0;font-size:.82rem;color:rgba(255,255,255,.85);
     text-transform:uppercase;letter-spacing:.06em}
 header.galva h1{margin:.3rem 0 0;font-family:var(--font-h);font-weight:600;
@@ -279,6 +283,39 @@ svg.zim{display:block;width:100%;height:auto;max-height:52vh;
     font-style:normal;font-weight:700;font-size:.85rem;color:#047857}
 .speles .manta.klusi{cursor:default}
 
+/* Laika vērtējums (MSP.tempo): cik ātri atrisināts pret mērķa laiku. */
+.speles .tempo{margin:.6rem 0 0;padding:.6rem .8rem .5rem;
+    border-radius:var(--r);background:var(--surface2);animation:tempo-in .35s}
+.speles .tempo-r{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
+.speles .tempo-r b{font-family:var(--font-h);font-weight:600;
+    font-size:clamp(1.25rem,5.5vw,1.5rem);color:var(--primary)}
+.speles .tempo-r span{font-weight:600;font-size:clamp(.92rem,3.8vw,1.02rem)}
+.speles .tempo-j{position:relative;height:.5rem;margin:.45rem 0 1.1rem;
+    border-radius:1rem;background:#fff}
+.speles .tempo-j i{position:absolute;left:0;top:0;bottom:0;border-radius:1rem;
+    background:var(--violet);animation:tempo-aug .8s ease-out}
+.speles .tempo-j em{position:absolute;left:50%;top:-.25rem;bottom:-.25rem;
+    width:2px;background:var(--fg)}
+.speles .tempo-j small{position:absolute;left:50%;top:.75rem;
+    transform:translateX(-50%);white-space:nowrap;color:var(--dim);
+    font-size:.75rem}
+.speles .tempo.zibens{background:linear-gradient(135deg,#EDE9FE,#CFFAFE)}
+.speles .tempo.zibens .tempo-r span{color:var(--violet)}
+.speles .tempo.atri{background:#DCFCE7}
+.speles .tempo.atri .tempo-r span{color:#047857}
+.speles .tempo.atri .tempo-j i{background:#10B981}
+.speles .tempo.labi{background:#E0F2FE}
+.speles .tempo.labi .tempo-r span{color:#0369A1}
+.speles .tempo.labi .tempo-j i{background:#0EA5E9}
+.speles .tempo.treni{background:#FEF3C7}
+.speles .tempo.treni .tempo-r span{color:var(--amber-ink)}
+.speles .tempo.treni .tempo-j i{background:var(--amber)}
+@keyframes tempo-aug{from{width:0}}
+@keyframes tempo-in{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){
+  .speles .tempo,.speles .tempo-j i{animation:none}
+}
+
 .speles .va-opcijas{display:grid;gap:.5rem;margin:.8rem 0 0;width:100%}
 .speles .va-opcijas button{text-align:left;padding:.75rem .9rem;
     border-radius:var(--r);border:2px solid var(--line);
@@ -321,7 +358,16 @@ svg.zim{display:block;width:100%;height:auto;max-height:52vh;
     padding:.35rem .9rem;color:#fff;background:rgba(255,255,255,.16);
     transition:background .15s}
 .pilnpoga:hover{background:rgba(255,255,255,.3)}
-.pilnpoga{display:inline-block}
+.pilnpoga{display:inline-flex;align-items:center;gap:.35rem}
+.pilnpoga svg{width:1em;height:1em;flex:none}
+/* Spēlē poga ir izcelta: balta, ar ikonu un vieglu mirdzumu. */
+.pilnpoga.izcelta{background:#fff;color:var(--primary);font-weight:600;
+    font-size:.9rem;padding:.45rem 1rem;box-shadow:0 2px 10px rgba(15,12,45,.25);
+    animation:pilnmirdz 2.4s ease-in-out 3}
+.pilnpoga.izcelta:hover{background:#EEF2FF}
+@keyframes pilnmirdz{0%,100%{box-shadow:0 2px 10px rgba(15,12,45,.25)}
+    50%{box-shadow:0 0 0 5px rgba(255,255,255,.35)}}
+@media (prefers-reduced-motion:reduce){.pilnpoga.izcelta{animation:none}}
 
 body.pilns{overflow:hidden;background:#1E1B4B}
 body.pilns .augsa{display:none}
@@ -348,12 +394,13 @@ body.pilns .bl.majas{background:#FFFBEB}
    iezīmē fons, nevis svītra. */
 body.pilns .bl.doma{background:var(--surface2)}
 /* Stundas beigas: ceļš uz blakus stundām ir lentes pēdējā lapa, nevis
-   paslēpts zem tās. */
+   paslēpts zem tās. Uzrakstu bloks var nomainīt ar --gals (IQ testā -
+   «Tests galā»). */
 body.pilns nav.talak{flex:0 0 100%;height:100vh;height:100svh;margin:0;
     scroll-snap-align:start;flex-direction:column;flex-wrap:nowrap;
     justify-content:center;gap:.9rem;overflow-y:auto;background:var(--grad);
     padding:3rem max(1.2rem,calc((100vw - 34rem)/2)) 5rem}
-body.pilns nav.talak::before{content:"Stunda galā";color:#fff;
+body.pilns nav.talak::before{content:var(--gals,"Stunda galā");color:#fff;
     font-family:var(--font-h);font-weight:600;text-align:center;
     font-size:clamp(1.5rem,4vw,2.3rem);margin-bottom:.4rem}
 body.pilns nav.talak a{flex:none;border:0;box-shadow:var(--sh-md)}
@@ -403,7 +450,7 @@ body.pilns .pilnmajiens{display:block;position:fixed;z-index:30;left:50%;
 </style>
 <script>
 (function(){
-  var DOM="calcubo.lv", ID="G-D08NE6MVZ7";
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi"};
   /* Lokāli atvērta lapa nav apmeklējums. */
   if(location.protocol.indexOf("http")!==0){return;}
   if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
@@ -414,10 +461,17 @@ body.pilns .pilnmajiens{display:block;position:fixed;z-index:30;left:50%;
   s.async=true;
   s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
   document.head.appendChild(s);
-  /* Sadaļa ir adreses pirmā mape; sākumlapai mapes nav. */
-  var d=location.pathname.split("/")[1]||"";
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
   gtag("js",new Date());
-  gtag("config",ID,{content_group:(d&&d.indexOf(".")<0)?d:"Sākums"});
+  gtag("config",ID,{content_group:grupa});
 })();
 </script>
 </head>
@@ -565,6 +619,32 @@ window.MSP=(function(){
              function(p){return "^"+p.replace(/./g,function(c){
                return "0123456789-".charAt("⁰¹²³⁴⁵⁶⁷⁸⁹⁻".indexOf(c));});});
   }
+  /* Laika vērtējums: sekundes pret uzdevuma mērķa laiku. Mērķis ir
+     aptuvens laiks, kurā šāda veida uzdevumu atrisina, tāpēc teikums
+     uzslavē ātru darbu un lēnāku mudina trenēties, nevis bāra. Joslā mērķis
+     stāv pa vidu - pa kreisi no tā ir ātrāk. Atgriež {el, limenis}:
+     0 - zibens (≤ puse mērķa), 1 - ātrāk, 2 - līdz divreiz, 3 - lēnāk. */
+  var TEMPO=[["zibens","Zibens! Divreiz ātrāk par mērķa laiku."],
+             ["atri","Super! Ātrāk par mērķa laiku."],
+             ["labi","Labs darbs! Mērķa laiks jau pavisam tuvu."],
+             ["treni","Izdevās! Ar katru reizi sanāks ātrāk."]];
+  /* «teksti» - citas valodas teikumi {tempo: [4 teikumi], merkis:
+     "target {m} s"} (IQ testi angliski); bez tiem - latviski. */
+  function tempo(sek,merkis,teksti){
+    var r=sek/merkis,lim=r<=0.5?0:r<=1?1:r<=2?2:3,T=TEMPO[lim];
+    var teik=teksti&&teksti.tempo?teksti.tempo[lim]:T[1];
+    var mt=teksti&&teksti.merkis?teksti.merkis.replace("{m}",merkis):
+           "mērķis "+merkis+" s";
+    var el=e("div","tempo "+T[0]),rinda=e("div","tempo-r"),
+        j=e("div","tempo-j"),f=e("i");
+    rinda.appendChild(e("b","",Math.max(1,Math.round(sek))+" s"));
+    rinda.appendChild(e("span","",teik));
+    f.style.width=Math.min(100,r*50)+"%";
+    j.appendChild(f);j.appendChild(e("em"));
+    j.appendChild(e("small","",mt));
+    el.appendChild(rinda);el.appendChild(j);
+    return {el:el,limenis:lim};
+  }
   function dati(el,k){try{return JSON.parse(el.getAttribute(k));}
     catch(x){return null;}}
   function manta(k,klikskis){
@@ -637,7 +717,7 @@ window.MSP=(function(){
     document.addEventListener("DOMContentLoaded",sakt);
   }else{setTimeout(sakt,0);}
   return {e:e,poga:poga,ikona:ikona,formas:formas,skaitlis:skaitlis,
-          vards:vards,cip:cip,tirs:tirs,dati:dati,manta:manta,mantas:mantas,
+          vards:vards,cip:cip,tirs:tirs,tempo:tempo,dati:dati,manta:manta,mantas:mantas,
           kartas:kartas,veidi:veidi};
 })();
 
@@ -716,6 +796,13 @@ MSP.veidi.ievadi=function(root){
   if(!lapa||dalas.length<2){return;}
   var cur=0,on=false;
 
+  /* Pogu uzraksti pēc <html lang> - angliski ir IQ testi (valoda.py). */
+  var V=document.documentElement.lang==="en"?
+    {visa:"Full page",skirstit:"Swipe",pilns:"Fullscreen",
+     velc:"Swipe sideways →"}:
+    {visa:"Visa lapa",skirstit:"Šķirstīt",pilns:"Pilnekrāns",
+     velc:"Velc uz sāniem →"};
+
   function e(tag,cls,txt){var n=document.createElement(tag);
     if(cls){n.className=cls;}if(txt!=null){n.textContent=txt;}return n;}
   function poga(cls,txt,zime){var b=e("button",cls,txt);b.type="button";
@@ -726,6 +813,11 @@ MSP.veidi.ievadi=function(root){
      - un lentei tas nav vajadzīgs). */
   var telefons=!!(window.matchMedia&&
                   window.matchMedia("(max-width:767px)").matches);
+  /* Spēles lapa (IQ): telefonā vienmēr lente, uzreiz spēle, pilnekrāns. */
+  var spele=document.body.getAttribute("data-lente")==="spele";
+  var IKONA='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 '+
+    '9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" '+
+    'stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function atceras(k,v){try{localStorage.setItem(k,v);}catch(x){}}
   function atminas(k){try{return localStorage.getItem(k);}
     catch(x){return null;}}
@@ -742,13 +834,15 @@ MSP.veidi.ievadi=function(root){
   josla.appendChild(poga("nav","‹",function(){ej(cur-1);}));
   josla.appendChild(skaits);
   josla.appendChild(poga("nav","›",function(){ej(cur+1);}));
-  josla.appendChild(poga("",telefons?"Visa lapa":"Esc",aizvert));
+  josla.appendChild(poga("",telefons?V.visa:"Esc",aizvert));
   document.body.appendChild(josla);
 
   var augsa=document.querySelector(".augsa");
-  var pilnpoga=poga("pilnpoga",telefons?"Šķirstīt":"Pilnekrāns",function(){
-    atvert(!telefons);
+  var pilnpoga=poga("pilnpoga"+(spele?" izcelta":""),"",function(){
+    atvert(!telefons||spele);
   });
+  pilnpoga.innerHTML=IKONA+"<span></span>";
+  pilnpoga.lastChild.textContent=telefons&&!spele?V.skirstit:V.pilns;
   if(augsa){augsa.appendChild(pilnpoga);}
 
   /* --- ekrāns --- */
@@ -779,23 +873,40 @@ MSP.veidi.ievadi=function(root){
   function atvert(arEkranu){
     on=true;document.body.classList.add("pilns");
     if(arEkranu){prasit();}
-    if(telefons){atceras(SKATS,"1");}
+    if(telefons&&!spele){atceras(SKATS,"1");}
     /* Lente rodas tikai tagad, tāpēc vieta jāieņem pēc pārzīmēšanas. */
     setTimeout(function(){lapa.scrollLeft=cur*lapa.clientWidth;zimet();},0);
   }
   function aizvert(){
     on=false;document.body.classList.remove("pilns");atlaist();
-    if(telefons){atceras(SKATS,"0");}
+    if(telefons&&!spele){atceras(SKATS,"0");}
     if(dalas[cur]){dalas[cur].scrollIntoView({block:"start"});}
   }
 
+  /* Pārlūks pilnekrānu atļauj tikai pēc cilvēka darbības, tāpēc to paprasa
+     pie pirmā pieskāriena vai taustiņa - ne agrāk. */
+  function pecPieskariena(){
+    var vienreiz=function(ev){
+      if(ev.key==="Escape"){return;}
+      document.removeEventListener("keydown",vienreiz,true);
+      document.removeEventListener("pointerdown",vienreiz,true);
+      if(on&&!ekrana()){prasit();}
+    };
+    document.addEventListener("keydown",vienreiz,true);
+    document.addEventListener("pointerdown",vienreiz,true);
+  }
+
   /* Telefonā lente ir noklusējums - bet tikai tik ilgi, kamēr students nav
-     izvēlējies garo lapu. */
-  if(telefons&&atminas(SKATS)!=="0"){
+     izvēlējies garo lapu. Spēlē lente ir vienmēr, un tā sākas ar spēli. */
+  if(spele&&telefons){
+    cur=Math.min(1,dalas.length-1);
+    atvert(false);
+    pecPieskariena();
+  }else if(telefons&&atminas(SKATS)!=="0"){
     atvert(false);
     if(atminas(MAJIENS)!=="1"){
       document.body.appendChild(e("div","pilnmajiens",
-                                  "Velc uz sāniem →"));
+                                  V.velc));
       atceras(MAJIENS,"1");
     }
   }
@@ -808,14 +919,7 @@ MSP.veidi.ievadi=function(root){
   });
   if(!telefons&&atminas1(TURPINA)==="1"){
     atvert(false);
-    var vienreiz=function(ev){
-      if(ev.key==="Escape"){return;}
-      document.removeEventListener("keydown",vienreiz,true);
-      document.removeEventListener("pointerdown",vienreiz,true);
-      if(on&&!ekrana()){prasit();}
-    };
-    document.addEventListener("keydown",vienreiz,true);
-    document.addEventListener("pointerdown",vienreiz,true);
+    pecPieskariena();
   }
 
   /* Pagriežot telefonu, lentes solis kļūst cits, tāpēc tā pati daļa

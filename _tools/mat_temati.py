@@ -23,9 +23,6 @@ MAPE = "PD_generate"
 NOSAUKUMS = "Matemātika 1.-9. klasei"
 KICKER = "matemātika · 1.-9. klase"
 POGA = "PD ģenerēšana"          # uzraksts uz sākumlapas pogas
-LEAD = ("Izvēlies klasi un tematu. Katram tematam ir divi darbi: īss "
-        "formatīvais darbs vienā lapā un summatīvais pārbaudes darbs divās "
-        "lapās.")
 
 # Darbu veidi. Atslēga ir arī faila nosaukuma daļa, tāpēc to lieto gan
 # ģenerators, gan tematu saraksts (DRY).

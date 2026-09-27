@@ -149,6 +149,13 @@ JS = """
   if(!lapa||dalas.length<2){return;}
   var cur=0,on=false;
 
+  /* Pogu uzraksti pēc <html lang> - angliski ir IQ testi (valoda.py). */
+  var V=document.documentElement.lang==="en"?
+    {visa:"Full page",skirstit:"Swipe",pilns:"Fullscreen",
+     velc:"Swipe sideways →"}:
+    {visa:"Visa lapa",skirstit:"Šķirstīt",pilns:"Pilnekrāns",
+     velc:"Velc uz sāniem →"};
+
   function e(tag,cls,txt){var n=document.createElement(tag);
     if(cls){n.className=cls;}if(txt!=null){n.textContent=txt;}return n;}
   function poga(cls,txt,zime){var b=e("button",cls,txt);b.type="button";
@@ -180,7 +187,7 @@ JS = """
   josla.appendChild(poga("nav","‹",function(){ej(cur-1);}));
   josla.appendChild(skaits);
   josla.appendChild(poga("nav","›",function(){ej(cur+1);}));
-  josla.appendChild(poga("",telefons?"Visa lapa":"Esc",aizvert));
+  josla.appendChild(poga("",telefons?V.visa:"Esc",aizvert));
   document.body.appendChild(josla);
 
   var augsa=document.querySelector(".augsa");
@@ -188,7 +195,7 @@ JS = """
     atvert(!telefons||spele);
   });
   pilnpoga.innerHTML=IKONA+"<span></span>";
-  pilnpoga.lastChild.textContent=telefons&&!spele?"Šķirstīt":"Pilnekrāns";
+  pilnpoga.lastChild.textContent=telefons&&!spele?V.skirstit:V.pilns;
   if(augsa){augsa.appendChild(pilnpoga);}
 
   /* --- ekrāns --- */
@@ -252,7 +259,7 @@ JS = """
     atvert(false);
     if(atminas(MAJIENS)!=="1"){
       document.body.appendChild(e("div","pilnmajiens",
-                                  "Velc uz sāniem →"));
+                                  V.velc));
       atceras(MAJIENS,"1");
     }
   }

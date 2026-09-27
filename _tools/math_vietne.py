@@ -21,16 +21,12 @@ import analytics
 import math_plani
 import palette
 import site_index
+import valoda
 from site_index import esc, href, plural
 
 MAPE = "Math"
 NOSAUKUMS = "Matemātika 1.-9. klasei"
 KICKER = "matemātika · 1.-9. klase"
-LEAD = ("Izvēlies klasi. Katrā klasē temati iet programmas secībā, un katra "
-        "stunda ir viena mācību diena - ar reālās dzīves uzdevumiem, "
-        "vizualizācijām un sagatavošanos 9. klases eksāmenam.")
-KLASES_LEAD = ("Temats atveras uz pieskāriena. Stundas ir sagrupētas pa "
-               "mikrotematiem, un katra temata beigās ir pārbaudes darbs.")
 
 CSS = site_index.CSS + """
 /* ---------- matemātikas stundu saraksts ---------- */
@@ -57,6 +53,7 @@ def page(title, body):
                               "js": site_index.JS, "body": body,
                               "root": palette.root_css(),
                               "fonts": palette.FONT_LINK,
+                              "lang": valoda.tagad(),
                               "analytics": analytics.head()}
 
 
@@ -93,8 +90,9 @@ def render_bloks(klase, bloks):
     stundas = "\n".join(render_stunda(klase, s) for s in bloks.stundas)
     return ('<h3 class="mt">%s<span class="cnt">%s</span></h3>\n'
             '<ul>\n%s\n</ul>' % (esc(bloks.nosaukums),
-                                 plural(len(bloks), "stunda", "stundas",
-                                        "stundu"), stundas))
+                                 valoda.skaits(len(bloks),
+                                               ("stunda", "stundas", "stundu"),
+                                               ("test", "tests")), stundas))
 
 
 def render_temats(klase, temats):
@@ -127,13 +125,19 @@ def render_noslegums(klase):
 
 
 # --------------------------------------------------------------------- lapas
-def render_klase(klase, lead=KLASES_LEAD, atpakal=("../index.html",
-                                                   "Klases")):
-    """Klases (vai IQ) tematu lapa; «atpakal» - (saite, uzraksts)."""
-    virsraksts = "%s · matemātika" % klase.nosaukums
+def render_klase(klase, atpakal=("../index.html", "Klases"),
+                 virsraksts=None, galva=None, valodas=""):
+    """Klases (vai IQ) tematu lapa; «atpakal» - (saite, uzraksts).
+
+    «virsraksts» - cilnes nosaukums, «galva» - lapas virsraksts; pēc
+    noklusējuma abus saliek no klases nosaukuma. «valodas» - valodu
+    pārslēgs galvā (site_index.render_valodas).
+    """
+    virsraksts = virsraksts or "%s · matemātika" % klase.nosaukums
     temati = [render_temats(klase, t) for t in klase.temati]
     return page(virsraksts,
-                "\n".join([site_index.render_header(klase.nosaukums, lead),
+                "\n".join([site_index.render_header(galva or klase.nosaukums,
+                                                    valodas),
                            site_index.render_bar(*atpakal)]
                           + temati + [render_noslegums(klase)]))
 
@@ -151,7 +155,7 @@ def render_klases_karte(klase):
 def render_index(klases):
     kartes = "\n".join(render_klases_karte(k) for k in klases)
     return page(NOSAUKUMS,
-                "\n".join([site_index.render_header(NOSAUKUMS, LEAD),
+                "\n".join([site_index.render_header(NOSAUKUMS),
                            site_index.render_bar("../index.html",
                                                  izverst=False),
                            '<div class="cards">\n%s\n</div>' % kartes]))
@@ -163,7 +167,10 @@ def sakne():
 
 
 def klases_mape(klase):
-    return os.path.join(sakne(), klase.nosaukums)
+    """Mape, kurā stāv klases lapas. Klase, kas dzīvo citur (IQ testi -
+    arī en/IQ), to pasaka pati ar atribūtu «mape»."""
+    return (getattr(klase, "mape", None)
+            or os.path.join(sakne(), klase.nosaukums))
 
 
 def build_klase(klase):
