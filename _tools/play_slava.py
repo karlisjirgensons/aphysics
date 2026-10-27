@@ -12,6 +12,8 @@ ziņu raksta PD.pogas - abi ņem līmeni no šejienes (DRY).
 
 import json
 
+from play_rezultats import TOP_SEK
+
 # Pareizo skaits -> (ikona, teksta atslēga play_teksti.py).
 LIMENI = {3: ("\U0001F3C6", "slava_3"), 2: ("\U0001F525", "slava_2"),
           1: ("\U0001F44D", "slava_1"), 0: ("\U0001F4AA", "slava_0")}
@@ -21,7 +23,7 @@ LABS = 2
 
 JS = r"""
 var PSL=(function(){
-  var T=PT.T, LIMENI=%(limeni)s, LABS=%(labs)d;
+  var T=PT.T, LIMENI=%(limeni)s, LABS=%(labs)d, TOP=%(top)d;
 
   /* Rādītāji (PR.raditaji) -> {ikona, virsraksts, atrums, labs} */
   function limenis(m){
@@ -29,7 +31,7 @@ var PSL=(function(){
     return {ikona:l[0],virsraksts:T[l[1]],labs:labs,
       zime:T["zime_"+m.c]||"",
       atrums:!labs||m.atrums===null?"":
-        m.atrums>=100?T.slava_atri:m.atrums>=60?T.slava_veikli:""};
+        m.atrums>=100?PT.f(T.slava_atri,{top:TOP}):m.atrums>=60?T.slava_veikli:""};
   }
 
   function html(l){
@@ -68,4 +70,4 @@ var PSL=(function(){
 def js():
     return JS % {"limeni": json.dumps({str(k): v for k, v in LIMENI.items()},
                                       ensure_ascii=False),
-                 "labs": LABS}
+                 "labs": LABS, "top": TOP_SEK}
