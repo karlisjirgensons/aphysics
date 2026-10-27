@@ -108,6 +108,13 @@ CSS = """
 .pl-slava.labs b{background:var(--grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;font-size:clamp(1.7rem,8vw,2.3rem)}
 .pl-atri{color:var(--amber-ink);font-weight:600}
+.pl-zime{margin:.2rem 0 .1rem;padding:.25rem .9rem;border-radius:var(--r-pill);
+  background:linear-gradient(135deg,#F59E0B,#FBBF24);color:#fff;
+  font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;
+  box-shadow:0 4px 12px -4px rgba(245,158,11,.6)}
+.pl-slava.labs{padding:1rem .5rem .8rem;margin:-.2rem -.2rem .8rem;
+  border-radius:var(--r);background:radial-gradient(circle at 50% 0%,
+  #FEF3C7 0%,rgba(254,243,199,0) 70%)}
 @keyframes pl-pop{0%{transform:scale(.3);opacity:0}
   70%{transform:scale(1.2)}100%{transform:scale(1)}}
 .pl-konfeti{position:fixed;inset:0;pointer-events:none;overflow:hidden;

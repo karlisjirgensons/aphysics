@@ -27,6 +27,7 @@ var PSL=(function(){
   function limenis(m){
     var l=LIMENI[m.c],labs=m.c>=LABS;
     return {ikona:l[0],virsraksts:T[l[1]],labs:labs,
+      zime:T["zime_"+m.c]||"",
       atrums:!labs||m.atrums===null?"":
         m.atrums>=100?T.slava_atri:m.atrums>=60?T.slava_veikli:""};
   }
@@ -34,6 +35,7 @@ var PSL=(function(){
   function html(l){
     return '<div class="pl-slava'+(l.labs?' labs':'')+'">'+
       '<span class="pl-ikona">'+l.ikona+'</span>'+
+      (l.zime?'<span class="pl-zime">★ '+l.zime+' ★</span>':'')+
       '<b>'+l.virsraksts+'</b>'+
       (l.atrums?'<span class="pl-atri">'+l.atrums+'</span>':'')+'</div>';
   }
