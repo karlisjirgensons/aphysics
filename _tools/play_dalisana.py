@@ -23,7 +23,8 @@ var PD=(function(){
      agrās piekļuves bloks, ko atver «Man ir 18+ gadu». */
   function pogas(el,x,forma){
     var saite=new URL("r.html?r="+PR.kods(x),location.href).href,
-        zina=PT.f(T.zina,{c:PR.raditaji(x).c}),
+        m=PR.raditaji(x),l=PSL.limenis(m),
+        zina=(l.labs?l.ikona+" "+l.virsraksts+" ":"")+PT.f(T.zina,{c:m.c}),
         wa="https://wa.me/?text="+encodeURIComponent(zina+" "+saite);
     el.innerHTML=
       '<a class="pl-poga pl-galvena pl-wa" href="'+wa+'" target="_blank"'+

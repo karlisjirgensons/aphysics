@@ -84,7 +84,8 @@ var PR=(function(){
   /* Rezultāta karte elementā «el»: rādītāji un uzdevumi ar atbildēm. */
   function karte(el,x){
     var m=raditaji(x),uzd=PU.dienas(x.d);
-    var h='<div class="pl-rr">'+
+    var l=PSL.limenis(m);
+    var h=PSL.html(l)+'<div class="pl-rr">'+
       rutina(T.precizitate,proc(m.precizitate),PT.f(T.no_3,{c:m.c}),"r1")+
       rutina(T.atrums,proc(m.atrums),T.pret_labako,"r3")+
       '</div><p class="pl-sk">'+
@@ -98,6 +99,7 @@ var PR=(function(){
         PT.f(T.pareiza_atbilde,{a:u.opts[u.ok]})+'</span></span></li>';
     });
     el.innerHTML=h+'</ol>';
+    if(l.labs){PSL.konfeti();}
     return m;
   }
 

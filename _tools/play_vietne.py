@@ -22,6 +22,7 @@ import os
 import play_dalisana
 import play_forma
 import play_rezultats
+import play_slava
 import play_spele
 import play_stils
 import play_teksti
@@ -58,7 +59,8 @@ def e(atslega):
 def skripts(starts):
     """Visi spēles moduļi vienā <script> un lapas palaišana «starts»."""
     return "<script>%s</script>" % "\n".join([
-        play_teksti.js(), play_uzdevumi.js(), play_rezultats.js(),
+        play_teksti.js(), play_uzdevumi.js(), play_slava.js(),
+        play_rezultats.js(),
         play_dalisana.js(), play_forma.js(), play_spele.js(), starts])
 
 

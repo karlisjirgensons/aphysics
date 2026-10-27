@@ -99,6 +99,23 @@ CSS = """
 .fr>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
 
 /* Rezultāts */
+.pl-slava{display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:.15rem;margin-bottom:.6rem}
+.pl-ikona{font-size:2.6rem;line-height:1.1}
+.pl-slava b{font-family:var(--font-h);font-weight:600;color:var(--dim);
+  font-size:clamp(1.2rem,5.5vw,1.5rem)}
+.pl-slava.labs .pl-ikona{font-size:3.6rem;animation:pl-pop .6s ease-out}
+.pl-slava.labs b{background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;font-size:clamp(1.7rem,8vw,2.3rem)}
+.pl-atri{color:var(--amber-ink);font-weight:600}
+@keyframes pl-pop{0%{transform:scale(.3);opacity:0}
+  70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.pl-konfeti{position:fixed;inset:0;pointer-events:none;overflow:hidden;
+  z-index:50}
+.pl-konfeti i{position:absolute;top:-1rem;width:.55rem;height:.9rem;
+  border-radius:2px;animation:pl-krit linear forwards}
+@keyframes pl-krit{to{top:110%;transform:translateX(2rem) rotate(540deg)}}
+@media (prefers-reduced-motion:reduce){.pl-slava.labs .pl-ikona{animation:none}}
 .pl-rr{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;
   margin:.7rem 0}
 .pl-r{display:flex;flex-direction:column;align-items:center;text-align:center;
