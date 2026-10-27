@@ -45,6 +45,8 @@ SADALAS = {
     "en/IQ": "EN · IQ tests",
     "Math": "Matemātika*",
     "Math/IQ": "IQ testi",
+    "play": "Play · EN",
+    "play/lv": "Play · LV",
 }
 
 

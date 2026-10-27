@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+/* Valodu pārslēgs galvas augšējā stūrī (izskats - VALODAS_CSS). */
+header{position:relative}
+header:has(.valodas) h1{padding-right:6.5rem}
+header .valodas{position:absolute;top:.9rem;right:1rem}
+
+.valodas{display:flex;gap:2px;padding:2px;border-radius:var(--r-pill);
+         background:rgba(255,255,255,.16)}
+.valodas a,.valodas span{padding:.22rem .7rem;border-radius:var(--r-pill);
+         font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff}
+.valodas a:hover{background:rgba(255,255,255,.22)}
+.valodas .on{background:#fff;color:var(--primary)}
+
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+</style>
+<style>
+.pl{max-width:34rem;margin:1.4rem auto 0;display:grid;gap:1rem}
+.pl [hidden]{display:none!important}
+/* Pogas ir pogas: pieskaroties nerodas teksta kursors, iezīmējums vai
+   zilais pieskāriena plankums - tikai ievades laukā var rakstīt. */
+.pl button,.pl a,.pl summary,.pl-opt,.pl-e,.pl-q{user-select:none;
+  -webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+  caret-color:transparent}
+.pl{caret-color:transparent}
+.pl input{caret-color:auto}
+.pl button:focus:not(:focus-visible),.pl a:focus:not(:focus-visible),
+.pl summary:focus:not(:focus-visible){outline:none}
+.pl-kartite{background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--sh);padding:1.2rem 1rem}
+.pl h2{margin:0 0 .4rem;color:var(--primary);font-family:var(--font-h);
+  font-weight:600;font-size:clamp(1.1rem,4.6vw,1.3rem)}
+.pl p{margin:.4rem 0}
+
+.pl-poga{display:inline-flex;align-items:center;justify-content:center;
+  gap:.4rem;min-height:2.9rem;padding:.6rem 1.1rem;border:0;
+  border-radius:var(--r-pill);background:var(--surface2);color:var(--primary);
+  font:inherit;font-weight:600;cursor:pointer;text-align:center;
+  transition:transform .12s,box-shadow .15s,background .15s}
+.pl-poga:hover{transform:translateY(-1px);box-shadow:var(--sh-lg)}
+.pl-poga:disabled{opacity:.6;cursor:default;transform:none}
+.pl-galvena{background:var(--grad);color:#fff}
+.pl-liela{width:100%;min-height:3.8rem;font-family:var(--font-h);
+  font-size:clamp(1.1rem,5vw,1.35rem)}
+#pl-sakums,#pl-rezultats{display:grid;gap:1rem}
+.pl-start{text-align:center}
+.pl-meta{color:var(--dim);font-size:.9rem}
+
+/* «Esmu vecāks» - atveras ar bultiņu */
+.pl-vecaks{background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--sh);overflow:hidden}
+.pl-vecaks summary{display:flex;align-items:center;gap:.6rem;cursor:pointer;
+  list-style:none;padding:1rem;font-weight:600}
+.pl-vecaks summary::-webkit-details-marker{display:none}
+.pl-vecaks summary span{flex:1}
+.pl-vecaks summary::after{content:"";flex:none;width:.55rem;height:.55rem;
+  margin-right:.3rem;transform:rotate(45deg);transition:transform .15s;
+  border-right:2px solid var(--primary);border-bottom:2px solid var(--primary)}
+.pl-vecaks[open] summary::after{transform:rotate(225deg)}
+.pl-iekss{padding:0 1rem 1.1rem}
+
+/* E-pasta forma */
+.pl-ievade{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.pl-ievade input{flex:1 1 13rem;min-width:0;min-height:2.9rem;
+  padding:.55rem .9rem;border:1px solid var(--line);border-radius:var(--r-pill);
+  font:inherit;font-size:16px;background:var(--bg);color:var(--fg)}
+.pl-ievade input:focus{outline:2px solid var(--violet);outline-offset:1px}
+.pl-ievade .pl-poga{flex:1 1 auto}
+.pl-piekr{color:var(--dim);font-size:.78rem;line-height:1.45}
+.pl-zina{font-weight:600}
+.pl-zina.ok{color:#047857}
+.pl-zina.kluda{color:#B91C1C}
+.pl-sl{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Spēle */
+.pl-augsa{display:flex;justify-content:space-between;color:var(--dim);
+  font-weight:600;font-size:.9rem}
+.pl-laiks{font-variant-numeric:tabular-nums;color:var(--primary)}
+.pl-laiks.maz{color:#B91C1C}
+.pl-josla{height:.45rem;margin:.5rem 0 1rem;border-radius:1rem;
+  background:var(--line);overflow:hidden}
+.pl-josla i{display:block;height:100%;background:var(--grad);
+  transition:width .2s linear}
+.pl-q{color:var(--dim);text-align:center}
+.pl-e{margin:.3rem 0 1.1rem;text-align:center;color:var(--fg);
+  font-family:var(--font-h);font-weight:600;line-height:1.35;
+  font-size:clamp(1.5rem,7.5vw,2.2rem)}
+.pl-opt{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.pl-opt button{min-height:3.6rem;padding:.5rem;border:2px solid var(--line);
+  border-radius:var(--r);background:var(--surface);color:var(--fg);
+  font:inherit;font-weight:600;font-size:clamp(1.05rem,4.8vw,1.25rem);
+  cursor:pointer;transition:border-color .12s,background .12s}
+.pl-opt button:hover:not(:disabled){border-color:var(--violet);
+  background:var(--surface2)}
+.pl-opt button:disabled{cursor:default}
+.pl-opt button.ok{border-color:#059669;background:#D1FAE5;color:#065F46}
+.pl-opt button.kluda{border-color:#DC2626;background:#FEE2E2;color:#991B1B}
+.pl-fb{min-height:1.6rem;text-align:center;font-weight:600}
+.pl-fb.ok{color:#047857}
+.pl-fb.kluda{color:#B91C1C}
+.pl-izlaist{display:block;margin:.2rem auto 0;padding:.5rem 1.2rem;border:0;
+  background:none;color:var(--dim);font:inherit;font-weight:600;
+  cursor:pointer;text-decoration:underline}
+.pl-izlaist:disabled{visibility:hidden}
+
+/* Stāvā daļa {3|4} */
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;
+  text-align:center;line-height:1.1;font-size:.85em;margin:0 .1em}
+.fr>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
+
+/* Rezultāts */
+.pl-rr{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;
+  margin:.7rem 0}
+.pl-r{display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:.7rem .3rem;border-radius:var(--r);background:var(--surface2)}
+.pl-rn{font-size:.78rem;font-weight:600;color:var(--dim)}
+.pl-r b{font-family:var(--font-h);font-size:clamp(1.3rem,6vw,1.75rem);
+  color:var(--primary);line-height:1.3}
+.pl-r.r2 b{color:var(--violet)}
+.pl-r.r3 b{color:var(--amber-ink)}
+.pl-rs{font-size:.72rem;color:var(--dim);line-height:1.3}
+.pl-sk{color:var(--dim);font-size:.85rem;text-align:center}
+.pl-uzd{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.45rem}
+.pl-uzd li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .7rem;
+  border-radius:.75rem;border:1px solid var(--line)}
+.pl-z{flex:none;width:1.7rem;height:1.7rem;display:grid;place-items:center;
+  border-radius:50%;font-weight:700;background:var(--line);color:var(--dim)}
+.pl-c .pl-z{background:#D1FAE5;color:#047857}
+.pl-w .pl-z{background:#FEE2E2;color:#B91C1C}
+.pl-ut{display:flex;flex-direction:column;min-width:0}
+.pl-uq{font-size:.8rem;color:var(--dim)}
+.pl-ue{font-weight:600}
+.pl-ua{font-size:.85rem;color:var(--dim)}
+.pl-dalities{display:grid;gap:.5rem;margin-top:1rem}
+.pl-otras{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.pl-wa{background:#25D366;color:#fff}
+.pl-centrs{text-align:center}
+</style>
+<script>
+(function(){
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi", "play": "Play · EN", "play/lv": "Play · LV"};
+  /* Lokāli atvērta lapa nav apmeklējums. */
+  if(location.protocol.indexOf("http")!==0){return;}
+  if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
+  var dl=window.dataLayer=window.dataLayer||[];
+  function gtag(){dl.push(arguments);}
+  window.gtag=gtag;
+  var s=document.createElement("script");
+  s.async=true;
+  s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+  document.head.appendChild(s);
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
+  gtag("js",new Date());
+  gtag("config",ID,{content_group:grupa});
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+<nav class="valodas" aria-label="Language"><a href="lv/index.html" hreflang="lv" lang="lv">LV</a><span class="on" aria-current="true">EN</span></nav>
+<h1>Daily challenge</h1>
+</header>
+<main class="pl">
+<section id="pl-sakums">
+<div class="pl-kartite pl-start">
+<button type="button" class="pl-poga pl-galvena pl-liela" id="pl-sakt">Start daily challenge</button>
+<p class="pl-meta">3 tasks · 20 seconds each · new every day</p>
+</div>
+<details class="pl-vecaks">
+<summary><span>I&#x27;m a parent (18 years or older)</span></summary>
+<div class="pl-iekss">
+<h2>Get early access</h2>
+<p>We&#x27;re building Calcubo: short daily math games that show how your child is doing. Leave your email and you&#x27;ll be among the first to get access when it opens.</p>
+<form class="pl-forma" data-avots="play" novalidate>
+<label class="pl-sl" for="pl-ep-play">Your email</label>
+<div class="pl-ievade">
+<input id="pl-ep-play" type="email" name="epasts" required
+ autocomplete="email" inputmode="email" placeholder="Your email">
+<button type="submit" class="pl-poga pl-galvena">Get early access</button>
+</div>
+<input class="pl-sl" type="text" name="web" tabindex="-1" autocomplete="off"
+ aria-hidden="true">
+<p class="pl-piekr">By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.</p>
+<p class="pl-zina" role="status" aria-live="polite"></p>
+</form>
+</div>
+</details>
+</section>
+<section id="pl-spele" class="pl-kartite" hidden></section>
+<section id="pl-rezultats" hidden>
+<div class="pl-kartite"><div class="pl-karte"></div><div class="pl-dalities"></div></div>
+<div class="pl-kartite" id="pl-pieaug" hidden>
+<h2>Get early access</h2>
+<p>We&#x27;re building Calcubo: short daily math games that show how your child is doing. Leave your email and you&#x27;ll be among the first to get access when it opens.</p>
+<form class="pl-forma" data-avots="play-18" novalidate>
+<label class="pl-sl" for="pl-ep-play-18">Your email</label>
+<div class="pl-ievade">
+<input id="pl-ep-play-18" type="email" name="epasts" required
+ autocomplete="email" inputmode="email" placeholder="Your email">
+<button type="submit" class="pl-poga pl-galvena">Get early access</button>
+</div>
+<input class="pl-sl" type="text" name="web" tabindex="-1" autocomplete="off"
+ aria-hidden="true">
+<p class="pl-piekr">By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.</p>
+<p class="pl-zina" role="status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+</main>
+<script>
+var PT={T:{"virsraksts": "Daily challenge", "rez_virsraksts": "Challenge result", "sakt": "Start daily challenge", "sakt_meta": "3 tasks · 20 seconds each · new every day", "vecaks": "I'm a parent (18 years or older)", "agri": "Get early access", "agri_kapec": "We're building Calcubo: short daily math games that show how your child is doing. Leave your email and you'll be among the first to get access when it opens.", "agri_vecakiem": "Are you a parent? Get early access", "epasts": "Your email", "pieteikties": "Get early access", "piekrisana": "By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.", "paldies": "Thank you! We'll email you when early access opens.", "slikts_epasts": "Please check the email address.", "nesanaca": "Couldn't send. Please try again.", "uzdevums": "Task {n} of 3", "izlaist": "Skip", "laiks_beidzas": "Time's up!", "pareizi": "Correct!", "nepareizi": "Not quite", "izlaists": "Skipped", "precizitate": "Accuracy", "atrums": "Speed", "no_3": "{c} of 3 tasks", "pret_labako": "of a top player's pace", "atruma_skaidrojums": "Top players solve a task in about {top} s. Time per correct answer: {tavs} s.", "kopa_laiks": "Total time: {s} s", "pareiza_atbilde": "Answer: {a}", "dalities": "Send to my parent", "pieaugusais": "I'm 18 or older", "kopet": "Copy link", "nokopets": "Link copied!", "zina": "I solved {c} of 3 tasks in today's Calcubo math challenge! See my result:", "zina_virsraksts": "My Calcubo daily challenge result", "izmeginat": "Try today's challenge", "slikta_saite": "This result link is broken.", "aprekini": "Calculate", "atver_iekavas": "Open the brackets", "atrisini": "Solve", "no": "{p}% of {n}", "palielina": "{n} increased by {p}%", "cik_procenti": "{a} is what % of {b}?", "dala_no": "{d} of {n}", "laukums": "Rectangle {a} cm × {b} cm. Area?", "perimetrs": "Rectangle {a} cm × {b} cm. Perimeter?", "lenkis": "Triangle angles: {a}° and {b}°. Third angle?", "procentos": "Write as a percentage", "reiz": "×"},
+  f:function(s,v){return s.replace(/\{(\w+)\}/g,function(m,k){
+    return k in v?v[k]:m;});}};
+
+
+var PU=(function(){
+  var T=PT.T, X=" "+T.reiz+" ", MINUS="−";
+
+  /* Izloze ar sēklu (mulberry32) - tā pati sēkla dod tos pašus skaitļus. */
+  function rng(seed){
+    return function(){
+      seed=seed+0x6D2B79F5|0;
+      var t=Math.imul(seed^seed>>>15,1|seed);
+      t=t+Math.imul(t^t>>>7,61|t)^t;
+      return ((t^t>>>14)>>>0)/4294967296;
+    };
+  }
+  function int(r,a,b){return a+Math.floor(r()*(b-a+1));}
+  function no(r,a){return a[Math.floor(r()*a.length)];}
+  /* Skaitlis attēlošanai: īsta mīnusa zīme, ne defise. */
+  function n(x){return x<0?MINUS+(-x):String(x);}
+  function kv(x){return x+"<sup>2</sup>";}
+  function vertibas(p){
+    return p.map(function(v){return v[0]+" = "+n(v[1]);}).join(", ");
+  }
+  function f(s,v){return PT.f(s,v);}
+
+  /* Viens uzdevums: q - norādījums, e - izteiksme, a - atbilde, w - tipiskās
+     kļūdas; v - mērvienība, ko pieliek visām atbildēm. */
+  function u(q,e,a,w,v){return {q:q,e:e,a:a,w:w,v:v||""};}
+
+  var TESTI=[
+    /* 0. Iekavas */
+    [function(r){var k=int(r,2,5),a=int(r,2,6),b=int(r,2,6);
+       return u(T.aprekini+": "+vertibas([["a",a],["b",b]]),k+"(a + b)",
+         k*(a+b),[k*a+b,a+k*b,k+a+b,k*a*b]);},
+     function(r){var k=int(r,2,6);
+       return u(T.atver_iekavas,k+"(a + b)",k+"a + "+k+"b",
+         [k+"a + b","a + "+k+"b",k+"ab",(k+1)+"a + "+(k+1)+"b"]);},
+     function(r){var k=int(r,2,5),c=int(r,2,6);
+       return u(T.atver_iekavas,k+"(x "+MINUS+" "+c+")",
+         k+"x "+MINUS+" "+k*c,
+         [k+"x "+MINUS+" "+c,k+"x + "+k*c,k+"x "+MINUS+" "+(k+c),
+          "x "+MINUS+" "+k*c]);}],
+    /* 1. Darbību secība */
+    [function(r){var a=int(r,2,10),b=int(r,2,6),c=int(r,2,6);
+       return u(T.aprekini,a+" + "+b+X+c,a+b*c,[(a+b)*c,a+b+c,a*b+c]);},
+     function(r){var a=int(r,3,6),b=int(r,3,6),c=int(r,2,a),d=int(r,2,b-1);
+       return u(T.aprekini,a+X+b+" "+MINUS+" "+c+X+d,a*b-c*d,
+         [(a*b-c)*d,a*b-c+d,a*b+c*d]);},
+     function(r){var a=int(r,2,6),b=int(r,2,6),c=int(r,2,4),d=int(r,1,5);
+       return u(T.aprekini,"("+a+" + "+b+")"+X+c+" "+MINUS+" "+d,(a+b)*c-d,
+         [a+b*c-d,a+b*c+d,(a+b)*c+d]);}],
+    /* 2. Procenti */
+    [function(r){var p=no(r,[10,25,50]),
+         s={10:10,25:4,50:2}[p],nn=s*int(r,2,10),a=nn*p/100;
+       return u(T.aprekini,f(T.no,{p:p,n:nn}),a,[nn-a,a+10,a*2]);},
+     function(r){var p=no(r,[10,25,50]),
+         s={10:10,25:4,50:2}[p],nn=s*int(r,2,10),d=nn*p/100;
+       return u(T.aprekini,f(T.palielina,{p:p,n:nn}),nn+d,[nn+p,d,nn-d]);},
+     function(r){var b=no(r,[20,40,50,100]),p,a;
+       do{p=no(r,[10,20,25,50]);a=b*p/100;}while(a%1);
+       return u(T.aprekini,f(T.cik_procenti,{a:a,b:b}),p,
+         [100-p,b-a,Math.round(b/a)],"%");}],
+    /* 3. Pakāpes */
+    [function(r){var a=int(r,2,6),b=int(r,2,6);
+       return u(T.aprekini+": "+vertibas([["a",a],["b",b]]),
+         kv("a")+" + "+kv("b"),a*a+b*b,[(a+b)*(a+b),2*a+2*b,a*a+b]);},
+     function(r){var a=int(r,2,5),b=int(r,2,4);
+       return u(T.aprekini,kv("("+a+" + "+b+")"),(a+b)*(a+b),
+         [a*a+b*b,2*(a+b),a*a+b*b+a*b]);},
+     function(r){var k=int(r,3,7);
+       return u(T.aprekini,"2<sup>"+k+"</sup>",Math.pow(2,k),
+         [2*k,Math.pow(2,k-1),Math.pow(2,k+1)]);}],
+    /* 4. Negatīvi skaitļi */
+    [function(r){var a=int(r,2,10),b=a+int(r,1,10);
+       return u(T.aprekini,a+" "+MINUS+" "+b,a-b,[b-a,-(a+b),a+b]);},
+     function(r){var a=int(r,2,6),b=int(r,2,6);
+       return u(T.aprekini,"("+MINUS+a+")"+X+b,-a*b,[a*b,-(a+b),b-a]);},
+     function(r){var a=int(r,2,10),b=int(r,2,10);
+       return u(T.aprekini,MINUS+a+" "+MINUS+" "+b,-(a+b),[b-a,a-b,a+b]);}],
+    /* 5. Vienādojumi */
+    [function(r){var x=int(r,2,9),a=int(r,2,5),b=int(r,1,10),c=a*x+b;
+       return u(T.atrisini+": x = ?",a+"x + "+b+" = "+c,x,[c-b,x+a,c+b]);},
+     function(r){var a=int(r,2,5),b=int(r,2,9);
+       return u(T.atrisini+": x = ?","x : "+a+" = "+b,a*b,
+         [a+b,a*b+a,a*b-b]);},
+     function(r){var a=int(r,2,4),b=int(r,1,5),x=b+int(r,1,5),c=a*(x-b);
+       return u(T.atrisini+": x = ?",a+"(x "+MINUS+" "+b+") = "+c,x,
+         [c/a,c-b,x+1]);}],
+    /* 6. Daļas */
+    [function(r){var q=no(r,[2,3,4,5]),p=int(r,1,q-1),nn=q*int(r,2,8),
+         a=nn/q*p;
+       return u(T.aprekini,f(T.dala_no,{d:"{"+p+"|"+q+"}",n:nn}),a,
+         [nn/q,nn-a,a+nn/q]);},
+     function(r){var b=int(r,4,9),a=int(r,1,b-2),c=int(r,1,b-1-a);
+       function d(p,q){return "{"+p+"|"+q+"}";}
+       return u(T.aprekini,d(a,b)+" + "+d(c,b),d(a+c,b),
+         [d(a+c,2*b),d(a*c,b),d(a+c+1,b),d(a+c,b+1)]);},
+     function(r){var q=no(r,[2,4,5,10]),p=int(r,1,q-1);
+       return u(T.procentos,"{"+p+"|"+q+"}",p*100/q,
+         [p*10,100-p*100/q,p+q],"%");}],
+    /* 7. Galvas rēķini */
+    [function(r){var k=int(r,2,12);
+       return u(T.aprekini,"25"+X+k,25*k,[25*k+25,25*k-25,20*k]);},
+     function(r){var k=int(r,12,40);
+       return u(T.aprekini,"11"+X+k,11*k,[11*k+10,11*k-10,11*k+11]);},
+     function(r){var ab=int(r,12,29),c=int(r,2,5),
+         bez=Math.floor(ab/10)*c*10+(ab%10*c)%10;
+       return u(T.aprekini,ab+X+c,ab*c,[bez,ab*c+10,ab*c-c]);}],
+    /* 8. Ģeometrija */
+    [function(r){var a=int(r,2,10),b=int(r,2,6);
+       return u(T.aprekini,f(T.laukums,{a:a,b:b}),a*b,
+         [2*(a+b),a+b,a*b+a]," cm<sup>2</sup>");},
+     function(r){var a=int(r,2,10),b=int(r,2,6);
+       return u(T.aprekini,f(T.perimetrs,{a:a,b:b}),2*(a+b),
+         [a*b,a+b,2*a+b]," cm");},
+     function(r){var a=10*int(r,3,9),b=10*int(r,2,(170-a)/10);
+       return u(T.aprekini,f(T.lenkis,{a:a,b:b}),180-a-b,
+         [360-a-b,180-a,190-a-b],"°");}],
+    /* 9. Burtu vietā skaitļi */
+    [function(r){var a=int(r,2,6),b=int(r,2,6);
+       return u(T.aprekini+": "+vertibas([["a",a],["b",b]]),"2a + 3b",
+         2*a+3*b,[2*b+3*a,5*(a+b),2*a+3+b]);},
+     function(r){var a=int(r,2,6),b=int(r,1,10);
+       return u(T.aprekini+": "+vertibas([["a",a],["b",b]]),
+         kv("a")+" "+MINUS+" b",a*a-b,[2*a-b,a*a+b,(a-b)*(a-b)]);},
+     function(r){var b=int(r,1,5),a=b+int(r,1,5);
+       return u(T.aprekini+": "+vertibas([["a",a],["b",b]]),
+         kv("(a "+MINUS+" b)"),(a-b)*(a-b),
+         [a*a-b*b,2*(a-b),a*a+b*b]);}]
+  ];
+
+  /* Trūkstošās kļūdas: tuvi skaitļi (tikai skaitliskai atbildei). */
+  var TUVI=[1,-1,2,-2,3,-3,5,-5,10,-10];
+
+  function opcijas(r,x){
+    var w=[],ab=[x.a],i;
+    for(i=0;i<x.w.length&&w.length<3;i++){
+      if(ab.indexOf(x.w[i])<0){ab.push(x.w[i]);w.push(x.w[i]);}
+    }
+    for(i=0;w.length<3&&typeof x.a==="number";i++){
+      var c=x.a+TUVI[i];
+      if(ab.indexOf(c)<0){ab.push(c);w.push(c);}
+    }
+    var o=[x.a].concat(w);
+    for(i=o.length-1;i>0;i--){
+      var j=Math.floor(r()*(i+1)),t=o[i];o[i]=o[j];o[j]=t;
+    }
+    return {q:x.q,e:html(x.e),ok:o.indexOf(x.a),
+      opts:o.map(function(v){
+        return html(typeof v==="number"?n(v):v)+x.v;})};
+  }
+
+  /* {3|4} -> stāvā daļa (tā pati iezīme kā stundās). */
+  function html(s){
+    return String(s).replace(/\{([^|{}]+)\|([^|{}]+)\}/g,
+      '<span class="fr"><span>$1</span><span>$2</span></span>');
+  }
+
+  /* "20261027" -> dienas numurs kopš 1970-01-01 (UTC, bez laika joslām). */
+  function numurs(d){
+    return Math.round(Date.UTC(+d.slice(0,4),+d.slice(4,6)-1,+d.slice(6,8))
+                      /864e5);
+  }
+
+  function sodiena(){
+    var t=new Date(),p=function(x){return (x<10?"0":"")+x;};
+    return ""+t.getFullYear()+p(t.getMonth()+1)+p(t.getDate());
+  }
+
+  /* Dienas 3 uzdevumi. */
+  function dienas(d){
+    var nr=numurs(d),r=rng(nr*7919+13);
+    return TESTI[nr%TESTI.length].map(function(g){return opcijas(r,g(r));});
+  }
+
+  return {dienas:dienas,sodiena:sodiena,html:html,TESTI:TESTI};
+})();
+
+
+var PR=(function(){
+  var T=PT.T, V="1", TOP=5, N=3, MAX=20;
+
+  function zimes(s){
+    var h=7;
+    for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i)+17)%1679616;}
+    return ("00"+(h%1296).toString(36)).slice(-2);
+  }
+
+  /* {d:"20261027", o:"cws", s:41} -> kods saitei */
+  function kods(x){
+    var b=[V,x.d,x.o,x.s].join("-");
+    return b+"-"+zimes(b);
+  }
+
+  /* kods -> {d,o,s} vai null, ja saite bojāta */
+  function lasi(k){
+    var p=String(k||"").split("-");
+    if(p.length!==5||p[0]!==V||zimes(p.slice(0,4).join("-"))!==p[4]){
+      return null;}
+    if(!/^\d{8}$/.test(p[1])||!new RegExp("^[cwst]{"+N+"}$").test(p[2])||
+       !/^\d{1,3}$/.test(p[3])||+p[3]>N*MAX){return null;}
+    return {d:p[1],o:p[2],s:+p[3]};
+  }
+
+  function viens(x){return Math.round(x*10)/10;}
+  function skaits(o,ch){return o.split("").filter(function(c){
+    return ch.indexOf(c)>=0;}).length;}
+
+  /* Rādītāji: precizitāte - pareizo daļa no visiem uzdevumiem, ātrums -
+     labākā spēlētāja laiks pret tavu laiku vienai pareizai atbildei
+     (100 % - tikpat ātri vai ātrāk). */
+  function raditaji(x){
+    var c=skaits(x.o,"c"),uz=c?x.s/c:0;
+    return {c:c,precizitate:viens(c/N*100),
+      atrums:c?Math.min(100,Math.round(TOP/Math.max(uz,1)*100)):null,
+      uzPareizo:viens(uz)};
+  }
+
+  function proc(x){return x===null?"—":String(x).replace(".",
+    document.documentElement.lang==="lv"?",":".")+"%";}
+
+  var ZIME={c:"✓",w:"✗",s:"↷",t:"⏱"},
+      KAS={c:T.pareizi,w:T.nepareizi,s:T.izlaists,t:T.laiks_beidzas};
+
+  function rutina(nos,vert,sik,klase){
+    return '<div class="pl-r '+klase+'"><span class="pl-rn">'+nos+
+      '</span><b>'+vert+'</b><span class="pl-rs">'+sik+'</span></div>';
+  }
+
+  /* Rezultāta karte elementā «el»: rādītāji un uzdevumi ar atbildēm. */
+  function karte(el,x){
+    var m=raditaji(x),uzd=PU.dienas(x.d);
+    var h='<div class="pl-rr">'+
+      rutina(T.precizitate,proc(m.precizitate),PT.f(T.no_3,{c:m.c}),"r1")+
+      rutina(T.atrums,proc(m.atrums),T.pret_labako,"r3")+
+      '</div><p class="pl-sk">'+
+      (m.c?PT.f(T.atruma_skaidrojums,{top:TOP,tavs:m.uzPareizo}):"")+
+      ' '+PT.f(T.kopa_laiks,{s:x.s})+'</p><ol class="pl-uzd">';
+    uzd.forEach(function(u,i){
+      var o=x.o.charAt(i);
+      h+='<li class="pl-'+o+'"><span class="pl-z" title="'+KAS[o]+'">'+
+        ZIME[o]+'</span><span class="pl-ut"><span class="pl-uq">'+u.q+
+        '</span><span class="pl-ue">'+u.e+'</span><span class="pl-ua">'+
+        PT.f(T.pareiza_atbilde,{a:u.opts[u.ok]})+'</span></span></li>';
+    });
+    el.innerHTML=h+'</ol>';
+    return m;
+  }
+
+  return {kods:kods,lasi:lasi,raditaji:raditaji,karte:karte};
+})();
+
+
+var PD=(function(){
+  var T=PT.T;
+  function notikums(veids){
+    if(window.gtag){gtag("event","play_share",{method:veids});}
+  }
+
+  /* Pogas elementā «el» rezultātam «x» ({d,o,s}); «forma» - paslēpts
+     agrās piekļuves bloks, ko atver «Man ir 18+ gadu». */
+  function pogas(el,x,forma){
+    var saite=new URL("r.html?r="+PR.kods(x),location.href).href,
+        zina=PT.f(T.zina,{c:PR.raditaji(x).c}),
+        wa="https://wa.me/?text="+encodeURIComponent(zina+" "+saite);
+    el.innerHTML=
+      '<a class="pl-poga pl-galvena pl-wa" href="'+wa+'" target="_blank"'+
+        ' rel="noopener" data-k="dalities">'+T.dalities+'</a>'+
+      '<div class="pl-otras">'+
+      '<button type="button" class="pl-poga" data-k="pieaug">'+
+        T.pieaugusais+'</button>'+
+      '<button type="button" class="pl-poga" data-k="kopet">'+
+        T.kopet+'</button></div>';
+    el.querySelector('[data-k="dalities"]').onclick=function(){
+      notikums("whatsapp");};
+    el.querySelector('[data-k="pieaug"]').onclick=function(){
+      forma.hidden=false;
+      forma.scrollIntoView({behavior:"smooth",block:"start"});
+      if(window.gtag){gtag("event","play_adult");}
+    };
+    var kop=el.querySelector('[data-k="kopet"]');
+    kop.onclick=function(){
+      var gatavs=function(){kop.textContent=T.nokopets;notikums("copy");};
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(saite).then(gatavs,function(){
+          prompt("",saite);});
+      }else{prompt("",saite);}
+    };
+  }
+
+  return {pogas:pogas};
+})();
+
+
+var PF=(function(){
+  var T=PT.T, ADRESE="https://script.google.com/macros/s/AKfycbzvB7sitENtYXHtWkIeWUJtB3hR4r1m_hChhWsbVROPrMsJ6-38dS2iyyrgdnEBeXHTKw/exec", ATSLEGA="calcubo-agri";
+  var RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function paldies(f){
+    f.querySelector(".pl-ievade").hidden=true;
+    f.querySelector(".pl-piekr").hidden=true;
+    var z=f.querySelector(".pl-zina");
+    z.textContent=T.paldies;z.className="pl-zina ok";
+  }
+
+  /* Visas formas lapā; «r» - rezultāta kods, ja lapa to zina. */
+  function sak(r){
+    var formas=document.querySelectorAll(".pl-forma");
+    var bija=false;
+    try{bija=localStorage.getItem(ATSLEGA)==="1";}catch(e){}
+    Array.prototype.forEach.call(formas,function(f){
+      if(bija){paldies(f);return;}
+      f.addEventListener("submit",function(ev){
+        ev.preventDefault();
+        var ep=f.epasts.value.trim(),z=f.querySelector(".pl-zina"),
+            poga=f.querySelector("button");
+        if(f.web.value){paldies(f);return;}
+        if(!RE.test(ep)){z.textContent=T.slikts_epasts;z.className="pl-zina kluda";
+          f.epasts.focus();return;}
+        if(!ADRESE){console.warn("play_forma.ADRESE nav iestatīta");
+          z.textContent=T.nesanaca;z.className="pl-zina kluda";return;}
+        poga.disabled=true;z.textContent="";
+        fetch(ADRESE,{method:"POST",mode:"no-cors",
+          body:new URLSearchParams({epasts:ep,avots:f.getAttribute("data-avots"),
+            valoda:document.documentElement.lang,
+            r:f.getAttribute("data-r")||r||""})})
+        .then(function(){
+          try{localStorage.setItem(ATSLEGA,"1");}catch(e){}
+          if(window.gtag){gtag("event","lead_submit",
+            {source:f.getAttribute("data-avots")});}
+          Array.prototype.forEach.call(formas,paldies);
+        },function(){
+          poga.disabled=false;
+          z.textContent=T.nesanaca;z.className="pl-zina kluda";
+        });
+      });
+    });
+  }
+
+  return {sak:sak};
+})();
+
+
+var PS=(function(){
+  var T=PT.T, LIMITS=20, PAUZE=1100;
+
+  function $(s){return document.querySelector(s);}
+
+  function sak(){
+    var d=PU.sodiena(),uzd=PU.dienas(d),o="",sek=0,i=0,
+        vieta=$("#pl-spele"),sakums,taimeris,slegts;
+    $("#pl-sakums").hidden=true;
+    vieta.hidden=false;
+    if(window.gtag){gtag("event","play_start",{day:d});}
+    vieta.innerHTML=
+      '<div class="pl-augsa"><span class="pl-nr"></span>'+
+        '<span class="pl-laiks"></span></div>'+
+      '<div class="pl-josla"><i></i></div>'+
+      '<p class="pl-q"></p><div class="pl-e"></div>'+
+      '<div class="pl-opt"></div>'+
+      '<p class="pl-fb" aria-live="polite"></p>'+
+      '<button type="button" class="pl-izlaist">'+T.izlaist+'</button>';
+    var nr=vieta.querySelector(".pl-nr"),laiks=vieta.querySelector(".pl-laiks"),
+        josla=vieta.querySelector(".pl-josla i"),opt=vieta.querySelector(".pl-opt"),
+        fb=vieta.querySelector(".pl-fb"),izl=vieta.querySelector(".pl-izlaist");
+
+    function rad(){
+      var u=uzd[i];slegts=false;
+      nr.textContent=PT.f(T.uzdevums,{n:i+1});
+      vieta.querySelector(".pl-q").innerHTML=u.q;
+      vieta.querySelector(".pl-e").innerHTML=u.e;
+      fb.textContent="";fb.className="pl-fb";
+      opt.innerHTML=u.opts.map(function(v,j){
+        return '<button type="button" data-j="'+j+'">'+v+'</button>';}).join("");
+      izl.disabled=false;
+      sakums=Date.now();tiksk();
+      taimeris=setInterval(tiksk,200);
+    }
+
+    function tiksk(){
+      var atl=Math.max(0,LIMITS-(Date.now()-sakums)/1000);
+      laiks.textContent=Math.ceil(atl)+" s";
+      josla.style.width=(atl/LIMITS*100)+"%";
+      laiks.classList.toggle("maz",atl<=5);
+      if(atl<=0){beigt("t",-1);}
+    }
+
+    /* Uzdevuma beigas: «k» - c/w/s/t, «j» - izvēlētā poga vai -1. */
+    function beigt(k,j){
+      if(slegts){return;}
+      slegts=true;clearInterval(taimeris);
+      sek+=Math.min(LIMITS,Math.round((Date.now()-sakums)/1000));
+      o+=k;izl.disabled=true;
+      var u=uzd[i],pogas=opt.querySelectorAll("button");
+      Array.prototype.forEach.call(pogas,function(b){b.disabled=true;});
+      if(k!=="s"){
+        pogas[u.ok].classList.add("ok");
+        if(k==="w"){pogas[j].classList.add("kluda");}
+        fb.textContent=k==="c"?T.pareizi:k==="w"?T.nepareizi:T.laiks_beidzas;
+        fb.className="pl-fb "+(k==="c"?"ok":"kluda");
+      }
+      setTimeout(nakamais,k==="s"?0:PAUZE);
+    }
+
+    function nakamais(){
+      i++;
+      if(i<uzd.length){rad();}else{gals({d:d,o:o,s:sek});}
+    }
+
+    opt.addEventListener("click",function(e){
+      var b=e.target.closest("button");
+      if(!b||slegts){return;}
+      var j=+b.getAttribute("data-j");
+      beigt(j===uzd[i].ok?"c":"w",j);
+    });
+    izl.onclick=function(){beigt("s",-1);};
+    rad();
+  }
+
+  function gals(x){
+    $("#pl-spele").hidden=true;
+    var r=$("#pl-rezultats");r.hidden=false;
+    var m=PR.karte(r.querySelector(".pl-karte"),x);
+    var forma=$("#pl-pieaug");
+    forma.querySelector("form").setAttribute("data-r",PR.kods(x));
+    PD.pogas(r.querySelector(".pl-dalities"),x,forma);
+    if(window.gtag){gtag("event","play_finish",
+      {day:x.d,correct:m.c,seconds:x.s});}
+    window.scrollTo(0,0);
+  }
+
+  return {sak:sak};
+})();
+
+
+document.getElementById("pl-sakt").onclick=PS.sak;
+PF.sak("");
+</script>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    var en=document.documentElement.lang==="en";
+    b.textContent=open?(en?"Collapse all":"Sakļaut visu"):
+                       (en?"Expand all":"Izvērst visu");
+  });
+})();
+</script>
+</body>
+</html>

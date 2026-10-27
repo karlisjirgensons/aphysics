@@ -206,7 +206,7 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>%(title)s</title>
 %(fonts)s<style>%(root)s%(css)s</style>
-%(analytics)s</head>
+%(head)s%(analytics)s</head>
 <body>
 <div class="wrap">
 %(body)s
@@ -217,9 +217,10 @@ PAGE = """<!DOCTYPE html>
 """
 
 
-def page(title, body):
-    """Viens karkass visām lapām."""
-    return PAGE % {"title": esc(title), "css": CSS, "js": JS,
+def page(title, body, head=""):
+    """Viens karkass visām lapām; «head» - lapas papildu <head> rindas
+    (savs stils, meta), ko vajag tikai dažām lapām."""
+    return PAGE % {"title": esc(title), "css": CSS, "js": JS, "head": head,
                    "body": body, "root": palette.root_css(),
                    "fonts": palette.FONT_LINK, "lang": valoda.tagad(),
                    "analytics": analytics.head()}
