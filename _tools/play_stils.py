@@ -102,6 +102,8 @@ CSS = """
 .pl-slava.labs b{background:var(--grad);-webkit-background-clip:text;
   background-clip:text;color:transparent;font-size:clamp(1.7rem,8vw,2.3rem)}
 .pl-atri{color:var(--amber-ink);font-weight:600}
+.pl-motiv{max-width:24rem;margin-top:.2rem;color:var(--primary);
+  font-weight:500;line-height:1.45}
 .pl-zime{margin:.2rem 0 .1rem;padding:.25rem .9rem;border-radius:var(--r-pill);
   background:linear-gradient(135deg,#F59E0B,#FBBF24);color:#fff;
   font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;

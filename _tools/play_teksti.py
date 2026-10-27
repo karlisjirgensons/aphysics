@@ -47,7 +47,10 @@ TEKSTI = {
         "slava_3": "Perfect score!",
         "slava_2": "Great job!",
         "slava_1": "Good start!",
-        "slava_0": "Tomorrow is your day!",
+        "slava_0": "Don't give up!",
+        "motivacija": ("Check the answers below and see where it went "
+                       "wrong. Tomorrow's challenge is your chance to beat "
+                       "this score!"),
         "zime_3": "All 3 solved",
         "zime_2": "Sharp mind",
         "slava_atri": "⚡ {top} s or faster per correct answer!",
@@ -111,7 +114,10 @@ TEKSTI = {
         "slava_3": "Perfekts rezultāts!",
         "slava_2": "Lieliski!",
         "slava_1": "Labs sākums!",
-        "slava_0": "Rīt būs tava diena!",
+        "slava_0": "Nepadodies!",
+        "motivacija": ("Apskati atbildes zemāk un pamēģini saprast, kur "
+                       "bija kļūda. Rītdienas izaicinājumā vari pārspēt šo "
+                       "rezultātu!"),
         "zime_3": "Visi 3 atrisināti",
         "zime_2": "Ass prāts",
         "slava_atri": "⚡ {top} s vai ātrāk vienai pareizai atbildei!",

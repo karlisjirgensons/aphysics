@@ -18,17 +18,20 @@ from play_rezultats import TOP_SEK
 LIMENI = {3: ("\U0001F3C6", "slava_3"), 2: ("\U0001F525", "slava_2"),
           1: ("\U0001F44D", "slava_1"), 0: ("\U0001F4AA", "slava_0")}
 
-# No cik pareizajiem rezultāts ir «lielīšanās» vērts.
-LABS = 2
+# No kādas precizitātes (%) rezultāts ir «lielīšanās» vērts; zem tās -
+# uzmundrinājums, kā uzlabot.
+LABS = 60
 
 JS = r"""
 var PSL=(function(){
   var T=PT.T, LIMENI=%(limeni)s, LABS=%(labs)d, TOP=%(top)d;
 
-  /* Rādītāji (PR.raditaji) -> {ikona, virsraksts, atrums, labs} */
+  /* Rādītāji (PR.raditaji) -> {ikona, virsraksts, zime, atrums,
+     motivacija, labs} */
   function limenis(m){
-    var l=LIMENI[m.c],labs=m.c>=LABS;
+    var l=LIMENI[m.c],labs=m.precizitate>=LABS;
     return {ikona:l[0],virsraksts:T[l[1]],labs:labs,
+      motivacija:labs?"":T.motivacija,
       zime:T["zime_"+m.c]||"",
       atrums:!labs||m.atrums===null?"":
         m.atrums>=100?PT.f(T.slava_atri,{top:TOP}):m.atrums>=60?T.slava_veikli:""};
@@ -39,7 +42,9 @@ var PSL=(function(){
       '<span class="pl-ikona">'+l.ikona+'</span>'+
       (l.zime?'<span class="pl-zime">★ '+l.zime+' ★</span>':'')+
       '<b>'+l.virsraksts+'</b>'+
-      (l.atrums?'<span class="pl-atri">'+l.atrums+'</span>':'')+'</div>';
+      (l.atrums?'<span class="pl-atri">'+l.atrums+'</span>':'')+
+      (l.motivacija?'<span class="pl-motiv">'+l.motivacija+'</span>':'')+
+      '</div>';
   }
 
   /* Konfeti pār visu ekrānu uz pāris sekundēm. */
