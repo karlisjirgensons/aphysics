@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Dienas izaicinājuma spēle: 3 uzdevumi, minūte katram, poga «Izlaist».
+"""Dienas izaicinājuma spēle: 3 uzdevumi ar laika limitu, poga «Izlaist».
 
 Laiks beidzas -> uzdevums skaitās «t» un spēle iet tālāk. Pēc atbildes
-uz brīdi parāda, vai pareizi (un pareizo atbildi), tad nākamais uzdevums.
+uzreiz nāk nākamais uzdevums - vai bija pareizi, redz tikai rezultātā.
 Beigās rezultāta karte (PR.karte) un pogas nosūtīšanai (PD.pogas).
 
 Šis modulis zina tikai spēles gaitu (SRP); uzdevumi, rezultāts un dalīšanās
@@ -13,7 +13,7 @@ from play_rezultats import LIMITS_SEK
 
 JS = r"""
 var PS=(function(){
-  var T=PT.T, LIMITS=%(limits)d, PAUZE=1100;
+  var T=PT.T, LIMITS=%(limits)d, NESEN=300;
 
   function $(s){return document.querySelector(s);}
 
@@ -29,21 +29,18 @@ var PS=(function(){
       '<div class="pl-josla"><i></i></div>'+
       '<p class="pl-q"></p><div class="pl-e"></div>'+
       '<div class="pl-opt"></div>'+
-      '<p class="pl-fb" aria-live="polite"></p>'+
       '<button type="button" class="pl-izlaist">'+T.izlaist+'</button>';
     var nr=vieta.querySelector(".pl-nr"),laiks=vieta.querySelector(".pl-laiks"),
         josla=vieta.querySelector(".pl-josla i"),opt=vieta.querySelector(".pl-opt"),
-        fb=vieta.querySelector(".pl-fb"),izl=vieta.querySelector(".pl-izlaist");
+        izl=vieta.querySelector(".pl-izlaist");
 
     function rad(){
       var u=uzd[i];slegts=false;
       nr.textContent=PT.f(T.uzdevums,{n:i+1});
       vieta.querySelector(".pl-q").innerHTML=u.q;
       vieta.querySelector(".pl-e").innerHTML=u.e;
-      fb.textContent="";fb.className="pl-fb";
       opt.innerHTML=u.opts.map(function(v,j){
         return '<button type="button" data-j="'+j+'">'+v+'</button>';}).join("");
-      izl.disabled=false;
       sakums=Date.now();tiksk();
       taimeris=setInterval(tiksk,200);
     }
@@ -53,25 +50,21 @@ var PS=(function(){
       laiks.textContent=Math.ceil(atl)+" s";
       josla.style.width=(atl/LIMITS*100)+"%%";
       laiks.classList.toggle("maz",atl<=5);
-      if(atl<=0){beigt("t",-1);}
+      if(atl<=0){beigt("t");}
     }
 
-    /* Uzdevuma beigas: «k» - c/w/s/t, «j» - izvēlētā poga vai -1. */
-    function beigt(k,j){
+    /* Uzdevuma beigas: «k» - c/w/s/t; uzreiz nākamais uzdevums. */
+    function beigt(k){
       if(slegts){return;}
       slegts=true;clearInterval(taimeris);
       sek+=Math.min(LIMITS,Math.round((Date.now()-sakums)/1000));
-      o+=k;izl.disabled=true;
-      var u=uzd[i],pogas=opt.querySelectorAll("button");
-      Array.prototype.forEach.call(pogas,function(b){b.disabled=true;});
-      if(k!=="s"){
-        pogas[u.ok].classList.add("ok");
-        if(k==="w"){pogas[j].classList.add("kluda");}
-        fb.textContent=k==="c"?T.pareizi:k==="w"?T.nepareizi:T.laiks_beidzas;
-        fb.className="pl-fb "+(k==="c"?"ok":"kluda");
-      }
-      setTimeout(nakamais,k==="s"?0:PAUZE);
+      o+=k;
+      nakamais();
     }
+
+    /* Nākamais uzdevums parādās tajā pašā vietā, tāpēc dubultklikšķis
+       nedrīkst uzreiz atbildēt arī uz to. */
+    function nesen(){return Date.now()-sakums<NESEN;}
 
     function nakamais(){
       i++;
@@ -80,11 +73,11 @@ var PS=(function(){
 
     opt.addEventListener("click",function(e){
       var b=e.target.closest("button");
-      if(!b||slegts){return;}
+      if(!b||slegts||nesen()){return;}
       var j=+b.getAttribute("data-j");
-      beigt(j===uzd[i].ok?"c":"w",j);
+      beigt(j===uzd[i].ok?"c":"w");
     });
-    izl.onclick=function(){beigt("s",-1);};
+    izl.onclick=function(){if(!nesen()){beigt("s");}};
     rad();
   }
 

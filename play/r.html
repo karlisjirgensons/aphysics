@@ -200,15 +200,9 @@ li.tema .pogas span{background:var(--bg);color:var(--dim);
 .pl-opt button:hover:not(:disabled){border-color:var(--violet);
   background:var(--surface2)}
 .pl-opt button:disabled{cursor:default}
-.pl-opt button.ok{border-color:#059669;background:#D1FAE5;color:#065F46}
-.pl-opt button.kluda{border-color:#DC2626;background:#FEE2E2;color:#991B1B}
-.pl-fb{min-height:1.6rem;text-align:center;font-weight:600}
-.pl-fb.ok{color:#047857}
-.pl-fb.kluda{color:#B91C1C}
-.pl-izlaist{display:block;margin:.2rem auto 0;padding:.5rem 1.2rem;border:0;
+.pl-izlaist{display:block;margin:.9rem auto 0;padding:.5rem 1.2rem;border:0;
   background:none;color:var(--dim);font:inherit;font-weight:600;
   cursor:pointer;text-decoration:underline}
-.pl-izlaist:disabled{visibility:hidden}
 
 /* Stāvā daļa {3|4} */
 .fr{display:inline-flex;flex-direction:column;vertical-align:middle;
@@ -717,7 +711,7 @@ var PF=(function(){
 
 
 var PS=(function(){
-  var T=PT.T, LIMITS=20, PAUZE=1100;
+  var T=PT.T, LIMITS=20, NESEN=300;
 
   function $(s){return document.querySelector(s);}
 
@@ -733,21 +727,18 @@ var PS=(function(){
       '<div class="pl-josla"><i></i></div>'+
       '<p class="pl-q"></p><div class="pl-e"></div>'+
       '<div class="pl-opt"></div>'+
-      '<p class="pl-fb" aria-live="polite"></p>'+
       '<button type="button" class="pl-izlaist">'+T.izlaist+'</button>';
     var nr=vieta.querySelector(".pl-nr"),laiks=vieta.querySelector(".pl-laiks"),
         josla=vieta.querySelector(".pl-josla i"),opt=vieta.querySelector(".pl-opt"),
-        fb=vieta.querySelector(".pl-fb"),izl=vieta.querySelector(".pl-izlaist");
+        izl=vieta.querySelector(".pl-izlaist");
 
     function rad(){
       var u=uzd[i];slegts=false;
       nr.textContent=PT.f(T.uzdevums,{n:i+1});
       vieta.querySelector(".pl-q").innerHTML=u.q;
       vieta.querySelector(".pl-e").innerHTML=u.e;
-      fb.textContent="";fb.className="pl-fb";
       opt.innerHTML=u.opts.map(function(v,j){
         return '<button type="button" data-j="'+j+'">'+v+'</button>';}).join("");
-      izl.disabled=false;
       sakums=Date.now();tiksk();
       taimeris=setInterval(tiksk,200);
     }
@@ -757,25 +748,21 @@ var PS=(function(){
       laiks.textContent=Math.ceil(atl)+" s";
       josla.style.width=(atl/LIMITS*100)+"%";
       laiks.classList.toggle("maz",atl<=5);
-      if(atl<=0){beigt("t",-1);}
+      if(atl<=0){beigt("t");}
     }
 
-    /* Uzdevuma beigas: «k» - c/w/s/t, «j» - izvēlētā poga vai -1. */
-    function beigt(k,j){
+    /* Uzdevuma beigas: «k» - c/w/s/t; uzreiz nākamais uzdevums. */
+    function beigt(k){
       if(slegts){return;}
       slegts=true;clearInterval(taimeris);
       sek+=Math.min(LIMITS,Math.round((Date.now()-sakums)/1000));
-      o+=k;izl.disabled=true;
-      var u=uzd[i],pogas=opt.querySelectorAll("button");
-      Array.prototype.forEach.call(pogas,function(b){b.disabled=true;});
-      if(k!=="s"){
-        pogas[u.ok].classList.add("ok");
-        if(k==="w"){pogas[j].classList.add("kluda");}
-        fb.textContent=k==="c"?T.pareizi:k==="w"?T.nepareizi:T.laiks_beidzas;
-        fb.className="pl-fb "+(k==="c"?"ok":"kluda");
-      }
-      setTimeout(nakamais,k==="s"?0:PAUZE);
+      o+=k;
+      nakamais();
     }
+
+    /* Nākamais uzdevums parādās tajā pašā vietā, tāpēc dubultklikšķis
+       nedrīkst uzreiz atbildēt arī uz to. */
+    function nesen(){return Date.now()-sakums<NESEN;}
 
     function nakamais(){
       i++;
@@ -784,11 +771,11 @@ var PS=(function(){
 
     opt.addEventListener("click",function(e){
       var b=e.target.closest("button");
-      if(!b||slegts){return;}
+      if(!b||slegts||nesen()){return;}
       var j=+b.getAttribute("data-j");
-      beigt(j===uzd[i].ok?"c":"w",j);
+      beigt(j===uzd[i].ok?"c":"w");
     });
-    izl.onclick=function(){beigt("s",-1);};
+    izl.onclick=function(){if(!nesen()){beigt("s");}};
     rad();
   }
 

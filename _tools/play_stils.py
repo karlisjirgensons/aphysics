@@ -83,15 +83,9 @@ CSS = """
 .pl-opt button:hover:not(:disabled){border-color:var(--violet);
   background:var(--surface2)}
 .pl-opt button:disabled{cursor:default}
-.pl-opt button.ok{border-color:#059669;background:#D1FAE5;color:#065F46}
-.pl-opt button.kluda{border-color:#DC2626;background:#FEE2E2;color:#991B1B}
-.pl-fb{min-height:1.6rem;text-align:center;font-weight:600}
-.pl-fb.ok{color:#047857}
-.pl-fb.kluda{color:#B91C1C}
-.pl-izlaist{display:block;margin:.2rem auto 0;padding:.5rem 1.2rem;border:0;
+.pl-izlaist{display:block;margin:.9rem auto 0;padding:.5rem 1.2rem;border:0;
   background:none;color:var(--dim);font:inherit;font-weight:600;
   cursor:pointer;text-decoration:underline}
-.pl-izlaist:disabled{visibility:hidden}
 
 /* Stāvā daļa {3|4} */
 .fr{display:inline-flex;flex-direction:column;vertical-align:middle;
