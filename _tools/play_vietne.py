@@ -10,15 +10,15 @@ Angļu valoda ir galvenā, tāpēc tā ir pašā play/ (saite, ko dod visiem), u
 latviskā ir apakšmapē. Abas valodas būvē viens kods ar valoda.ar (DRY).
 
 Lapas karkass, galva un valodu pārslēgs ir tie paši, kas visā vietnē
-(site_index.page / render_header / render_valodas). Šis modulis tikai
+(divvalodu_lapa, kas tos ņem no site_index). Šis modulis tikai
 saliek lapas no gatavām daļām (SRP): teikumi - play_teksti, uzdevumi -
 play_uzdevumi, rezultāts - play_rezultats, spēle - play_spele, dalīšanās -
 play_dalisana, e-pasta forma - play_forma, stils - play_stils.
 """
 
 import html
-import os
 
+import divvalodu_lapa
 import play_dalisana
 import play_forma
 import play_rezultats
@@ -27,29 +27,16 @@ import play_spele
 import play_stils
 import play_teksti
 import play_uzdevumi
-import site_index
 import valoda
-from courses import SITE_ROOT
 from play_teksti import teksts
 
 MAPE = "play"
-# Valoda -> apakšmape zem play/ (angļu valoda ir pašā play/).
-APAKSMAPE = {"en": "", "lv": "lv"}
 SPELE, REZULTATS = "index.html", "r.html"
 
 
 def cels(lapa, kura=None):
     """Lapas fails valodā «kura» (pēc noklusējuma - tagadējā)."""
-    v = kura or valoda.tagad()
-    return os.path.join(SITE_ROOT, MAPE, APAKSMAPE[v], lapa)
-
-
-def valodu_saites(lapa):
-    """LV | EN pārslēgs uz to pašu lapu otrā valodā."""
-    sheit = os.path.dirname(cels(lapa))
-    return site_index.render_valodas(
-        {v: os.path.relpath(cels(lapa, v), sheit).replace(os.sep, "/")
-         for v in valoda.VALODAS}, valoda.tagad())
+    return divvalodu_lapa.cels(MAPE, lapa, kura)
 
 
 def e(atslega):
@@ -65,11 +52,8 @@ def skripts(starts):
 
 
 def lapa(virsraksts, kas, saturs, starts, head=""):
-    return site_index.page(virsraksts, "\n".join([
-        site_index.render_header(virsraksts, valodu_saites(kas)),
-        '<main class="pl">\n%s\n</main>' % saturs,
-        skripts(starts)]),
-        head="<style>%s</style>\n%s" % (play_stils.css(), head))
+    return divvalodu_lapa.lapa(virsraksts, MAPE, kas, saturs,
+                               skripts(starts), play_stils.css(), head)
 
 
 # ------------------------------------------------------------------ spēle
@@ -148,15 +132,10 @@ def render_rezultats():
 
 
 # --------------------------------------------------------------- būvēšana
-def _raksti(cels_, text):
-    os.makedirs(os.path.dirname(cels_), exist_ok=True)
-    return site_index.write(cels_, text)
-
-
 def build():
     out = []
     for v in valoda.VALODAS:
         with valoda.ar(v):
-            out.append(_raksti(cels(SPELE), render_spele()))
-            out.append(_raksti(cels(REZULTATS), render_rezultats()))
+            out.append(divvalodu_lapa.raksti(cels(SPELE), render_spele()))
+            out.append(divvalodu_lapa.raksti(cels(REZULTATS), render_rezultats()))
     return out

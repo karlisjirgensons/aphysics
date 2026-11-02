@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your child's math</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>:root{--bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F5F3FF;--line:#E5E7EB;--fg:#374151;--dim:#6B7280;--primary:#4F46E5;--violet:#7C3AED;--cyan:#06B6D4;--amber:#F59E0B;--amber-ink:#B45309;--grad:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#06B6D4 100%);--r-sm:.5rem;--r:1rem;--r-pill:50rem;--sh:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);--sh-md:0 4px 6px -1px rgba(0,0,0,.10),0 2px 4px -1px rgba(0,0,0,.06);--sh-lg:0 10px 15px -3px rgba(79,70,229,.18);--font:"Inter",Calibri,"Segoe UI",system-ui,sans-serif;--font-h:"Poppins","Inter",Calibri,"Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font-family:var(--font);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1rem 3.5rem}
+
+header{margin:0 -1rem;padding:2.2rem 1rem 1.8rem;background:var(--grad);
+       color:#fff;border-radius:0 0 1.5rem 1.5rem}
+h1{margin:0;color:#fff;font-family:var(--font-h);font-weight:600;
+   font-size:clamp(1.35rem,5vw,2.1rem)}
+/* Valodu pārslēgs galvas augšējā stūrī (izskats - VALODAS_CSS). */
+header{position:relative}
+header:has(.valodas) h1{padding-right:6.5rem}
+header .valodas{position:absolute;top:.9rem;right:1rem}
+
+.valodas{display:flex;gap:2px;padding:2px;border-radius:var(--r-pill);
+         background:rgba(255,255,255,.16)}
+.valodas a,.valodas span{padding:.22rem .7rem;border-radius:var(--r-pill);
+         font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#fff}
+.valodas a:hover{background:rgba(255,255,255,.22)}
+.valodas .on{background:#fff;color:var(--primary)}
+
+
+.bar{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
+     padding:.8rem 0;position:sticky;top:0;z-index:10;
+     background:var(--bg);border-bottom:1px solid var(--line)}
+.back{color:var(--dim);padding:.3rem 0;font-size:clamp(.85rem,3.4vw,.95rem)}
+.back:hover{color:var(--primary)}
+.spacer{flex:1}
+.toggle{background:var(--primary);color:#fff;border:0;border-radius:var(--r-pill);
+        padding:.5rem 1rem;cursor:pointer;font:inherit;font-weight:500;
+        font-size:clamp(.8rem,3.2vw,.9rem);transition:background .15s}
+.toggle:hover{background:var(--violet)}
+
+.cards{display:grid;gap:.9rem;margin:1.6rem 0;
+       grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+.card{display:block;background:var(--surface);border:1px solid transparent;
+      border-radius:var(--r);padding:1.3rem 1.2rem;box-shadow:var(--sh);
+      transition:transform .15s,box-shadow .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);
+            border-color:var(--violet)}
+.card-t{display:block;color:var(--primary);font-family:var(--font-h);
+        font-weight:600;font-size:clamp(1.1rem,4.5vw,1.45rem)}
+.card-s{display:block;margin-top:.3rem;color:var(--dim);
+        font-size:clamp(.82rem,3.3vw,.95rem)}
+.card-m{display:block;margin-top:.9rem;color:var(--amber-ink);font-weight:500;
+        font-size:clamp(.75rem,3vw,.85rem)}
+/* Izcelta karte: gradienta mala, mīksts mirdzums un zīmīte stūrī - tikai
+   nedaudz skaļāka par blakus kartēm. */
+.card.izcelta{position:relative;border:2px solid transparent;
+        background:linear-gradient(var(--surface),var(--surface)) padding-box,
+        var(--grad) border-box;animation:card-mirdz 3.2s ease-in-out infinite}
+.card.izcelta:hover{border-color:transparent}
+.card-z{position:absolute;top:1rem;right:1rem;padding:.12rem .6rem;
+        border-radius:var(--r-pill);background:var(--grad);color:#fff;
+        font-size:.72rem;font-weight:600;letter-spacing:.03em}
+@keyframes card-mirdz{0%,100%{box-shadow:var(--sh)}
+        50%{box-shadow:0 8px 22px -6px rgba(124,58,237,.45)}}
+@media (prefers-reduced-motion:reduce){.card.izcelta{animation:none}}
+
+.theme{border-bottom:1px solid var(--line)}
+.theme summary{display:flex;align-items:baseline;gap:.6rem;cursor:pointer;
+               padding:.85rem .2rem;list-style:none;font-family:var(--font-h);
+               font-weight:600;font-size:clamp(.95rem,3.8vw,1.15rem)}
+.theme summary::-webkit-details-marker{display:none}
+.theme summary:hover{color:var(--primary)}
+.theme summary .n{flex:none;min-width:2.2rem;color:var(--primary)}
+.theme summary .t{flex:1}
+.theme summary .c{flex:none;color:var(--cyan);font-size:.8em;font-weight:500}
+.theme summary::after{content:"";flex:none;width:.5rem;height:.5rem;
+    margin-left:.2rem;transform:rotate(45deg);transition:transform .15s;
+    border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)}
+.theme[open] summary{color:var(--primary)}
+.theme[open] summary::after{transform:rotate(225deg);border-color:var(--primary)}
+
+ul{list-style:none;margin:0;padding:0 0 1rem;display:grid;gap:.5rem;
+   grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+li a{display:flex;gap:.5rem;padding:.7rem .8rem;background:var(--surface);
+     border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh);
+     font-size:clamp(.85rem,3.5vw,1rem);
+     transition:background .15s,border-color .15s,transform .15s}
+li a:hover{background:var(--surface2);border-color:var(--violet);
+           transform:translateY(-1px)}
+li a .n{flex:none;color:var(--primary);font-weight:500}
+
+li.rik a{background:var(--surface2);border-style:dashed;
+         border-color:var(--violet);color:var(--primary);font-weight:500}
+li.rik a:hover{background:#EDE9FE}
+li.rik .ico{flex:none}
+
+/* Tematu rinda PD ģeneratorā: nosaukums pa kreisi, divas pogas pa labi. */
+ul.temati{grid-template-columns:1fr}
+li.tema{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+        padding:.6rem .8rem;background:var(--surface);
+        border:1px solid var(--line);border-radius:.75rem;box-shadow:var(--sh)}
+li.tema .n{flex:none;color:var(--primary);font-weight:500}
+li.tema .t{flex:1 1 12rem;font-size:clamp(.85rem,3.5vw,1rem)}
+li.tema .pogas{flex:none;display:flex;gap:.4rem;flex-wrap:wrap}
+li.tema .pogas a,li.tema .pogas span{display:block;padding:.35rem .8rem;
+        border-radius:var(--r-pill);font-size:clamp(.75rem,3vw,.85rem);
+        font-weight:500;white-space:nowrap}
+li.tema .pogas a.poga{background:var(--primary);color:#fff;transition:background .15s}
+li.tema .pogas a.poga:hover{background:var(--violet)}
+li.tema .pogas span{background:var(--bg);color:var(--dim);
+        border:1px dashed var(--line)}
+
+@media (max-width:768px){
+  ul{grid-template-columns:1fr}
+  li.tema .pogas{flex:1 1 100%;}
+  li.tema .pogas a,li.tema .pogas span{flex:1 1 auto;text-align:center}
+}
+</style>
+<style>
+.pl{max-width:34rem;margin:1.4rem auto 0;display:grid;gap:1rem}
+.pl [hidden]{display:none!important}
+/* Pogas ir pogas: pieskaroties nerodas teksta kursors, iezīmējums vai
+   zilais pieskāriena plankums - tikai ievades laukā var rakstīt. */
+.pl button,.pl a,.pl summary,.pl-opt,.pl-e,.pl-q{user-select:none;
+  -webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+  caret-color:transparent}
+.pl{caret-color:transparent}
+.pl input{caret-color:auto}
+.pl button:focus:not(:focus-visible),.pl a:focus:not(:focus-visible),
+.pl summary:focus:not(:focus-visible){outline:none}
+.pl-kartite{background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--sh);padding:1.2rem 1rem}
+.pl h2{margin:0 0 .4rem;color:var(--primary);font-family:var(--font-h);
+  font-weight:600;font-size:clamp(1.1rem,4.6vw,1.3rem)}
+.pl p{margin:.4rem 0}
+
+.pl-poga{display:inline-flex;align-items:center;justify-content:center;
+  gap:.4rem;min-height:2.9rem;padding:.6rem 1.1rem;border:0;
+  border-radius:var(--r-pill);background:var(--surface2);color:var(--primary);
+  font:inherit;font-weight:600;cursor:pointer;text-align:center;
+  transition:transform .12s,box-shadow .15s,background .15s}
+.pl-poga:hover{transform:translateY(-1px);box-shadow:var(--sh-lg)}
+.pl-poga:disabled{opacity:.6;cursor:default;transform:none}
+.pl-galvena{background:var(--grad);color:#fff}
+.pl-liela{width:100%;min-height:3.8rem;font-family:var(--font-h);
+  font-size:clamp(1.1rem,5vw,1.35rem)}
+#pl-sakums,#pl-rezultats{display:grid;gap:1rem}
+.pl-start{text-align:center}
+.pl-meta{color:var(--dim);font-size:.9rem}
+
+/* «Esmu vecāks» - atveras ar bultiņu */
+.pl-vecaks{background:var(--surface);border-radius:var(--r);
+  box-shadow:var(--sh);overflow:hidden}
+.pl-vecaks summary{display:flex;align-items:center;gap:.6rem;cursor:pointer;
+  list-style:none;padding:1rem;font-weight:600}
+.pl-vecaks summary::-webkit-details-marker{display:none}
+.pl-vecaks summary span{flex:1}
+.pl-vecaks summary::after{content:"";flex:none;width:.55rem;height:.55rem;
+  margin-right:.3rem;transform:rotate(45deg);transition:transform .15s;
+  border-right:2px solid var(--primary);border-bottom:2px solid var(--primary)}
+.pl-vecaks[open] summary::after{transform:rotate(225deg)}
+.pl-iekss{padding:0 1rem 1.1rem}
+
+/* E-pasta forma */
+.pl-ievade{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.pl-ievade input{flex:1 1 13rem;min-width:0;min-height:2.9rem;
+  padding:.55rem .9rem;border:1px solid var(--line);border-radius:var(--r-pill);
+  font:inherit;font-size:16px;background:var(--bg);color:var(--fg)}
+.pl-ievade input:focus{outline:2px solid var(--violet);outline-offset:1px}
+.pl-ievade .pl-poga{flex:1 1 auto}
+.pl-piekr{color:var(--dim);font-size:.78rem;line-height:1.45}
+.pl-zina{font-weight:600}
+.pl-zina.ok{color:#047857}
+.pl-zina.kluda{color:#B91C1C}
+.pl-sl{position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Spēle */
+.pl-augsa{display:flex;justify-content:space-between;color:var(--dim);
+  font-weight:600;font-size:.9rem}
+.pl-laiks{font-variant-numeric:tabular-nums;color:var(--primary)}
+.pl-laiks.maz{color:#B91C1C}
+.pl-josla{height:.45rem;margin:.5rem 0 1rem;border-radius:1rem;
+  background:var(--line);overflow:hidden}
+.pl-josla i{display:block;height:100%;background:var(--grad);
+  transition:width .2s linear}
+.pl-q{color:var(--dim);text-align:center}
+.pl-e{margin:.3rem 0 1.1rem;text-align:center;color:var(--fg);
+  font-family:var(--font-h);font-weight:600;line-height:1.35;
+  font-size:clamp(1.5rem,7.5vw,2.2rem)}
+.pl-opt{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.pl-opt button{min-height:3.6rem;padding:.5rem;border:2px solid var(--line);
+  border-radius:var(--r);background:var(--surface);color:var(--fg);
+  font:inherit;font-weight:600;font-size:clamp(1.05rem,4.8vw,1.25rem);
+  cursor:pointer;transition:border-color .12s,background .12s}
+.pl-opt button:hover:not(:disabled){border-color:var(--violet);
+  background:var(--surface2)}
+.pl-opt button:disabled{cursor:default}
+.pl-izlaist{display:block;margin:.9rem auto 0;padding:.5rem 1.2rem;border:0;
+  background:none;color:var(--dim);font:inherit;font-weight:600;
+  cursor:pointer;text-decoration:underline}
+
+/* Stāvā daļa {3|4} */
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;
+  text-align:center;line-height:1.1;font-size:.85em;margin:0 .1em}
+.fr>span:first-child{border-bottom:2px solid currentColor;padding:0 .15em}
+
+/* Rezultāts */
+.pl-slava{display:flex;flex-direction:column;align-items:center;
+  text-align:center;gap:.15rem;margin-bottom:.6rem}
+.pl-ikona{font-size:2.6rem;line-height:1.1}
+.pl-slava b{font-family:var(--font-h);font-weight:600;color:var(--dim);
+  font-size:clamp(1.2rem,5.5vw,1.5rem)}
+.pl-slava.labs .pl-ikona{font-size:3.6rem;animation:pl-pop .6s ease-out}
+.pl-slava.labs b{background:var(--grad);-webkit-background-clip:text;
+  background-clip:text;color:transparent;font-size:clamp(1.7rem,8vw,2.3rem)}
+.pl-atri{color:var(--amber-ink);font-weight:600}
+.pl-motiv{max-width:24rem;margin-top:.2rem;color:var(--primary);
+  font-weight:500;line-height:1.45}
+.pl-zime{margin:.2rem 0 .1rem;padding:.25rem .9rem;border-radius:var(--r-pill);
+  background:linear-gradient(135deg,#F59E0B,#FBBF24);color:#fff;
+  font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;
+  box-shadow:0 4px 12px -4px rgba(245,158,11,.6)}
+.pl-slava.labs{padding:1rem .5rem .8rem;margin:-.2rem -.2rem .8rem;
+  border-radius:var(--r);background:radial-gradient(circle at 50% 0%,
+  #FEF3C7 0%,rgba(254,243,199,0) 70%)}
+@keyframes pl-pop{0%{transform:scale(.3);opacity:0}
+  70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.pl-konfeti{position:fixed;inset:0;pointer-events:none;overflow:hidden;
+  z-index:50}
+.pl-konfeti i{position:absolute;top:-1rem;width:.55rem;height:.9rem;
+  border-radius:2px;animation:pl-krit linear forwards}
+@keyframes pl-krit{to{top:110%;transform:translateX(2rem) rotate(540deg)}}
+@media (prefers-reduced-motion:reduce){.pl-slava.labs .pl-ikona{animation:none}}
+.pl-rr{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;
+  margin:.7rem 0}
+.pl-r{display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:.7rem .3rem;border-radius:var(--r);background:var(--surface2)}
+.pl-rn{font-size:.78rem;font-weight:600;color:var(--dim)}
+.pl-r b{font-family:var(--font-h);font-size:clamp(1.3rem,6vw,1.75rem);
+  color:var(--primary);line-height:1.3}
+.pl-r.r2 b{color:var(--violet)}
+.pl-r.r3 b{color:var(--amber-ink)}
+.pl-rs{font-size:.72rem;color:var(--dim);line-height:1.3}
+.pl-sk{color:var(--dim);font-size:.85rem;text-align:center}
+.pl-uzd{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.45rem}
+.pl-uzd li{display:flex;gap:.7rem;align-items:flex-start;padding:.6rem .7rem;
+  border-radius:.75rem;border:1px solid var(--line)}
+.pl-z{flex:none;width:1.7rem;height:1.7rem;display:grid;place-items:center;
+  border-radius:50%;font-weight:700;background:var(--line);color:var(--dim)}
+.pl-c .pl-z{background:#D1FAE5;color:#047857}
+.pl-w .pl-z{background:#FEE2E2;color:#B91C1C}
+.pl-ut{display:flex;flex-direction:column;min-width:0}
+.pl-uq{font-size:.8rem;color:var(--dim)}
+.pl-ue{font-weight:600}
+.pl-ua{font-size:.85rem;color:var(--dim)}
+.pl-dalities{display:grid;gap:.5rem;margin-top:1rem}
+.pl-otras{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.pl-wa{background:#25D366;color:#fff}
+.pl-centrs{text-align:center}
+
+.ap-rez{display:grid;gap:1rem}
+.ap-jt{margin:.2rem 0 1rem;color:var(--fg);font-family:var(--font-h);
+  font-weight:600;line-height:1.35;font-size:clamp(1.15rem,5vw,1.4rem)}
+.pl-opt.ap-opt{grid-template-columns:1fr}
+.pl-opt.ap-opt button{min-height:3.2rem;padding:.6rem 1rem;text-align:left;
+  font-size:clamp(1rem,4.4vw,1.1rem)}
+.pl-opt.ap-opt button.on{border-color:var(--violet);background:var(--surface2)}
+
+.sm-klases-v{margin:1rem 0 .5rem;font-weight:600;color:var(--dim)}
+.sm-klases{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+.sm-klases .pl-poga{min-height:3.4rem;padding:.5rem .3rem;white-space:nowrap;
+  border:2px solid var(--line);
+  background:var(--surface);color:var(--primary);font-family:var(--font-h);
+  font-size:clamp(1rem,4.4vw,1.15rem)}
+.sm-klases .pl-poga:hover{border-color:var(--violet);background:var(--surface2)}
+.sm-skaits{font-family:var(--font-h);font-weight:700;line-height:1.1;
+  font-size:clamp(2rem,10vw,2.6rem);background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.pl-ue .fr,.pl-ua .fr{font-size:.8em}
+</style>
+<script>
+(function(){
+  var DOM="calcubo.lv", ID="G-D08NE6MVZ7", SAD={"en": "EN · Home", "en/IQ": "EN · IQ tests", "Math": "Matemātika*", "Math/IQ": "IQ testi", "play": "Play · EN", "play/lv": "Play · LV"};
+  /* Lokāli atvērta lapa nav apmeklējums. */
+  if(location.protocol.indexOf("http")!==0){return;}
+  if(DOM&&location.hostname!==DOM&&location.hostname!=="www."+DOM){return;}
+  var dl=window.dataLayer=window.dataLayer||[];
+  function gtag(){dl.push(arguments);}
+  window.gtag=gtag;
+  var s=document.createElement("script");
+  s.async=true;
+  s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+  document.head.appendChild(s);
+  /* Sadaļa: garākais SAD sākums vai pirmā mape; sākumlapai mapes nav. */
+  var m=location.pathname.split("/").slice(1,-1).map(function(x){
+    try{return decodeURIComponent(x);}catch(e){return x;}});
+  var grupa=m.length?m[0]:"Sākums";
+  for(var n=m.length;n>0;n--){
+    var v=SAD[m.slice(0,n).join("/")];
+    if(v){grupa=v.slice(-1)==="*"?v.slice(0,-1)+(m[n]?" · "+m[n]:""):v;
+      break;}
+  }
+  gtag("js",new Date());
+  gtag("config",ID,{content_group:grupa});
+})();
+</script>
+</head>
+<body>
+<div class="wrap">
+<header>
+<nav class="valodas" aria-label="Language"><a href="lv/index.html" hreflang="lv" lang="lv">LV</a><span class="on" aria-current="true">EN</span></nav>
+<h1>Your child's math</h1>
+</header>
+<main class="pl">
+<section id="sm-sakums" class="pl-kartite pl-start">
+<h2>How well do you know your child&#x27;s math?</h2>
+<p>Pick your child&#x27;s grade and solve 5 tasks they meet at school. No timer, no pressure - just curiosity.</p>
+<p class="sm-klases-v">Your child&#x27;s grade</p>
+<div class="sm-klases">
+<button type="button" class="pl-poga sm-klase" data-k="1">Grade 1</button>
+<button type="button" class="pl-poga sm-klase" data-k="2">Grade 2</button>
+<button type="button" class="pl-poga sm-klase" data-k="3">Grade 3</button>
+<button type="button" class="pl-poga sm-klase" data-k="4">Grade 4</button>
+<button type="button" class="pl-poga sm-klase" data-k="5">Grade 5</button>
+<button type="button" class="pl-poga sm-klase" data-k="6">Grade 6</button>
+<button type="button" class="pl-poga sm-klase" data-k="7">Grade 7</button>
+<button type="button" class="pl-poga sm-klase" data-k="8">Grade 8</button>
+<button type="button" class="pl-poga sm-klase" data-k="9">Grade 9</button>
+</div>
+<p class="pl-meta">5 questions · about 2 minutes</p>
+</section>
+<section id="sm-jaut" class="pl-kartite" hidden></section>
+<section id="sm-rez" class="ap-rez" hidden>
+<div class="pl-kartite sm-karte"></div>
+<div class="pl-kartite">
+<h2>We&#x27;re here for you and your child</h2>
+<p id="sm-cta"></p>
+<form class="pl-forma" data-avots="smart" novalidate>
+<label class="pl-sl" for="pl-ep-smart">Your email</label>
+<div class="pl-ievade">
+<input id="pl-ep-smart" type="email" name="epasts" required
+ autocomplete="email" inputmode="email" placeholder="Your email">
+<button type="submit" class="pl-poga pl-galvena">Let&#x27;s help my child</button>
+</div>
+<input class="pl-sl" type="text" name="web" tabindex="-1" autocomplete="off"
+ aria-hidden="true">
+<p class="pl-piekr">By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.</p>
+<p class="pl-zina" role="status" aria-live="polite"></p>
+</form>
+</div>
+<p class="pl-centrs"><button type="button" class="pl-poga" id="sm-cita">Try another grade</button></p>
+</section>
+</main>
+<script>
+var PT={T:{"virsraksts": "Daily challenge", "rez_virsraksts": "Challenge result", "sakt": "Start daily challenge", "sakt_meta": "3 tasks · 20 seconds each · new every day", "vecaks": "I'm a parent (18 years or older)", "agri": "Get early access", "agri_kapec": "We're building Calcubo: short daily math games that show how your child is doing. Leave your email and you'll be among the first to get access when it opens.", "agri_vecakiem": "Are you a parent? Get early access", "epasts": "Your email", "pieteikties": "Get early access", "pieteikties_vecakiem": "Let's help my child", "piekrisana": "By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.", "paldies": "Thank you! We'll email you when early access opens.", "slikts_epasts": "Please check the email address.", "nesanaca": "Couldn't send. Please try again.", "uzdevums": "Task {n} of 3", "izlaist": "Skip", "laiks_beidzas": "Time's up!", "pareizi": "Correct!", "nepareizi": "Not quite", "izlaists": "Skipped", "precizitate": "Accuracy", "atrums": "Speed", "no_3": "{c} of 3 tasks", "pret_labako": "of a top player's pace", "atruma_skaidrojums": "Top players solve a task in about {top} s. Time per correct answer: {tavs} s.", "kopa_laiks": "Total time: {s} s", "pareiza_atbilde": "Answer: {a}", "slava_3": "Perfect score!", "slava_2": "Great job!", "slava_1": "Good start!", "slava_0": "Don't give up!", "motivacija": "Check the answers below and see where it went wrong. Tomorrow's challenge is your chance to beat this score!", "zime_3": "All 3 solved", "zime_2": "Sharp mind", "slava_atri": "⚡ {top} s or faster per correct answer!", "slava_veikli": "⚡ Super quick!", "dalities": "Send to my parent", "pieaugusais": "I'm 18 or older", "kopet": "Copy link", "nokopets": "Link copied!", "zina": "I solved {c} of 3 tasks in today's Calcubo math challenge! See my result:", "zina_virsraksts": "My Calcubo daily challenge result", "izmeginat": "Try today's challenge", "slikta_saite": "This result link is broken.", "aprekini": "Calculate", "atver_iekavas": "Open the brackets", "atrisini": "Solve", "no": "{p}% of {n}", "palielina": "{n} increased by {p}%", "cik_procenti": "{a} is what % of {b}?", "dala_no": "{d} of {n}", "laukums": "Rectangle {a} cm × {b} cm. Area?", "perimetrs": "Rectangle {a} cm × {b} cm. Perimeter?", "lenkis": "Triangle angles: {a}° and {b}°. Third angle?", "procentos": "Write as a percentage", "reiz": "×"},
+  f:function(s,v){return s.replace(/\{(\w+)\}/g,function(m,k){
+    return k in v?v[k]:m;});}};
+
+var ST={"virsraksts": "Your child's math", "ievads_v": "How well do you know your child's math?", "ievads": "Pick your child's grade and solve 5 tasks they meet at school. No timer, no pressure - just curiosity.", "klase_v": "Your child's grade", "klase": "Grade {n}", "meta": "5 questions · about 2 minutes", "pareizi_no": "{c} of 5 correct", "atbilde": "Answer: {a}", "tava": "Your answer: {a}", "augsts_v": "You really know your child's math!", "augsts": "Grade {n} math holds no secrets from you. Your child is lucky - when homework gets tricky, help is right at home.", "videjs_v": "You know more than you think", "videjs": "A couple of tasks were tricky - that's completely normal. School math has changed since we learned it, and you still did well.", "zems_v": "School math has changed - and that's okay", "zems": "Many parents feel exactly this. Topics and methods are different from when we were at school. You don't need to know everything to help your child - being there matters most.", "cta_v": "We're here for you and your child", "cta": "We're building Calcubo to help parents like you: short daily math practice made for grade {n}, with clear explanations, so you can help without stress. Leave your email and we'll let you know when it's ready.", "cita_klase": "Try another grade"};
+var SU={"1": [{"q": "8 + 7 = ?", "o": ["15", "14", "16", "13"]}, {"q": "15 − 9 = ?", "o": ["6", "5", "7", "8"]}, {"q": "Which number is missing? 12, 14, __, 18", "o": ["16", "15", "17", "20"]}, {"q": "Anna has 9 apples and gives away 4. How many are left?", "o": ["5", "4", "13", "6"]}, {"q": "How many tens are in 17?", "o": ["1", "7", "17", "10"]}], "2": [{"q": "47 + 36 = ?", "o": ["83", "73", "713", "81"]}, {"q": "5 × 6 = ?", "o": ["30", "11", "25", "36"]}, {"q": "20 ÷ 4 = ?", "o": ["5", "4", "6", "16"]}, {"q": "How many minutes are in 1 hour?", "o": ["60", "100", "30", "24"]}, {"q": "1 m = ? cm", "o": ["100", "10", "1000", "60"]}], "3": [{"q": "8 × 7 = ?", "o": ["56", "54", "49", "63"]}, {"q": "72 ÷ 9 = ?", "o": ["8", "7", "9", "6"]}, {"q": "345 + 278 = ?", "o": ["623", "613", "523", "633"]}, {"q": "A square has a side of 6 cm. Its perimeter?", "o": ["24 cm", "36 cm", "12 cm", "18 cm"]}, {"q": "What is <span class=\"fr\"><span>1</span><span>2</span></span> of 18?", "o": ["9", "6", "12", "36"]}], "4": [{"q": "24 × 15 = ?", "o": ["360", "340", "300", "390"]}, {"q": "What is the remainder of 50 ÷ 7?", "o": ["1", "7", "3", "0"]}, {"q": "A rectangle has sides 8 cm and 5 cm. Its area?", "o": ["40 cm<sup>2</sup>", "26 cm<sup>2</sup>", "13 cm<sup>2</sup>", "45 cm<sup>2</sup>"]}, {"q": "<span class=\"fr\"><span>3</span><span>4</span></span> of 20 = ?", "o": ["15", "5", "12", "16"]}, {"q": "2 kg 300 g = ? g", "o": ["2300", "230", "2030", "2003"]}], "5": [{"q": "0.6 + 0.25 = ?", "o": ["0.85", "0.31", "0.625", "0.8"]}, {"q": "<span class=\"fr\"><span>2</span><span>5</span></span> + <span class=\"fr\"><span>1</span><span>5</span></span> = ?", "o": ["<span class=\"fr\"><span>3</span><span>5</span></span>", "<span class=\"fr\"><span>3</span><span>10</span></span>", "<span class=\"fr\"><span>2</span><span>25</span></span>", "<span class=\"fr\"><span>1</span><span>5</span></span>"]}, {"q": "6 + 4 × 3 = ?", "o": ["18", "30", "22", "13"]}, {"q": "Round 3.47 to tenths", "o": ["3.5", "3.4", "3.47", "4"]}, {"q": "3.2 × 10 = ?", "o": ["32", "3.20", "320", "0.32"]}], "6": [{"q": "−5 + 8 = ?", "o": ["3", "−3", "13", "−13"]}, {"q": "20% of 150 = ?", "o": ["30", "20", "15", "75"]}, {"q": "<span class=\"fr\"><span>2</span><span>3</span></span> × <span class=\"fr\"><span>3</span><span>4</span></span> = ?", "o": ["<span class=\"fr\"><span>1</span><span>2</span></span>", "<span class=\"fr\"><span>5</span><span>7</span></span>", "<span class=\"fr\"><span>6</span><span>7</span></span>", "<span class=\"fr\"><span>8</span><span>9</span></span>"]}, {"q": "Solve: x + 7 = 12", "o": ["x = 5", "x = 19", "x = 7", "x = −5"]}, {"q": "Simplify the ratio 12 : 18", "o": ["2 : 3", "3 : 2", "6 : 9", "4 : 5"]}], "7": [{"q": "Solve: 3x − 4 = 11", "o": ["x = 5", "x = 15", "x = 3", "x = <span class=\"fr\"><span>7</span><span>3</span></span>"]}, {"q": "2<sup>5</sup> = ?", "o": ["32", "10", "25", "16"]}, {"q": "Two angles of a triangle are 40° and 75°. The third angle?", "o": ["65°", "75°", "55°", "245°"]}, {"q": "A jacket costs 80 €, discount 25%. New price?", "o": ["60 €", "55 €", "20 €", "64 €"]}, {"q": "(−3) × (−4) = ?", "o": ["12", "−12", "−7", "7"]}], "8": [{"q": "A right triangle has legs 6 and 8. The hypotenuse?", "o": ["10", "14", "48", "12"]}, {"q": "(a + 3)<sup>2</sup> = ?", "o": ["a<sup>2</sup> + 6a + 9", "a<sup>2</sup> + 9", "a<sup>2</sup> + 3a + 9", "2a + 6"]}, {"q": "y = 2x − 1. What is y when x = 4?", "o": ["7", "9", "8", "3"]}, {"q": "Solve: 2x &gt; 10", "o": ["x &gt; 5", "x &lt; 5", "x &gt; 20", "x &gt; 8"]}, {"q": "3<sup>2</sup> × 3<sup>3</sup> = ?", "o": ["3<sup>5</sup>", "3<sup>6</sup>", "9<sup>5</sup>", "6<sup>5</sup>"]}], "9": [{"q": "Solve: x<sup>2</sup> = 49", "o": ["x = ±7", "x = 7", "x = 24.5", "x = ±49"]}, {"q": "Roots of x<sup>2</sup> − 5x + 6 = 0?", "o": ["2; 3", "−2; −3", "1; 6", "−1; 6"]}, {"q": "x + y = 10 and x − y = 4. x = ?", "o": ["7", "3", "6", "14"]}, {"q": "A coin is tossed twice. Probability of heads both times?", "o": ["<span class=\"fr\"><span>1</span><span>4</span></span>", "<span class=\"fr\"><span>1</span><span>2</span></span>", "<span class=\"fr\"><span>1</span><span>3</span></span>", "<span class=\"fr\"><span>3</span><span>4</span></span>"]}, {"q": "Right triangle: opposite side 3, hypotenuse 5. sin α = ?", "o": ["<span class=\"fr\"><span>3</span><span>5</span></span>", "<span class=\"fr\"><span>4</span><span>5</span></span>", "<span class=\"fr\"><span>3</span><span>4</span></span>", "<span class=\"fr\"><span>5</span><span>3</span></span>"]}]};
+
+var AS={T:{"jautajums": "Question {n} of {k}", "atpakal": "Back"},
+  /* o: {n: jautājuma nr (no 0), k: cik pavisam, jaut: HTML,
+         opcijas: [HTML], izveleta: indekss vai undefined,
+         izvele: function(ix), uzAtpakal: function()}
+     «Atpakaļ» ir no 2. jautājuma. */
+  solis:function(vieta,o){
+    vieta.innerHTML=
+      '<div class="pl-augsa"><span></span></div>'+
+      '<div class="pl-josla"><i></i></div>'+
+      '<p class="ap-jt"></p><div class="pl-opt ap-opt"></div>'+
+      (o.n?'<button type="button" class="pl-izlaist"></button>':'');
+    vieta.querySelector(".pl-augsa span").textContent=
+      PT.f(AS.T.jautajums,{n:o.n+1,k:o.k});
+    vieta.querySelector(".pl-josla i").style.width=(o.n/o.k*100)+"%";
+    vieta.querySelector(".ap-jt").innerHTML=o.jaut;
+    var opt=vieta.querySelector(".ap-opt");
+    o.opcijas.forEach(function(h,ix){
+      var b=document.createElement("button");
+      b.type="button";b.innerHTML=h;
+      if(o.izveleta===ix){b.className="on";}
+      b.onclick=function(){o.izvele(ix);};
+      opt.appendChild(b);
+    });
+    var atp=vieta.querySelector(".pl-izlaist");
+    if(atp){atp.textContent=AS.T.atpakal;atp.onclick=o.uzAtpakal;}
+  }
+};
+
+
+var SM=(function(){
+  var T=ST, IK={"augsts": "\ud83c\udfc6", "videjs": "\ud83d\udca1", "zems": "\ud83e\udd0d"}, AUGSTS=5, VIDEJS=3;
+  var klase, uzd, atb, i;
+
+  function $(s){return document.querySelector(s);}
+
+  /* Atbildes jaukti; «ok» - pareizās vieta pēc sajaukšanas. */
+  function sajauc(u){
+    var o=u.o.map(function(h,ix){return {h:h,ok:!ix};});
+    for(var j=o.length-1;j>0;j--){
+      var r=Math.floor(Math.random()*(j+1)),t=o[j];o[j]=o[r];o[r]=t;}
+    return {q:u.q,o:o.map(function(x){return x.h;}),
+      ok:o.map(function(x){return x.ok;}).indexOf(true)};
+  }
+
+  function sak(k){
+    klase=k;uzd=SU[k].map(sajauc);atb=[];i=0;
+    $("#sm-sakums").hidden=true;$("#sm-rez").hidden=true;
+    $("#sm-jaut").hidden=false;rad();
+    if(window.gtag){gtag("event","smart_start",{grade:k});}
+  }
+
+  function rad(){
+    AS.solis($("#sm-jaut"),{n:i,k:uzd.length,jaut:uzd[i].q,
+      opcijas:uzd[i].o,izveleta:atb[i],
+      izvele:function(ix){atb[i]=ix;i++;i<uzd.length?rad():beigas();},
+      uzAtpakal:function(){i--;rad();}});
+  }
+
+  function limenis(c){return c>=AUGSTS?"augsts":c>=VIDEJS?"videjs":"zems";}
+
+  function beigas(){
+    var c=uzd.filter(function(u,n){return atb[n]===u.ok;}).length,
+        l=limenis(c),v={n:klase,c:c};
+    var h='<div class="pl-slava'+(l==="augsts"?' labs':'')+'">'+
+      '<span class="pl-ikona">'+IK[l]+'</span>'+
+      '<span class="sm-skaits">'+c+'/'+uzd.length+'</span>'+
+      '<b>'+T[l+"_v"]+'</b>'+
+      '<span class="pl-motiv">'+PT.f(T[l],v)+'</span></div>'+
+      '<p class="pl-sk">'+PT.f(T.klase,v)+' · '+PT.f(T.pareizi_no,v)+'</p>'+
+      '<ul class="pl-uzd">';
+    uzd.forEach(function(u,n){
+      var labi=atb[n]===u.ok;
+      h+='<li class="'+(labi?'pl-c':'pl-w')+'"><span class="pl-z">'+
+        (labi?'✓':'✗')+'</span><span class="pl-ut">'+
+        '<span class="pl-ue">'+u.q+'</span>'+
+        (labi?'':'<span class="pl-ua">'+PT.f(T.tava,{a:u.o[atb[n]]})+'</span>')+
+        '<span class="pl-ua">'+PT.f(T.atbilde,{a:u.o[u.ok]})+'</span>'+
+        '</span></li>';
+    });
+    $(".sm-karte").innerHTML=h+'</ul>';
+    $("#sm-cta").textContent=PT.f(T.cta,v);
+    Array.prototype.forEach.call(document.querySelectorAll(".pl-forma"),
+      function(f){f.setAttribute("data-klase",klase);});
+    $("#sm-jaut").hidden=true;$("#sm-rez").hidden=false;
+    window.scrollTo(0,0);
+    if(window.gtag){gtag("event","smart_finish",{grade:klase,score:c});}
+  }
+
+  /* Klašu pogas un «Izmēģināt citu klasi». */
+  function sakt(){
+    Array.prototype.forEach.call(document.querySelectorAll(".sm-klase"),
+      function(b){b.onclick=function(){sak(+b.getAttribute("data-k"));};});
+    $("#sm-cita").onclick=function(){
+      $("#sm-rez").hidden=true;$("#sm-sakums").hidden=false;
+      window.scrollTo(0,0);};
+  }
+
+  return {sakt:sakt};
+})();
+
+
+var PF=(function(){
+  var T=PT.T, ADRESE="https://script.google.com/macros/s/AKfycbzvB7sitENtYXHtWkIeWUJtB3hR4r1m_hChhWsbVROPrMsJ6-38dS2iyyrgdnEBeXHTKw/exec", ATSLEGA="calcubo-agri";
+  var RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function paldies(f){
+    f.querySelector(".pl-ievade").hidden=true;
+    f.querySelector(".pl-piekr").hidden=true;
+    var z=f.querySelector(".pl-zina");
+    z.textContent=T.paldies;z.className="pl-zina ok";
+  }
+
+  /* Nosūta datus uz tabulu fonā; lapas valoda iet līdzi vienmēr. Formas
+     «data-klase» (smart/ - izvēlētā klase) aiziet kā «klase». */
+  function suti(dati){
+    if(!ADRESE){return Promise.reject(new Error("ADRESE"));}
+    dati.valoda=document.documentElement.lang;
+    return fetch(ADRESE,{method:"POST",mode:"no-cors",
+      body:new URLSearchParams(dati)});
+  }
+
+  /* Visas formas lapā; «r» - rezultāta kods, ja lapa to zina. */
+  function sak(r){
+    var formas=document.querySelectorAll(".pl-forma");
+    var bija=false;
+    try{bija=localStorage.getItem(ATSLEGA)==="1";}catch(e){}
+    Array.prototype.forEach.call(formas,function(f){
+      if(bija){paldies(f);return;}
+      f.addEventListener("submit",function(ev){
+        ev.preventDefault();
+        var ep=f.epasts.value.trim(),z=f.querySelector(".pl-zina"),
+            poga=f.querySelector("button");
+        if(f.web.value){paldies(f);return;}
+        if(!RE.test(ep)){z.textContent=T.slikts_epasts;z.className="pl-zina kluda";
+          f.epasts.focus();return;}
+        if(!ADRESE){console.warn("play_forma.ADRESE nav iestatīta");
+          z.textContent=T.nesanaca;z.className="pl-zina kluda";return;}
+        poga.disabled=true;z.textContent="";
+        suti({epasts:ep,avots:f.getAttribute("data-avots"),
+            r:f.getAttribute("data-r")||r||"",
+            klase:f.getAttribute("data-klase")||""})
+        .then(function(){
+          try{localStorage.setItem(ATSLEGA,"1");}catch(e){}
+          if(window.gtag){gtag("event","lead_submit",
+            {source:f.getAttribute("data-avots")});}
+          Array.prototype.forEach.call(formas,paldies);
+        },function(){
+          poga.disabled=false;
+          z.textContent=T.nesanaca;z.className="pl-zina kluda";
+        });
+      });
+    });
+  }
+
+  return {sak:sak,suti:suti};
+})();
+
+
+SM.sakt();
+PF.sak("");
+</script>
+</div>
+<script>
+(function(){
+  var b=document.getElementById("all");
+  if(!b){return;}
+  b.addEventListener("click",function(){
+    var d=document.getElementsByTagName("details"),
+        open=b.getAttribute("data-open")!=="1",i;
+    for(i=0;i<d.length;i++){d[i].open=open;}
+    b.setAttribute("data-open",open?"1":"0");
+    var en=document.documentElement.lang==="en";
+    b.textContent=open?(en?"Collapse all":"Sakļaut visu"):
+                       (en?"Expand all":"Izvērst visu");
+  });
+})();
+</script>
+</body>
+</html>

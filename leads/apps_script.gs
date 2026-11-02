@@ -1,8 +1,8 @@
 /**
  * Calcubo «Get early access» -> this Google Sheet.
  *
- * The form on calcubo.lv/play posts here in the background; the visitor
- * never leaves the page and never sees Google.
+ * The forms on calcubo.lv/play, /parent and /smart post here in the
+ * background; the visitor never leaves the page and never sees Google.
  *
  * Setup (once, ~2 minutes):
  *  1. Create a Google Sheet (e.g. "Calcubo leads").
@@ -21,6 +21,14 @@
 var LAPA = "Leads";
 var EPASTS = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+/* Pages with their own tab: source -> [tab, columns after time & email].
+   calcubo.lv/parent keeps only email + language; calcubo.lv/smart also the
+   grade the parent picked. Everything else (calcubo.lv/play) -> LAPA. */
+var CILNES = {
+  parent: ["parent", ["language"]],
+  smart: ["smart", ["language", "grade"]]
+};
+
 function doPost(e) {
   var p = (e && e.parameter) || {};
   var epasts = String(p.epasts || "").trim().toLowerCase();
@@ -32,16 +40,29 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sh = ss.getSheetByName(LAPA) || ss.insertSheet(LAPA);
-    if (sh.getLastRow() === 0) {
-      sh.appendRow(["time", "email", "source", "language", "result"]);
+    var c = CILNES[p.avots];
+    if (c) {
+      var vertibas = {language: p.valoda, grade: p.klase};
+      cilne(ss, c[0], ["time", "email"].concat(c[1])).appendRow(
+        [new Date(), drosi(epasts)].concat(c[1].map(function (k) {
+          return drosi(vertibas[k]);
+        })));
+    } else {
+      cilne(ss, LAPA, ["time", "email", "source", "language", "result"])
+        .appendRow([new Date(), drosi(epasts), drosi(p.avots),
+                    drosi(p.valoda), drosi(p.r)]);
     }
-    sh.appendRow([new Date(), drosi(epasts), drosi(p.avots),
-                  drosi(p.valoda), drosi(p.r)]);
   } finally {
     lock.releaseLock();
   }
   return ContentService.createTextOutput("ok");
+}
+
+/* Tab by name (created if missing), header row written if it is empty. */
+function cilne(ss, vards, galva) {
+  var sh = ss.getSheetByName(vards) || ss.insertSheet(vards);
+  if (sh.getLastRow() === 0) sh.appendRow(galva);
+  return sh;
 }
 
 /* Short, and never read as a formula (=, +, -, @ at the start). */

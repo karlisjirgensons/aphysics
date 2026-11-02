@@ -35,11 +35,17 @@ HTML = """<form class="pl-forma" data-avots="%(avots)s" novalidate>
 </form>"""
 
 
-def render(avots):
-    """Forma; «avots» (play | rezultats) aiziet uz tabulu līdzi e-pastam."""
+# Pogas teksts lapās vecākiem (parent/, smart/) - personiskāks nekā bērnu
+# lapā, kur paliek «pieteikties».
+POGA_VECAKIEM = "pieteikties_vecakiem"
+
+
+def render(avots, poga="pieteikties"):
+    """Forma; «avots» (play | rezultats | parent | smart) aiziet uz tabulu
+    līdzi e-pastam; «poga» - pogas teksta atslēga play_teksti."""
     e = lambda k: html.escape(teksts(k))                       # noqa: E731
     return HTML % {"avots": avots, "epasts": e("epasts"),
-                   "poga": e("pieteikties"), "piekrisana": e("piekrisana")}
+                   "poga": e(poga), "piekrisana": e("piekrisana")}
 
 
 JS = r"""
@@ -52,6 +58,15 @@ var PF=(function(){
     f.querySelector(".pl-piekr").hidden=true;
     var z=f.querySelector(".pl-zina");
     z.textContent=T.paldies;z.className="pl-zina ok";
+  }
+
+  /* Nosūta datus uz tabulu fonā; lapas valoda iet līdzi vienmēr. Formas
+     «data-klase» (smart/ - izvēlētā klase) aiziet kā «klase». */
+  function suti(dati){
+    if(!ADRESE){return Promise.reject(new Error("ADRESE"));}
+    dati.valoda=document.documentElement.lang;
+    return fetch(ADRESE,{method:"POST",mode:"no-cors",
+      body:new URLSearchParams(dati)});
   }
 
   /* Visas formas lapā; «r» - rezultāta kods, ja lapa to zina. */
@@ -71,10 +86,9 @@ var PF=(function(){
         if(!ADRESE){console.warn("play_forma.ADRESE nav iestatīta");
           z.textContent=T.nesanaca;z.className="pl-zina kluda";return;}
         poga.disabled=true;z.textContent="";
-        fetch(ADRESE,{method:"POST",mode:"no-cors",
-          body:new URLSearchParams({epasts:ep,avots:f.getAttribute("data-avots"),
-            valoda:document.documentElement.lang,
-            r:f.getAttribute("data-r")||r||""})})
+        suti({epasts:ep,avots:f.getAttribute("data-avots"),
+            r:f.getAttribute("data-r")||r||"",
+            klase:f.getAttribute("data-klase")||""})
         .then(function(){
           try{localStorage.setItem(ATSLEGA,"1");}catch(e){}
           if(window.gtag){gtag("event","lead_submit",
@@ -88,7 +102,7 @@ var PF=(function(){
     });
   }
 
-  return {sak:sak};
+  return {sak:sak,suti:suti};
 })();
 """
 

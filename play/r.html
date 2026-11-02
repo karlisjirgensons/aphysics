@@ -320,7 +320,7 @@ li.tema .pogas span{background:var(--bg);color:var(--dim);
 <p class="pl-centrs"><a class="pl-poga pl-galvena" href="index.html">Try today&#x27;s challenge</a></p>
 </main>
 <script>
-var PT={T:{"virsraksts": "Daily challenge", "rez_virsraksts": "Challenge result", "sakt": "Start daily challenge", "sakt_meta": "3 tasks · 20 seconds each · new every day", "vecaks": "I'm a parent (18 years or older)", "agri": "Get early access", "agri_kapec": "We're building Calcubo: short daily math games that show how your child is doing. Leave your email and you'll be among the first to get access when it opens.", "agri_vecakiem": "Are you a parent? Get early access", "epasts": "Your email", "pieteikties": "Get early access", "piekrisana": "By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.", "paldies": "Thank you! We'll email you when early access opens.", "slikts_epasts": "Please check the email address.", "nesanaca": "Couldn't send. Please try again.", "uzdevums": "Task {n} of 3", "izlaist": "Skip", "laiks_beidzas": "Time's up!", "pareizi": "Correct!", "nepareizi": "Not quite", "izlaists": "Skipped", "precizitate": "Accuracy", "atrums": "Speed", "no_3": "{c} of 3 tasks", "pret_labako": "of a top player's pace", "atruma_skaidrojums": "Top players solve a task in about {top} s. Time per correct answer: {tavs} s.", "kopa_laiks": "Total time: {s} s", "pareiza_atbilde": "Answer: {a}", "slava_3": "Perfect score!", "slava_2": "Great job!", "slava_1": "Good start!", "slava_0": "Don't give up!", "motivacija": "Check the answers below and see where it went wrong. Tomorrow's challenge is your chance to beat this score!", "zime_3": "All 3 solved", "zime_2": "Sharp mind", "slava_atri": "⚡ {top} s or faster per correct answer!", "slava_veikli": "⚡ Super quick!", "dalities": "Send to my parent", "pieaugusais": "I'm 18 or older", "kopet": "Copy link", "nokopets": "Link copied!", "zina": "I solved {c} of 3 tasks in today's Calcubo math challenge! See my result:", "zina_virsraksts": "My Calcubo daily challenge result", "izmeginat": "Try today's challenge", "slikta_saite": "This result link is broken.", "aprekini": "Calculate", "atver_iekavas": "Open the brackets", "atrisini": "Solve", "no": "{p}% of {n}", "palielina": "{n} increased by {p}%", "cik_procenti": "{a} is what % of {b}?", "dala_no": "{d} of {n}", "laukums": "Rectangle {a} cm × {b} cm. Area?", "perimetrs": "Rectangle {a} cm × {b} cm. Perimeter?", "lenkis": "Triangle angles: {a}° and {b}°. Third angle?", "procentos": "Write as a percentage", "reiz": "×"},
+var PT={T:{"virsraksts": "Daily challenge", "rez_virsraksts": "Challenge result", "sakt": "Start daily challenge", "sakt_meta": "3 tasks · 20 seconds each · new every day", "vecaks": "I'm a parent (18 years or older)", "agri": "Get early access", "agri_kapec": "We're building Calcubo: short daily math games that show how your child is doing. Leave your email and you'll be among the first to get access when it opens.", "agri_vecakiem": "Are you a parent? Get early access", "epasts": "Your email", "pieteikties": "Get early access", "pieteikties_vecakiem": "Let's help my child", "piekrisana": "By signing up you confirm you are 18+ and agree to receive emails about Calcubo. Unsubscribe anytime.", "paldies": "Thank you! We'll email you when early access opens.", "slikts_epasts": "Please check the email address.", "nesanaca": "Couldn't send. Please try again.", "uzdevums": "Task {n} of 3", "izlaist": "Skip", "laiks_beidzas": "Time's up!", "pareizi": "Correct!", "nepareizi": "Not quite", "izlaists": "Skipped", "precizitate": "Accuracy", "atrums": "Speed", "no_3": "{c} of 3 tasks", "pret_labako": "of a top player's pace", "atruma_skaidrojums": "Top players solve a task in about {top} s. Time per correct answer: {tavs} s.", "kopa_laiks": "Total time: {s} s", "pareiza_atbilde": "Answer: {a}", "slava_3": "Perfect score!", "slava_2": "Great job!", "slava_1": "Good start!", "slava_0": "Don't give up!", "motivacija": "Check the answers below and see where it went wrong. Tomorrow's challenge is your chance to beat this score!", "zime_3": "All 3 solved", "zime_2": "Sharp mind", "slava_atri": "⚡ {top} s or faster per correct answer!", "slava_veikli": "⚡ Super quick!", "dalities": "Send to my parent", "pieaugusais": "I'm 18 or older", "kopet": "Copy link", "nokopets": "Link copied!", "zina": "I solved {c} of 3 tasks in today's Calcubo math challenge! See my result:", "zina_virsraksts": "My Calcubo daily challenge result", "izmeginat": "Try today's challenge", "slikta_saite": "This result link is broken.", "aprekini": "Calculate", "atver_iekavas": "Open the brackets", "atrisini": "Solve", "no": "{p}% of {n}", "palielina": "{n} increased by {p}%", "cik_procenti": "{a} is what % of {b}?", "dala_no": "{d} of {n}", "laukums": "Rectangle {a} cm × {b} cm. Area?", "perimetrs": "Rectangle {a} cm × {b} cm. Perimeter?", "lenkis": "Triangle angles: {a}° and {b}°. Third angle?", "procentos": "Write as a percentage", "reiz": "×"},
   f:function(s,v){return s.replace(/\{(\w+)\}/g,function(m,k){
     return k in v?v[k]:m;});}};
 
@@ -678,6 +678,15 @@ var PF=(function(){
     z.textContent=T.paldies;z.className="pl-zina ok";
   }
 
+  /* Nosūta datus uz tabulu fonā; lapas valoda iet līdzi vienmēr. Formas
+     «data-klase» (smart/ - izvēlētā klase) aiziet kā «klase». */
+  function suti(dati){
+    if(!ADRESE){return Promise.reject(new Error("ADRESE"));}
+    dati.valoda=document.documentElement.lang;
+    return fetch(ADRESE,{method:"POST",mode:"no-cors",
+      body:new URLSearchParams(dati)});
+  }
+
   /* Visas formas lapā; «r» - rezultāta kods, ja lapa to zina. */
   function sak(r){
     var formas=document.querySelectorAll(".pl-forma");
@@ -695,10 +704,9 @@ var PF=(function(){
         if(!ADRESE){console.warn("play_forma.ADRESE nav iestatīta");
           z.textContent=T.nesanaca;z.className="pl-zina kluda";return;}
         poga.disabled=true;z.textContent="";
-        fetch(ADRESE,{method:"POST",mode:"no-cors",
-          body:new URLSearchParams({epasts:ep,avots:f.getAttribute("data-avots"),
-            valoda:document.documentElement.lang,
-            r:f.getAttribute("data-r")||r||""})})
+        suti({epasts:ep,avots:f.getAttribute("data-avots"),
+            r:f.getAttribute("data-r")||r||"",
+            klase:f.getAttribute("data-klase")||""})
         .then(function(){
           try{localStorage.setItem(ATSLEGA,"1");}catch(e){}
           if(window.gtag){gtag("event","lead_submit",
@@ -712,7 +720,7 @@ var PF=(function(){
     });
   }
 
-  return {sak:sak};
+  return {sak:sak,suti:suti};
 })();
 
 

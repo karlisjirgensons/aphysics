@@ -25,6 +25,7 @@ TEKSTI = {
         "agri_vecakiem": "Are you a parent? Get early access",
         "epasts": "Your email",
         "pieteikties": "Get early access",
+        "pieteikties_vecakiem": "Let's help my child",
         "piekrisana": ("By signing up you confirm you are 18+ and agree to "
                        "receive emails about Calcubo. Unsubscribe anytime."),
         "paldies": "Thank you! We'll email you when early access opens.",
@@ -91,6 +92,7 @@ TEKSTI = {
         "agri_vecakiem": "Esi vecāks? Saņem agrāko piekļuvi",
         "epasts": "Tavs e-pasts",
         "pieteikties": "Saņemt agrāko piekļuvi",
+        "pieteikties_vecakiem": "Palīdzēsim manam bērnam",
         "piekrisana": ("Piesakoties tu apliecini, ka tev ir 18+ gadi, un "
                        "piekrīti saņemt e-pastus par Calcubo. Atteikties var "
                        "jebkurā brīdī."),
